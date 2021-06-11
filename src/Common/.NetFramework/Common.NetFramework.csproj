@@ -1,0 +1,8 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup Label="Application">
+    <TargetFramework>net48</TargetFramework>
+    <Product>NetStandard Extensions</Product>
+    <VersionPart1>1</VersionPart1>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+</Project>

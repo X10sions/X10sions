@@ -1,0 +1,9 @@
+﻿@using UAParser
+@using Newtonsoft.Json
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor http
+@{
+  var userAgentString = http.HttpContext.Request.Headers["User-Agent"].ToString();
+  var clientinfo = Parser.GetDefault().Parse(userAgentString);
+}
+<h3>UAParser</h3>
+<pre><code>@JsonConvert.SerializeObject(clientinfo, Formatting.Indented)</code></pre>

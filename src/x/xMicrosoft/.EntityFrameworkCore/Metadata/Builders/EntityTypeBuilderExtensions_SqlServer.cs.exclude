@@ -1,0 +1,49 @@
+using JetBrains.Annotations;
+using System;
+
+namespace Microsoft.EntityFrameworkCore.Metadata.Builders {
+
+  public static class EntityTypeBuilderExtensions_SqlServer {
+
+    public static EntityTypeBuilder ForSqlServerIsMemoryOptimized(
+        [NotNull] this EntityTypeBuilder entityTypeBuilder, bool memoryOptimized = true) {
+      Check.NotNull(entityTypeBuilder, nameof(entityTypeBuilder));
+      entityTypeBuilder.Metadata.SqlServer().IsMemoryOptimized = memoryOptimized;
+      return entityTypeBuilder;
+    }
+
+    public static EntityTypeBuilder<TEntity> ForSqlServerIsMemoryOptimized<TEntity>(
+        [NotNull] this EntityTypeBuilder<TEntity> entityTypeBuilder, bool memoryOptimized = true)
+        where TEntity : class
+        => (EntityTypeBuilder<TEntity>)ForSqlServerIsMemoryOptimized((EntityTypeBuilder)entityTypeBuilder, memoryOptimized);
+
+
+    public static void UseMyAttributes<T>(this EntityTypeBuilder<T> builder) {
+      throw new NotImplementedException("TODO");
+    //  var type = typeof(T);
+    //  var tableAttr = (from x in type.GetCustomAttributes(typeof(MyTableAttribute), true) select (MyTableAttribute)x).FirstOrDefault();
+    //  if (tableAttr != null) {
+    //    builder.ToTable(tableAttr.Name);
+    //    var primaryKeyFieldSelector = new FieldSelector<T>();
+    //    var props = type.GetProperties();
+    //    foreach (var prop in props) {
+    //      var columnAttr = (from x in prop.GetCustomAttributes(typeof(MyColumnAttribute), true) select (MyColumnAttribute)x).FirstOrDefault();
+    //      if (columnAttr != null) {
+    //        var lambda = prop.MyGetExpression<T>();
+    //        var columnBuilder = builder.Property(lambda);
+    //        columnBuilder.HasColumnName(columnAttr.Name);
+    //        columnBuilder.IsRequired(columnAttr.IsNotNull);
+    //        if (columnAttr.PrimaryKeyOrder > 0) {
+    //          primaryKeyFieldSelector.Add(columnAttr.PrimaryKeyOrder, lambda);
+    //        }
+    //      }
+    //    }
+    //    var primaryKey = primaryKeyFieldSelector.GetSelector();
+    //    if (primaryKey != null) {
+    //      builder.HasKey(primaryKey);
+    //    }
+    //  }
+    }
+
+  }
+}

@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup Label="Application">
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Product>Linq2DB4iSeries NetStandard Extensions</Product>
+    <VersionPart1>3</VersionPart1>
+    <VersionPart2>1</VersionPart2>
+    <Nullable>enable</Nullable>
+  </PropertyGroup> 
+  <ItemGroup Label="PackageReferences">
+    <PackageReference Include="Linq2DB4iSeries" Version="3.1.6.1" />
+  </ItemGroup> 
+</Project>

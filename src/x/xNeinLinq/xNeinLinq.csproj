@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup Label="Application">
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Product>NeinLinq NetStandard Extensions</Product>
+    <VersionPart1>3</VersionPart1>
+    <VersionPart2>1</VersionPart2>
+    <!-- 
+    <VersionPrefix>3.1.2001.0616</VersionPrefix>
+    <VersionSuffix>dev4647</VersionSuffix>
+    -->
+  </PropertyGroup>
+  <ItemGroup Label="PackageReferences"> 
+    <PackageReference Include="NeinLinq" Version="3.1.1" />
+  </ItemGroup>
+</Project>

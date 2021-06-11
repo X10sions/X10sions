@@ -1,0 +1,39 @@
+using xEFCore.xMySql.Metadata.Internal;
+using JetBrains.Annotations;
+
+namespace Microsoft.EntityFrameworkCore.Metadata.Internal {
+  public static class InternalMetadataBuilderExtensions_MySql {
+
+    public static MySqlModelBuilderAnnotations MySql(
+        [NotNull] this InternalModelBuilder builder,
+        ConfigurationSource configurationSource)
+        => new MySqlModelBuilderAnnotations(builder, configurationSource);
+
+
+    public static MySqlPropertyBuilderAnnotations MySql(
+        [NotNull] this InternalPropertyBuilder builder,
+        ConfigurationSource configurationSource)
+        => new MySqlPropertyBuilderAnnotations(builder, configurationSource);
+
+    public static MySqlEntityTypeBuilderAnnotations MySql(
+        [NotNull] this InternalEntityTypeBuilder builder,
+        ConfigurationSource configurationSource)
+        => new MySqlEntityTypeBuilderAnnotations(builder, configurationSource);
+
+      public static MySqlKeyBuilderAnnotations MySql(
+        [NotNull] this InternalKeyBuilder builder,
+        ConfigurationSource configurationSource)
+        => new MySqlKeyBuilderAnnotations(builder, configurationSource);
+
+    public static MySqlIndexBuilderAnnotations MySql(
+        [NotNull] this InternalIndexBuilder builder,
+        ConfigurationSource configurationSource)
+        => new MySqlIndexBuilderAnnotations(builder, configurationSource);
+
+     public static RelationalForeignKeyBuilderAnnotations MySql(
+        [NotNull] this InternalRelationshipBuilder builder,
+        ConfigurationSource configurationSource)
+        => new RelationalForeignKeyBuilderAnnotations(builder, configurationSource);
+
+  }
+}

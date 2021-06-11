@@ -1,0 +1,47 @@
+﻿using xEFCore.xDB2.Metadata;
+using xEFCore.xDB2.Metadata.Internal;
+using System;
+using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using JetBrains.Annotations;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+
+namespace Microsoft.EntityFrameworkCore.Metadata.Builders {
+  public static class PropertyBuilderExtensions_DB2 {
+
+    public static PropertyBuilder ForDb2UseSequenceHiLo([NotNull] this PropertyBuilder propertyBuilder, [CanBeNull] string name = null, [CanBeNull] string schema = null) {
+      Check.NotNull(propertyBuilder, nameof(propertyBuilder));
+      Check.NullButNotEmpty(name, nameof(name));
+      Check.NullButNotEmpty(schema, nameof(schema));
+      IMutableProperty metadata = propertyBuilder.Metadata;
+      name = (name ?? "EntityFrameworkHiLoSequence");
+      IMutableModel model = metadata.DeclaringEntityType.Model;
+      if (model.Db2().FindSequence(name, schema) == null) {
+        model.Db2().GetOrAddSequence(name, schema).IncrementBy = 10;
+      }
+      GetDb2InternalBuilder(propertyBuilder).ValueGenerationStrategy(Db2ValueGenerationStrategy.SequenceHiLo);
+      metadata.Db2().HiLoSequenceName = name;
+      metadata.Db2().HiLoSequenceSchema = schema;
+      return propertyBuilder;
+    }
+
+    public static PropertyBuilder<TProperty> ForSqlServerUseSequenceHiLo<TProperty>([NotNull] this PropertyBuilder<TProperty> propertyBuilder, [CanBeNull] string name = null, [CanBeNull] string schema = null) {
+      return (PropertyBuilder<TProperty>)propertyBuilder.ForDb2UseSequenceHiLo(name, schema);
+    }
+
+    public static PropertyBuilder UseDb2IdentityColumn([NotNull] this PropertyBuilder propertyBuilder) {
+      Check.NotNull(propertyBuilder, nameof(propertyBuilder));
+      GetDb2InternalBuilder(propertyBuilder).ValueGenerationStrategy(Db2ValueGenerationStrategy.IdentityColumn);
+      return propertyBuilder;
+    }
+
+    public static PropertyBuilder<TProperty> UseSqlServerIdentityColumn<TProperty>([NotNull] this PropertyBuilder<TProperty> propertyBuilder) {
+      return (PropertyBuilder<TProperty>)propertyBuilder.UseDb2IdentityColumn();
+    }
+
+     static xEFCore.xDB2.Metadata.Internal.Db2PropertyBuilderAnnotations GetDb2InternalBuilder(PropertyBuilder propertyBuilder) {
+      return ((IInfrastructure<InternalPropertyBuilder>)propertyBuilder).GetInfrastructure().Db2(ConfigurationSource.Explicit);
+    }
+
+  }
+}

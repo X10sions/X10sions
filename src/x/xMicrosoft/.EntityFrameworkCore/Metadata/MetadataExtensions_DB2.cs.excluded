@@ -1,0 +1,20 @@
+﻿using xEFCore.xDB2.Metadata;
+using JetBrains.Annotations;
+using System;
+
+namespace Microsoft.EntityFrameworkCore.Metadata {
+  public static class MetadataExtensions_DB2 {
+
+    public static Db2EntityTypeAnnotations Db2([NotNull] this IMutableEntityType entityType) => (Db2EntityTypeAnnotations)Db2((IEntityType)entityType);
+    public static Db2IndexAnnotations Db2([NotNull] this IMutableIndex index) => (Db2IndexAnnotations)Db2((IIndex)index);
+    public static Db2KeyAnnotations Db2([NotNull] this IMutableKey key) => (Db2KeyAnnotations)Db2((IKey)key);
+    public static Db2ModelAnnotations Db2([NotNull] this IMutableModel model) => (Db2ModelAnnotations)Db2((IModel)model);
+    public static Db2PropertyAnnotations Db2([NotNull] this IMutableProperty property) => (Db2PropertyAnnotations)Db2((IProperty)property);
+
+    public static IDb2IndexAnnotations Db2([NotNull] this IIndex index) => new Db2IndexAnnotations(Check.NotNull(index, nameof(index)));
+    public static IDb2KeyAnnotations Db2([NotNull] this IKey key) => new Db2KeyAnnotations(Check.NotNull(key, nameof(key)));
+    public static IDb2ModelAnnotations Db2([NotNull] this IModel model) => new Db2ModelAnnotations(Check.NotNull(model, nameof(model)));
+    public static IDb2PropertyAnnotations Db2([NotNull] this IProperty property) => new Db2PropertyAnnotations(Check.NotNull(property, nameof(property)));
+    public static IRelationalEntityTypeAnnotations Db2([NotNull] this IEntityType entityType) => new Db2EntityTypeAnnotations(Check.NotNull(entityType, nameof(entityType)));
+  }
+}

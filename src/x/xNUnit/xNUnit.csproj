@@ -1,0 +1,10 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <VersionPart1>3</VersionPart1>
+    <VersionPart2>12</VersionPart2>
+  </PropertyGroup>
+  <ItemGroup Label="PackageReferences">
+    <PackageReference Include="NUnit" Version="3.12.0" />
+  </ItemGroup>
+</Project>

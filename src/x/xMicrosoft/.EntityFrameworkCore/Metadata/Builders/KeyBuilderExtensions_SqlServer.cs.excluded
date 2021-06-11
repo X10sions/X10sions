@@ -1,0 +1,15 @@
+using JetBrains.Annotations;
+using System;
+
+namespace Microsoft.EntityFrameworkCore.Metadata.Builders {
+
+  public static class KeyBuilderExtensions_SqlServer {
+
+    public static KeyBuilder ForSqlServerIsClustered([NotNull] this KeyBuilder keyBuilder, bool clustered = true) {
+      Check.NotNull(keyBuilder, nameof(keyBuilder));
+      keyBuilder.Metadata.SqlServer().IsClustered = clustered;
+      return keyBuilder;
+    }
+
+  }
+}

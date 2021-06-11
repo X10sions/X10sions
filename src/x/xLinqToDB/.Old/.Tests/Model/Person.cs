@@ -1,0 +1,82 @@
+﻿using LinqToDB.Mapping;
+using System;
+
+namespace LinqToDB.Tests.Model {
+  public class Person : IPerson {
+    public Person() {
+    }
+
+    public Person(int id) {
+      ID = id;
+    }
+
+    public Person(int id, string firstName) {
+      ID = id;
+      FirstName = firstName;
+    }
+
+    // Firebird: it duplicates identity generation trigger job
+    //[SequenceName(ProviderName.Firebird, "PersonID")]
+    [Column("PersonID"), Identity, PrimaryKey] public int ID;
+    [NotNull] public string FirstName { get; set; } = null!;
+    [NotNull] public string LastName = null!;
+    [Nullable] public string? MiddleName;
+    [Column(DataType = DataType.Char, Length = 1)] public Gender Gender;
+
+    [NotColumn]
+    int IPerson.ID {
+      get => ID;
+      set => ID = value;
+    }
+    [NotColumn]
+    string IPerson.FirstName {
+      get => FirstName;
+      set => FirstName = value;
+    }
+    [NotColumn]
+    string IPerson.LastName {
+      get => LastName;
+      set => LastName = value;
+    }
+    [NotColumn]
+    string? IPerson.MiddleName {
+      get => MiddleName;
+      set => MiddleName = value;
+    }
+    [NotColumn]
+    Gender IPerson.Gender {
+      get => Gender;
+      set => Gender = value;
+    }
+
+
+    [NotColumn] public string Name => FirstName + " " + LastName;
+
+    [Association(ThisKey = "ID", OtherKey = "PersonID", CanBeNull = true)]
+    public Patient? Patient;
+
+    public override bool Equals(object? obj) => Equals(obj as Person);
+
+    public bool Equals(Person? other) {
+      if (ReferenceEquals(null, other)) return false;
+      if (ReferenceEquals(this, other)) return true;
+      return
+        other.ID == ID &&
+        Equals(other.LastName, LastName) &&
+        Equals(other.MiddleName, MiddleName) &&
+        other.Gender == Gender &&
+        Equals(other.FirstName, FirstName);
+    }
+
+    public override int GetHashCode() {
+      unchecked {
+        var result = ID;
+        result = (result * 397) ^ (LastName != null ? LastName.GetHashCode() : 0);
+        result = (result * 397) ^ (MiddleName != null ? MiddleName.GetHashCode() : 0);
+        result = (result * 397) ^ Gender.GetHashCode();
+        result = (result * 397) ^ (FirstName != null ? FirstName.GetHashCode() : 0);
+        return result;
+      }
+    }
+  }
+}

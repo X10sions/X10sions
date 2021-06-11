@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup Label="Application">
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Product>NetStandard Extensions</Product>
+    <!--
+    <VersionPart1>1</VersionPart1>
+    <VersionPart2>1</VersionPart2>
+    -->
+  </PropertyGroup>
+  <ItemGroup Label="PackageReferences">
+    <PackageReference Include="Remotion.Linq" Version="2.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\xNewtonsoft\xNewtonsoft.csproj" />
+    <ProjectReference Include="..\xNHibernate\xNHibernate.csproj" />
+  </ItemGroup>
+
+</Project>

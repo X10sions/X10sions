@@ -1,0 +1,81 @@
+using System;
+using System.Data.Common;
+using xEFCore.xMySql.Infrastructure.Internal;
+using JetBrains.Annotations;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using IBM.Data.DB2.iSeries; // MySql.Data.MySqlClient;
+using xEFCore.xMySql.Infrastructure;
+
+namespace Microsoft.EntityFrameworkCore {
+  public static class DbContextOptionsBuilderExtensions_MySql {
+
+    public static DbContextOptionsBuilder UseMySqlx(
+        [NotNull] this DbContextOptionsBuilder optionsBuilder,
+        [NotNull] string connectionString,
+        [CanBeNull] Action<MySqlDbContextOptionsBuilder> optionsAction = null) {
+      Check.NotNull(optionsBuilder, nameof(optionsBuilder));
+      Check.NotEmpty(connectionString, nameof(connectionString));
+
+      var csb = new iDB2ConnectionStringBuilder(connectionString) {
+        //AllowUserVariables = true,
+        //UseAffectedRows = false
+      };
+      connectionString = csb.ConnectionString;
+      var extension = GetOrCreateExtension(optionsBuilder).WithConnectionString(connectionString);
+      ((IDbContextOptionsBuilderInfrastructure)optionsBuilder).AddOrUpdateExtension(extension);
+      optionsBuilder.ConfigureWarnings();
+      optionsAction?.Invoke(new MySqlDbContextOptionsBuilder(optionsBuilder));
+      return optionsBuilder;
+    }
+
+    public static DbContextOptionsBuilder UseMySqlx(
+        [NotNull] this DbContextOptionsBuilder optionsBuilder,
+        [NotNull] DbConnection connection,
+        [CanBeNull] Action<MySqlDbContextOptionsBuilder> optionsAction = null) {
+      Check.NotNull(optionsBuilder, nameof(optionsBuilder));
+      Check.NotNull(connection, nameof(connection));
+
+      var csb = new iDB2ConnectionStringBuilder(connection.ConnectionString());
+      //if (csb.AllowUserVariables != true || csb.UseAffectedRows != false) {
+      //  try {
+      //    csb.AllowUserVariables = true;
+      //    csb.UseAffectedRows = false;
+      //    connection.ConnectionString = csb.ConnectionString;
+      //  } catch (iDB2Exception e) {
+      //    throw new InvalidOperationException("The MySql Connection string used with Pomelo.EntityFrameworkCore.MySql " +
+      //        "must contain \"AllowUserVariables=true;UseAffectedRows=false\"", e);
+      //  }
+      //}
+
+      var extension = GetOrCreateExtension(optionsBuilder).WithConnection(connection);
+      ((IDbContextOptionsBuilderInfrastructure)optionsBuilder).AddOrUpdateExtension(extension);
+      optionsBuilder.ConfigureWarnings();
+      optionsAction?.Invoke(new MySqlDbContextOptionsBuilder(optionsBuilder));
+
+      return optionsBuilder;
+    }
+
+    public static DbContextOptionsBuilder<TContext> UseMySqlx<TContext>(
+        [NotNull] this DbContextOptionsBuilder<TContext> optionsBuilder,
+        [NotNull] string connectionString,
+        [CanBeNull] Action<MySqlDbContextOptionsBuilder> optionsAction = null)
+        where TContext : DbContext
+        => (DbContextOptionsBuilder<TContext>)UseMySqlx(
+            (DbContextOptionsBuilder)optionsBuilder, connectionString, optionsAction);
+
+    public static DbContextOptionsBuilder<TContext> UseMySqlx<TContext>(
+        [NotNull] this DbContextOptionsBuilder<TContext> optionsBuilder,
+        [NotNull] DbConnection connection,
+        [CanBeNull] Action<MySqlDbContextOptionsBuilder> optionsAction = null)
+        where TContext : DbContext
+        => (DbContextOptionsBuilder<TContext>)UseMySqlx(
+            (DbContextOptionsBuilder)optionsBuilder, connection, optionsAction);
+
+    static MySqlOptionsExtension GetOrCreateExtension(DbContextOptionsBuilder optionsBuilder)
+       => optionsBuilder.Options.FindExtension<MySqlOptionsExtension>()
+          ?? new MySqlOptionsExtension();
+
+
+
+  }
+}

@@ -1,0 +1,20 @@
+using JetBrains.Annotations;
+using System;
+
+namespace Microsoft.EntityFrameworkCore.Metadata.Builders {
+  public static class IndexBuilderExtensions_MySql {
+
+    public static IndexBuilder ForMySqlIsFullText([NotNull] this IndexBuilder indexBuilder, bool fullText = true) {
+      Check.NotNull(indexBuilder, nameof(indexBuilder));
+      indexBuilder.Metadata.MySql().IsFullText = fullText;
+      return indexBuilder;
+    }
+
+    public static IndexBuilder ForMySqlIsSpatial([NotNull] this IndexBuilder indexBuilder, bool Spatial = true) {
+      Check.NotNull(indexBuilder, nameof(indexBuilder));
+      indexBuilder.Metadata.MySql().IsSpatial = Spatial;
+      return indexBuilder;
+    }
+
+  }
+}

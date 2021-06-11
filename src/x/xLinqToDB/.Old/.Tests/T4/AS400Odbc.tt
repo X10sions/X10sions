@@ -1,0 +1,17 @@
+﻿<#@ template language="C#" debug="True" hostSpecific="True" #>
+<#@ output extension=".generated.cs"                        #>
+<#@ include file="Shared.ttinclude"                         #>
+<#@ include file="AS400.ttinclude"                          #>
+<#
+	NamespaceName = "AS400OdbcDataContext";
+
+	GenerateDataTypes = true;
+	GenerateDbTypes   = true;
+	DataContextName   = "TestDataDB";
+	var solutionsPath = Host.ResolveAssemblyReference("$(SolutionDir)");
+	//LoadAS400Metadata(solutionsPath + @"\Data\", "TestData.ODBC.mdb");
+	var path = $@"{solutionsPath}\Tests\Linq\bin\Debug\net46\Database\TestData.ODBC.mdb";
+	LoadAS400MetadataByProvider($"Driver={{Microsoft AS400 Driver (*.mdb, *.accdb)}};Dbq={path};ExtendedAnsiSQL=1", "AS400.Odbc");
+
+	GenerateModel();
+#>

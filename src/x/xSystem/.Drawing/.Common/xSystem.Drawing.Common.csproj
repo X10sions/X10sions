@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\..\..\_shared\Common.props" />
+  <PropertyGroup Label="Application">
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Product>System NetStandard Extensions</Product>
+    <VersionPart1>4</VersionPart1>
+    <VersionPart2>5</VersionPart2>
+    <VersionPrefix>4.5.1910.2104</VersionPrefix>
+    <VersionSuffix>dev2617</VersionSuffix>
+  </PropertyGroup>
+  <ItemGroup Label="PackageReferences">
+    <PackageReference Include="System.Drawing.Common" Version="4.5.0" />
+  </ItemGroup>
+</Project>

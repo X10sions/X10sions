@@ -1,0 +1,11 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup Label="Application">
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <Product>DbExtensions NetStandard Extensions</Product>
+    <VersionPart1>6</VersionPart1>
+    <VersionPart2>2</VersionPart2>
+  </PropertyGroup>
+  <ItemGroup Label="PackageReferences">
+    <PackageReference Include="DbExtensions" Version="6.2.0" />
+  </ItemGroup>
+</Project>

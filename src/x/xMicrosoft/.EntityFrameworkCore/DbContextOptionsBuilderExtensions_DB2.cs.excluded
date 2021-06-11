@@ -1,0 +1,44 @@
+﻿using xEFCore.xDB2.Infrastructure;
+using xEFCore.xDB2.Infrastructure.Internal;
+using System;
+using JetBrains.Annotations;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using System.Data.Common;
+
+namespace Microsoft.EntityFrameworkCore {
+  public static class DbContextOptionsBuilderExtensions_DB2 {
+
+    public static DbContextOptionsBuilder UseDb2x(
+      [NotNull] this DbContextOptionsBuilder optionsBuilder,
+      [NotNull] string connectionString,
+      [CanBeNull] Action<Db2DbContextOptionsBuilder> optionsAction = null
+      ) {
+      Check.NotNull(optionsBuilder, nameof(optionsBuilder));
+      Check.NotEmpty(connectionString, nameof(connectionString));
+      var extension = (Db2OptionsExtension)GetOrCreateExtension(optionsBuilder).WithConnectionString(connectionString);
+      ((IDbContextOptionsBuilderInfrastructure)optionsBuilder).AddOrUpdateExtension(extension);
+      optionsBuilder.ConfigureWarnings();
+      optionsAction?.Invoke(new Db2DbContextOptionsBuilder(optionsBuilder));
+      return optionsBuilder;
+    }
+
+    public static DbContextOptionsBuilder UseDb2x([NotNull] this DbContextOptionsBuilder optionsBuilder, [NotNull] DbConnection connection, [NotNull] Action<Db2DbContextOptionsBuilder> optionsAction) {
+      Check.NotNull(optionsBuilder, nameof(optionsBuilder));
+      Check.NotNull(connection, nameof(connection));
+      Db2OptionsExtension extension = (Db2OptionsExtension)GetOrCreateExtension(optionsBuilder).WithConnection(connection);
+      ((IDbContextOptionsBuilderInfrastructure)optionsBuilder).AddOrUpdateExtension(extension);
+      optionsAction?.Invoke(new Db2DbContextOptionsBuilder(optionsBuilder));
+      return optionsBuilder;
+    }
+
+    public static DbContextOptionsBuilder<TContext> UseDb2x<TContext>([NotNull] this DbContextOptionsBuilder<TContext> optionsBuilder, [NotNull] string connectionString, [NotNull] Action<Db2DbContextOptionsBuilder> optionsAction) where TContext : DbContext
+      => (DbContextOptionsBuilder<TContext>)UseDb2x((DbContextOptionsBuilder)optionsBuilder, connectionString, optionsAction);
+
+    public static DbContextOptionsBuilder<TContext> UseDb2x<TContext>([NotNull] this DbContextOptionsBuilder<TContext> optionsBuilder, [NotNull] DbConnection connection, [NotNull] Action<Db2DbContextOptionsBuilder> optionsAction) where TContext : DbContext
+      => (DbContextOptionsBuilder<TContext>)UseDb2x((DbContextOptionsBuilder)optionsBuilder, connection, optionsAction);
+
+     static Db2OptionsExtension GetOrCreateExtension(DbContextOptionsBuilder optionsBuilder)
+      => optionsBuilder.Options.FindExtension<Db2OptionsExtension>() ?? new Db2OptionsExtension();
+
+  }
+}

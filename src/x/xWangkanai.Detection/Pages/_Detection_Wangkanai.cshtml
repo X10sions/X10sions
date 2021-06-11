@@ -1,0 +1,49 @@
+﻿@inject Wangkanai.Detection.IDetection detection
+<h3>Wangkanai</h3>
+<code>@detection.UserAgent.</code>
+<table class="table table-responsive table-bordered table-hover table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Type</th>
+      <th>Version</th>
+      <th>Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Device</th>
+      <td>@detection.Device?.Type.ToString()</td>
+      <td></td>
+      <td>Crawler: @detection.Device?.Crawler.ToString()</td>
+    </tr>
+    <tr>
+      <th>Browser</th>
+      <td>@detection.Browser?.Type.ToString()</td>
+      <td>@detection.Browser?.Version</td>
+      <td>
+        Maker: @detection.Browser?.Maker
+        <br />
+        Name: @detection.Browser?.Name
+      </td>
+    </tr>
+    <tr>
+      <th>Platform</th>
+      <td>detection.Platform?.Type.ToString()</td>
+      <td>detection.Platform?.Version</td>
+      <td>Maker: detection.Platform?.Maker</td>
+    </tr>
+    <tr>
+      <th>Engine</th>
+      <td>detection.Engine?.Type.ToString()</td>
+      <td>detection.Engine?.Version</td>
+      <td>Maker: detection.Engine?.Maker</td>
+    </tr>
+    <tr>
+      <th>Crawler</th>
+      <td>@detection.Crawler?.Type.ToString()</td>
+      <td>@detection.Crawler?.Version</td>
+      <td>Name: @detection.Crawler?.Name</td>
+    </tr>
+  </tbody>
+</table>

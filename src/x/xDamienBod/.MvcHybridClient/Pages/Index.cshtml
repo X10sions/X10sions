@@ -1,0 +1,46 @@
+﻿@page
+@model IndexPageModel
+@using Microsoft.AspNetCore.Authorization;
+@using Microsoft.AspNetCore.Mvc;
+@using Microsoft.AspNetCore.Mvc.RazorPages;
+@using System;
+@using System.Linq;
+@using xDamienBod.AppAuthorizationService;
+@functions{
+  [Authorize]
+  public class IndexPageModel : PageModel {
+    public IndexPageModel(IAppAuthorizationService appAuthorizationService, IAuthorizationService authorizationService) {
+      AppAuthorizationService = appAuthorizationService;
+      AuthorizationService = authorizationService;
+    }
+    IAppAuthorizationService AppAuthorizationService;
+    public IAuthorizationService AuthorizationService { get; }
+
+    public IActionResult OnGet() {
+      //Windows or local
+      var claimIdentityprovider = User.Claims.FirstOrDefault(t => t.Type == Constants.IdentityProviderClaim);
+      if (claimIdentityprovider != null && AppAuthorizationService.IsAdmin(User.Identity.Name, claimIdentityprovider.Value)) {
+        Console.WriteLine("This is an admin, we can do some specific admin logic!");
+      }
+      return Page();
+    }
+
+    public IActionResult OnPostLogout() {
+      return new SignOutResult(new[] {
+        nameof(Microsoft.AspNetCore.Authentication.Cookies),
+        nameof(Microsoft.AspNetCore.Authentication.OpenIdConnect)
+      });
+    }
+
+
+  }
+}
+@{
+  ViewData["Title"] = "Home Page";
+}
+<br />
+@if ((await Model.AuthorizationService.AuthorizeAsync(User, "RequireWindowsProviderPolicy")).Succeeded) {
+  <p>Hi User, you logged in with an internal Windows account</p>
+} else {
+  <p>Hi local user</p>
+}

@@ -1,0 +1,14 @@
+﻿using JetBrains.Annotations;
+using System;
+
+namespace Microsoft.EntityFrameworkCore.Metadata.Builders {
+  public static class KeyBuilderExtensions_DB2 {
+
+    public static KeyBuilder ForDb2IsClustered([NotNull] this KeyBuilder keyBuilder, bool clustered = true) {
+      Check.NotNull(keyBuilder, "keyBuilder");
+      keyBuilder.Metadata.Db2().IsClustered = clustered;
+      return keyBuilder;
+    }
+
+  }
+}

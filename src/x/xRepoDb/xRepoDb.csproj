@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup Label="Application">
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Product>RepoDb NetStandard Extensions</Product>
+    <VersionPart1>1</VersionPart1>
+    <VersionPart2>12</VersionPart2> 
+  </PropertyGroup> 
+  <ItemGroup Label="PackageReferences">
+    <PackageReference Include="RepoDb" Version="1.12.4" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup Label="Application">
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Product>MediatR NetStandard Extensions</Product>
+    <VersionPart1>8</VersionPart1>
+    <VersionPart2>1</VersionPart2>
+  </PropertyGroup>
+  <ItemGroup Label="PackageReferences">
+    <PackageReference Include="MediatR" Version="9.0.0" />
+    <!--
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="5.1.0" />
+    -->
+  </ItemGroup>
+</Project>

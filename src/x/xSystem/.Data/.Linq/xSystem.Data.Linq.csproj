@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup Label="Application">
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Product>NetStandard Extensions</Product>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="System.Security.Permissions" Version="4.5.0" />
+  </ItemGroup>
+  <!-- 
+  <ItemGroup>
+    <ProjectReference Include="$(RepoSrcDir_X10sions)x\xSystem\.Data\xSystem.Data.csproj" />
+  </ItemGroup>
+  -->
+</Project>

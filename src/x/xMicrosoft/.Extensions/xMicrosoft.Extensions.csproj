@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup Label="Application">
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Product>Microsoft Extensions</Product>
+    <VersionPart1>3</VersionPart1>
+    <VersionPart2>1</VersionPart2>
+  </PropertyGroup> 
+  <ItemGroup Label="PackageReferences">
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="5.0.2" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.EventLog" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="5.0.0" />
+  </ItemGroup>
+  <ItemGroup Label="ProjectReferences">
+    <ProjectReference Include="$(RepoSrcDir_X10sions)Common\.NetStandard\Common.NetStandard.csproj" />
+    <ProjectReference Include="$(RepoSrcDir_X10sions)x\xMicrosoft\.Abstractions\xMicrosoft.Abstractions.csproj" />
+    <!-- 
+    <ProjectReference Include="..\.Abstractions\xMicrosoft.Abstractions.csproj" />
+    <ProjectReference Include="..\..\..\Common\.NetStandard\Common.NetStandard.csproj" />
+    <ProjectReference Include="..\..\xSystem\src\xSystem.csproj" />
+    -->
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Configuration\" />
+  </ItemGroup>
+</Project>

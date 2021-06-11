@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup Label="Application">
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Product>NetStandard Extensions</Product>
+    <VersionPart1>2</VersionPart1>
+    <VersionPart1>2</VersionPart1>
+  </PropertyGroup>
+  <ItemGroup Label="Removes">
+    <Compile Remove="_OrmExtensions\**" />
+    <Compile Remove="Odbc\**" />
+    <EmbeddedResource Remove="_OrmExtensions\**" />
+    <EmbeddedResource Remove="Odbc\**" />
+    <None Remove="_OrmExtensions\**" />
+    <None Remove="Odbc\**" />
+  </ItemGroup>
+  <ItemGroup Label="PackageReferences">
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="5.0.2" />
+    <PackageReference Include="System.Data.Odbc" Version="5.0.0" />
+  </ItemGroup>
+  <ItemGroup Label="ProjectReferences">
+    <ProjectReference Include="$(RepoSrcDir_X10sions)Common\.Abstractions\Common.Abstractions.csproj" />
+  </ItemGroup>
+</Project>

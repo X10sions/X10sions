@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+  <PropertyGroup Label="Application">
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Product>DannyBoyNg UserAgentParser NetStandard Extensions</Product>
+    <AssemblyVersion>2019.0911.0652.0</AssemblyVersion>
+    <FileVersion>2019.0911.0652.0</FileVersion>
+    <GenerateEmbeddedFilesManifest>true</GenerateEmbeddedFilesManifest>
+  </PropertyGroup>
+
+  <ItemGroup Label="Includes">
+    <EmbeddedResource Include="Pages\**\*" />
+  </ItemGroup>
+
+  <ItemGroup Label="PackageReferences">
+    <PackageReference Include="DannyBoyNg.UserAgentParser" Version="2.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="2.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\xMicrosoft\.Abstractions\xMicrosoft.Abstractions.csproj" />
+  </ItemGroup>
+
+</Project>

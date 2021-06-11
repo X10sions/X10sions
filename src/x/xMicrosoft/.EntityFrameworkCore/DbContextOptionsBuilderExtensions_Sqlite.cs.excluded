@@ -1,0 +1,61 @@
+using System;
+using System.Data.Common;
+using JetBrains.Annotations;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using xEFCore.xSqlite.Infrastructure;
+using xEFCore.xSqlite.Infrastructure.Internal;
+
+namespace Microsoft.EntityFrameworkCore {
+  public static class DbContextOptionsBuilderExtensions_Sqlite {
+
+    public static DbContextOptionsBuilder UseSqlitex(
+        [NotNull] this DbContextOptionsBuilder optionsBuilder,
+        [NotNull] string connectionString,
+        [CanBeNull] Action<SqliteDbContextOptionsBuilder> sqliteOptionsAction = null) {
+      Check.NotNull(optionsBuilder, nameof(optionsBuilder));
+      Check.NotEmpty(connectionString, nameof(connectionString));
+
+      var extension = (SqliteOptionsExtension)GetOrCreateExtension(optionsBuilder).WithConnectionString(connectionString);
+      ((IDbContextOptionsBuilderInfrastructure)optionsBuilder).AddOrUpdateExtension(extension);
+      optionsBuilder.ConfigureWarnings();
+      sqliteOptionsAction?.Invoke(new SqliteDbContextOptionsBuilder(optionsBuilder));
+      return optionsBuilder;
+    }
+
+    public static DbContextOptionsBuilder UseSqlitex(
+      [NotNull] this DbContextOptionsBuilder optionsBuilder,
+      [NotNull] DbConnection connection,
+      [CanBeNull] Action<SqliteDbContextOptionsBuilder> sqliteOptionsAction = null) {
+      Check.NotNull(optionsBuilder, nameof(optionsBuilder));
+      Check.NotNull(connection, nameof(connection));
+      var extension = (SqliteOptionsExtension)GetOrCreateExtension(optionsBuilder).WithConnection(connection);
+      ((IDbContextOptionsBuilderInfrastructure)optionsBuilder).AddOrUpdateExtension(extension);
+      optionsBuilder.ConfigureWarnings();
+      sqliteOptionsAction?.Invoke(new SqliteDbContextOptionsBuilder(optionsBuilder));
+      return optionsBuilder;
+    }
+
+    public static DbContextOptionsBuilder<TContext> UseSqlitex<TContext>(
+         [NotNull] this DbContextOptionsBuilder<TContext> optionsBuilder,
+         [NotNull] string connectionString,
+         [CanBeNull] Action<SqliteDbContextOptionsBuilder> sqliteOptionsAction = null)
+         where TContext : DbContext
+         => (DbContextOptionsBuilder<TContext>)UseSqlitex(
+             (DbContextOptionsBuilder)optionsBuilder, connectionString, sqliteOptionsAction);
+
+    public static DbContextOptionsBuilder<TContext> UseSqlitex<TContext>(
+        [NotNull] this DbContextOptionsBuilder<TContext> optionsBuilder,
+        [NotNull] DbConnection connection,
+        [CanBeNull] Action<SqliteDbContextOptionsBuilder> sqliteOptionsAction = null)
+        where TContext : DbContext
+        => (DbContextOptionsBuilder<TContext>)UseSqlitex(
+            (DbContextOptionsBuilder)optionsBuilder, connection, sqliteOptionsAction);
+
+    static SqliteOptionsExtension GetOrCreateExtension(DbContextOptionsBuilder options)
+       => options.Options.FindExtension<SqliteOptionsExtension>()
+          ?? new SqliteOptionsExtension();
+
+
+
+  }
+}

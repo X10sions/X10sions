@@ -1,0 +1,40 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup Label="Application">
+    <TargetFramework>net5.0</TargetFramework>
+    <Product>IQToolkit (MySqlClient) Tests</Product>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectReferences">
+    <ProjectReference Include="$(RepoSrcDir_X10sions)x\xIQToolkit\.Data\.Ado\xIQToolkit.Data.Ado.csproj" />
+    <ProjectReference Include="$(RepoSrcDir_X10sions)x\xIQToolkit\.Data\.MySqlClient\xIQToolkit.Data.MySqlClient.csproj" />
+    <ProjectReference Include="$(RepoDir_X10sions)tests\xIQToolkit\.Common\xIQToolkit.Common.Tests.csproj" />
+  </ItemGroup>
+
+<!--
+  <package id="MySql.Data" version="6.9.5" />
+  <package id="System.Data.Common" version="4.3.0"  />
+
+
+  <ItemGroup>
+    <Reference Include="MySql.Data">
+      <HintPath>..\packages\MySql.Data.6.9.5\lib\net45\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.Common, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.Common.4.3.0\lib\net451\System.Data.Common.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
+-->
+</Project>

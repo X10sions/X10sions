@@ -1,0 +1,16 @@
+using System;
+using System.Reflection;
+using JetBrains.Annotations;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using xEFCore.xSqlServer.Infrastructure.Internal;
+
+namespace Microsoft.EntityFrameworkCore {
+  public static class DatabaseFacadeExtensions_SqlServer {
+
+    public static bool IsSqlServer([NotNull] this DatabaseFacade database)
+        => database.ProviderName.Equals(
+            typeof(SqlServerOptionsExtension).Assembly.GetName().Name,
+            StringComparison.Ordinal);
+
+  }
+}

@@ -1,0 +1,27 @@
+using System;
+using System.Linq;
+using JetBrains.Annotations;
+
+namespace Microsoft.EntityFrameworkCore.Scaffolding.Internal {
+  public static class SqliteTableSelectionSetExtensions {
+
+    public static bool AllowsSqlite([NotNull] this TableSelectionSet tableSet, [NotNull] string tableName) {
+      Check.NotNull(tableSet, nameof(tableSet));
+      Check.NotEmpty(tableName, nameof(tableName));
+      if (tableSet.Tables.Count == 0) {
+        return true;
+      }
+      //TODO: look into performance for large selection sets and numbers of tables
+      var result = false;
+      var matchingTableSelections = tableSet.Tables.Where(
+          t => t.Text.Equals(tableName, StringComparison.OrdinalIgnoreCase))
+          .ToList();
+      if (matchingTableSelections.Any()) {
+        matchingTableSelections.ForEach(selection => selection.IsMatched = true);
+        result = true;
+      }
+      return result;
+    }
+
+  }
+}

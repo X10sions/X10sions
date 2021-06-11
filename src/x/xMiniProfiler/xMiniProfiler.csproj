@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup Label="Application">
+    <TargetFramework>net48</TargetFramework>
+    <Product>MiniProfiler NetFramework Extensions</Product>
+  </PropertyGroup>
+
+  <ItemGroup Label="PackageReferences">
+    <PackageReference Include="MiniProfiler" Version="4.0.0" />
+  </ItemGroup>
+
+  <ItemGroup Label="ProjectReferences">
+    <ProjectReference Include=".Shared\xMiniProfiler.Shared.csproj" />
+  </ItemGroup>
+
+</Project>

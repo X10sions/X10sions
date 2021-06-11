@@ -1,0 +1,19 @@
+﻿@page
+@model IndexPageModel
+@using Microsoft.AspNetCore.Authorization;
+@using Microsoft.AspNetCore.Mvc;
+@using Microsoft.AspNetCore.Mvc.RazorPages;
+@using xDamienBod.AppAuthorizationService;
+@functions{
+  [Authorize(Policy = nameof(IsAdminRequirement))]
+  public class IndexPageModel : PageModel {
+    public IActionResult Index() {
+      return Page();
+    }
+  }
+}
+@{
+  ViewData["Title"] = "Admin Page";
+}
+<br />
+Admin view

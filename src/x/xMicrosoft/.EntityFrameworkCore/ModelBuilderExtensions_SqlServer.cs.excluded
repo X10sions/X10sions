@@ -1,0 +1,39 @@
+using JetBrains.Annotations;
+using Microsoft.EntityFrameworkCore.Metadata;
+using System;
+using xEFCore;
+using xEFCore.xSqlServer.Metadata;
+
+namespace Microsoft.EntityFrameworkCore {
+  public static class ModelBuilderExtensions_SqlServer {
+
+    public static ModelBuilder ForSqlServerUseSequenceHiLo(
+        [NotNull] this ModelBuilder modelBuilder,
+        [CanBeNull] string name = null,
+        [CanBeNull] string schema = null) {
+      Check.NotNull(modelBuilder, nameof(modelBuilder));
+      Check.NullButNotEmpty(name, nameof(name));
+      Check.NullButNotEmpty(schema, nameof(schema));
+      var model = modelBuilder.Model;
+      name = name ?? EFCoreConstants.Metadata.DefaultHiLoSequenceName;
+      if (model.SqlServer().FindSequence(name, schema) == null) {
+        modelBuilder.HasSequence(name, schema).IncrementsBy(10);
+      }
+      model.SqlServer().ValueGenerationStrategy = SqlServerValueGenerationStrategy.SequenceHiLo;
+      model.SqlServer().HiLoSequenceName = name;
+      model.SqlServer().HiLoSequenceSchema = schema;
+      return modelBuilder;
+    }
+
+    public static ModelBuilder ForSqlServerUseIdentityColumns(
+        [NotNull] this ModelBuilder modelBuilder) {
+      Check.NotNull(modelBuilder, nameof(modelBuilder));
+      var property = modelBuilder.Model;
+      property.SqlServer().ValueGenerationStrategy = SqlServerValueGenerationStrategy.IdentityColumn;
+      property.SqlServer().HiLoSequenceName = null;
+      property.SqlServer().HiLoSequenceSchema = null;
+      return modelBuilder;
+    }
+
+  }
+}

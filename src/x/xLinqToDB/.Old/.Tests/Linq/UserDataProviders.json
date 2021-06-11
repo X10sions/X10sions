@@ -1,0 +1,105 @@
+{
+  // .net framework 4.6 test configuration
+  "NET46": {
+    // base configuration to inherit settings from
+    // Inheritance rules:
+    // - DefaultConfiguration, TraceLevel, Providers - use value from base configuration only if it is not defined in current configuration
+    // - Connections - merge current and base connection strings
+    "BasedOn": "LocalConnectionStrings",
+    // default provider, used as a source of reference data
+    // LINQ to DB uses SQLite for it and you hardly need to change it
+    "DefaultConfiguration": "SQLite.Classic",
+    // logging level
+    // Supported values: Off, Error, Warning, Info, Verbose
+    // Default level: Info
+    "TraceLevel": "Error",
+    // list of database providers, enabled for current test configuration
+    "Providers": [
+      "Access",
+      "AS400",
+      "AS400Odbc",
+      "SqlCe",
+      "SQLite.Classic",
+      "SQLite.MS",
+      "Northwind.SQLite",
+      "Northwind.SQLite.MS",
+      "SqlServer",
+      "SqlServer.2014",
+      "SqlServer.2012",
+      "SqlServer.2012.1",
+      "SqlServer.2008",
+      "SqlServer.2008.1",
+      "SqlServer.2005",
+      "SqlServer.2005.1",
+      "SqlAzure",
+      "DB2",
+      "DB2iSeries",
+      "DB2iSeriesOdbc",
+      "Firebird",
+      "Informix",
+      "MySql",
+      "MariaDB",
+      "Oracle.Native",
+      "Oracle.Managed",
+      "PostgreSQL",
+      "Sybase",
+      "Northwind",
+      "TestNoopProvider"
+    ],
+
+    // list of test skip categories, disabled for current test configuration
+    // to set test skip category, use SkipCategoryAttribute on test method, class or whole assembly
+    "Skip": [
+      "Access.12"
+    ]
+
+  },
+
+  // .net core 2.1 test configuration
+  "CORE21": {
+    "BasedOn": "LocalConnectionStrings",
+    "Providers": [
+      "AS400",
+      "AS400Odbc",
+      "DB2iSeries"
+      "DB2iSeriesOdbc"
+      "SQLite.MS",
+      "Northwind.SQLite.MS",
+      "SqlServer",
+      "SqlServer.2014",
+      "SqlServer.2012",
+      "SqlServer.2012.1",
+      "SqlServer.2008",
+      "SqlServer.2008.1",
+      "SqlServer.2005",
+      "SqlServer.2005.1",
+      "SqlAzure",
+      "Firebird",
+      "MySql",
+      "MariaDB",
+      "PostgreSQL",
+      "Northwind",
+      "TestNoopProvider"
+    ]
+  },
+
+  // list of connection strings for all providers
+  "LocalConnectionStrings": {
+    "BasedOn": "CommonConnectionStrings",
+    "Connections": {
+      "Access": { "ConnectionString": "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=Database\\TestData.mdb;Locale Identifier=1033;Jet OLEDB:Engine Type=5;Persist Security Info=True" },
+      "Access.Data": { "ConnectionString": "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=Database\\Data\\TestData.mdb;Locale Identifier=1033;Jet OLEDB:Engine Type=5;Persist Security Info=True" },
+      "Access.Odbc": { "ConnectionString": "Driver={Microsoft Access Driver (*.mdb, *.accdb)};Dbq=Database\\TestData.ODBC.mdb;" },
+      "Access.Odbc.Data": { "ConnectionString": "Driver={Microsoft Access Driver (*.mdb, *.accdb)};Dbq=Database\\TestData.ODBC.mdb;" },
+      "DB2": {
+        "Provider": "IBM.Data.DB2",        "ConnectionString": "Server=DBHost:50001;Database=TESTDATA;UID=Administrator;PWD=TestPassword;"
+      },
+      // override connection string for SqlAzure provider
+      // all other providers will use default inherited connection strings from CommonConnectionStrings configuration
+      "SqlAzure": {
+        "Provider": "System.Data.SqlClient",
+        "ConnectionString": "Server=tcp:xxxxxxxxx.database.windows.net,1433;Database=TestData;User ID=TestUser@zzzzzzzzz;Password=TestPassword;Trusted_Connection=False;Encrypt=True;"
+      }
+    }
+  }
+}

@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup Label="Application">
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Product>System .Security.Permissions NetStandard Extensions</Product>
+    <VersionPart1>4</VersionPart1>
+    <VersionPart2>7</VersionPart2>
+  </PropertyGroup>
+  <ItemGroup Label="PackageReferences">
+    <PackageReference Include="System.Security.Permissions" Version="5.0.0" />
+  </ItemGroup> 
+</Project>

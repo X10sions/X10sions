@@ -1,0 +1,40 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup Label="Application">
+    <TargetFramework>net5.0</TargetFramework>
+    <Product>IQToolkit (SqlClient) Tests</Product>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectReferences">
+    <ProjectReference Include="$(RepoSrcDir_X10sions)x\xIQToolkit\.Data\.Ado\xIQToolkit.Data.Ado.csproj" />
+    <ProjectReference Include="$(RepoSrcDir_X10sions)x\xIQToolkit\.Data\.SqlClient\xIQToolkit.Data.SqlClient.csproj" />
+    <ProjectReference Include="$(RepoDir_X10sions)tests\xIQToolkit\.Common\xIQToolkit.Common.Tests.csproj" />
+  </ItemGroup>
+  <!--
+<package id="System.Data.SqlClient" version="4.4.0" />
+
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.SqlClient, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SqlClient.4.4.0\lib\net461\System.Data.SqlClient.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Northwind.mdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
+-->
+</Project>

@@ -1,0 +1,11 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup Label="Application">
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Product>NetStandard Extensions</Product>
+    <VersionPart1>1</VersionPart1>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectReferences">
+    <ProjectReference Include="$(RepoSrcDir_X10sions)Common\.AspNetCore\.Identity\Common.AspNetCore.Identity.csproj" />
+    <ProjectReference Include="$(RepoSrcDir_X10sions)x\xRepoDb\xRepoDb.csproj" />
+  </ItemGroup>
+</Project>

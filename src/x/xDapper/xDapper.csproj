@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup Label="Application">
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Product>Dapper NetStandard Extensions Dev</Product>
+    <VersionPart1>2</VersionPart1>
+    <VersionPart2>0</VersionPart2>
+  </PropertyGroup>
+  <ItemGroup Label="PackageReferences">
+    <PackageReference Include="Dapper" Version="2.0.78" />
+    <PackageReference Include="Dapper.Contrib" Version="2.0.78" />
+    <!--
+    <PackageReference Include="Dapper" Version="2.0.4" />
+    <PackageReference Include="Dapper.Contrib" Version="2.0.4" />
+    -->
+  </ItemGroup>
+</Project>

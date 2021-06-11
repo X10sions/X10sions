@@ -1,0 +1,71 @@
+using System;
+using JetBrains.Annotations;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace Microsoft.EntityFrameworkCore.Scaffolding.Internal {
+  static class TableSelectionSetExtensions_DB2 {
+
+    static readonly List<string> _schemaPatterns = new List<string>    {
+      "{schema}",
+      "\"{schema}\""
+    };
+
+    static readonly List<string> _tablePatterns = new List<string>   {
+      "{schema}.{table}",
+      "\"{schema}\".\"{table}\"",
+      "{schema}.\"{table}\"",
+      "\"{schema}\".{table}",
+      "{table}",
+      "\"{table}\""
+    };
+
+    public static bool AllowsDB2(this TableSelectionSet tableSelectionSet, [CanBeNull] string schemaName, [NotNull] string tableName) {
+      if (tableSelectionSet != null && (tableSelectionSet.Schemas.Count != 0 || tableSelectionSet.Tables.Count != 0)) {
+        bool result = false;
+        List<string>.Enumerator enumerator;
+        if (schemaName != null) {
+          enumerator = _schemaPatterns.GetEnumerator();
+          try {
+            while (enumerator.MoveNext()) {
+              string current = enumerator.Current;
+              string patternToMatch = current.Replace("{schema}", schemaName);
+              List<TableSelectionSet.Selection> list = (from s in tableSelectionSet.Schemas
+                                                        where s.Text.Equals(patternToMatch, StringComparison.OrdinalIgnoreCase)
+                                                        select s).ToList();
+              if (list.Any()) {
+                list.ForEach(delegate (TableSelectionSet.Selection selection) {
+                  selection.IsMatched = true;
+                });
+                result = true;
+              }
+            }
+          } finally {
+            ((IDisposable)enumerator).Dispose();
+          }
+        }
+        enumerator = _tablePatterns.GetEnumerator();
+        try {
+          while (enumerator.MoveNext()) {
+            string current2 = enumerator.Current;
+            string patternToMatch2 = current2.Replace("{schema}", schemaName).Replace("{table}", tableName);
+            List<TableSelectionSet.Selection> list2 = (from t in tableSelectionSet.Tables
+                                                       where t.Text.Equals(patternToMatch2, StringComparison.OrdinalIgnoreCase)
+                                                       select t).ToList();
+            if (list2.Any()) {
+              list2.ForEach(delegate (TableSelectionSet.Selection selection) {
+                selection.IsMatched = true;
+              });
+              result = true;
+            }
+          }
+          return result;
+        } finally {
+          ((IDisposable)enumerator).Dispose();
+        }
+      }
+      return true;
+    }
+
+  }
+}

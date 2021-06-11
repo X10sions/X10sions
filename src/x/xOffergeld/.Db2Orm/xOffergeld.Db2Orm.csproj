@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup Label="Application">
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Product>Offergeld Db2Orm NetStandard Extensions</Product>
+    <VersionPart1>1</VersionPart1>
+    <VersionPart2>2</VersionPart2>
+  </PropertyGroup>
+  <ItemGroup Label="PackageReferences">
+    <PackageReference Include="Offergeld.Db2Orm" Version="1.2.5" />
+  </ItemGroup>
+</Project>

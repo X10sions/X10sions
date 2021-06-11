@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(SolutionDir)_shared\MsBuild\Testing.XUnit.props" />
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <Product>Common Tests</Product>
+  </PropertyGroup>
+  <ItemGroup Label="PackageReferences">
+    <PackageReference Include="System.Data.OleDb" Version="5.0.0" />
+  </ItemGroup>
+  <ItemGroup Label="ProjectReferences">
+    <ProjectReference Include="$(RepoSrcDir_X10sions)Common\.Abstractions\Common.Abstractions.csproj" />
+  </ItemGroup>
+</Project>

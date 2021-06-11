@@ -1,0 +1,39 @@
+using JetBrains.Annotations;
+using System;
+using xEFCore.xSqlServer.Metadata;
+
+namespace Microsoft.EntityFrameworkCore.Metadata {
+  public static class MetadataExtensions_SqlServer {
+
+    public static SqlServerPropertyAnnotations SqlServer([NotNull] this IMutableProperty property)
+        => (SqlServerPropertyAnnotations)SqlServer((IProperty)property);
+
+    public static ISqlServerPropertyAnnotations SqlServer([NotNull] this IProperty property)
+        => new SqlServerPropertyAnnotations(Check.NotNull(property, nameof(property)));
+
+    public static SqlServerEntityTypeAnnotations SqlServer([NotNull] this IMutableEntityType entityType)
+        => (SqlServerEntityTypeAnnotations)SqlServer((IEntityType)entityType);
+
+    public static ISqlServerEntityTypeAnnotations SqlServer([NotNull] this IEntityType entityType)
+        => new SqlServerEntityTypeAnnotations(Check.NotNull(entityType, nameof(entityType)));
+
+    public static SqlServerKeyAnnotations SqlServer([NotNull] this IMutableKey key)
+        => (SqlServerKeyAnnotations)SqlServer((IKey)key);
+
+    public static ISqlServerKeyAnnotations SqlServer([NotNull] this IKey key)
+        => new SqlServerKeyAnnotations(Check.NotNull(key, nameof(key)));
+
+    public static SqlServerIndexAnnotations SqlServer([NotNull] this IMutableIndex index)
+        => (SqlServerIndexAnnotations)SqlServer((IIndex)index);
+
+    public static ISqlServerIndexAnnotations SqlServer([NotNull] this IIndex index)
+        => new SqlServerIndexAnnotations(Check.NotNull(index, nameof(index)));
+
+    public static SqlServerModelAnnotations SqlServer([NotNull] this IMutableModel model)
+        => (SqlServerModelAnnotations)SqlServer((IModel)model);
+
+    public static ISqlServerModelAnnotations SqlServer([NotNull] this IModel model)
+        => new SqlServerModelAnnotations(Check.NotNull(model, nameof(model)));
+
+  }
+}

@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup Label="Application">
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Product>NetStandard Extensions</Product>
+    <AssemblyVersion>2019.0318.0611.0</AssemblyVersion>
+    <FileVersion>2019.0318.0611.0</FileVersion>
+  </PropertyGroup>
+
+  <ItemGroup Label="PackageReferences">
+    <PackageReference Include="Serenity.Data" Version="3.7.7" />
+    <PackageReference Include="Serenity.Data.Entity" Version="3.7.7" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,76 @@
+﻿namespace System.Data.Linq {
+  internal static class Strings {
+    internal static string OwningTeam => SR.GetString("OwningTeam");
+    internal static string CannotAddChangeConflicts => SR.GetString("CannotAddChangeConflicts");
+    internal static string CannotRemoveChangeConflicts => SR.GetString("CannotRemoveChangeConflicts");
+    internal static string UnableToDetermineDataContext => SR.GetString("UnableToDetermineDataContext");
+    internal static string CannotRemoveUnattachedEntity => SR.GetString("CannotRemoveUnattachedEntity");
+    internal static string CouldNotAttach => SR.GetString("CouldNotAttach");
+    internal static string EntitySetAlreadyLoaded => SR.GetString("EntitySetAlreadyLoaded");
+    internal static string EntitySetModifiedDuringEnumeration => SR.GetString("EntitySetModifiedDuringEnumeration");
+    internal static string ExpectedUpdateDeleteOrChange => SR.GetString("ExpectedUpdateDeleteOrChange");
+    internal static string ModifyDuringAddOrRemove => SR.GetString("ModifyDuringAddOrRemove");
+    internal static string ProviderTypeNull => SR.GetString("ProviderTypeNull");
+    internal static string UnrecognizedRefreshObject => SR.GetString("UnrecognizedRefreshObject");
+    internal static string ObjectTrackingRequired => SR.GetString("ObjectTrackingRequired");
+    internal static string OptionsCannotBeModifiedAfterQuery => SR.GetString("OptionsCannotBeModifiedAfterQuery");
+    internal static string DeferredLoadingRequiresObjectTracking => SR.GetString("DeferredLoadingRequiresObjectTracking");
+    internal static string SubqueryNotAllowedAfterFreeze => SR.GetString("SubqueryNotAllowedAfterFreeze");
+    internal static string IncludeNotAllowedAfterFreeze => SR.GetString("IncludeNotAllowedAfterFreeze");
+    internal static string LoadOptionsChangeNotAllowedAfterQuery => SR.GetString("LoadOptionsChangeNotAllowedAfterQuery");
+    internal static string IncludeCycleNotAllowed => SR.GetString("IncludeCycleNotAllowed");
+    internal static string SubqueryMustBeSequence => SR.GetString("SubqueryMustBeSequence");
+    internal static string RefreshOfDeletedObject => SR.GetString("RefreshOfDeletedObject");
+    internal static string RefreshOfNewObject => SR.GetString("RefreshOfNewObject");
+    internal static string DataContextCannotBeUsedAfterDispose => SR.GetString("DataContextCannotBeUsedAfterDispose");
+    internal static string InsertCallbackComment => SR.GetString("InsertCallbackComment");
+    internal static string UpdateCallbackComment => SR.GetString("UpdateCallbackComment");
+    internal static string DeleteCallbackComment => SR.GetString("DeleteCallbackComment");
+    internal static string RowNotFoundOrChanged => SR.GetString("RowNotFoundOrChanged");
+    internal static string CycleDetected => SR.GetString("CycleDetected");
+    internal static string CantAddAlreadyExistingItem => SR.GetString("CantAddAlreadyExistingItem");
+    internal static string CantAddAlreadyExistingKey => SR.GetString("CantAddAlreadyExistingKey");
+    internal static string DatabaseGeneratedAlreadyExistingKey => SR.GetString("DatabaseGeneratedAlreadyExistingKey");
+    internal static string InsertAutoSyncFailure => SR.GetString("InsertAutoSyncFailure");
+    internal static string InvalidLoadOptionsLoadMemberSpecification => SR.GetString("InvalidLoadOptionsLoadMemberSpecification");
+    internal static string EntityIsTheWrongType => SR.GetString("EntityIsTheWrongType");
+    internal static string OriginalEntityIsWrongType => SR.GetString("OriginalEntityIsWrongType");
+    internal static string CannotAttachAlreadyExistingEntity => SR.GetString("CannotAttachAlreadyExistingEntity");
+    internal static string CannotAttachAsModifiedWithoutOriginalState => SR.GetString("CannotAttachAsModifiedWithoutOriginalState");
+    internal static string CannotPerformOperationDuringSubmitChanges => SR.GetString("CannotPerformOperationDuringSubmitChanges");
+    internal static string CannotPerformOperationOutsideSubmitChanges => SR.GetString("CannotPerformOperationOutsideSubmitChanges");
+    internal static string CannotPerformOperationForUntrackedObject => SR.GetString("CannotPerformOperationForUntrackedObject");
+    internal static string CannotAttachAddNonNewEntities => SR.GetString("CannotAttachAddNonNewEntities");
+    internal static string QueryWasCompiledForDifferentMappingSource => SR.GetString("QueryWasCompiledForDifferentMappingSource");
+    internal static string InconsistentAssociationAndKeyChange(object p0, object p1) => SR.GetString("InconsistentAssociationAndKeyChange", p0, p1);
+    internal static string ArgumentTypeHasNoIdentityKey(object p0) => SR.GetString("ArgumentTypeHasNoIdentityKey", p0);
+    internal static string CouldNotConvert(object p0, object p1) => SR.GetString("CouldNotConvert", p0, p1);
+    internal static string ColumnMappedMoreThanOnce(object p0) => SR.GetString("ColumnMappedMoreThanOnce", p0);
+    internal static string CouldNotGetTableForSubtype(object p0, object p1) => SR.GetString("CouldNotGetTableForSubtype", p0, p1);
+    internal static string CouldNotRemoveRelationshipBecauseOneSideCannotBeNull(object p0, object p1, object p2) => SR.GetString("CouldNotRemoveRelationshipBecauseOneSideCannotBeNull", p0, p1, p2);
+    internal static string ExpectedQueryableArgument(object p0, object p1) => SR.GetString("ExpectedQueryableArgument", p0, p1);
+    internal static string KeyIsWrongSize(object p0, object p1) => SR.GetString("KeyIsWrongSize", p0, p1);
+    internal static string KeyValueIsWrongType(object p0, object p1) => SR.GetString("KeyValueIsWrongType", p0, p1);
+    internal static string IdentityChangeNotAllowed(object p0, object p1) => SR.GetString("IdentityChangeNotAllowed", p0, p1);
+    internal static string DbGeneratedChangeNotAllowed(object p0, object p1) => SR.GetString("DbGeneratedChangeNotAllowed", p0, p1);
+    internal static string ProviderDoesNotImplementRequiredInterface(object p0, object p1) => SR.GetString("ProviderDoesNotImplementRequiredInterface", p0, p1);
+    internal static string TypeCouldNotBeAdded(object p0) => SR.GetString("TypeCouldNotBeAdded", p0);
+    internal static string TypeCouldNotBeRemoved(object p0) => SR.GetString("TypeCouldNotBeRemoved", p0);
+    internal static string TypeCouldNotBeTracked(object p0) => SR.GetString("TypeCouldNotBeTracked", p0);
+    internal static string TypeIsNotEntity(object p0) => SR.GetString("TypeIsNotEntity", p0);
+    internal static string UnhandledExpressionType(object p0) => SR.GetString("UnhandledExpressionType", p0);
+    internal static string UnhandledBindingType(object p0) => SR.GetString("UnhandledBindingType", p0);
+    internal static string SubqueryDoesNotSupportOperator(object p0) => SR.GetString("SubqueryDoesNotSupportOperator", p0);
+    internal static string SubqueryNotSupportedOn(object p0) => SR.GetString("SubqueryNotSupportedOn", p0);
+    internal static string SubqueryNotSupportedOnType(object p0, object p1) => SR.GetString("SubqueryNotSupportedOnType", p0, p1);
+    internal static string CannotChangeInheritanceType(object p0, object p1, object p2, object p3) => SR.GetString("CannotChangeInheritanceType", p0, p1, p2, p3);
+    internal static string TypeIsNotMarkedAsTable(object p0) => SR.GetString("TypeIsNotMarkedAsTable", p0);
+    internal static string NonEntityAssociationMapping(object p0, object p1, object p2) => SR.GetString("NonEntityAssociationMapping", p0, p1, p2);
+    internal static string CannotPerformCUDOnReadOnlyTable(object p0) => SR.GetString("CannotPerformCUDOnReadOnlyTable", p0);
+    internal static string UpdatesFailedMessage(object p0, object p1) => SR.GetString("UpdatesFailedMessage", p0, p1);
+    internal static string EntitySetDataBindingWithAbstractBaseClass(object p0) => SR.GetString("EntitySetDataBindingWithAbstractBaseClass", p0);
+    internal static string EntitySetDataBindingWithNonPublicDefaultConstructor(object p0) => SR.GetString("EntitySetDataBindingWithNonPublicDefaultConstructor", p0);
+
+  }
+
+}

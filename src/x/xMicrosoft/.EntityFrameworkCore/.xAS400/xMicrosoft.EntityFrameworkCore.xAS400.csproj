@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup Label="Application">
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <Product>AS400 EntityFrameworkCore NetStandard Extensions</Product>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="xEFCore\xAS400\Scaffolding\**" />
+    <EmbeddedResource Remove="xEFCore\xAS400\Scaffolding\**" />
+    <None Remove="xEFCore\xAS400\Scaffolding\**" />
+  </ItemGroup>
+  <ItemGroup Label="ProjectReferences">
+    <ProjectReference Include="$(RepoSrcDir_IBM)x\xIBM\.Data\.DB2\.iSeries\xIBM.Data.DB2.iSeries.csproj" />
+    <ProjectReference Include="..\..\..\xJetBrains.Annotations\xJetBrains.Annotations.csproj" />
+    <ProjectReference Include="$(RepoSrcDir_X10sions)x\xMicrosoft\.EntityFrameworkCore\xMicrosoft.EntityFrameworkCore.csproj" />
+    <!-- 
+    <ProjectReference Include="..\src\xMicrosoft.EntityFrameworkCore.csproj" />
+    -->
+  </ItemGroup>
+</Project>

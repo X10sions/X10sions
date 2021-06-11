@@ -1,0 +1,27 @@
+using xEFCore.xMySql.Metadata.Internal;
+using JetBrains.Annotations;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System;
+using xEFCore.xMySql.Metadata;
+
+namespace Microsoft.EntityFrameworkCore.Metadata.Builders {
+  public static class PropertyBuilderExtensions_MySql {
+
+    public static PropertyBuilder UseMySqlIdentityColumn(
+            [NotNull] this PropertyBuilder propertyBuilder) {
+      Check.NotNull(propertyBuilder, nameof(propertyBuilder));
+      GetMySqlInternalBuilder(propertyBuilder).ValueGenerationStrategy(MySqlValueGenerationStrategy.IdentityColumn);
+      return propertyBuilder;
+    }
+
+    public static PropertyBuilder<TProperty> UseMySqlIdentityColumn<TProperty>(
+      [NotNull] this PropertyBuilder<TProperty> propertyBuilder)
+      => (PropertyBuilder<TProperty>)UseMySqlIdentityColumn((PropertyBuilder)propertyBuilder);
+
+    static MySqlPropertyBuilderAnnotations GetMySqlInternalBuilder(PropertyBuilder propertyBuilder)
+       => propertyBuilder.GetInfrastructure<InternalPropertyBuilder>().MySql(ConfigurationSource.Explicit);
+
+  }
+}

@@ -1,0 +1,52 @@
+using JetBrains.Annotations;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System;
+using xEFCore;
+using xEFCore.xSqlServer.Metadata;
+using xEFCore.xSqlServer.Metadata.Internal;
+
+namespace Microsoft.EntityFrameworkCore.Metadata.Builders {
+  public static class PropertyBuilderExtensions_SqlServer {
+
+    public static PropertyBuilder ForSqlServerUseSequenceHiLo(
+        [NotNull] this PropertyBuilder propertyBuilder,
+        [CanBeNull] string name = null,
+        [CanBeNull] string schema = null) {
+      Check.NotNull(propertyBuilder, nameof(propertyBuilder));
+      Check.NullButNotEmpty(name, nameof(name));
+      Check.NullButNotEmpty(schema, nameof(schema));
+      var property = propertyBuilder.Metadata;
+      name = name ?? EFCoreConstants.Metadata.DefaultHiLoSequenceName;
+      var model = property.DeclaringEntityType.Model;
+      if (model.SqlServer().FindSequence(name, schema) == null) {
+        model.SqlServer().GetOrAddSequence(name, schema).IncrementBy = 10;
+      }
+      GetSqlServerInternalBuilder(propertyBuilder).ValueGenerationStrategy(SqlServerValueGenerationStrategy.SequenceHiLo);
+      property.SqlServer().HiLoSequenceName = name;
+      property.SqlServer().HiLoSequenceSchema = schema;
+      return propertyBuilder;
+    }
+
+    public static PropertyBuilder<TProperty> ForSqlServerUseSequenceHiLo<TProperty>(
+        [NotNull] this PropertyBuilder<TProperty> propertyBuilder,
+        [CanBeNull] string name = null,
+        [CanBeNull] string schema = null)
+        => (PropertyBuilder<TProperty>)ForSqlServerUseSequenceHiLo((PropertyBuilder)propertyBuilder, name, schema);
+    public static PropertyBuilder UseSqlServerIdentityColumn(
+        [NotNull] this PropertyBuilder propertyBuilder) {
+      Check.NotNull(propertyBuilder, nameof(propertyBuilder));
+      GetSqlServerInternalBuilder(propertyBuilder).ValueGenerationStrategy(SqlServerValueGenerationStrategy.IdentityColumn);
+      return propertyBuilder;
+    }
+
+    public static PropertyBuilder<TProperty> UseSqlServerIdentityColumn<TProperty>(
+        [NotNull] this PropertyBuilder<TProperty> propertyBuilder)
+        => (PropertyBuilder<TProperty>)UseSqlServerIdentityColumn((PropertyBuilder)propertyBuilder);
+
+    private static SqlServerPropertyBuilderAnnotations GetSqlServerInternalBuilder(PropertyBuilder propertyBuilder)
+        => propertyBuilder.GetInfrastructure<InternalPropertyBuilder>().SqlServer(ConfigurationSource.Explicit);
+
+  }
+}

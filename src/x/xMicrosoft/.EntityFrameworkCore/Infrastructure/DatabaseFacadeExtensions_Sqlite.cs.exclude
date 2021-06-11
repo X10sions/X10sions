@@ -1,0 +1,15 @@
+using System;
+using System.Reflection;
+using JetBrains.Annotations;
+using xEFCore.xSqlite.Infrastructure.Internal;
+
+namespace Microsoft.EntityFrameworkCore.Infrastructure {
+  public static class DatabaseFacadeExtensions_Sqlite {
+
+    public static bool IsSqlite([NotNull] this DatabaseFacade database)
+     => database.ProviderName.Equals(
+         typeof(SqliteOptionsExtension).Assembly.GetName().Name,
+         StringComparison.Ordinal);
+
+  }
+}

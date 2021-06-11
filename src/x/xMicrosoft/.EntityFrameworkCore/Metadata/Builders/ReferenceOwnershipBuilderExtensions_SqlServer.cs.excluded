@@ -1,0 +1,21 @@
+using JetBrains.Annotations;
+using System;
+
+namespace Microsoft.EntityFrameworkCore.Metadata.Builders {
+  public static class ReferenceOwnershipBuilderExtensions_SqlServer {
+
+    public static ReferenceOwnershipBuilder ForSqlServerIsMemoryOptimized(
+        [NotNull] this ReferenceOwnershipBuilder referenceOwnershipBuilder, bool memoryOptimized = true) {
+      Check.NotNull(referenceOwnershipBuilder, nameof(referenceOwnershipBuilder));
+      referenceOwnershipBuilder.OwnedEntityType.SqlServer().IsMemoryOptimized = memoryOptimized;
+      return referenceOwnershipBuilder;
+    }
+
+    public static ReferenceOwnershipBuilder<TEntity, TRelatedEntity> ForSqlServerIsMemoryOptimized<TEntity, TRelatedEntity>(
+        [NotNull] this ReferenceOwnershipBuilder<TEntity, TRelatedEntity> referenceOwnershipBuilder, bool memoryOptimized = true)
+        where TEntity : class
+        where TRelatedEntity : class
+        => (ReferenceOwnershipBuilder<TEntity, TRelatedEntity>)ForSqlServerIsMemoryOptimized((ReferenceOwnershipBuilder)referenceOwnershipBuilder, memoryOptimized);
+
+  }
+}

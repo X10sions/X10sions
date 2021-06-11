@@ -1,0 +1,32 @@
+using xEFCore.xDB2.Metadata.Internal;
+using JetBrains.Annotations;
+
+namespace Microsoft.EntityFrameworkCore.Metadata.Internal {
+  public static class InternalMetadataBuilderExtensions_DB2 {
+
+    public static Db2ModelBuilderAnnotations Db2([NotNull] this InternalModelBuilder builder, ConfigurationSource configurationSource) {
+      return new Db2ModelBuilderAnnotations(builder, configurationSource);
+    }
+
+    public static Db2PropertyBuilderAnnotations Db2([NotNull] this InternalPropertyBuilder builder, ConfigurationSource configurationSource) {
+      return new Db2PropertyBuilderAnnotations(builder, configurationSource);
+    }
+
+    public static Db2EntityTypeBuilderAnnotations Db2([NotNull] this InternalEntityTypeBuilder builder, ConfigurationSource configurationSource) {
+      return new Db2EntityTypeBuilderAnnotations(builder, configurationSource);
+    }
+
+    public static Db2KeyBuilderAnnotations Db2([NotNull] this InternalKeyBuilder builder, ConfigurationSource configurationSource) {
+      return new Db2KeyBuilderAnnotations(builder, configurationSource);
+    }
+
+    public static Db2IndexBuilderAnnotations Db2([NotNull] this InternalIndexBuilder builder, ConfigurationSource configurationSource) {
+      return new Db2IndexBuilderAnnotations(builder, configurationSource);
+    }
+
+    public static RelationalForeignKeyBuilderAnnotations Db2([NotNull] this InternalRelationshipBuilder builder, ConfigurationSource configurationSource) {
+      return new RelationalForeignKeyBuilderAnnotations(builder, configurationSource);
+    }
+
+  }
+}

@@ -1,0 +1,44 @@
+﻿@using UserAgentParser
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor http
+@{
+  var userAgentString = http.HttpContext.Request.Headers["User-Agent"].ToString();
+  var uap = UserAgent.Parse(userAgentString);
+}
+<h3>DannyBoyNg</h3>
+<table class="table table-responsive table-bordered table-hover table-striped">
+  <tbody>
+  <thead>
+    <tr>
+      <th></th>
+      <th>Name</th>
+      <th>Version</th>
+      <th>Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Browser</th>
+      <td>@uap.Browser</td>
+      <td>@uap.BrowserVersion</td>
+      <td>IsBrowser: @uap.IsBrowser</td>
+
+    </tr>
+    <tr>
+      <th>Platform</th>
+      <td></td>
+      <td>@uap.Platform</td>
+    </tr>
+    <tr>
+      <th>Mobile</th>
+      <td>@uap.Mobile</td>
+      <td></td>
+      <td>IsMobile: @uap.IsMobile</td>
+    </tr>
+    <tr>
+      <th>Robot</th>
+      <td>@uap.Robot</td>
+      <td></td>
+      <td>IsRobot: @uap.IsRobot</td>
+    </tr>
+  </tbody>
+</table>
