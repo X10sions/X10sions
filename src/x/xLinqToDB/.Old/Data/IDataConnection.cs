@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 
 namespace LinqToDB.Data {
   public interface IDataConnection : ICloneable, IDataContext, IEntityServices, IDisposable {
-    // C:\Users\TBeames\.nuget\packages\linq2db\2.7.0\lib\netstandard2.0\linq2db.dll
     event Action<DataConnection, IDbConnection> OnBeforeConnectionOpen;
     event Func<DataConnection, IDbConnection, CancellationToken, Task> OnBeforeConnectionOpenAsync;
     event EventHandler OnClosed;
