@@ -17,7 +17,6 @@
   </ItemGroup>
 
   <ItemGroup Label="ProjectReferences">
-    <ProjectReference Include="..\..\..\xJetBrains.Annotations\xJetBrains.Annotations.csproj" />
     <ProjectReference Include="..\..\..\xSystem\xSystem.csproj" />
     <!-- 
     <ProjectReference Include="..\xMicrosoft.EntityFrameworkCore.csproj" />

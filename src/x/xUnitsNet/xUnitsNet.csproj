@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup Label="Application">
     <TargetFramework>netstandard2.0</TargetFramework>
     <Product>UnitsNet NetStandard Extensions</Product>
@@ -6,6 +6,6 @@
     <VersionPart2>68</VersionPart2>
   </PropertyGroup>
   <ItemGroup Label="PackageReferences">
-    <PackageReference Include="UnitsNet" Version="4.76.0" />
+    
   </ItemGroup>
 </Project>

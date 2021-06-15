@@ -13,7 +13,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\xNewtonsoft\xNewtonsoft.csproj" />
-    <ProjectReference Include="..\xNHibernate\xNHibernate.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,20 +1,14 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup Label="Application">
     <TargetFramework>netstandard2.0</TargetFramework>
     <Product>Newtonsoft NetStandard Extensions</Product>
     <VersionPart1>12</VersionPart1>
     <VersionPart2>0</VersionPart2>
   </PropertyGroup>
-  <ItemGroup>
-    <Compile Remove="Newtonsoft\Json\Serialization\IgnoreErrorPropertyNamesContractResolver.cs" />
-  </ItemGroup>
   <ItemGroup Label="PackageReferences">
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="$(RepoSrcDir_X10sions)x\xSystem\xSystem.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Newtonsoft\Json\Serialization\" />
   </ItemGroup>
 </Project>
