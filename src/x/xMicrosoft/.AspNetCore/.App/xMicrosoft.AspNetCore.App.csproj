@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup Label="Application">
+    <TargetFramework>net5.0</TargetFramework>
+    <Product>Microsoft.AspNetCore.App Extensions</Product>
+    <VersionPart1>5</VersionPart1>
+    <VersionPart2>0</VersionPart2>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  <ItemGroup Label="FrameworkReferences">
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+  <ItemGroup Label="ProjectReferences">
+  </ItemGroup>
+</Project>

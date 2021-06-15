@@ -277,6 +277,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "XUnit", "XUnit", "{E68A4AE7
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DamienBod", "DamienBod", "{C58D4D57-DFE6-4360-BB9B-103F261959C2}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "xMicrosoft.AspNetCore.App", "src\x\xMicrosoft\.AspNetCore\.App\xMicrosoft.AspNetCore.App.csproj", "{C04509AD-1136-4CA5-ADDA-C8CB1E122F8E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -795,6 +797,10 @@ Global
 		{79D8ECA0-DC1E-4E46-AE21-CE2BD3893D31}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{79D8ECA0-DC1E-4E46-AE21-CE2BD3893D31}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{79D8ECA0-DC1E-4E46-AE21-CE2BD3893D31}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C04509AD-1136-4CA5-ADDA-C8CB1E122F8E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C04509AD-1136-4CA5-ADDA-C8CB1E122F8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C04509AD-1136-4CA5-ADDA-C8CB1E122F8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C04509AD-1136-4CA5-ADDA-C8CB1E122F8E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -874,6 +880,7 @@ Global
 		{32C6D81F-78B8-4215-87EA-5F8FD5AB3592} = {30BB0427-8FC8-4BF3-8833-AF147088A596}
 		{BBBED234-B2AD-4703-8F7D-F70DD918F74E} = {30BB0427-8FC8-4BF3-8833-AF147088A596}
 		{79D8ECA0-DC1E-4E46-AE21-CE2BD3893D31} = {30BB0427-8FC8-4BF3-8833-AF147088A596}
+		{C04509AD-1136-4CA5-ADDA-C8CB1E122F8E} = {4ED3B82C-CBF1-4FBD-ADF5-2E2E87D06FE3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DC6013E7-2A8B-49BF-B7E1-799AD1E96BE7}

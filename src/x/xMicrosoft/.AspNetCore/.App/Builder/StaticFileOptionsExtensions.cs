@@ -4,7 +4,6 @@ using Microsoft.Extensions.FileProviders;
 using System;
 
 namespace Microsoft.AspNetCore.Builder {
-
   public static class StaticFileOptionsExtensions {
 
     public static StaticFileOptions AddRazorClassLibraryStaticFiles<T>(this StaticFileOptions options, IWebHostEnvironment environment, string rootPath = "wwwroot") {
