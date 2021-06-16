@@ -9,6 +9,9 @@
     <PackageReference Include="Microsoft.SqlServer.Compact" Version="4.0.8876.1" />
   </ItemGroup>
   <ItemGroup Label="ProjectReferences">
+    <ProjectReference Include="..\.Ado\xIQToolkit.Data.Ado.csproj" />
+    <!-- 
     <ProjectReference Include="$(RepoSrcDir_X10sions)x\xIQToolkit\.Data\.Ado\xIQToolkit.Data.Ado.csproj" />
+    -->       
   </ItemGroup>
 </Project>

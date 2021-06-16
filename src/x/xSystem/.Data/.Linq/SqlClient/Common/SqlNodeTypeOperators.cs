@@ -168,7 +168,7 @@ namespace System.Data.Linq.SqlClient {
     /// Determines whether the given node requires support on the client for evaluation.
     /// For example, LINK nodes may be delay-executed only when the user requests the result.
     /// </summary>
-    public static bool IsClientAidedExpression(this SqlExpression expr) {
+     static bool IsClientAidedExpression(this SqlExpression expr) {
       switch (expr.NodeType) {
         case SqlNodeType.Link:
         case SqlNodeType.Element:

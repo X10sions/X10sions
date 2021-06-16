@@ -15,9 +15,7 @@
   </PropertyGroup>
   <ItemGroup Label="PackageReferences">
     <PackageReference Include="FastExpressionCompiler" Version="3.1.0" />
-    <!-- 
     <PackageReference Include="JetBrains.Annotations" Version="2021.1.0" />
-    -->
     <PackageReference Include="linq2db.AspNet" Version="3.4.0" />
     <PackageReference Include="linq2db.Tools" Version="3.4.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.4" />
@@ -50,7 +48,7 @@
     -->
   </ItemGroup>
   <ItemGroup Label="ProjectReferences">
-    <ProjectReference Include="$(RepoSrcDir_X10sions)x\xLinqToDB\xLinqToDB.csproj" />
+    <ProjectReference Include="..\..\xLinqToDB.csproj" />
     <!--
     <ProjectReference Include="..\..\Source\LinqToDB.AspNet\LinqToDB.AspNet.csproj" />
     <ProjectReference Include="..\VisualBasic\Tests.VisualBasic.vbproj" />
@@ -59,6 +57,7 @@
     <ProjectReference Include="$(RepoSrcDir_X10sions)x\xAutoFixture\.AutoMoq\xAutoFixture.AutoMoq.csproj" />
     <ProjectReference Include="$(RepoSrcDir_X10sions)x\xCoverlet\.Collector\xCoverlet.Collector.csproj" />
     <ProjectReference Include="$(RepoSrcDir_X10sions)x\xGenFu\xGenFu.csproj" />
+    <ProjectReference Include="$(RepoSrcDir_X10sions)x\xLinqToDB\xLinqToDB.csproj" />
     <ProjectReference Include="$(RepoSrcDir_X10sions)x\xMoq\xMoq.csproj" />
     <ProjectReference Include="$(RepoSrcDir_X10sions)x\xMicrosoft\.NET\.Test\.Sdk\xMicrosoft.NET.Test.Sdk.csproj" />
     <ProjectReference Include="$(RepoSrcDir_X10sions)x\xNUnit3TestAdapter\xNUnit3TestAdapter.csproj" />

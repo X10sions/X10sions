@@ -60,6 +60,19 @@ namespace System.Data.Common {
 
     public static DbProviderFactory GetProvider(this DbConnection connection) => s_func(connection);
 
+    public static DataTable GetSchemaDataTable(this DbConnection dbConnection, string collectionName, string[]? restrictionValues = null) {
+      var doOpenClose = dbConnection.State != ConnectionState.Open;
+      if (doOpenClose) { dbConnection.Open(); }
+      var dt = dbConnection.GetSchema(collectionName, restrictionValues);
+      if (doOpenClose) { dbConnection.Close(); }
+      return dt;
+    }
+
+    public static DataTable GetSchemaDataTable_DataSourceInformation(this DbConnection dbConnection, string[]? restrictionValues = null) => dbConnection.GetSchemaDataTable(DbMetaDataCollectionNames.DataSourceInformation, restrictionValues);
+    public static DataTable GetSchemaDataTable_DataTypes(this DbConnection dbConnection, string[]? restrictionValues = null) => dbConnection.GetSchemaDataTable(DbMetaDataCollectionNames.DataTypes, restrictionValues);
+    public static DataTable GetSchemaDataTable_MetaDataCollections(this DbConnection dbConnection, string[]? restrictionValues = null) => dbConnection.GetSchemaDataTable(DbMetaDataCollectionNames.MetaDataCollections, restrictionValues);
+    public static DataTable GetSchemaDataTable_ReservedWords(this DbConnection dbConnection, string[]? restrictionValues = null) => dbConnection.GetSchemaDataTable(DbMetaDataCollectionNames.ReservedWords, restrictionValues);
+    public static DataTable GetSchemaDataTable_Restrictions(this DbConnection dbConnection, string[]? restrictionValues = null) => dbConnection.GetSchemaDataTable(DbMetaDataCollectionNames.Restrictions, restrictionValues);
 
   }
 }

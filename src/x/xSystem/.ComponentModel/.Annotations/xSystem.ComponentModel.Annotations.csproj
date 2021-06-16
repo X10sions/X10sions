@@ -8,7 +8,10 @@
   <ItemGroup Label="PackageReferences">
     <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
   </ItemGroup>
-  <ItemGroup Label="ProjectReferences">
+  <ItemGroup Label="ProjectReferences">    
+    <ProjectReference Include="..\..\xSystem.csproj" />
+    <!-- 
     <ProjectReference Include="$(RepoSrcDir_X10sions)x\xSystem\xSystem.csproj" />
+    -->
   </ItemGroup>
 </Project>

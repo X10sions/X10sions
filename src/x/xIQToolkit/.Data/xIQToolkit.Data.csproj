@@ -6,6 +6,9 @@
     <VersionPart2>0</VersionPart2>
   </PropertyGroup>
   <ItemGroup Label="ProjectReferences">
+    <ProjectReference Include="..\xIQToolkit.csproj" />
+    <!-- 
     <ProjectReference Include="$(RepoSrcDir_X10sions)x\xIQToolkit\xIQToolkit.csproj" />
+    -->
   </ItemGroup>
 </Project>

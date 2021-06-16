@@ -14,6 +14,9 @@
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\x\xSystem\xSystem.csproj" />
+  </ItemGroup>
+  <ItemGroup>
     <Compile Update="GetSchemaTyped\GetSchemaTypedDataTable.cs" />
     <Compile Update="_BaseDataTable.cs" />
   </ItemGroup>

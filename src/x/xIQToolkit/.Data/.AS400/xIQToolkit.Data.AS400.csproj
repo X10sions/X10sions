@@ -8,6 +8,9 @@
   <ItemGroup Label="PackageReferences">
   </ItemGroup>
   <ItemGroup Label="ProjectReferences">
+    <ProjectReference Include="..\xIQToolkit.Data.csproj" />
+    <!-- 
     <ProjectReference Include="$(RepoSrcDir_X10sions)x\xIQToolkit\.Data\xIQToolkit.Data.csproj" />
+    -->
   </ItemGroup>
 </Project>

@@ -6,7 +6,11 @@
     <VersionPart2>0</VersionPart2>
   </PropertyGroup>
   <ItemGroup Label="ProjectReferences">
-    <ProjectReference Include="$(RepoSrcDir_X10sions)x\xSystem\.Data\.Odbc\xSystem.Data.Odbc.csproj" />
+    <ProjectReference Include="..\.Ado\xIQToolkit.Data.Ado.csproj" />
+    <ProjectReference Include="..\..\..\xSystem\.Data\.Odbc\xSystem.Data.Odbc.csproj" />
+    <!-- 
     <ProjectReference Include="$(RepoSrcDir_X10sions)x\xIQToolkit\.Data\.Ado\xIQToolkit.Data.Ado.csproj" />
+    <ProjectReference Include="$(RepoSrcDir_X10sions)x\xSystem\.Data\.Odbc\xSystem.Data.Odbc.csproj" />
+    -->
   </ItemGroup>
 </Project>

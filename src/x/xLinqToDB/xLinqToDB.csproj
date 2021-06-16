@@ -29,10 +29,10 @@
     -->
   </ItemGroup> 
   <ItemGroup Label="ProjectReferences">
-    <ProjectReference Include="$(RepoSrcDir_X10sions)Common\.NetStandard\.Data\Common.NetStandard.Data.csproj" />
-    <ProjectReference Include="$(RepoSrcDir_X10sions)x\xSystem\xSystem.csproj" />
-
+    <ProjectReference Include="..\..\Common\.NetStandard\.Data\Common.NetStandard.Data.csproj" />
+    <ProjectReference Include="..\xSystem\xSystem.csproj" />
     <!-- 
+    <ProjectReference Include="$(RepoSrcDir_X10sions)x\xSystem\xSystem.csproj" />
     <ProjectReference Include="$(RepoSrcDir_X10sions)Common\.Abstractions\Common.Abstractions.csproj" />
     -->
   </ItemGroup> 

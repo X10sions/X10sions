@@ -10,7 +10,11 @@
     <PackageReference Include="Microsoft.AspNetCore.Mvc.RazorPages" Version="2.2.5" />
   </ItemGroup>
   <ItemGroup Label="ProjectReferences">
+    <!-- 
     <ProjectReference Include="$(RepoSrcDir_X10sions)x\xMicrosoft\.AspNetcore\xMicrosoft.AspNetcore.csproj" />
     <ProjectReference Include="$(RepoSrcDir_X10sions)x\xMicrosoft\.Extensions\xMicrosoft.Extensions.csproj" />
+    -->
+    <ProjectReference Include="..\..\x\xMicrosoft\.AspNetCore\xMicrosoft.AspNetCore.csproj" />
+    <ProjectReference Include="..\..\x\xMicrosoft\.Extensions\xMicrosoft.Extensions.csproj" />
   </ItemGroup>
 </Project>

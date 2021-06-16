@@ -2,6 +2,7 @@
 using System.Linq.Expressions;
 
 namespace System.Data.Linq.SqlClient {
+
   [DebuggerDisplay("text = {Text}, \r\nsource = {SourceExpression}")]
   internal abstract class SqlNode {
     internal Expression SourceExpression { get; private set; }

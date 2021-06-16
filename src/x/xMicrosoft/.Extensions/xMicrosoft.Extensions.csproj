@@ -13,12 +13,11 @@
     <PackageReference Include="Microsoft.Extensions.Options" Version="5.0.0" />
   </ItemGroup>
   <ItemGroup Label="ProjectReferences">
+    <ProjectReference Include="..\..\..\Common\.NetStandard\Common.NetStandard.csproj" />
+    <ProjectReference Include="..\.Abstractions\xMicrosoft.Abstractions.csproj" />
+    <!-- 
     <ProjectReference Include="$(RepoSrcDir_X10sions)Common\.NetStandard\Common.NetStandard.csproj" />
     <ProjectReference Include="$(RepoSrcDir_X10sions)x\xMicrosoft\.Abstractions\xMicrosoft.Abstractions.csproj" />
-    <!-- 
-    <ProjectReference Include="..\.Abstractions\xMicrosoft.Abstractions.csproj" />
-    <ProjectReference Include="..\..\..\Common\.NetStandard\Common.NetStandard.csproj" />
-    <ProjectReference Include="..\..\xSystem\src\xSystem.csproj" />
     -->
   </ItemGroup>
   <ItemGroup>

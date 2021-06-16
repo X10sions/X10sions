@@ -41,10 +41,14 @@
     <ProjectReference Include="..\..\..\.NetCoreApp\.v3\.Tests\Martogg.NetCoreApp.V3.Tests.csproj" />
     <ProjectReference Include="..\Martogg.Web.V1.csproj" />
     <ProjectReference Include="$(RepoSrcDir_X10sions)x\xLinqToDB\xLinqToDB.csproj" />
-    -->
+
     <ProjectReference Include="$(RepoSrcDir_X10sions)Common\.NetStandard\Common.NetStandard.csproj" />
     <ProjectReference Include="$(RepoSrcDir_X10sions)x\xSystem\.Data\.Odbc\xSystem.Data.Odbc.csproj" />
     <ProjectReference Include="$(RepoSrcDir_X10sions)x\xSystem\.Data\.OleDb\xSystem.Data.OleDb.csproj" />
+-->
+    <ProjectReference Include="..\..\..\..\Common\.NetStandard\Common.NetStandard.csproj" />
+    <ProjectReference Include="..\..\..\xSystem\.Data\.Odbc\xSystem.Data.Odbc.csproj" />
+    <ProjectReference Include="..\..\..\xSystem\.Data\.OleDb\xSystem.Data.OleDb.csproj" />
   </ItemGroup>
   <ItemGroup Label="Removes">
     <Compile Remove="DataProvider\**" />
@@ -80,5 +84,5 @@
     <Copy SourceFiles="AppSettings.json" DestinationFiles="$(OutDir)\AppSettings.json" />
   </Target>
 -->
-  
+
 </Project>

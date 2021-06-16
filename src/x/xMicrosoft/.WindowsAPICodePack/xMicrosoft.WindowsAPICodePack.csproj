@@ -4,7 +4,10 @@
     <Product>NetStandard Extensions</Product>
     <VersionPart1>2019</VersionPart1>
   </PropertyGroup>
-  <ItemGroup>
+  <ItemGroup>  
+    <ProjectReference Include="..\..\xSystem\xSystem.csproj" />
+    <!-- 
     <ProjectReference Include="$(RepoSrcDir_X10sions)x\xSystem\xSystem.csproj" />
+    -->
   </ItemGroup>
 </Project>

@@ -29,25 +29,10 @@ namespace System.Data.Common {
 
     //public static Version? GetVersion(IDbConnection conn) => (conn is DbConnection) ? GetVersion(conn as DbConnection) : null;
 
-    public static DataTable GetSchemaDataTable(this DbConnection dbConnection, string collectionName, string[]? restrictionValues = null) {
-      var doOpenClose = dbConnection.State != ConnectionState.Open;
-      if (doOpenClose) { dbConnection.Open(); }
-      var dt = dbConnection.GetSchema(collectionName, restrictionValues);
-      if (doOpenClose) { dbConnection.Close(); }
-      return dt;
-    }
-
     public static DataTable GetSchemaDataTable(this DbConnection dbConnection, GetSchemaCollectionNames collectionName, string[]? restrictionValues = null) => dbConnection.GetSchemaDataTable(collectionName.ToString(), restrictionValues);
-
-    public static DataTable GetSchemaDataTable_DataSourceInformation(this DbConnection dbConnection, string[]? restrictionValues = null) => dbConnection.GetSchemaDataTable(DbMetaDataCollectionNames.DataSourceInformation, restrictionValues);
-    public static DataTable GetSchemaDataTable_DataTypes(this DbConnection dbConnection, string[]? restrictionValues = null) => dbConnection.GetSchemaDataTable(DbMetaDataCollectionNames.DataTypes, restrictionValues);
-    public static DataTable GetSchemaDataTable_MetaDataCollections(this DbConnection dbConnection, string[]? restrictionValues = null) => dbConnection.GetSchemaDataTable(DbMetaDataCollectionNames.MetaDataCollections, restrictionValues);
-    public static DataTable GetSchemaDataTable_ReservedWords(this DbConnection dbConnection, string[]? restrictionValues = null) => dbConnection.GetSchemaDataTable(DbMetaDataCollectionNames.ReservedWords, restrictionValues);
-    public static DataTable GetSchemaDataTable_Restrictions(this DbConnection dbConnection, string[]? restrictionValues = null) => dbConnection.GetSchemaDataTable(DbMetaDataCollectionNames.Restrictions, restrictionValues);
 
     public static GetSchemaHelper GetSchemaHelper(this DbConnection dbConnection) => new GetSchemaHelper(dbConnection);
     public static GetSchemaTypedCollection GetSchemaTypedCollection(this DbConnection dbConnection, string collectionName, string[] restrictionValues) => new GetSchemaTypedCollection(dbConnection, collectionName, restrictionValues);
 
   }
-
 }

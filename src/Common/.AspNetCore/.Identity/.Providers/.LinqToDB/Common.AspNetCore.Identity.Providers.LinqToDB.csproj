@@ -9,8 +9,9 @@
   </ItemGroup>
 
   <ItemGroup Label="ProjectReferences">
-    <ProjectReference Include="$(RepoSrcDir_X10sions)Common\.AspNetCore\.Identity\Common.AspNetCore.Identity.csproj" />
+    <ProjectReference Include="..\..\Common.AspNetCore.Identity.csproj" />
     <!-- 
+    <ProjectReference Include="$(RepoSrcDir_X10sions)Common\.AspNetCore\.Identity\Common.AspNetCore.Identity.csproj" />
     <ProjectReference Include="$(RepoSrcDir_X10sions)x\xLinqToDB\xLinqToDB.csproj" />
     -->
   </ItemGroup>

@@ -6,6 +6,9 @@
     <VersionPart2>0</VersionPart2>
   </PropertyGroup>
   <ItemGroup Label="ProjectReferences">
+    <ProjectReference Include="..\.Odbc\xIQToolkit.Data.Odbc.csproj" />
+    <!-- 
     <ProjectReference Include="$(RepoSrcDir_X10sions)x\xIQToolkit\.Data\.Odbc\xIQToolkit.Data.Odbc.csproj" />
+    -->
   </ItemGroup>
 </Project>

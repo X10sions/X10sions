@@ -8,11 +8,13 @@
   <ItemGroup Label="PackageReferences">
     <PackageReference Include="Microsoft.Win32.Registry" Version="4.5.0" />
   </ItemGroup>
-  <ItemGroup Label="ProjectReferences">
+  <ItemGroup Label="ProjectReferences">    
+    <ProjectReference Include="..\xSystem.csproj" />
+    <!-- 
     <ProjectReference Include="$(RepoSrcDir_X10sions)x\xSystem\xSystem.csproj" />
+    -->
   </ItemGroup>
   <ItemGroup Label="Removes">
-    <Compile Remove="Microsoft\Win32\UnsafeNativeMethods.Excluded.cs" />
-    <Compile Remove="System\Windows\DependencyObject.Excluded.cs" />
+    <Compile Remove="_\Microsoft\Win32\UnsafeNativeMethods.Excluded.cs" />
   </ItemGroup>
 </Project>

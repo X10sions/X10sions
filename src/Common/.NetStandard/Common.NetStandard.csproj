@@ -5,20 +5,19 @@
     <VersionPart1>1</VersionPart1>
     <Nullable>enable</Nullable>
   </PropertyGroup>
-  <ItemGroup>
-    <ProjectReference Include="$(RepoSrcDir_X10sions)Common\.Abstractions\Common.Abstractions.csproj" />
-    <ProjectReference Include="$(RepoSrcDir_X10sions)x\xMicrosoft\.Abstractions\xMicrosoft.Abstractions.csproj" />
-    <!-- 
-    <ProjectReference Include="$(RepoSrcDir_X10sions)x\xNewtonsoft\xNewtonsoft.csproj" />
-    <ProjectReference Include="$(RepoSrcDir_X10sions)x\xSystem\.Data\.DataSetExtensions\xSystem.Data.DataSetExtensions.csproj" />
-    -->
-  </ItemGroup>
   <ItemGroup Label="PackageReferences">
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
     <PackageReference Include="System.Data.Odbc" Version="5.0.0" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="_\System\Data\Common\" />
+  <ItemGroup Label="ProjectReferences">
+    <ProjectReference Include="..\..\x\xMicrosoft\.Abstractions\xMicrosoft.Abstractions.csproj" />
+    <ProjectReference Include="..\.Abstractions\Common.Abstractions.csproj" />
+    <!-- 
+    <ProjectReference Include="$(RepoSrcDir_X10sions)Common\.Abstractions\Common.Abstractions.csproj" />
+    <ProjectReference Include="$(RepoSrcDir_X10sions)x\xMicrosoft\.Abstractions\xMicrosoft.Abstractions.csproj" />
+    <ProjectReference Include="$(RepoSrcDir_X10sions)x\xNewtonsoft\xNewtonsoft.csproj" />
+    <ProjectReference Include="$(RepoSrcDir_X10sions)x\xSystem\.Data\.DataSetExtensions\xSystem.Data.DataSetExtensions.csproj" />
+    -->
   </ItemGroup>
 </Project>

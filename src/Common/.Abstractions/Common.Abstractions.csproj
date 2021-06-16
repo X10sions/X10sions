@@ -1,11 +1,11 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup Label="Application">
     <TargetFramework>netstandard2.0</TargetFramework>
     <Product>Common Abstractions NetStandard</Product>
     <VersionPart1>1</VersionPart1>
     <Nullable>enable</Nullable>
   </PropertyGroup>
-  <ItemGroup Label="ProjectReferences">
-    <ProjectReference Include="$(RepoSrcDir_X10sions)x\xSystem\xSystem.csproj" />
+  <ItemGroup>
+    <ProjectReference Include="..\..\x\xSystem\xSystem.csproj" />
   </ItemGroup>
 </Project>

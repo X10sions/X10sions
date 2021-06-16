@@ -5,7 +5,11 @@
     <VersionPart1>1</VersionPart1>
   </PropertyGroup>
   <ItemGroup Label="ProjectReferences">
+    <ProjectReference Include="..\..\..\..\..\x\xSqlKata\xSqlKata.csproj" />
+    <ProjectReference Include="..\..\Common.AspNetCore.Identity.csproj" />
+    <!-- 
     <ProjectReference Include="$(RepoSrcDir_X10sions)Common\.AspNetCore\.Identity\Common.AspNetCore.Identity.csproj" />
     <ProjectReference Include="$(RepoSrcDir_X10sions)x\xSqlKata\xSqlKata.csproj" />
+    -->
   </ItemGroup>
 </Project>

@@ -1,14 +1,17 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup Label="Application">
     <TargetFramework>netstandard2.0</TargetFramework>
     <Product>MiniProfiler AspNetCore Mvc NetStandard Extensions</Product>
     <VersionPart1>4</VersionPart1>
     <VersionPart2>2</VersionPart2>
-  </PropertyGroup> 
+  </PropertyGroup>
   <ItemGroup Label="PackageReferences">
     <PackageReference Include="MiniProfiler.AspNetCore.Mvc" Version="4.2.1" />
   </ItemGroup>
   <ItemGroup Label="ProjectReferences">
+    <ProjectReference Include="..\xMiniProfiler.AspNetCore.csproj" />
+    <!--
     <ProjectReference Include="$(RepoSrcDir_X10sions)x\xMiniProfiler\.AspNetCore\xMiniProfiler.AspNetCore.csproj" />
+    -->
   </ItemGroup>
 </Project>
