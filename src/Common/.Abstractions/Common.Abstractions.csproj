@@ -8,7 +8,4 @@
   <ItemGroup Label="ProjectReferences">
     <ProjectReference Include="$(RepoSrcDir_X10sions)x\xSystem\xSystem.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Data\GetSchemaTyped\" />
-  </ItemGroup>
 </Project>
