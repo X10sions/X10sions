@@ -5,7 +5,7 @@
     <VersionPart1>1</VersionPart1>
   </PropertyGroup>
   <ItemGroup Label="PackageReferences">
-    <PackageReference Include="RavenDB.Client" Version="4.2.6" />
+    <PackageReference Include="RavenDB.Client" Version="5.1.8" />
   </ItemGroup>
   <ItemGroup Label="ProjectReferences">
     <ProjectReference Include="..\..\Common.AspNetCore.Identity.csproj" />

@@ -8,8 +8,8 @@
   <ItemGroup Label="PackageReferences">
     <!--
     -->
-    <PackageReference Include="Microsoft.Data.Sqlite.Core" Version="2.2.6" />
-    <PackageReference Include="System.Data.SQLite" Version="1.0.111" />
+    <PackageReference Include="Microsoft.Data.Sqlite.Core" Version="5.0.7" />
+    <PackageReference Include="System.Data.SQLite" Version="1.0.114.4" />
   </ItemGroup>
   <ItemGroup Label="ProjectReferences">
     <ProjectReference Include="..\.Ado\xIQToolkit.Data.Ado.csproj" />

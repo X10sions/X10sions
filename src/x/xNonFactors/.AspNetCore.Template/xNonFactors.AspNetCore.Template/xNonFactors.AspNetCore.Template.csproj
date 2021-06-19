@@ -12,11 +12,11 @@
   </PropertyGroup>
 
   <ItemGroup Label="PackageReferences">
-    <PackageReference Include="NonFactors.Grid.Mvc6" Version="6.2.2" />
-    <PackageReference Include="NonFactors.Lookup.Mvc6" Version="5.1.1" />
+    <PackageReference Include="NonFactors.Grid.Mvc6" Version="6.2.4" />
+    <PackageReference Include="NonFactors.Lookup.Mvc6" Version="5.2.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="5.0.0" />
     <PackageReference Include="Genny" Version="2.4.1" Condition="'$(Configuration)'=='Debug'" />
-    <PackageReference Include="Humanizer.Core" Version="2.8.26" Condition="'$(Configuration)'=='Debug'" />
+    <PackageReference Include="Humanizer.Core" Version="2.11.10" Condition="'$(Configuration)'=='Debug'" />
   </ItemGroup>
 
   <!--

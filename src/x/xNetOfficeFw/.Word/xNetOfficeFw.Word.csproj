@@ -6,6 +6,6 @@
     <VersionPart2>7</VersionPart2>
   </PropertyGroup>
   <ItemGroup Label="PackageReferences">
-    <PackageReference Include="NetOfficeFw.Word" Version="1.7.4.6" />
+    <PackageReference Include="NetOfficeFw.Word" Version="1.8.1" />
   </ItemGroup>
 </Project>

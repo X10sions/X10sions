@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup Label="PackageReferences">
-    <PackageReference Include="DatabaseSchemaReader" Version="2.7.6" />
+    <PackageReference Include="DatabaseSchemaReader" Version="2.7.8" />
   </ItemGroup>
 
 </Project>
