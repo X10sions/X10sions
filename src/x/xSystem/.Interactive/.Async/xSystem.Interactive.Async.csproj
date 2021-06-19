@@ -2,11 +2,11 @@
   <PropertyGroup Label="Application">
     <TargetFramework>netstandard2.0</TargetFramework>
     <Product>System .Interactive.Async NetStandard Extensions</Product>
-    <VersionPart1>3</VersionPart1>
-    <VersionPart2>2</VersionPart2>
+    <VersionPart1>5</VersionPart1>
+    <VersionPart2>0</VersionPart2>
   </PropertyGroup>
   <ItemGroup Label="PackageReferences"> 
-    <PackageReference Include="System.Interactive.Async" Version="3.2.0" />
+    <PackageReference Include="System.Interactive.Async" Version="5.0.0" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="_\System\" />

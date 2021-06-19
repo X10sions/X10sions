@@ -2,8 +2,8 @@
   <PropertyGroup Label="Application">
     <TargetFramework>netstandard2.0</TargetFramework>
     <Product>System .ComponentModel.Annotations NetStandard Extensions</Product>
-    <VersionPart1>4</VersionPart1>
-    <VersionPart2>7</VersionPart2>
+    <VersionPart1>5</VersionPart1>
+    <VersionPart2>0</VersionPart2>
   </PropertyGroup>
   <ItemGroup Label="PackageReferences">
     <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />

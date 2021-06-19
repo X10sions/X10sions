@@ -11,27 +11,30 @@ namespace System.Collections.Generic {
       _selector = selector;
     }
 
-    public IAsyncEnumerator<TResult> GetEnumerator() => new AsyncSelectEnumerator(this);
+    public IAsyncEnumerator<TResult> GetAsyncEnumerator(CancellationToken cancellationToken = default) => new AsyncSelectEnumerator(this, cancellationToken);
 
     public class AsyncSelectEnumerator : IAsyncEnumerator<TResult> {
       readonly IAsyncEnumerator<TSource> _enumerator;
       readonly Func<TSource, CancellationToken, Task<TResult>> _selector;
 
-      public AsyncSelectEnumerator(AsyncSelectEnumerable<TSource, TResult> enumerable) {
-        _enumerator = enumerable._source.GetEnumerator();
+      public AsyncSelectEnumerator(AsyncSelectEnumerable<TSource, TResult> enumerable, CancellationToken cancellationToken = default) {
+        _enumerator = enumerable._source.GetAsyncEnumerator(cancellationToken);
         _selector = enumerable._selector;
+        _cancellationToken = cancellationToken;
       }
-
-      public async Task<bool> MoveNext(CancellationToken cancellationToken) {
-        if (!await _enumerator.MoveNext(cancellationToken).ConfigureAwait(false)) {
+      CancellationToken _cancellationToken;
+      public async ValueTask<bool> MoveNextAsync() {
+        if (!await _enumerator.MoveNextAsync(_cancellationToken).ConfigureAwait(false)) {
           return false;
         }
-        Current = await _selector(_enumerator.Current, cancellationToken).ConfigureAwait(false);
+        Current = await _selector(_enumerator.Current, _cancellationToken).ConfigureAwait(false);
         return true;
       }
 
       public TResult Current { get; private set; }
-      public void Dispose() => _enumerator.Dispose();
+      //public void Dispose() => _enumerator.Dispose();
+
+      public async ValueTask DisposeAsync()  =>  await _enumerator.DisposeAsync();
     }
 
   }
