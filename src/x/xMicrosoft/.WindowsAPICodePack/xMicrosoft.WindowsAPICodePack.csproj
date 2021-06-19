@@ -4,6 +4,9 @@
     <Product>NetStandard Extensions</Product>
     <VersionPart1>2019</VersionPart1>
   </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="System.Drawing.Common" Version="5.0.2" />
+  </ItemGroup>
   <ItemGroup>  
     <ProjectReference Include="..\..\xSystem\xSystem.csproj" />
     <!-- 

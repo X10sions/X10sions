@@ -1,11 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup Label="Application">
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
     <Product>Microsoft AspNetCore Identity EntityFrameworkCore Extensions</Product>
-    <VersionPart1>2</VersionPart1>
-    <VersionPart2>2</VersionPart2>
+    <VersionPart1>5</VersionPart1>
+    <VersionPart2>0</VersionPart2>
   </PropertyGroup> 
   <ItemGroup Label="PackageReferences">
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.7" />
   </ItemGroup>
 </Project>

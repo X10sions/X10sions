@@ -1,12 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup Label="Application">
     <TargetFramework>netstandard2.1</TargetFramework>
-    <Product>Microsoft .EntityFrameworkCore NetStandard Extensions</Product>
-    <VersionPart1>3</VersionPart1>
-    <VersionPart2>1</VersionPart2>
+    <Product>Microsoft .EntityFrameworkCore Extensions</Product>
+    <VersionPart1>5</VersionPart1>
+    <VersionPart2>0</VersionPart2>
   </PropertyGroup>
   <ItemGroup Label="PackageReferences">
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.7" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\xSystem\xSystem.csproj" />

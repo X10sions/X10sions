@@ -33,5 +33,6 @@ namespace Microsoft.EntityFrameworkCore.Oracle.Design.Internal {
       return annotation.Name == RelationalAnnotationNames.DefaultSchema
           && string.Equals("SYSTEM", (string)annotation.Value);
     }
+    
   }
 }

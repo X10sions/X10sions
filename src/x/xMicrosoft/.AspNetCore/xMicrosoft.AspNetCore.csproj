@@ -2,8 +2,8 @@
   <PropertyGroup Label="Application">
     <TargetFramework>net5.0</TargetFramework>
     <Product>Microsoft AspNetCore Extensions</Product>
-    <VersionPart1>3</VersionPart1>
-    <VersionPart2>1</VersionPart2>
+    <VersionPart1>2</VersionPart1>
+    <VersionPart2>2</VersionPart2>
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <!--
