@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup Label="Application">
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Product>ChartJs .Net Extensions</Product>
+    <VersionPart1>2</VersionPart1>
+    <VersionPart2>9</VersionPart2>
+    <Description>https://www.chartjs.org</Description>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectReferences">
+    <ProjectReference Include="..\..\Common\.Abstractions\Common.Abstractions.csproj" />
+    <ProjectReference Include="..\xNewtonsoft\xNewtonsoft.csproj" />
+  </ItemGroup>
+</Project>
