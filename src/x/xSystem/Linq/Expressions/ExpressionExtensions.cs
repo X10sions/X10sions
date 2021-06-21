@@ -2,7 +2,6 @@
 using System.Reflection;
 
 namespace System.Linq.Expressions {
-
   public static class ExpressionExtensions {
 
     #region "LinqToDB.Linq.Expressions"
@@ -103,7 +102,8 @@ namespace System.Linq.Expressions {
     }
 
     public static MemberInfo GetMemberInfo(this Expression expression) {
-      if (expression == null) throw new ArgumentException(nameof(expression));
+      if (expression == null)
+        throw new ArgumentException(nameof(expression));
       return expression switch {
         LambdaExpression le => le.Body.GetMemberInfo(),
         MemberExpression me => me.Member,
@@ -115,6 +115,37 @@ namespace System.Linq.Expressions {
     }
 
     #endregion "GetMemberNames"
+
+    public static Expression Replace(this Expression expression, Expression searchExpression, Expression replaceExpression)
+      => new ReplaceVisitor(searchExpression, replaceExpression).Visit(expression);
+
+    public static Expression<Func<TNewParam, TResult>> ReplaceParameter<TNewParam, TOldParam, TResult>(this Expression<Func<TOldParam, TResult>> expression)
+      where TNewParam : TOldParam {
+      var param = Expression.Parameter(typeof(TNewParam));
+      return Expression.Lambda<Func<TNewParam, TResult>>(expression.Body.Replace(expression.Parameters[0], param), param);
+    }
+
+    public class ReplaceVisitor : ExpressionVisitor {
+      private readonly Expression from, to;
+      public ReplaceVisitor(Expression from, Expression to) {
+        this.from = from;
+        this.to = to;
+      }
+
+      public override Expression Visit(Expression node) => node == from ? to : base.Visit(node);
+    }
+
+    public static Expression<Func<T2, T1, TResult>> SwapParameters1<T1, T2, TResult>(this Expression<Func<T1, T2, TResult>> exprFunc)
+      => Expression.Lambda<Func<T2, T1, TResult>>(exprFunc.Body, exprFunc.Parameters[1], exprFunc.Parameters[0]);
+
+    public static Expression<Func<T2, T1, TResult>> SwapParameters2<T1, T2, TResult>(this Expression<Func<T1, T2, TResult>> exprFunc)
+      => (t1, t2) => exprFunc.Compile()(t2, t1);
+
+    public static Expression<Func<T2, T1, TResult>> SwapParameters3<T1, T2, TResult>(this Expression<Func<T1, T2, TResult>> exprFunc) {
+      var param1 = Expression.Parameter(typeof(T1));
+      var param2 = Expression.Parameter(typeof(T2));
+      return Expression.Lambda<Func<T2, T1, TResult>>(exprFunc.Body.Replace(exprFunc.Parameters[0], param1).Replace(exprFunc.Parameters[1], param2), param1, param2);
+    }
 
   }
 }
