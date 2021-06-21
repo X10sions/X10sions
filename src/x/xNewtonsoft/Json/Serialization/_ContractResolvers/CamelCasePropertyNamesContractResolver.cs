@@ -1,11 +1,11 @@
-﻿using System;
+﻿//using System;
 
-namespace Newtonsoft.Json.Serialization {
-  public class CamelCasePropertyNamesContractResolver : DefaultContractResolver {
-    public CamelCasePropertyNamesContractResolver() {
-      NamingStrategy = new CamelCaseNamingStrategy();
-    }
+//namespace Newtonsoft.Json.Serialization {
+//  public class xCamelCasePropertyNamesContractResolver : DefaultContractResolver {
+//    public xCamelCasePropertyNamesContractResolver() {
+//      NamingStrategy = new CamelCaseNamingStrategy();
+//    }
 
-    protected override string ResolvePropertyName(string propertyName) => propertyName.ToCamelCase();
-  }
-}
+//    protected override string ResolvePropertyName(string propertyName) => propertyName.ToCamelCase();
+//  }
+//}
