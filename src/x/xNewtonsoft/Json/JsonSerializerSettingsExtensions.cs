@@ -1,4 +1,4 @@
-﻿using Common.Json.JsonConverters;
+﻿using Newtonsoft.Json.Converters;
 
 namespace Newtonsoft.Json {
   public static class JsonSerializerSettingsExtensions {
@@ -40,6 +40,6 @@ namespace Newtonsoft.Json {
         new IPAddressJsonConverter(),
         new IPEndPointJsonConverter(),
     };
+  
   }
-
 }

@@ -14,14 +14,5 @@
   <ItemGroup Label="ProjectReferences">
     <ProjectReference Include="..\..\x\xMicrosoft\.Abstractions\xMicrosoft.Abstractions.csproj" />
     <ProjectReference Include="..\.Abstractions\Common.Abstractions.csproj" />
-    <!-- 
-    <ProjectReference Include="$(RepoSrcDir_X10sions)Common\.Abstractions\Common.Abstractions.csproj" />
-    <ProjectReference Include="$(RepoSrcDir_X10sions)x\xMicrosoft\.Abstractions\xMicrosoft.Abstractions.csproj" />
-    <ProjectReference Include="$(RepoSrcDir_X10sions)x\xNewtonsoft\xNewtonsoft.csproj" />
-    <ProjectReference Include="$(RepoSrcDir_X10sions)x\xSystem\.Data\.DataSetExtensions\xSystem.Data.DataSetExtensions.csproj" />
-    -->
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Json\" />
   </ItemGroup>
 </Project>

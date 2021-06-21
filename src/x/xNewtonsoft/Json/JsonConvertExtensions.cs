@@ -1,5 +1,4 @@
-﻿using Common.Json.Serialization.ContractResolvers;
-using Newtonsoft.Json.Serialization;
+﻿using Newtonsoft.Json.Serialization;
 
 namespace Newtonsoft.Json {
   public static class JsonConvertExtensions {
