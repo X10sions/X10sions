@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
+using Newtonsoft.Json.Serialization;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
@@ -8,7 +9,19 @@ using System.Text;
 namespace System {
   public static class ObjectExtensions {
 
+    public static JObject ToJObject(this object obj) => JObject.Parse(obj.ToJsonString());
 
+    public static string ToJsonString(this object obj, JsonSerializerSettings settings = null) => JsonConvert.SerializeObject(obj, settings ?? DefaultJsonSerializerSettings);
+
+    public static string ToJsonString(this object obj, string[] excludePropertyNames) => obj.ToJsonString(new JsonSerializerSettings {
+      ContractResolver = new ExcludePropertyNamesContractResolver(excludePropertyNames),
+      Formatting = Formatting.Indented,
+      ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+    });
+
+    public static JsonSerializerSettings DefaultJsonSerializerSettings = new JsonSerializerSettings {
+      Formatting = Formatting.Indented
+    };
 
     public static string ToJsonString2(this object obj, JsonSerializerSettings settings = null) {
       settings = settings ?? new JsonSerializerSettings();
