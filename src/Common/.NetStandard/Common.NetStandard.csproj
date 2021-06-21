@@ -21,4 +21,7 @@
     <ProjectReference Include="$(RepoSrcDir_X10sions)x\xSystem\.Data\.DataSetExtensions\xSystem.Data.DataSetExtensions.csproj" />
     -->
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Json\" />
+  </ItemGroup>
 </Project>
