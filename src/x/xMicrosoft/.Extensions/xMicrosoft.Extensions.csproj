@@ -20,7 +20,4 @@
     <ProjectReference Include="$(RepoSrcDir_X10sions)x\xMicrosoft\.Abstractions\xMicrosoft.Abstractions.csproj" />
     -->
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Configuration\" />
-  </ItemGroup>
 </Project>
