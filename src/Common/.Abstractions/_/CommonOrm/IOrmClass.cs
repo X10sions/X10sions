@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Common.Attributes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -20,13 +21,13 @@ namespace CommonOrm {
     string TableName { get; }
 
     Dictionary<string, OrmProperty<T>> Properties { get; }
-    [Obsolete("Not Used Yet")] Dictionary<string, OrmJoinClause<T>> AssociationJoins_NotUsedYet { get; }
+    [ToDo("Not Used Yet")] Dictionary<string, OrmJoinClause<T>> AssociationJoins_NotUsedYet { get; }
 
   }
 
   public static class IOrmClassExtensions {
 
-    [Obsolete("Not Used Yet")]
+    [ToDo("Not Used Yet")]
     public static void AddToAssociationJoins_NotUsedYet<T, TOther>(this xIOrmClass<T> ormClass,
       Expression<Func<T, TOther>> propertyExpression,
       Expression<Func<T, TOther, bool>> predicateExpression,
@@ -36,18 +37,9 @@ namespace CommonOrm {
       joinClause.Init(propertyExpression, predicateExpression, joinType);
       ormClass.AssociationJoins_NotUsedYet.Add(name, joinClause);
     }
+   
 
-    //[Obsolete("Don't use <TKey, TOtherKey>, use <T, TOther, bool>")]
-    //public static void xAddToAssociationJoins<T, TOther, TKey, TOtherKey>(this IOrmClass<T> ormClass,
-    //  Expression<Func<T, TOther>> propertyExpression,
-    //  Expression<Func<T, TKey>> thisKeyExpression,
-    //  Expression<Func<TOther, TOtherKey>> otherKeyExpression,
-    //  OrmJoinType joinType = OrmJoinType.Inner) where T : class {
-    //  var predicateExpression = Expression.Lambda<Func<T, TOther, bool>>(Expression.Equal(thisKeyExpression.Body, otherKeyExpression.Body));
-    //  ormClass.AddToAssociationJoins(propertyExpression, predicateExpression, joinType);
-    //}
-
-    [Obsolete("Not Used Yet")]
+    [ToDo("Not Used Yet")]
     public static void AddToAssociationJoins_NotUsedYet<T, TOther>(this xIOrmClass<T> ormClass,
       Expression<Func<T, IEnumerable<TOther>>> propertyExpression,
       Expression<Func<T, TOther, bool>> predicateExpression,
@@ -57,16 +49,6 @@ namespace CommonOrm {
       joinClause.Init(propertyExpression, predicateExpression, joinType);
       ormClass.AssociationJoins_NotUsedYet.Add(name, joinClause);
     }
-
-    //[Obsolete("Don't use <TKey, TOtherKey>, use <T, TOther, bool>")]
-    //public static void xAddToAssociationJoins<T, TOther, TKey, TOtherKey>(this IOrmClass<T> ormClass,
-    //  Expression<Func<T, IEnumerable<TOther>>> propertyExpression,
-    //  Expression<Func<T, TKey>> thisKeyExpression,
-    //  Expression<Func<TOther, TOtherKey>> otherKeyExpression,
-    //  OrmJoinType joinType = OrmJoinType.Left) where T : class {
-    //  var predicateExpression = Expression.Lambda<Func<T, TOther, bool>>(Expression.Equal(thisKeyExpression.Body, otherKeyExpression.Body));
-    //  ormClass.AddToAssociationJoins(propertyExpression, predicateExpression, joinType);
-    //}
 
     public static void AddUniqueKeyExpression<T>(this xIOrmClass<T> ormClass, Expression<Func<T, object>> value) where T : class => ormClass.UniqueKeyExpressions.Add(value);
 

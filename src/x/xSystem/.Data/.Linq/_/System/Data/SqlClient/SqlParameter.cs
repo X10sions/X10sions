@@ -1217,15 +1217,15 @@ namespace System.Data.SqlClient {
         }
 
 #if DEBUG
-                // Check for holes
-                //  Above loop logic prevents holes since:
-                //      1) loop processes fieldcount # of columns
-                //      2) no ordinals outside continuous range from 0 to fieldcount - 1 are allowed
-                //      3) no duplicate ordinals are allowed
-                // But assert no holes to be sure.
-                foreach (SmiExtendedMetaData md in fields) {
-                    Debug.Assert(null != md, "Shouldn't be able to have holes, since original loop algorithm prevents such.");
-                }
+        // Check for holes
+        //  Above loop logic prevents holes since:
+        //      1) loop processes fieldcount # of columns
+        //      2) no ordinals outside continuous range from 0 to fieldcount - 1 are allowed
+        //      3) no duplicate ordinals are allowed
+        // But assert no holes to be sure.
+        foreach (SmiExtendedMetaData md in fields) {
+          Debug.Assert(null != md, "Shouldn't be able to have holes, since original loop algorithm prevents such.");
+        }
 #endif
 
         // Add unique key property, if any defined.

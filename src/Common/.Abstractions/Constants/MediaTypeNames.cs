@@ -126,7 +126,6 @@ namespace Common.Constants {
     }
 
     public static class Text {
-      [Obsolete("Use application/javascript")] public const string Javascript = "text/javascript";
       public const string Cmd = "text/cmd";
       public const string Css = "text/css";
       public const string Csv = "text/csv";

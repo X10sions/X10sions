@@ -23,12 +23,7 @@ namespace Common.Constants {
 
     public static readonly TypeCode[] Numeric = Integer.Union(Float).ToArray();
 
-    [Obsolete("VB replace with: ")]
-    public static readonly TypeCode[] NumericVB = Numeric.Union(new []{
-      TypeCode.Boolean
-    }).ToArray();
-
-    public static readonly TypeCode[] Text = {
+   public static readonly TypeCode[] Text = {
       TypeCode.Char,
       TypeCode.String
     };

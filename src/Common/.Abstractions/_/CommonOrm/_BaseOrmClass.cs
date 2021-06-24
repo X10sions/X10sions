@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Common.Attributes;
+using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 
@@ -44,7 +45,7 @@ namespace CommonOrm {
     public Expression<Func<T, bool>> QueryFilter { get; set; }
     public OrmDiscriminator<T, object> Discriminator { get; set; }
 
-    [Obsolete("Not Used Yet")] public Dictionary<string, OrmJoinClause<T>> AssociationJoins_NotUsedYet => new Dictionary<string, OrmJoinClause<T>>();
+    [ToDo("Not Used Yet")] public Dictionary<string, OrmJoinClause<T>> AssociationJoins_NotUsedYet => new Dictionary<string, OrmJoinClause<T>>();
 
   }
 }

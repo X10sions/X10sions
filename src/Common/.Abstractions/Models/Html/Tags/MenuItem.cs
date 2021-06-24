@@ -1,7 +1,8 @@
-﻿using System;
+﻿using Common.Attributes;
+using System;
 
 namespace Common.Models.Html.Tags {
-  [Obsolete("TODO")]
+  [ToDo()]
   public class MenuItem : _BaseHtml5 {
     public Menu Menu { get; set; }
 

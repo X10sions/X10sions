@@ -26,11 +26,8 @@ namespace CommonOrm {
     // public PropertyInfo PropertyInfo { get; }
     public Expression<Func<TEntity, object>> PropertyExpression { get; }
 
-    [Obsolete("Use FluentMappingBuilderExtensions.AddAssociation")] public string? AssociationPredicateExpressionName { get; set; }
     public OrmJoinType AssociationJoinType { get; set; }
-    //[Obsolete("TESTING")] public Expression<Func<TEntity, object>> AssociationPropertyExpression { get; }
-    //[Obsolete("TESTING")] public Expression<Func<TEntity, object, bool>> AssociationPredicateExpression { get; }
-
+    
     public string Name  => PropertyExpression.GetMemberInfo().Name;
 
     #region "Column"
@@ -163,20 +160,20 @@ namespace CommonOrm {
 
     //public OrmProperty<TEntity> HasAttribute(Attribute attribute) {  OrmClass.HasAttribute(MemberInfo, attribute);      return this;    }
 
-    //[Obsolete("TESTING")]
+    //[TODO("TESTING")]
     //public OrmProperty<TEntity> Association<S, ID1, ID2>(
     //  Expression<Func<TEntity, S>> prop,
     //  Expression<Func<TEntity, ID1>> thisKey,
     //  Expression<Func<S, ID2>> otherKey) => OrmClass.SetAssociation(prop,  thisKey,  otherKey);
 
-    //[Obsolete("TESTING")]
+    //[TODO("TESTING")]
     //public OrmProperty<TEntity> Association<TOther>(
     //  Expression<Func<TEntity, IEnumerable<TOther>>> prop,
     //  Expression<Func<TEntity, TOther, bool>> predicate,
     //  bool canBeNull = true
     //  ) => OrmClass.SetAssociation(prop, predicate, canBeNull);
 
-    //[Obsolete("TESTING")]
+    //[TODO("TESTING")]
     //public OrmProperty<TEntity> Association<TOther>(
     //  Expression<Func<TEntity, TOther>> prop,
     //  Expression<Func<TEntity, TOther, bool>> predicate,
