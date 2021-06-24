@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace System {
   public static class TExtensions {
@@ -26,6 +28,18 @@ namespace System {
         return defaultValue;
       }
     }
+
+    public static Task<T> Async<T>(this Func<T> func, CancellationToken cancellationToken = default) {
+      if (cancellationToken.IsCancellationRequested) {
+        return Task.FromCanceled<T>(cancellationToken);
+      }
+      try {
+        return Task.Run(func, cancellationToken);
+      } catch (Exception e) {
+        return Task.FromException<T>(e);
+      }
+    }
+
     public static object GetTypeFieldValueAs<T>(this T obj, string fieldName) => obj.GetTypeFieldValueAs<T, object>(fieldName);
     public static object GetTypePropertyValueAs<T>(this T obj, string propertyName) => obj.GetTypePropertyValueAs<T, object>(propertyName);
 

@@ -3,8 +3,7 @@
 namespace System.Reflection {
   public static class _ObsoleteExtensions {
 
-    [Obsolete("Try remove this")]
-    public static bool Obsolete_EqualsTo(this MemberInfo member1, MemberInfo member2, Type declaringType = null) {
+    [Obsolete("Try remove this")] public static bool Obsolete_EqualsTo(this MemberInfo member1, MemberInfo member2, Type declaringType = null) {
       if (ReferenceEquals(member1, member2)) return true;
       if (member1 == null || member2 == null) return false;
       if (member1.Name == member2.Name) {
@@ -42,8 +41,7 @@ namespace System.Reflection {
       return false;
     }
 
-    [Obsolete("Try remove this")]
-    public static T[] Obsolete_xGetAttributes<T>(this MemberInfo memberInfo, bool inherit = true) where T : Attribute {
+    [Obsolete("Try remove this")] public static T[] Obsolete_xGetAttributes<T>(this MemberInfo memberInfo, bool inherit = true) where T : Attribute {
       var attrs = memberInfo.GetCustomAttributes(typeof(T), inherit);
       var arr = new T[attrs.Length];
       for (var i = 0; i < attrs.Length; i++) {
@@ -52,8 +50,7 @@ namespace System.Reflection {
       return arr;
     }
 
-    [Obsolete("Try remove this")]
-    public static Type Obsolete_GetMemberType(this MemberInfo memberInfo) {
+    [Obsolete("Try remove this")] public static Type Obsolete_GetMemberType(this MemberInfo memberInfo) {
       switch (memberInfo.MemberType) {
         case MemberTypes.Property: return ((PropertyInfo)memberInfo).PropertyType;
         case MemberTypes.Field: return ((FieldInfo)memberInfo).FieldType;
@@ -68,6 +65,8 @@ namespace System.Reflection {
     [Obsolete("Try remove this")] public static bool Obsolete_HasAttribute(this MemberInfo memberInfo, Type attributeType, bool inherit) => Attribute.IsDefined(memberInfo, attributeType, inherit);
 
     [Obsolete("Try remove these")] public static Type Obsolete_GetMemberType01(this MemberInfo memberInfo) => (memberInfo as PropertyInfo)?.PropertyType ?? ((FieldInfo)memberInfo)?.FieldType;
+
+    [Obsolete("Use default(type) instead.")] public static object GetDefaultValue(this Type type) => DefaultValueDictionary.Instance.TryGetValue(type, out var result) ? result : null;
 
   }
 }

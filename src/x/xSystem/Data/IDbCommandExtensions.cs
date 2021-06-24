@@ -40,7 +40,7 @@ namespace System.Data {
 
     #region Convert / ReWrite NamedParameters
 
-    [SuppressMessage("Security", "CA2100:Review SQL queries for security vulnerabilities", Justification = "<Pending>")]
+    //[SuppressMessage("Security", "CA2100:Review SQL queries for security vulnerabilities", Justification = "<Pending>")]
     public static IDbCommand ReplaceCommndTextAndParameters(this IDbCommand command, string commandText, List<IDbDataParameter> parameters) {
       command.CommandText = commandText;
       command.Parameters.ReplaceAll(parameters);

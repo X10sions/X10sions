@@ -13,9 +13,6 @@ namespace System {
       return arr;
     }
 
-
-    [Obsolete("Use default(type) instead.")] public static object GetDefaultValue(this Type type) => DefaultValueDictionary.Instance.TryGetValue(type, out var result) ? result : null;
-
     public static TField GetFieldValueAs<T, TField>(this Type type, string fieldName, T obj) => (TField)type.GetField(fieldName).GetValue(obj);
     public static TProperty GetPropertyValueAs<T, TProperty>(this Type type, string propertyName, T obj) => (TProperty)type.GetProperty(propertyName).GetValue(obj);
 

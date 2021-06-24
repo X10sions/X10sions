@@ -31,22 +31,11 @@ namespace System {
     //    public static bool IsEnumerable(this object o) => o is IEnumerable;
     //     public static bool IsEnumerableType(this object o) => o.GetType().IsEnumerable();
 
-    public static bool IsDateTime(this object o) => o is DateTime || o is TimeSpan;
+    public static bool IsDateTime(this object o) => o is DateTime or TimeSpan;
 
-    public static bool IsInteger(this object o) => o is short || o is int || o is long;
+    public static bool IsInteger(this object o) => o is short or int or long;
 
-    public static bool IsNumeric(this object o) =>
-      o is byte ||
-      o is sbyte ||
-      o is short ||
-      o is ushort ||
-      o is int ||
-      o is uint ||
-      o is long ||
-      o is ulong ||
-      o is float ||
-      o is double ||
-      o is decimal;
+    public static bool IsNumeric(this object o) => o is byte or sbyte or short or ushort or int or uint or long or ulong or float or double or decimal;
 
     #region "BinaryFormatterExtensions"
 
