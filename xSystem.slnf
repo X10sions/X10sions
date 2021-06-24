@@ -2,6 +2,7 @@
   "solution": {
     "path": "X10sions.sln",
     "projects": [
+      "src\\Common\\.Abstractions\\Common.Abstractions.csproj",
       "src\\x\\xSystem\\.ComponentModel\\.Annotations\\xSystem.ComponentModel.Annotations.csproj",
       "src\\x\\xSystem\\.Configuration\\.ConfigurationManager\\xSystem.Configuration.ConfigurationManager.csproj",
       "src\\x\\xSystem\\.Data\\.Linq\\xSystem.Data.Linq.csproj",
@@ -12,7 +13,7 @@
       "src\\x\\xSystem\\.Linq\\.Dynamic\\.Core\\xSystem.Linq.Dynamic.Core.csproj",
       "src\\x\\xSystem\\.Management\\xSystem.Management.csproj",
       "src\\x\\xSystem\\.Windows\\xSystem.Windows.csproj",
-      "src\\x\\xSystem\\xSystem.csproj",
+      "src\\x\\xSystem\\xSystem.csproj"
     ]
   }
 }
