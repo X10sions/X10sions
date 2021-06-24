@@ -3,8 +3,6 @@
 namespace System.Data {
   public static class DataRowExtensionsX {
 
-    [Obsolete("Use MapToObject")]
-    public static void MapPropertiesTo(this DataRow row, object obj) => row.MapToObject(obj);
 
     public static void MapToObject(this DataRow dataRow, object obj) {
       foreach(var prop in obj.GetType().GetProperties()) {

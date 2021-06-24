@@ -5,12 +5,7 @@ using System.Text;
 namespace System.Data {
   public static class DataTableExtensionsX {
 
-    [Obsolete]
-    public static IEnumerable<DataRow> AsEnumerableX(this DataTable dataTable) {
-      foreach (DataRow row in dataTable.Rows) {
-        yield return row;
-      }
-    }
+ 
 
     public static List<T> DataTableToObjectList<T>(this DataTable dsTable) where T : class, new() {
       var objectList = new List<T>();

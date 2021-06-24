@@ -34,8 +34,5 @@ namespace System {
     public static string SqlLiteral(this int value) => value.ToString();
     public static string SqlLiteral(this int? value) => value.HasValue ? value.Value.SqlLiteral() : SqlOptions.SqlNullString;
 
-    //[Obsolete("Use SqLiteral()")] public static string ToSqlExpression(this int? @this) => @this.HasValue ? @this.Value.ToString() : "Null";
-    //[Obsolete("Use SqLiteral()")] public static string ToSqlValue(this int? @this) => @this.HasValue ? @this.Value.ToString() : "Null";
-
   }
 }

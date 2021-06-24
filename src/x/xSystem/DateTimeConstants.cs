@@ -20,11 +20,5 @@
     public const string SqlMilliSecondsPrefixDefault = ".";
     public static string SqlTimeFormat(int milliSecondsPrecision = 0) => IsoTimeFormat + MilliSecondsFormat(milliSecondsPrecision);
     public static string SqlTimestampFormat(int milliSecondsPrecision = 0, string dateTimeSeparator = SqlDateTimeSeparator) => SqlDateFormat + dateTimeSeparator + SqlTimeFormat(milliSecondsPrecision);
-
-    [Obsolete] public const string SqlQualifierDateDefault = SqlDateOptions.DefaultLiteralPrefix;
-    [Obsolete] public const string SqlQualifierTimeDefault = SqlTimeOptions.DefaultLiteralPrefix;
-    [Obsolete] public const string SqlQualifierTimestampDefault = SqlTimestampOptions.DefaultLiteralPrefix;
-    [Obsolete] public const string SqlQualifierDateMsAccess = "#";
-
   }
 }

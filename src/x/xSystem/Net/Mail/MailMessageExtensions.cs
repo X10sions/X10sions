@@ -80,15 +80,5 @@ namespace System.Net.Mail {
     public static async Task SendMailAsync(this MailMessage mailMessage) => await mailMessage.SendMailAsync(new SmtpClient());
     public static async Task SendMailAsync(this MailMessage mailMessage, SmtpClient client) => await client.SendMailAsync(mailMessage);
 
-    [Obsolete]
-    public static void SendToPickupDirectory(this MailMessage mailMessage, string pickupDirectoryLocation = null) {
-      using(var client = new SmtpClient { DeliveryMethod = SmtpDeliveryMethod.SpecifiedPickupDirectory }) {
-        if(!string.IsNullOrWhiteSpace(pickupDirectoryLocation)) {
-          client.PickupDirectoryLocation = pickupDirectoryLocation;
-        }
-        client.Send(mailMessage);
-      }
-    }
-
   }
 }

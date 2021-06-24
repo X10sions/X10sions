@@ -47,69 +47,24 @@ namespace System {
       return false;
     }
 
-
     public static string PadRightMax(this string @this, int maxWidth, char paddingChar) => @this.PadRight(maxWidth, paddingChar).Substring(0, maxWidth);
     public static string PadRightMaxWidth(this string @this, int maxWidth, char paddingChar) => @this.PadRight(maxWidth, paddingChar).Substring(0, maxWidth);
     public static string ReplaceFromEnd(this string s, string fromSuffix, string toSuffix, StringComparison comparisonType = StringComparison.CurrentCulture) => s.EndsWith(fromSuffix, comparisonType) ? s.Substring(0, s.Length - fromSuffix.Length) + toSuffix : s;
 
-    //[Obsolete("Use SplitOfType<T>")]
-    //public static IList<T> SplitToListOf<T>(this string expr, string delimeter, AllowStringType allowStringType = AllowStringType.NotNullOrWhitespace) {
-    //  var list = new List<T>();
-    //  if (expr != null) {
-    //    foreach (string s in expr.Split(delimeter)) {
-    //      if (allowStringType == AllowStringType.Any ||
-    //        allowStringType == AllowStringType.NotNullOrWhitespace && !string.IsNullOrWhiteSpace(s) ||
-    //        allowStringType == AllowStringType.NotNullOrEmpty && !string.IsNullOrEmpty(s) ||
-    //        allowStringType == AllowStringType.NotNull && s != null) {
-    //        TypeConverter typeConverter = TypeDescriptor.GetConverter(typeof(T));
-    //        var value = typeConverter.ConvertFromString(s);
-    //        //var value = Convert.ChangeType(s, typeof(T));
-    //        var value1 = s.OfType<T>();
-    //        if (allowStringType == AllowStringType.Any || value != null) {
-    //          list.Add((T)value);
-    //        }
-    //      }
-    //    }
-    //  }
-    //  return list;
-    //}
     public static string ReplaceFromStart(this string s, string fromPrefix, string toPrefix, StringComparison comparisonType = StringComparison.CurrentCulture) => s.StartsWith(fromPrefix, comparisonType) ? toPrefix + s.Substring(fromPrefix.Length) : s;
 
     public static string[] Split(this string s, string separator, StringSplitOptions splitOptions = StringSplitOptions.None) => s.Split(new[] { separator }, splitOptions);
     public static string[] Split(this string s, string separator, RegexOptions regexOptions) => Regex.Split(s, separator, regexOptions);
-
-    //[Obsolete("Use s.SplitOfType<int>(separator).ToList()")] public static IList<int> SplitToListOfInt(this string s, string separator) => s.SplitOfType<int>(separator).ToList();
-    //[Obsolete("Use s.SplitNotNullOrWhiteSpace(separator).ToList()")] public static IList<string> SplitToListOfString(this string s, string separator) => s.SplitNotNullOrWhiteSpace(separator).ToList();
-    //[Obsolete("Use s.SplitOfType<int>(separator)")] public static IEnumerable<int> SplitAsInt(this string s, string separator) => s.SplitOfType<int>(separator);
-    //[Obsolete("Use s.SplitOfType<int>(separator)")] public static IEnumerable<int> ToIntegerList(this string s, string separator) => s.SplitOfType<int>(separator);
-
-    //public static IList<T> SplitOfType<T>(this string expr, string delimeter = ",", AllowStringType allowStringType = AllowStringType.NotNullOrWhitespace) {
-    //  Func<string, bool> predicate = x => true;
-    //  if (allowStringType == AllowStringType.NotNullOrWhitespace) {
-    //    predicate = s => !string.IsNullOrWhiteSpace(s);
-    //  } else if (allowStringType == AllowStringType.NotNullOrEmpty) {
-    //    predicate = s => !string.IsNullOrEmpty(s);
-    //  }
-    //  var strings = expr.Split(delimeter).Where(predicate);
-    //  IEnumerable<T> types;
-    //  if (allowStringType == AllowStringType.Any) {
-    //    types = from s in strings select (T)(TypeDescriptor.GetConverter(typeof(T)).ConvertFromString(s));
-    //  } else {
-    //    types = strings.OfType<T>();
-    //  }
-    //  return types.ToList();
-    //}
+   
     public static IEnumerable<T> SplitIsNumeric<T>(this string s, string separator) => string.IsNullOrWhiteSpace(s) ? Enumerable.Empty<T>() : from x in s.Split(separator) where x.IsNumeric() select x.As<string, T>();
     public static IEnumerable<string> SplitNotNull(this string s, string separator) => from x in s.Split(separator) where x != null select x;
     public static IEnumerable<string> SplitNotNullOrEmpty(this string s, string separator) => from x in s.Split(separator) where !string.IsNullOrEmpty(x) select x;
     public static IEnumerable<string> SplitNotNullOrWhiteSpace(this string s, string separator = "'") => from x in s.Split(separator) where !string.IsNullOrWhiteSpace(x) select x;
 
-    //[Obsolete("Use s.SplitNotNullOrWhiteSpace(separator)")] public static IEnumerable<string> ToStringList(this string s, string separator) => s.SplitNotNullOrWhiteSpace(separator);
     public static IEnumerable<T> SplitOfType<T>(this string s, string separator) => from x in s.Split(separator).OfType<T>() select x;
 
     public static string SqlLiteral(this string value) => value.SqlLiteral(new SqlStringOptions());
     public static string SqlLiteral(this string value, SqlStringOptions options) => value == null ? SqlOptions.SqlNullString : options.LiteralPrefix + value + options.LiteralSuffix;
-    //[Obsolete("Use value.SqlLiteral()"))]public static string ToSqlExpression(this string value) => value.SqlLiteral();
 
     public static Dictionary<string, string> ToKeyValueDictionary(this string s, char keySeparator = ';', char valueSeparator = '=', StringSplitOptions options = StringSplitOptions.RemoveEmptyEntries) => s.ToKeyValuePairs(keySeparator, valueSeparator, options).ToDictionary(k => k.Key, v => v.Value);
     public static IList<KeyValuePair<string, string>> ToKeyValueList(this string s, char keySeparator = ';', char valueSeparator = '=', StringSplitOptions options = StringSplitOptions.RemoveEmptyEntries) => s.ToKeyValuePairs(keySeparator, valueSeparator, options).ToList();

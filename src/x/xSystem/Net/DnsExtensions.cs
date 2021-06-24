@@ -24,7 +24,6 @@ namespace System.Net {
       }
     }
 
-    [Obsolete("Use System.Net.Dns.GetHostEntry")] public static IPHostEntry LocalHostEntry() => Dns.GetHostEntry(string.Empty);
 
   }
 }

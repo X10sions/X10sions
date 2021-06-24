@@ -18,7 +18,6 @@ namespace System {
     public static string SqlLiteral(this decimal value, SqlDecimalOptions options) => options.LiteralPrefix + value + options.LiteralSuffix;
     public static string SqlLiteral(this decimal? value, SqlDecimalOptions options) => value.HasValue ? value.Value.SqlLiteral(options) : SqlOptions.SqlNullString;
 
-    [Obsolete("Use SqLiteral()")] public static string ToSqlExpression(this decimal? @this) => @this.SqlLiteral();
 
   }
 }

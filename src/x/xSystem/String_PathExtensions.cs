@@ -17,8 +17,6 @@ namespace System {
 
     public string Extension => Path.GetExtension(path);
     public bool IsPhysicalPath => !string.IsNullOrWhiteSpace(path) && path.Contains(":");
-    [Obsolete("Use Path.Combine(IHostingEnvironment.WebRootPath, 'SomePath')")] public string ServerMapPath => IsPhysicalPath ? path : Path.Combine(AppDomain.CurrentDomain.BaseDirectory, path.TrimStart('/', '\\', '~')).Replace('/', '\\');
-
 
     public string FileName(bool includeExtension = true) => includeExtension ? Path.GetFileName(path) : Path.GetFileNameWithoutExtension(path);
 
@@ -29,7 +27,6 @@ namespace System {
     public static readonly string VirtualPathSeparatorString = VirtualPathSeparatorChar.ToString();
 
     public string AddVirtualPathSeparator => (string.IsNullOrWhiteSpace(path) ? VirtualPathSeparatorString : string.Empty) + path;
-
 
     #region "FileHelpers"
     public string NormalizePath => string.IsNullOrEmpty(path) ? path : path.Replace('\\', Path.DirectorySeparatorChar).Replace('/', Path.DirectorySeparatorChar).Replace(Path.DirectorySeparatorChar.ToString() + Path.DirectorySeparatorChar.ToString(), Path.DirectorySeparatorChar.ToString());
