@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\..\..\..\build\Tests.XUnit.props" />
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <Product>System Extensions Tests</Product>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectReferences">
+    <ProjectReference Include="..\xSystem.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+</Project>

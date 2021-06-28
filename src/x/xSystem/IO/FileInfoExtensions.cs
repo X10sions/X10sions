@@ -9,8 +9,6 @@ namespace System.IO {
 
     public static void CopyToDirectory(this FileInfo f, DirectoryInfo dir, bool overwrite = false) => f.CopyTo(Path.Combine(dir.FullName, f.Name), overwrite);
 
-    public static string CamelCaseSafeName(this FileInfo f) => f.SafeName().ToCamelCase() + Path.GetExtension(f.Name);
-
     public static string NameWithoutExtension(this FileInfo f) => Path.GetFileNameWithoutExtension(f.Name);
 
     public static string SafeName(this FileInfo f, string replacementString = "", string spaceReplacement = null) {

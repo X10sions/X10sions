@@ -42,6 +42,7 @@
     <PackageReference Include="Fugu.Http.UserAgent" Version="20.5.0" />
     <PackageReference Include="GenFu" Version="1.6.0" />
     <PackageReference Include="HtmlTags.AspNetCore" Version="7.0.3" />
+    <PackageReference Include="Humanizer.Core" Version="2.11.10" />
     <!--
     <PackageReference Include="HtmlTags" Version="4.2.0" />
     -->

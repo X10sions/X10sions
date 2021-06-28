@@ -1,10 +1,8 @@
 ﻿using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text.RegularExpressions;
-using System.Threading;
 using System.Xml.Serialization;
 
 namespace System {
@@ -55,7 +53,7 @@ namespace System {
 
     public static string[] Split(this string s, string separator, StringSplitOptions splitOptions = StringSplitOptions.None) => s.Split(new[] { separator }, splitOptions);
     public static string[] Split(this string s, string separator, RegexOptions regexOptions) => Regex.Split(s, separator, regexOptions);
-   
+
     public static IEnumerable<T> SplitIsNumeric<T>(this string s, string separator) => string.IsNullOrWhiteSpace(s) ? Enumerable.Empty<T>() : from x in s.Split(separator) where x.IsNumeric() select x.As<string, T>();
     public static IEnumerable<string> SplitNotNull(this string s, string separator) => from x in s.Split(separator) where x != null select x;
     public static IEnumerable<string> SplitNotNullOrEmpty(this string s, string separator) => from x in s.Split(separator) where !string.IsNullOrEmpty(x) select x;
@@ -93,37 +91,10 @@ namespace System {
       return result;
     }
 
-    public static string WrapIfNotNullOrEmpty(this string s, string prefix ="", string suffix = "", string defaultIfNullOrEmpty = "") => string.IsNullOrEmpty(s) ? defaultIfNullOrEmpty : prefix + s + suffix ;
+    public static string WrapIfNotNullOrEmpty(this string s, string prefix = "", string suffix = "", string defaultIfNullOrEmpty = "") => string.IsNullOrEmpty(s) ? defaultIfNullOrEmpty : prefix + s + suffix;
     public static string WrapIfNotNullOrWhiteSpace(this string s, string prefix = "", string suffix = "", string defaultIfNullOrWhiteSpace = "") => string.IsNullOrWhiteSpace(s) ? defaultIfNullOrWhiteSpace : prefix + s + suffix;
 
     public static T ToEnum<T>(this string s, T defaultValue) => System.Enum.IsDefined(typeof(T), s) ? (T)Enum.Parse(typeof(T), s) : defaultValue;
-
-    #region "LetterCasing"
-
-    public enum ToStringCase {
-      CamelCase,
-      KebabCase,
-      PascalCase, //
-      SnakeCase,
-      TitleCase,
-      TrainCase
-      //  camelCase  //words are linked without spaces. Each word begins with a capital letter with the exception of the first.
-      //  PascalCase       //words are linked without spaces. Each word begins with a capital letter.
-      //  snake_case or underscore //words are in lower case and are linked by undescores (underscore: _).
-      //  kebab-case or spinal //words are in lower case and are linked by hyphens (-)
-    }
-
-    //https://github.com/JamesNK/Newtonsoft.Json/blob/master/Src/Newtonsoft.Json/Utilities/StringUtils.cs
-
-    public static string ToCamelCase(this string value) => value.ToPascalCase().Substring(0, 1).ToLower() + value.Substring(1);
-    public static string ToPascalCase(this string value) => string.Join(string.Empty, Thread.CurrentThread.CurrentCulture.TextInfo.ToTitleCase(value).Split(new char[] { }, StringSplitOptions.RemoveEmptyEntries));
-    public static string ToSnakeCase(this string input) => string.IsNullOrEmpty(input) ? input : Regex.Match(input, "^_+") + Regex.Replace(input, "([a-z0-9])([A-Z])", "$1_$2");
-
-    public static string ToTitleCase(this string str) => Thread.CurrentThread.CurrentCulture.TextInfo.ToTitleCase(str.ToLower());
-    public static string ToTitleCase(this string str, string cultureInfoName) => new CultureInfo(cultureInfoName).TextInfo.ToTitleCase(str.ToLower());
-    public static string ToTitleCase(this string str, CultureInfo cultureInfo) => cultureInfo.TextInfo.ToTitleCase(str.ToLower());
-
-    #endregion "LetterCasing"
 
     #region "BinaryFormatterExtensions"
 

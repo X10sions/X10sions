@@ -1,0 +1,27 @@
+<Project>
+  <PropertyGroup>
+    <Authors>TB</Authors>
+    <CollectCoverage>true</CollectCoverage>
+    <DoAutoVersion>false</DoAutoVersion>
+    <DoLocalNugetPackage>false</DoLocalNugetPackage>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <IsPackable>false</IsPackable>
+    <RootNamespace>_Tests</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup Label="PackageReferences">
+    <PackageReference Update="coverlet.collector" Version="3.0.3">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.10.0" />
+  </ItemGroup>
+  <ItemGroup Label="ProjectReferences">
+    <!-- 
+    <ProjectReference Include="$(RepoSrcDir_X10sions)x\xAutoFixture\.AutoMoq\xAutoFixture.AutoMoq.csproj" />
+    <ProjectReference Include="$(RepoSrcDir_X10sions)x\xCoverlet\.Collector\xCoverlet.Collector.csproj" />
+    <ProjectReference Include="$(RepoSrcDir_X10sions)x\xGenFu\xGenFu.csproj" />
+    <ProjectReference Include="$(RepoSrcDir_X10sions)x\xMoq\xMoq.csproj" />
+    -->
+
+  </ItemGroup>
+</Project>

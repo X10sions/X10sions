@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup Label="Application">
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Product>Humanizer NetStandard Extensions</Product>
+    <VersionPart1>2</VersionPart1>
+    <VersionPart2>11</VersionPart2>
+  </PropertyGroup>
+  <ItemGroup Label="PackageReferences">
+    <PackageReference Include="Humanizer.Core" Version="2.11.10" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\xSystem\xSystem.csproj" />
+  </ItemGroup>
+</Project>

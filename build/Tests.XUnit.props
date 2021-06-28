@@ -1,0 +1,18 @@
+<Project>
+  <Import Project="Tests.props" />
+  <ItemGroup Label="PackageReferences">
+    <PackageReference Include="xunit" Version="2.4.1" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <!-- 
+    <ProjectReference Include="$(RepoSrcDir_X10sions)x\xAutoFixture\.Xunit2\xAutoFixture.Xunit2.csproj" />
+    <ProjectReference Include="$(RepoSrcDir_X10sions)x\xXUnit\xXUnit.csproj" />
+    <ProjectReference Include="$(RepoSrcDir_X10sions)x\xXunit\.Combinatorial\xXunit.Combinatorial.csproj" />
+    <ProjectReference Include="$(RepoSrcDir_X10sions)x\xXUnit\.Runner\.VisualStudio\xXUnit.Runner.VisualStudio.csproj" />
+    -->
+  </ItemGroup>
+  <ItemGroup Label="Testing-XUnit-ProjectReferences">
+  </ItemGroup>  
+</Project>
