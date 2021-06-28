@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Newtonsoft.Json.Utilities;
 
 namespace Newtonsoft.Json.Serialization {
   public class KebabCasePropertyNamesContractResolver: DefaultContractResolver {
@@ -6,6 +6,6 @@ namespace Newtonsoft.Json.Serialization {
       NamingStrategy = new KebabCaseNamingStrategy();
     }
 
-    protected override string ResolvePropertyName(string propertyName) =>  propertyName.xToKebabCase();
+    protected override string ResolvePropertyName(string propertyName) =>  propertyName.ToKebabCase();
   }
 }

@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Newtonsoft.Json.Utilities;
 
 namespace Newtonsoft.Json.Serialization {
   //public class SnakeCasePropertyNamesContractResolver : DeliminatorSeparatedPropertyNamesContractResolver {
@@ -12,5 +12,6 @@ namespace Newtonsoft.Json.Serialization {
     }
 
     protected override string ResolvePropertyName(string propertyName) => propertyName.ToSnakeCase();
+    //protected override string ResolvePropertyName(string propertyName) => propertyName.ToSnakeCase();
   }
 }

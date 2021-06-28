@@ -8,7 +8,7 @@
   <ItemGroup Label="PackageReferences">
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
-  <ItemGroup>
+  <ItemGroup Label="ProjectReferences">
     <ProjectReference Include="..\xSystem\xSystem.csproj" />
   </ItemGroup>
 </Project>
