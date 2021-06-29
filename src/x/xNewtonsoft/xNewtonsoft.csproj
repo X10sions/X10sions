@@ -4,6 +4,7 @@
     <Product>Newtonsoft NetStandard Extensions</Product>
     <VersionPart1>12</VersionPart1>
     <VersionPart2>0</VersionPart2>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup Label="PackageReferences">
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />

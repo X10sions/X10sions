@@ -7,20 +7,21 @@ namespace Newtonsoft.Json {
     public override object? ReadJson(JsonReader reader, Type objectType, object? existingValue, JsonSerializer serializer) => reader.Value;
 
     public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer) {
+      var stringValue = value?.ToString();
       int intValue;
       bool boolValue;
-      if (bool.TryParse(value?.ToString(), out boolValue)) {
+      if (bool.TryParse(stringValue, out boolValue)) {
         writer.WriteValue(boolValue);
-      } else if (int.TryParse(value?.ToString(), out intValue)) {
-        if (value.ToString().StartsWith("+") || value.ToString().StartsWith("-")) {
-          writer.WriteValue(value.ToString());
+      } else if (int.TryParse(stringValue, out intValue)) {
+        if (stringValue != null && (stringValue.StartsWith("+") || stringValue.StartsWith("-"))) {
+          writer.WriteValue(stringValue);
         } else {
           writer.WriteValue(intValue);
         }
       } else {
-        writer.WriteValue(value?.ToString());
+        writer.WriteValue(stringValue);
       }
     }
-  }
 
+  }
 }

@@ -11,7 +11,7 @@ namespace System.IO {
 
     public static string NameWithoutExtension(this FileInfo f) => Path.GetFileNameWithoutExtension(f.Name);
 
-    public static string SafeName(this FileInfo f, string replacementString = "", string spaceReplacement = null) {
+    public static string SafeName(this FileInfo f, string replacementString = "", string? spaceReplacement = null) {
       var file = Path.GetInvalidFileNameChars().Aggregate(f.Name.Trim(),
               (current, c) => current.Replace(c.ToString(), replacementString));
       file = file.Replace("#", "");
@@ -20,7 +20,7 @@ namespace System.IO {
       return file;
     }
 
-    public static string ToBreadCrumbLinks(this FileInfo fileInfo, string removeBasePath = null) {
+    public static string ToBreadCrumbLinks(this FileInfo fileInfo, string? removeBasePath = null) {
       var nameWithExtension = fileInfo.Name.Replace(fileInfo.Extension, "");
       var path = fileInfo.DirectoryName.Replace(removeBasePath, "");
       var partPaths = path.Split(@"\");

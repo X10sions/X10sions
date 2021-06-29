@@ -70,11 +70,11 @@ namespace System {
 
         private static readonly char[] CaseDelimeters = { ' ', '-', '_' };
 
-    //    public static string xToCamelCase(this string source) => source.SymbolsPipe('\0', (s, disableFrontDelimeter) => disableFrontDelimeter ? new char[] { char.ToLowerInvariant(s) } : new char[] { char.ToUpperInvariant(s) });
-    public static string xToKebabCase(this string source) => source.SymbolsPipe('-', (s, disableFrontDelimeter) => disableFrontDelimeter ? new char[] { char.ToLowerInvariant(s) } : new char[] { '-',  char.ToLowerInvariant(s) });
-    //    public static string xToPascalCase(this string source) => source.SymbolsPipe('\0', (s, disableFrontDelimeter) => new char[] { char.ToUpperInvariant(s) });
-    //    public static string xToSnakeCase(this string source) => source.SymbolsPipe('_', (s, disableFrontDelimeter) => disableFrontDelimeter ? new char[] { char.ToLowerInvariant(s) } : new char[] { '_', char.ToLowerInvariant(s) });
-    //    public static string xToTrainCase(this string source) => source.SymbolsPipe('-', (s, disableFrontDelimeter) => disableFrontDelimeter ? new char[] { char.ToUpperInvariant(s) } : new char[] { '-', char.ToUpperInvariant(s) });
+      public static string ToCamelCase_Vad3x(this string source) => source.SymbolsPipe('\0', (s, disableFrontDelimeter) => disableFrontDelimeter ? new char[] { char.ToLowerInvariant(s) } : new char[] { char.ToUpperInvariant(s) });
+      public static string ToKebabCase_Vad3x(this string source) => source.SymbolsPipe('-', (s, disableFrontDelimeter) => disableFrontDelimeter ? new char[] { char.ToLowerInvariant(s) } : new char[] { '-',  char.ToLowerInvariant(s) });
+      public static string ToPascalCase_Vad3x(this string source) => source.SymbolsPipe('\0', (s, disableFrontDelimeter) => new char[] { char.ToUpperInvariant(s) });
+      public static string ToSnakeCase_Vad3x(this string source) => source.SymbolsPipe('_', (s, disableFrontDelimeter) => disableFrontDelimeter ? new char[] { char.ToLowerInvariant(s) } : new char[] { '_', char.ToLowerInvariant(s) });
+      public static string ToTrainCase_Vad3x(this string source) => source.SymbolsPipe('-', (s, disableFrontDelimeter) => disableFrontDelimeter ? new char[] { char.ToUpperInvariant(s) } : new char[] { '-', char.ToUpperInvariant(s) });
 
     private static string SymbolsPipe(this string source, char mainDelimeter, Func<char, bool, char[]> newWordSymbolHandler) {
       if (source == null) throw new ArgumentNullException(nameof(source));

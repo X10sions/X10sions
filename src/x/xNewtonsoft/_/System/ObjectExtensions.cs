@@ -10,7 +10,7 @@ namespace System {
 
     public static JObject ToJObject(this object obj) => JObject.Parse(obj.ToJsonString());
 
-    public static string ToJsonString(this object obj, JsonSerializerSettings settings = null) => JsonConvert.SerializeObject(obj, settings ?? DefaultJsonSerializerSettings);
+    public static string ToJsonString(this object obj, JsonSerializerSettings? settings = null) => JsonConvert.SerializeObject(obj, settings ?? DefaultJsonSerializerSettings);
 
     public static string ToJsonString(this object obj, string[] excludePropertyNames) => obj.ToJsonString(new JsonSerializerSettings {
       ContractResolver = new ExcludePropertyNamesContractResolver(excludePropertyNames),

@@ -8,11 +8,15 @@ namespace Newtonsoft.Json {
 
     public override object? ReadJson(JsonReader reader, Type objectType, object? existingValue, JsonSerializer serializer) {
       var token = JToken.Load(reader);
-      if (token?.Type == JTokenType.Array) {
+      if (token.Type == JTokenType.Array) {
         return token.ToObject<List<T>>();
       }
-      if (token == null) new List<T>();
-      return new List<T> { token.ToObject<T>() };
+      var list = new List<T>();
+      var obj = token.ToObject<T>();
+      if (obj != null) {
+        list.Add(obj);
+      }
+      return list;
     }
 
     public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer) {
