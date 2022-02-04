@@ -17,7 +17,7 @@ namespace Common.Abstractions {
         return Activator.CreateInstance(type);
       }
       return result;
-    }
+    } 
 
     [Obsolete]
     public static long Obsolete_DateDiff(this DateInterval intervalType, DateTime dateOne, DateTime dateTwo, DayOfWeek? firstDayOfWeek = null) {
