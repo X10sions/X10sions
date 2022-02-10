@@ -17,7 +17,7 @@ namespace Common.Data.GetSchemaTyped.DataRows {
 
   }
 
-  public class DataSourceInformationRow : _BaseTypedDataRow, IEquatable<DataSourceInformationRow> {
+  public class DataSourceInformationRow : BaseTypedDataRow, IEquatable<DataSourceInformationRow> {
     // https://github.com/vince-koch/Sqlzor/tree/0442347fc153e10ea74a3896ed2ae642b29f042e/Sqlzor/Drivers/Models
 
     public DataSourceInformationRow(DataRow row) : base(row) {
@@ -88,23 +88,23 @@ namespace Common.Data.GetSchemaTyped.DataRows {
     public DataSourceInformationRow(GetSchemaHelper getSchema) : this(getSchema.DataSourceInformation().DataTable) { }
 
     #region Columns
-    public string CompositeIdentifierSeparatorPattern => row.Field<string>(DbMetaDataColumnNames.CompositeIdentifierSeparatorPattern);
-    public string DataSourceProductName => row.Field<string>(DbMetaDataColumnNames.DataSourceProductName);
-    public string DataSourceProductVersion => row.Field<string>(DbMetaDataColumnNames.DataSourceProductVersion);
-    public string DataSourceProductVersionNormalized => row.Field<string>(DbMetaDataColumnNames.DataSourceProductVersionNormalized);
-    public GroupByBehavior GroupByBehavior => row.Field<GroupByBehavior>(DbMetaDataColumnNames.GroupByBehavior);
-    public IdentifierCase IdentifierCase => row.Field<IdentifierCase>(DbMetaDataColumnNames.IdentifierCase);
-    public string IdentifierPattern => row.Field<string>(DbMetaDataColumnNames.IdentifierPattern);
-    public bool OrderByColumnsInSelect => row.Field<bool?>(DbMetaDataColumnNames.OrderByColumnsInSelect) ?? false;
-    public string ParameterMarkerFormat => row.Field<string>(DbMetaDataColumnNames.ParameterMarkerFormat);
-    public string ParameterMarkerPattern => row.Field<string>(DbMetaDataColumnNames.ParameterMarkerPattern);
-    public int? ParameterNameMaxLength => row.Field<int?>(DbMetaDataColumnNames.ParameterNameMaxLength);
-    public string ParameterNamePattern => row.Field<string>(DbMetaDataColumnNames.ParameterNamePattern);
-    public string QuotedIdentifierPattern => row.Field<string>(DbMetaDataColumnNames.QuotedIdentifierPattern);
-    public IdentifierCase QuotedIdentifierCase => row.Field<IdentifierCase>(DbMetaDataColumnNames.QuotedIdentifierCase);
-    public string StatementSeparatorPattern => row.Field<string>(DbMetaDataColumnNames.StatementSeparatorPattern);
-    public string StringLiteralPattern => row.Field<string>(DbMetaDataColumnNames.StringLiteralPattern);
-    public SupportedJoinOperators SupportedJoinOperators => row.Field<SupportedJoinOperators>(DbMetaDataColumnNames.SupportedJoinOperators);
+    public string CompositeIdentifierSeparatorPattern => DataRow.Field<string>(DbMetaDataColumnNames.CompositeIdentifierSeparatorPattern);
+    public string DataSourceProductName => DataRow.Field<string>(DbMetaDataColumnNames.DataSourceProductName);
+    public string DataSourceProductVersion => DataRow.Field<string>(DbMetaDataColumnNames.DataSourceProductVersion);
+    public string DataSourceProductVersionNormalized => DataRow.Field<string>(DbMetaDataColumnNames.DataSourceProductVersionNormalized);
+    public GroupByBehavior GroupByBehavior => DataRow.Field<GroupByBehavior>(DbMetaDataColumnNames.GroupByBehavior);
+    public IdentifierCase IdentifierCase => DataRow.Field<IdentifierCase>(DbMetaDataColumnNames.IdentifierCase);
+    public string IdentifierPattern => DataRow.Field<string>(DbMetaDataColumnNames.IdentifierPattern);
+    public bool OrderByColumnsInSelect => DataRow.Field<bool?>(DbMetaDataColumnNames.OrderByColumnsInSelect) ?? false;
+    public string ParameterMarkerFormat => DataRow.Field<string>(DbMetaDataColumnNames.ParameterMarkerFormat);
+    public string ParameterMarkerPattern => DataRow.Field<string>(DbMetaDataColumnNames.ParameterMarkerPattern);
+    public int? ParameterNameMaxLength => DataRow.Field<int?>(DbMetaDataColumnNames.ParameterNameMaxLength);
+    public string ParameterNamePattern => DataRow.Field<string>(DbMetaDataColumnNames.ParameterNamePattern);
+    public string QuotedIdentifierPattern => DataRow.Field<string>(DbMetaDataColumnNames.QuotedIdentifierPattern);
+    public IdentifierCase QuotedIdentifierCase => DataRow.Field<IdentifierCase>(DbMetaDataColumnNames.QuotedIdentifierCase);
+    public string StatementSeparatorPattern => DataRow.Field<string>(DbMetaDataColumnNames.StatementSeparatorPattern);
+    public string StringLiteralPattern => DataRow.Field<string>(DbMetaDataColumnNames.StringLiteralPattern);
+    public SupportedJoinOperators SupportedJoinOperators => DataRow.Field<SupportedJoinOperators>(DbMetaDataColumnNames.SupportedJoinOperators);
     #endregion
 
     string[] dbMetaDataColumnNames = new[]{

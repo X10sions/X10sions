@@ -19,6 +19,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Update="GetSchemaTyped\GetSchemaTypedDataTable.cs" />
-    <Compile Update="_BaseDataTable.cs" />
+    <Compile Update="BaseTypedDataTable.cs" />
   </ItemGroup>
 </Project>
