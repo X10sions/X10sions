@@ -135,6 +135,22 @@ namespace System.Linq.Expressions {
       public override Expression Visit(Expression node) => node == from ? to : base.Visit(node);
     }
 
+    // https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/generics/constraints-on-type-parameters
+    //public static Expression<Func<T2, T1, TResult>> SwapParameters00<T1, T2, TResult>(this Expression<Func<T1, T2, TResult>> exprFunc) => Expression.Lambda<Func<T2, T1, TResult>>(exprFunc.Body, exprFunc.Parameters[1], exprFunc.Parameters[0]);
+    //public static Expression<Func<T2, T1?, TResult>> SwapParameters01<T1, T2, TResult>(this Expression<Func<T1, T2?, TResult>> exprFunc) => Expression.Lambda<Func<T2, T1?, TResult>>(exprFunc.Body, exprFunc.Parameters[1], exprFunc.Parameters[0]);
+    //public static Expression<Func<T2?, T1, TResult>>  SwapParameters10<T1, T2, TResult>(this Expression<Func<T1?, T2, TResult>> exprFunc)  => Expression.Lambda<Func<T2?, T1, TResult>>(exprFunc.Body, exprFunc.Parameters[1], exprFunc.Parameters[0]);
+    //public static Expression<Func<T2?, T1?, TResult>> SwapParameters11<T1, T2, TResult>(this Expression<Func<T1?, T2?, TResult>> exprFunc)  => Expression.Lambda<Func<T2?, T1?, TResult>>(exprFunc.Body, exprFunc.Parameters[1], exprFunc.Parameters[0]);
+
+    public static Expression<Func<T2, T1, TResult>> SwapParameters00<T1, T2, TResult>(this Expression<Func<T1, T2, TResult>> exprFunc) where T1 : class where T2 : class => Expression.Lambda<Func<T2, T1, TResult>>(exprFunc.Body, exprFunc.Parameters[1], exprFunc.Parameters[0]);
+    public static Expression<Func<T2, T1, TResult>> SwapParameters01<T1, T2, TResult>(this Expression<Func<T1, T2, TResult>> exprFunc) where T1 : class where T2 : class? => Expression.Lambda<Func<T2, T1, TResult>>(exprFunc.Body, exprFunc.Parameters[1], exprFunc.Parameters[0]);
+    public static Expression<Func<T2, T1, TResult>> SwapParameters10<T1, T2, TResult>(this Expression<Func<T1, T2, TResult>> exprFunc) where T1 : class? where T2 : class => Expression.Lambda<Func<T2, T1, TResult>>(exprFunc.Body, exprFunc.Parameters[1], exprFunc.Parameters[0]);
+    public static Expression<Func<T2, T1, TResult>> SwapParameters11<T1, T2, TResult>(this Expression<Func<T1, T2, TResult>> exprFunc) where T1 : class? where T2 : class? => Expression.Lambda<Func<T2, T1, TResult>>(exprFunc.Body, exprFunc.Parameters[1], exprFunc.Parameters[0]);
+
+    //public static Expression<Func<T2, T1, TResult>> SwapParameters00<T1, T2, TResult>(this Expression<Func<T1, T2, TResult>> exprFunc) where T1 : notnull where T2 : notnull  => Expression.Lambda<Func<T2, T1, TResult>>(exprFunc.Body, exprFunc.Parameters[1], exprFunc.Parameters[0]);
+    //public static Expression<Func<T2, T1, TResult>> SwapParameters01<T1, T2, TResult>(this Expression<Func<T1, T2, TResult>> exprFunc) where T1 : notnull where T2 : T1? => Expression.Lambda<Func<T2, T1, TResult>>(exprFunc.Body, exprFunc.Parameters[1], exprFunc.Parameters[0]);
+    //public static Expression<Func<T2, T1, TResult>> SwapParameters10<T1, T2, TResult>(this Expression<Func<T1, T2, TResult>> exprFunc) where T1 : T1? where T2 : notnull => Expression.Lambda<Func<T2, T1, TResult>>(exprFunc.Body, exprFunc.Parameters[1], exprFunc.Parameters[0]);
+    //public static Expression<Func<T2, T1, TResult>> SwapParameters11<T1, T2, TResult>(this Expression<Func<T1, T2, TResult>> exprFunc) where T1 : T1? where T2 : T1? => Expression.Lambda<Func<T2, T1, TResult>>(exprFunc.Body, exprFunc.Parameters[1], exprFunc.Parameters[0]);
+
     public static Expression<Func<T2, T1, TResult>> SwapParameters1<T1, T2, TResult>(this Expression<Func<T1, T2, TResult>> exprFunc)
       => Expression.Lambda<Func<T2, T1, TResult>>(exprFunc.Body, exprFunc.Parameters[1], exprFunc.Parameters[0]);
 
