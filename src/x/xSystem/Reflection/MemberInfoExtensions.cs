@@ -3,7 +3,6 @@ using System.Linq;
 
 namespace System.Reflection {
   public static class MemberInfoExtensions {
-
     public static string DeclaringTypeFullName(this MemberInfo member) => string.Format($"{member.DeclaringType.FullName}.{member.Name}");
     public static string ReflectedTypeFullName(this MemberInfo member) => string.Format($"{member.ReflectedType.FullName}.{member.Name}");
 
