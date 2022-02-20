@@ -70,19 +70,14 @@ namespace System.Data {
       return list;
     }
 
-    public static void DataReaderToObject(this IDataReader reader, object instance,
-                                             string propertiesToSkip = null,
-                                             Dictionary<string, PropertyInfo> piList = null) {
+    public static void DataReaderToObject(this IDataReader reader, object instance, string propertiesToSkip = null, Dictionary<string, PropertyInfo> piList = null) {
       if (reader.IsClosed)
         throw new InvalidOperationException("Resources.DataReaderPassedToDataReaderToObjectCannot");
-
       if (string.IsNullOrEmpty(propertiesToSkip))
         propertiesToSkip = string.Empty;
       else
         propertiesToSkip = "," + propertiesToSkip + ",";
-
       propertiesToSkip = propertiesToSkip.ToLower();
-
       // create a dictionary of properties to look up
       // we can pass this in so we can cache the list once
       // for a list operation
@@ -92,7 +87,6 @@ namespace System.Data {
         foreach (var prop in instance.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public))
           piList.Add(prop.Name.ToLower(), prop);
       }
-
       for (var index = 0; index < reader.FieldCount; index++) {
         var name = reader.GetName(index).ToLower();
         if (piList.ContainsKey(name)) {
@@ -111,17 +105,56 @@ namespace System.Data {
             // int conversions when the value is not different type of number
             else if (prop.PropertyType == typeof(int) && (val is long || val is decimal))
               val = Convert.ToInt32(val);
-
             prop.SetValue(instance, val, null);
           }
         }
       }
     }
 
+    public static List<T> Fill<T>(this IDataReader reader) where T : new() {
+      var res = new List<T>();
+      var type = typeof(T);
+      while (reader.Read()) {
+        T t = new();
+        for (var i = 0; i < reader.FieldCount; i++) {
+          var fieldName = reader.GetName(i);
+          var prop = type.GetProperty(fieldName);
+          if (prop != null) {
+            var value = reader.GetValue(i);
+            if (value != DBNull.Value) {
+              prop.SetValue(t, Convert.ChangeType(value, prop.PropertyType), null);
+            }
+          }
+        }
+        res.Add(t);
+      }
+      reader.Close();
+      return res;
+    }
+
     public static DataTable LoadDataTable(this IDataReader dr) {
       var dt = new DataTable();
       dt.Load(dr);
       return dt;
+    }
+
+    public static T? Read<T>(this IDataReader dr, string fieldName) {
+      int fieldIndex;
+      try { fieldIndex = dr.GetOrdinal(fieldName); } catch { return default; }
+      if (dr.IsDBNull(fieldIndex)) {
+        return default;
+      } else {
+        var value = dr.GetValue(fieldIndex);
+        if (value is T) {
+          return (T)value;
+        } else {
+          try {
+            return (T)Convert.ChangeType(value, typeof(T));
+          } catch (InvalidCastException) {
+            return default;
+          }
+        }
+      }
     }
 
     public static string ToCsv(this IDataReader reader) {
