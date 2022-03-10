@@ -24,7 +24,7 @@ namespace LinqToDB.DataProvider {
       SupportedTableOptions = tableOptions;
     }
 
-    abstract protected ISqlOptimizer SqlOptimizer { get;  }
+    abstract protected ISqlOptimizer SqlOptimizer { get; }
     protected ISchemaProvider SchemaProvider { get; }
     public Type ConnectionType { get; }
 

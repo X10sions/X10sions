@@ -15,8 +15,7 @@ using LinqToDB.Common;
 using System.Threading.Tasks;
 using System.Threading;
 
-namespace LinqToDB.DataProvider {
-  
+namespace LinqToDB.DataProvider {  
 
   public class GenericDataProvider<TConnection, TDataReader> : GenericDataProvider<TConnection> where TConnection : DbConnection, new() where TDataReader : IDataReader {
 
@@ -246,6 +245,7 @@ namespace LinqToDB.DataProvider {
     public override void SetParameter(DataConnection dataConnection, IDbDataParameter parameter, string name, DbDataType dataType, object? value) {
       switch (DataSourceInformationRow.DataSourceProduct?.DbSystem?.Name) {
         case DbSystem.Names.Access: SetParameter_Access(dataConnection, parameter, name, dataType, value); break;
+        //case DbSystem.Names.DB2iSeries: SetParameter_DB2iSeries_MTGFS01(dataConnection, parameter, name, dataType, value); break;
         default: base.SetParameter(dataConnection, parameter, name, dataType, value); break;
       };
     }
@@ -279,6 +279,13 @@ namespace LinqToDB.DataProvider {
         base.SetParameter(dataConnection, parameter, name, dataType, value);
       }
       if (base.ConnectionNamespace == DbProvider.Namespaces.System_Data_OleDb) { }
+    }
+
+    public void SetParameter_DB2iSeries_MTGFS01(DataConnection dataConnection, IDbDataParameter parameter, string name, DbDataType dataType, object? value) {
+      if (dataType.DataType == DataType.DateTime2) {
+        dataType = dataType.WithDataType(DataType.DateTime);
+      }
+      base.SetParameter(dataConnection, parameter, "@" + name, dataType, value);
     }
 
     protected override void SetParameterType(DataConnection dataConnection, IDbDataParameter parameter, DbDataType dataType) {
