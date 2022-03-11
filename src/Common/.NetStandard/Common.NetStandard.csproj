@@ -9,7 +9,7 @@
   <ItemGroup Label="PackageReferences">
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
-    <PackageReference Include="System.Data.Odbc" Version="5.0.0" />
+    <PackageReference Include="System.Data.Odbc" Version="6.0.0" />
   </ItemGroup>
   <ItemGroup Label="ProjectReferences">
     <ProjectReference Include="..\..\x\xMicrosoft\.Abstractions\xMicrosoft.Abstractions.csproj" />

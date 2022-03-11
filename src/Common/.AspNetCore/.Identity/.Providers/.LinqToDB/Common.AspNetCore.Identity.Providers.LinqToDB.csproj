@@ -5,7 +5,7 @@
     <VersionPart1>1</VersionPart1>
   </PropertyGroup>
   <ItemGroup Label="PackageReferences">
-    <PackageReference Include="linq2db" Version="3.4.0" />
+    <PackageReference Include="linq2db" Version="3.6.0" />
   </ItemGroup>
 
   <ItemGroup Label="ProjectReferences">
