@@ -13,10 +13,11 @@ public class CompiledExpression<T> {
     //  predicateExpr.to
   }
 
-  public CompiledExpression(Func<T, bool> predicateFunc) {
-    Expression = x => predicateFunc(x);
-    Func = predicateFunc;
-  }
+//  public CompiledExpression(Func<T, bool> predicateFunc) {
+//    Expression = x => predicateFunc(x);
+//    Func = predicateFunc;
+//  }
+
   public bool Value(T arg) => Func(arg);
   public Expression<Func<T, bool>> Expression { get; }
   public Func<T, bool> Func { get; }
