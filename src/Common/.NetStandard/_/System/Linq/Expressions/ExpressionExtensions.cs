@@ -4,6 +4,9 @@ using System.Text.RegularExpressions;
 namespace System.Linq.Expressions {
   public static class ExpressionExtensions {
 
+    public static Expression<Func<T, bool>> AndIf<T>(this Expression<Func<T, bool>> expr1, bool? ifTrue, Expression<Func<T, bool>> truePredicate) => ifTrue ? expr1.And(truePredicate) : expr1;
+    public static Expression<Func<T, bool>> AndIf<T>(this Expression<Func<T, bool>> expr1, bool? ifTrue, Expression<Func<T, bool>> truePredicate, Expression<Func<T, bool>> falsePredicate) => expr1.And(ifTrue ? truePredicate : falsePredicate);
+
     public static Expression<Func<T, bool>> And<T>(this Expression<Func<T, bool>> expr1, Expression<Func<T, bool>> expr2) {
       var parameter = Expression.Parameter(typeof(T));
       var leftVisitor = new ReplaceExpressionVisitor(expr1.Parameters[0], parameter);
@@ -12,6 +15,9 @@ namespace System.Linq.Expressions {
       var right = rightVisitor.Visit(expr2.Body);
       return Expression.Lambda<Func<T, bool>>(Expression.AndAlso(left, right), parameter);
     }
+
+    public static Expression<Func<T, bool>> OrIf<T>(this Expression<Func<T, bool>> expr1, bool? ifTrue, Expression<Func<T, bool>> truePredicate) => ifTrue ? expr1.Or(truePredicate) : expr1;
+    public static Expression<Func<T, bool>> OrIf<T>(this Expression<Func<T, bool>> expr1, bool? ifTrue, Expression<Func<T, bool>> truePredicate, Expression<Func<T, bool>> falsePredicate) => expr1.Or(ifTrue ? truePredicate : falsePredicate);
 
     public static Expression<Func<T, bool>> Or<T>(this Expression<Func<T, bool>> expr1, Expression<Func<T, bool>> expr2) {
       var parameter = Expression.Parameter(typeof(T));
