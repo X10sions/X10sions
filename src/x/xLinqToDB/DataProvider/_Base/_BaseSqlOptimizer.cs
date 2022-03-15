@@ -4,7 +4,7 @@ using LinqToDB.SqlQuery;
 
 namespace LinqToDB.DataProvider {
   public abstract class _BaseSqlOptimizer : BasicSqlOptimizer {
-    public _BaseSqlOptimizer(SqlProviderFlags sqlProviderFlags) : base(sqlProviderFlags) {    }
+    public _BaseSqlOptimizer(SqlProviderFlags sqlProviderFlags) : base(sqlProviderFlags) { }
 
     public ISqlExpression ConvertExpressionImpl_DB2iSeries(ISqlExpression expression) {
       if (expression is SqlBinaryExpression be) {
@@ -20,7 +20,7 @@ namespace LinqToDB.DataProvider {
       } else if (expression is SqlFunction func) {
         switch (func.Name.ToLower()) {
           case "convert": {
-              if (func.SystemType.ToUnderlying() == typeof(bool)) {
+              if (System.TypeExtensions.ToUnderlying(func.SystemType) == typeof(bool)) {
                 var ex = AlternativeConvertToBoolean(func, 1);
                 if (ex != null) {
                   return ex;
@@ -74,7 +74,7 @@ namespace LinqToDB.DataProvider {
           case "money": return new SqlFunction(func.SystemType, "Decimal", func.Parameters[0], new SqlValue(19), new SqlValue(4));
           case "smallmoney": return new SqlFunction(func.SystemType, "Decimal", func.Parameters[0], new SqlValue(10), new SqlValue(4));
           case "varchar":
-            if (func.Parameters[0].SystemType.ToUnderlying() == typeof(decimal)) {
+            if (System.TypeExtensions.ToUnderlying(func.Parameters[0].SystemType) == typeof(decimal)) {
               return new SqlFunction(func.SystemType, "Char", func.Parameters[0]);
             }
             break;
