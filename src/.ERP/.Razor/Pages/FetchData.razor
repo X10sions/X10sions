@@ -1,0 +1,26 @@
+﻿@page "/fetchdata"
+<PageTitle>Weather forecast</PageTitle>
+@using X10sions.ERP.Data.Models
+@using X10sions.ERP.Data.Services
+@inject WeatherForecastService ForecastService
+@inject HttpClient Http
+<h1>Weather forecast</h1>
+<p>This component demonstrates fetching data from the server.</p>
+<partial name="_FetchDataTable" model="forecastsFromServer" />
+<p>This component demonstrates fetching data from a service.</p>
+<partial name="_FetchDataTable" model="forecastsFromService" />
+@code {
+  private WeatherForecast[]? forecastsFromService;
+
+  protected override async Task OnInitializedAsync() {
+    forecastsFromService = await ForecastService.GetForecastAsync(DateTime.Now);
+  }
+
+  private WeatherForecast[]? forecastsFromServer;
+
+  protected override async void OnInitialized() {
+    //protected override async Task OnInitializedAsync() {
+    forecastsFromServer = await Http.GetFromJsonAsync<WeatherForecast[]>("sample-data/weather.json");
+  }
+
+}
