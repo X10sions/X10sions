@@ -135,6 +135,8 @@ namespace System.Collections.Generic {
     public static IEnumerable<TSource> WhereIf<TSource>(this IEnumerable<TSource> source, bool condition, Func<TSource, bool> predicate) => condition ? source.Where(predicate) : source;
     public static IEnumerable<TSource> WhereIf<TSource>(this IEnumerable<TSource> source, bool condition, Func<TSource, int, bool> predicate) => condition ? source.Where(predicate) : source;
 
-  }
+    public static IEnumerable<TSource> WhereIfNotNull<TSource>(this IEnumerable<TSource> source, Func<TSource, bool>? predicate) => predicate != null ? source.Where(predicate) : source;
+    public static IEnumerable<TSource> WhereIfNotNull<TSource>(this IEnumerable<TSource> source, Func<TSource, int, bool>? predicate) => predicate != null ? source.Where(predicate) : source;
 
+  }
 }

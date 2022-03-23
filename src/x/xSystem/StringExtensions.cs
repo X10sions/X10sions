@@ -19,13 +19,14 @@ namespace System {
     //public static long ConvertToInt64Round(this string value) => Convert.ToInt64(Math.Round(Convert.ToDecimal(value)));
 
     public static string CsvEscapeQuotes(this string s) => string.IsNullOrEmpty(s) ? s : s.Replace("\"", "\"\"");
-
     public static bool Equals(this string s1, string s2, bool useOrdinalIgnoreCase) => useOrdinalIgnoreCase ? s1.Equals(s2, StringComparison.OrdinalIgnoreCase) : s1.Equals(s2);
     public static bool EqualsIgnoreCase(this string s1, string s2) => s1.Equals(s2, StringComparison.OrdinalIgnoreCase);
     public static bool EqualsCurrentCultureIgnoreCase(this string s1, string s2) => s1.Equals(s2, StringComparison.CurrentCultureIgnoreCase);
     public static bool EqualsInvariantCultureIgnoreCase(this string s1, string s2) => s1.Equals(s2, StringComparison.InvariantCultureIgnoreCase);
     public static bool EqualsOrdinalIgnoreCase(this string s1, string s2) => s1.Equals(s2, StringComparison.OrdinalIgnoreCase);
-
+    public static string FixedLengthCenter(this string s, int length, char paddingChar = ' ') => FixedLengthLeft(FixedLengthRight(s, (s.Length + length) / 2, paddingChar), length, paddingChar);
+    public static string FixedLengthLeft(this string s, int length, char paddingChar = ' ') => s.Length > length ? s.Substring(0, length) : s.PadRight(length, paddingChar);
+    public static string FixedLengthRight(this string s, int length, char paddingChar = ' ') => s.Length > length ? s.Substring(s.Length - length, length) : s.PadLeft(length, paddingChar);
     public static string IfNullOrEmpty(this string s, string defaultValue) => string.IsNullOrEmpty(s) ? defaultValue : s;
     public static string IfNullOrWhiteSpace(this string s, string defaultValue) => string.IsNullOrWhiteSpace(s) ? defaultValue : s;
 
