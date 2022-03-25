@@ -14,7 +14,9 @@
     <None Remove="Odbc\**" />
   </ItemGroup>
   <ItemGroup Label="PackageReferences">
+    <!-- 
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
+    -->
     <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="6.0.3" />
     <PackageReference Include="System.Data.Odbc" Version="6.0.0" />
   </ItemGroup>
