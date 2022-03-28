@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup Label="Application">
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Product>MailKit .Net Extensions</Product>
+    <VersionPart1>3</VersionPart1>
+    <VersionPart2>2</VersionPart2>
+    <Description>https://getbootstrap.com</Description>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="MailKit" Version="3.2.0" />
+  </ItemGroup>
+</Project>

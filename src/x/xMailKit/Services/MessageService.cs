@@ -1,18 +1,18 @@
-﻿using System;
+﻿using MimeKit;
 
-namespace Common.Services {
+namespace MailKit.Services {
   public class MessageService : IMessageService {
 
     public MessageService(string filePath, string fromAddress, string fromDisplayName)
-      : this(filePath, new MailAddress(fromAddress, fromDisplayName)) { }
+      : this(filePath, new MailboxAddress(fromAddress, fromDisplayName)) { }
 
-    public MessageService(string filePath, MailAddress fromMailAddress) {
+    public MessageService(string filePath, MailboxAddress fromMailAddress) {
       FilePath = filePath;
       FromMailAddress = fromMailAddress;
     }
 
     public string FilePath { get; } = "\\Logs\\emails.log";
-    public MailAddress FromMailAddress { get; }
+    public MailboxAddress FromMailAddress { get; }
 
     public string FormatMessage(string to, string subject, string message)
       => $"Date:{DateTime.Now}\nTo: {to}\nSubject: {subject}\nMessage: {message}\n\n";

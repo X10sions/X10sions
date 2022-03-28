@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
 
-namespace Common.Services {
+namespace MailKit.Services {
 
   public interface IFileMessageService {
     string FilePath { get; }

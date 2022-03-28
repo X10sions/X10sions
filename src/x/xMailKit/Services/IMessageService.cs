@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-
-namespace Common.Services {
+﻿namespace MailKit.Services {
   public interface IMessageService : IFileMessageService, IMailMessageService {
   }
 

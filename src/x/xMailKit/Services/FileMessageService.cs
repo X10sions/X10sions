@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Common.Services {
+namespace MailKit.Services {
   public class FileMessageService : IFileMessageService {
     public FileMessageService(string filePath) {
       FilePath = filePath;
