@@ -41,8 +41,36 @@ namespace MailKit {
       return message;
     }
 
-    public static void SendSmptClient(this IMailKitAppSettings settings, MimeMessage message) {
-      message.ApplySettings(settings);
+    public static void SmtpClientConnectionInfo(this IMailKitAppSettings settings) {
+      using (var client = new SmtpClient()) {
+        client.Connect(settings.Smtp. Host, settings.Smtp.Port, settings.Smtp.UseSsl );
+
+        Console.WriteLine($"Negotiated the following SSL options with {settings.Smtp.Host}:");
+        Console.WriteLine($"        Protocol Version: {client.SslProtocol}");
+        Console.WriteLine($"        Cipher Algorithm: {client.SslCipherAlgorithm}");
+        Console.WriteLine($"         Cipher Strength: {client.SslCipherStrength}");
+        Console.WriteLine($"          Hash Algorithm: {client.SslHashAlgorithm}");
+        Console.WriteLine($"           Hash Strength: {client.SslHashStrength}");
+        Console.WriteLine($"  Key-Exchange Algorithm: {client.SslKeyExchangeAlgorithm}");
+        Console.WriteLine($"   Key-Exchange Strength: {client.SslKeyExchangeStrength}");
+
+        // Example Log:
+        //
+        // Negotiated the following SSL options with smtp.gmail.com:
+        //         Protocol Version: Tls12
+        //         Cipher Algorithm: Aes128
+        //          Cipher Strength: 128
+        //           Hash Algorithm: Sha256
+        //            Hash Strength: 0
+        //   Key-Exchange Algorithm: 44550
+        //    Key-Exchange Strength: 255
+
+        client.Disconnect(true);
+      }
+    }
+
+    public static void SendSmptClient(this IMailKitAppSettings settings, params MimeMessage[] messages) {
+       //using (var client = new SmtpClient(new ProtocolLogger("smtp.log"))) {
       using (var client = new SmtpClient()) {
         try {
           client.Connect(settings.Smtp.Host, settings.Smtp.Port, settings.Smtp.UseSsl);
@@ -50,9 +78,13 @@ namespace MailKit {
           if (settings.Smtp.UserName != null) {
             client.Authenticate(settings.Smtp.UserName, settings.Smtp.Password);
           }
-          client.Send(message);
-        } catch {
-          throw;
+          foreach (var message in messages) {
+            message.ApplySettings(settings);
+            client.Send(message);
+          }
+        } catch (Exception ex) {
+          System.Diagnostics.Debug.WriteLine(ex.Message);
+          throw ex;
         } finally {
           client.Disconnect(true);
           client.Dispose();
@@ -60,8 +92,7 @@ namespace MailKit {
       }
     }
 
-    public async static Task SendSmptClientAsync(this IMailKitAppSettings settings, MimeMessage message) {
-      message.ApplySettings(settings);
+    public async static Task SendSmptClientAsync(this IMailKitAppSettings settings, params MimeMessage[] messages) {
       using (var client = new SmtpClient()) {
         try {
           await client.ConnectAsync(settings.Smtp.Host, settings.Smtp.Port, settings.Smtp.UseSsl);
@@ -69,9 +100,13 @@ namespace MailKit {
             //client.AuthenticationMechanisms.Remove("XOAUTH2");
             await client.AuthenticateAsync(settings.Smtp.UserName, settings.Smtp.Password);
           }
-          await client.SendAsync(message);
-        } catch {
-          throw;
+          foreach (var message in messages) {
+            message.ApplySettings(settings);
+            await client.SendAsync(message);
+          }
+        } catch (Exception ex) {
+          System.Diagnostics.Debug.WriteLine(ex.Message);
+          throw ex;
         } finally {
           await client.DisconnectAsync(true);
           client.Dispose();
