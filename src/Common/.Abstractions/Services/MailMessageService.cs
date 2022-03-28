@@ -1,6 +1,4 @@
-﻿using System.Net.Mail;
-
-namespace Common.Services {
+﻿namespace Common.Services {
   public class MailMessageService : IMailMessageService {
     public MailMessageService(string fromAddress, string fromDisplayName)
       : this(new MailAddress(fromAddress, fromDisplayName)) { }

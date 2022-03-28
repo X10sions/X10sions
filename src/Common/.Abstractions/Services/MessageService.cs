@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Net.Mail;
 
 namespace Common.Services {
   public class MessageService : IMessageService {

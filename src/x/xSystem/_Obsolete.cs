@@ -4,10 +4,9 @@ using System.Data;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Net;
-using System.Net.Mail;
 using System.Text.RegularExpressions;
 
-namespace System.Reflection {
+namespace System.Reflection ;
   [Obsolete("To be deleted")]
   public static class _ObsoleteExtensions {
 

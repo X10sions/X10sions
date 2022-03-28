@@ -1,4 +1,4 @@
-﻿namespace System.Net.Mail {
+﻿namespace System.Net.Mail;
   public static class SmtpClientExtensions {
 
     public static SmtpClient SetCredentials(this SmtpClient client, NetworkCredential value) {
@@ -32,4 +32,3 @@
     }
 
   }
-}

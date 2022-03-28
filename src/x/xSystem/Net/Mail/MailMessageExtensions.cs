@@ -1,7 +1,7 @@
 ﻿using System.Text;
 using System.Threading.Tasks;
 
-namespace System.Net.Mail {
+namespace System.Net.Mail;
   public static class MailMessageExtensions {
 
     public static MailMessage AddBcc(this MailMessage msg, MailAddress emailBCC) => msg.AddToCcBcc(null, null, emailBCC);
@@ -81,4 +81,3 @@ namespace System.Net.Mail {
     public static async Task SendMailAsync(this MailMessage mailMessage, SmtpClient client) => await client.SendMailAsync(mailMessage);
 
   }
-}
