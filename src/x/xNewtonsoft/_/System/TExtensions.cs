@@ -1,7 +1,4 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-
-namespace System {
+﻿namespace System {
   public static class TExtensions {
 
     public static T PopulateFromJsonFiles<T>(this T obj, params string[] jsonFilePaths) where T: notnull  {
