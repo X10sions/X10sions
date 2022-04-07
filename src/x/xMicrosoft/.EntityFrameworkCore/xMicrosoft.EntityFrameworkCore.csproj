@@ -2,7 +2,7 @@
   <PropertyGroup Label="Application">
     <TargetFramework>netstandard2.1</TargetFramework>
     <Product>Microsoft .EntityFrameworkCore Extensions</Product>
-    <VersionPart1>5</VersionPart1>
+    <VersionPart1>6</VersionPart1>
     <VersionPart2>0</VersionPart2>
   </PropertyGroup>
   <ItemGroup Label="PackageReferences">

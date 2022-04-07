@@ -11,11 +11,7 @@ using System.Xml.Serialization;
 namespace System {
   public static class ObjectExtensions {
 
-
     ///public static string IfNullToString(this object value, string valueIfNull) => value == null ? valueIfNull : value.ToString();
-
-
-
     public static object MergeToExpandoObject(this object item1, object item2) {
       //
       var dictionary1 = (IDictionary<string, object>)item1;
@@ -72,6 +68,9 @@ namespace System {
     }
 
     #endregion
+
+    public static object ThrowIfNull(this object o, string message) => o is null ? throw new ArgumentNullException(message) : o;
+    public static object ThrowIfNotNull(this object o, string message) => o != null ? throw new ArgumentNullException(message) : o;
 
   }
 }

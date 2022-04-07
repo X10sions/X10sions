@@ -1,8 +1,5 @@
-﻿using System.Text;
-
-namespace Newtonsoft.Json.Utilities {
-  public static class StringUtils {
-
+﻿namespace  System {
+  public static class String_CaseExtensions {
     #region https://github.com/JamesNK/Newtonsoft.Json/blob/master/Src/Newtonsoft.Json/Utilities/StringUtils.cs
 
     public static string ToSnakeCase(this string s) => ToSeparatedCase(s, '_');
