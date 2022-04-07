@@ -1,6 +1,5 @@
 ﻿using Common.FileProviders;
 using Microsoft.AspNetCore.Http;
-using System.Collections.Generic;
 using System.Reflection;
 
 namespace Microsoft.AspNetCore.Builder {

@@ -1,9 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup Label="Application">
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <Product>Microsoft AspNetCore Extensions</Product>
-    <VersionPart1>2</VersionPart1>
-    <VersionPart2>2</VersionPart2>
+    <VersionPart1>6</VersionPart1>
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <!--

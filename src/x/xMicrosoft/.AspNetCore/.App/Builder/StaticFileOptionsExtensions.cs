@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.Extensions.FileProviders;
-using System;
 
 namespace Microsoft.AspNetCore.Builder {
   public static class StaticFileOptionsExtensions {

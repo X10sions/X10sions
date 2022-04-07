@@ -1,7 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-
-namespace Microsoft.Extensions.Caching.Memory {
+﻿namespace Microsoft.Extensions.Caching.Memory {
   public static class IMemoryCacheExtensions {
 
     public static T Get<T>(this IMemoryCache memoryCache) => memoryCache.Get<T>(typeof(T).FullName);

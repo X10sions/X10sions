@@ -1,11 +1,4 @@
-﻿using System.ComponentModel;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-
-namespace System {
+﻿namespace System {
   public static class TExtensions {
 
     //public static T As<T>(this object obj, T defaultValue = default) => (obj is T) ? (T)obj : defaultValue;
@@ -103,6 +96,9 @@ namespace System {
       }
       return setThis;
     }
+
+
+
 
     public static string WrapIfNotNull<T>(this T value, string prefix = "", string suffix = "", string defaultIfNull = "") => (value == null) ? defaultIfNull : $"{prefix}{value}{suffix}";
 
