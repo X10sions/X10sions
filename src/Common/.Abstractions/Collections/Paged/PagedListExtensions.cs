@@ -2,7 +2,7 @@
 
 namespace Common.Collections.Paged;
 public static class PagedListExtensions {
-  public static async Task<List<int>> CountAsync<T>(this IEnumerable<T> superset, CancellationToken cancellationToken) => await Task.Run(superset.Count, cancellationToken);
+  public static async Task<int> CountAsync<T>(this IEnumerable<T> superset, CancellationToken cancellationToken) => await Task.Run(superset.Count, cancellationToken);
   public static IEnumerable<IEnumerable<T>> Split<T>(this IEnumerable<T> superset, int numberOfPages) {
     int take = Convert.ToInt32(Math.Ceiling(superset.Count() / (double)numberOfPages));
     var result = new List<IEnumerable<T>>();
