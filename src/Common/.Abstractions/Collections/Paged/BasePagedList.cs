@@ -11,8 +11,8 @@ namespace Common.Collections.Paged {
 
     protected internal BasePagedList(int pageNumber, int pageSize, int totalItemCount) {
       TotalItemCount = totalItemCount;
-      PageSize = pageSize > 0 ? pageSize : throw new ArgumentOutOfRangeException($"{nameof(pageSize)} '{pageSize}' cannot be less than 1.");
       PageNumber = pageNumber > 0 ? pageNumber : throw new ArgumentOutOfRangeException($"{nameof(pageNumber)} '{pageNumber}' cannot be less than 1.");
+      PageSize = pageSize > 0 ? pageSize : throw new ArgumentOutOfRangeException($"{nameof(pageSize)} '{pageSize}' cannot be less than 1.");
     }
 
     public int TotalItemCount { get; protected set; }

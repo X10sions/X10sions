@@ -8,11 +8,12 @@ public static class Throw {
   public static object IfNull<T>(T value, string message) => value.ThrowIfNull(message);
   public static object IfNull<T>(T value, string propertyName, string message) => IfNull(value, $"{propertyName} is NULL. {message}");
   public static object IfNotNull<T>(T value, string message) =>  value.ThrowIfNotNull (message);
-  public static void IfNullOrWhiteSpace(string value, string propertyName) {
+  public static string IfNullOrWhiteSpace(string value, string propertyName) {
     IfNull(value, propertyName);
     if (string.IsNullOrEmpty(value)) {
       throw new ArgumentException($"Paramater {propertyName} cannot be empty.");
     }
+    return value;
   }
 
   public static void IfNotEqual<T>(T valueOne, T valueTwo, string property) => (!valueOne.Equals(valueTwo)).ThrowIfTrue($"Supplied {property} Values are not equal.");
