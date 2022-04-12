@@ -1,10 +1,10 @@
 ﻿namespace System {
   public static class IComparableExtensions {
 
-    public static int CompareNullable<T>(this T? x, T? y) where T : struct, IComparable<T> => !x.HasValue && !y.HasValue ? 0 : x.HasValue && !y.HasValue ? 1 : y.HasValue && !x.HasValue ? -1 : x.Value.CompareTo(y.Value);
+    public static int CompareNullable<T>(this T? x, T? y) where T : struct, IComparable<T> => Nullable.Compare(x, y);
 
     public static T GetValueBetween<T>(this T value, T min, T max) where T : struct, IComparable<T> => value.CompareTo(max) > 0 ? max : value.CompareTo(min) < 0 ? min : value;
-    public static T? GetValueBetween<T>(this T? value, T? min, T? max) where T : struct, IComparable<T> => value.CompareNullable(max) > 0 ? max : value.CompareNullable(min) < 0 ? min : value;
+    public static T? GetValueBetween<T>(this T? value, T? min, T? max) where T : struct, IComparable<T> =>   value.CompareNullable(max) > 0 ? max : value.CompareNullable(min) < 0 ? min : value;
 
     //[LinqToDB.Sql.Expression("{0} BETWEEN {1} AND {2}",PreferServerSide = true)]
     public static bool IsBetween(this IComparable x, IComparable min, IComparable max) => x.IsGreaterThanOrEquals(min) && x.IsLessThanOrEquals(max);
@@ -14,6 +14,11 @@
       : isMinExclusive && isMaxExclusive ? x.CompareTo(min) > 0 && x.CompareTo(max) < 0
       : isMinExclusive ? x.CompareTo(min) > 0 && x.CompareTo(max) <= 0
       : x.CompareTo(min) >= 0 && x.CompareTo(max) < 0;
+
+    public static bool IsBetween<T>(this T item, T start, T end) where T : IComparable, IComparable<T> {
+      return Comparer<T>.Default.Compare(item, start) >= 0
+          && Comparer<T>.Default.Compare(item, end) <= 0;
+    }
 
     public static bool IsEqualTo(this IComparable x, IComparable otherValue) => x.CompareTo(otherValue) == 0;
     public static bool IsGreaterThan(this IComparable x, IComparable otherValue) => x.CompareTo(otherValue) > 0;

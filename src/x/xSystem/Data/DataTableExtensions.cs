@@ -5,8 +5,6 @@ using System.Text;
 namespace System.Data {
   public static class DataTableExtensionsX {
 
- 
-
     public static List<T> DataTableToObjectList<T>(this DataTable dsTable) where T : class, new() {
       var objectList = new List<T>();
       foreach (DataRow dr in dsTable.Rows) {
@@ -17,13 +15,15 @@ namespace System.Data {
       return objectList;
     }
 
-    public static List<T> DataTableToTypedList<T>(this DataTable dsTable) where T : class, new() {
-      var objectList = new List<T>();
-      MemberInfo[] cachedMemberInfo = null;
+    public static List<T?> DataTableToTypedList<T>(this DataTable dsTable) where T : class, new() {
+      var objectList = new List<T?>();
+      MemberInfo[]? cachedMemberInfo = null;
       foreach (DataRow dr in dsTable.Rows) {
         var obj = default(T); // Activator.CreateInstance<T>();
-        dr.CopyObjectFromDataRow(obj, cachedMemberInfo);
-        objectList.Add(obj);
+        //if (obj != null) {
+          dr.CopyObjectFromDataRow(obj, cachedMemberInfo);
+          objectList.Add(obj);
+        //}
       }
       return objectList;
     }

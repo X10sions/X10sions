@@ -1,7 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup Label="Application">
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Product>System NetStandard Extensions</Product>
+    <Product>System .NetStandard Extensions</Product>
+    <Nullable>enable</Nullable>
     <VersionPart1>2</VersionPart1>
     <VersionPart2>0</VersionPart2>
     <VersionPart3>3</VersionPart3>

@@ -80,7 +80,7 @@ namespace System {
     }
 
 
-    public static T Get<T>(this byte[] bytes) {
+    public static T? Get<T>(this byte[] bytes) {
       if (bytes == null) {
         return default(T);
       }
@@ -89,7 +89,7 @@ namespace System {
       }
     }
 
-    public static BinaryReader GetBinaryReader(this byte[] bytes) {
+    public static BinaryReader? GetBinaryReader(this byte[] bytes) {
       if (bytes == null) {
         return null;
       }
@@ -98,22 +98,22 @@ namespace System {
       }
     }
 
-    public static bool? GetBoolean(this byte[] bytes) => bytes?.GetBinaryReader().ReadBoolean();
-    public static byte? GetByte(this byte[] bytes) => bytes?.GetBinaryReader().ReadByte();
-    public static byte[] GetBytes(this byte[] bytes, int count) => bytes?.GetBinaryReader().ReadBytes(count);
-    public static char? GetChar(this byte[] bytes) => bytes?.GetBinaryReader().ReadChar();
-    public static char[] GetChars(this byte[] bytes, int count) => bytes?.GetBinaryReader().ReadChars(count);
-    public static decimal? GetDecimal(this byte[] bytes) => bytes?.GetBinaryReader().ReadDecimal();
-    public static double? GetDouble(this byte[] bytes) => bytes?.GetBinaryReader().ReadDouble();
-    public static short? GetInt16(this byte[] bytes) => bytes?.GetBinaryReader().ReadInt16();
-    public static int? GetInt32(this byte[] bytes) => bytes?.GetBinaryReader().ReadInt32();
-    public static long? GetInt64(this byte[] bytes) => bytes?.GetBinaryReader().ReadInt64();
-    public static sbyte? GeSByte(this byte[] bytes) => bytes?.GetBinaryReader().ReadSByte();
-    public static float? GetSingle(this byte[] bytes) => bytes?.GetBinaryReader().ReadSingle();
-    public static string GetString(this byte[] bytes) => bytes?.GetBinaryReader().ReadString();
-    public static ushort? GetUInt16(this byte[] bytes) => bytes?.GetBinaryReader().ReadUInt16();
-    public static uint? GetUInt32(this byte[] bytes) => bytes?.GetBinaryReader().ReadUInt32();
-    public static ulong? GetUInt64(this byte[] bytes) => bytes?.GetBinaryReader().ReadUInt64();
+    public static bool? GetBoolean(this byte[] bytes) => bytes?.GetBinaryReader()?.ReadBoolean();
+    public static byte? GetByte(this byte[] bytes) => bytes?.GetBinaryReader()?.ReadByte();
+    public static byte[]? GetBytes(this byte[] bytes, int count) => bytes?.GetBinaryReader()?.ReadBytes(count);
+    public static char? GetChar(this byte[] bytes) => bytes?.GetBinaryReader()?.ReadChar();
+    public static char[]? GetChars(this byte[] bytes, int count) => bytes?.GetBinaryReader()?.ReadChars(count);
+    public static decimal? GetDecimal(this byte[] bytes) => bytes?.GetBinaryReader()?.ReadDecimal();
+    public static double? GetDouble(this byte[] bytes) => bytes?.GetBinaryReader()?.ReadDouble();
+    public static short? GetInt16(this byte[] bytes) => bytes?.GetBinaryReader()?.ReadInt16();
+    public static int? GetInt32(this byte[] bytes) => bytes?.GetBinaryReader()?.ReadInt32();
+    public static long? GetInt64(this byte[] bytes) => bytes?.GetBinaryReader()?.ReadInt64();
+    public static sbyte? GeSByte(this byte[] bytes) => bytes?.GetBinaryReader()?.ReadSByte();
+    public static float? GetSingle(this byte[] bytes) => bytes?.GetBinaryReader()?.ReadSingle();
+    public static string? GetString(this byte[] bytes) => bytes?.GetBinaryReader()?.ReadString();
+    public static ushort? GetUInt16(this byte[] bytes) => bytes?.GetBinaryReader()?.ReadUInt16();
+    public static uint? GetUInt32(this byte[] bytes) => bytes?.GetBinaryReader()?.ReadUInt32();
+    public static ulong? GetUInt64(this byte[] bytes) => bytes?.GetBinaryReader()?.ReadUInt64();
 
 
     static void ValidateParameters(int bufferLength, string inputName, int offset, int count) {

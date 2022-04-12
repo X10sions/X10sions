@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
+﻿using System.Reflection;
 
 namespace System.Data {
   public static class IDataReaderExtensions {
@@ -10,7 +7,7 @@ namespace System.Data {
     public static string GetStringTrimEnd(this IDataReader reader, int fieldIndex) => reader.GetString(fieldIndex).TrimEnd();
     public static string GetStringTrimStart(this IDataReader reader, int fieldIndex) => reader.GetString(fieldIndex).TrimStart();
 
-    public static List<T> DataReaderToObjectList<T>(this IDataReader reader, string propertiesToSkip = null, Dictionary<string, PropertyInfo> piList = null)
+    public static List<T> DataReaderToObjectList<T>(this IDataReader reader, string? propertiesToSkip = null, Dictionary<string, PropertyInfo>? piList = null)
          where T : new() {
       var list = new List<T>();
       using (reader) {
@@ -29,7 +26,7 @@ namespace System.Data {
       return list;
     }
 
-    public static IEnumerable<T> DataReaderToIEnumerable<T>(this IDataReader reader, string propertiesToSkip = null, Dictionary<string, PropertyInfo> piList = null)
+    public static IEnumerable<T> DataReaderToIEnumerable<T>(this IDataReader reader, string? propertiesToSkip = null, Dictionary<string, PropertyInfo>? piList = null)
           where T : new() {
       if (reader != null) {
         using (reader) {
@@ -48,7 +45,7 @@ namespace System.Data {
       }
     }
 
-    public static List<T> DataReaderToList<T>(this IDataReader reader, string propertiesToSkip = null, Dictionary<string, PropertyInfo> piList = null)
+    public static List<T> DataReaderToList<T>(this IDataReader reader, string? propertiesToSkip = null, Dictionary<string, PropertyInfo>? piList = null)
        where T : new() {
       var list = new List<T>();
 
@@ -70,7 +67,7 @@ namespace System.Data {
       return list;
     }
 
-    public static void DataReaderToObject(this IDataReader reader, object instance, string propertiesToSkip = null, Dictionary<string, PropertyInfo> piList = null) {
+    public static void DataReaderToObject(this IDataReader reader, object instance, string? propertiesToSkip = null, Dictionary<string, PropertyInfo>? piList = null) {
       if (reader.IsClosed)
         throw new InvalidOperationException("Resources.DataReaderPassedToDataReaderToObjectCannot");
       if (string.IsNullOrEmpty(propertiesToSkip))

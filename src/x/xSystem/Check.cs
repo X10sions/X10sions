@@ -1,7 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Globalization;
-using System.Linq;
 
 namespace System {
 
@@ -57,25 +55,13 @@ namespace System {
     }
 
     // [ContractAnnotation("value:null => halt")]
-    public static string NotEmpty(string value, string parameterName) {
-      Exception e = null;
+    public static string NotEmpty(string? value, string parameterName) {
       if (value is null) {
-        e = new ArgumentNullException(parameterName);
+        throw new ArgumentNullException(parameterName);
       } else if (value.Trim().Length == 0) {
-        e = new ArgumentException(ArgumentIsEmpty(parameterName));
-      }
-      if (e != null) {
-        NotEmpty(parameterName, nameof(parameterName));
-        throw e;
-      }
-      return value;
-    }
-
-    public static string NullButNotEmpty(string value, string parameterName) {
-      if (!ReferenceEquals(value, null) && value.Length == 0) {
-        NotEmpty(parameterName, nameof(parameterName));
         throw new ArgumentException(ArgumentIsEmpty(parameterName));
       }
+      NotEmpty(parameterName, nameof(parameterName));
       return value;
     }
 

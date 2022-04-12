@@ -3,12 +3,11 @@
 namespace System.Data {
   public static class DataRowExtensionsX {
 
-
     public static void MapToObject(this DataRow dataRow, object obj) {
-      foreach(var prop in obj.GetType().GetProperties()) {
-        if(dataRow.Table.Columns.Contains(prop.Name)) {
+      foreach (var prop in obj.GetType().GetProperties()) {
+        if (dataRow.Table.Columns.Contains(prop.Name)) {
           var value = dataRow[dataRow.Table.Columns[prop.Name]];
-          if(!(value is DBNull))
+          if (!(value is DBNull))
             prop.SetValue(obj, Convert.ChangeType(value, prop.PropertyType), null);
         }
       }
@@ -20,7 +19,7 @@ namespace System.Data {
 
     public static bool CopyDataRow(this DataRow source, DataRow target) {
       var columns = target.Table.Columns;
-      for(var x = 0; x < columns.Count; x++) {
+      for (var x = 0; x < columns.Count; x++) {
         var fieldname = columns[x].ColumnName;
         try {
           target[x] = source[fieldname];
@@ -29,40 +28,39 @@ namespace System.Data {
       return true;
     }
 
-    public static void CopyObjectFromDataRow(this DataRow row, object targetObject, MemberInfo[] cachedMemberInfo = null) {
-      if(cachedMemberInfo == null) {
-        cachedMemberInfo = targetObject.GetType()
-            .FindMembers(MemberTypes.Field | MemberTypes.Property,
-                MemberAccess, null, null);
+    public static void CopyObjectFromDataRow(this DataRow row, object? targetObject, MemberInfo[]? cachedMemberInfo = null) {
+      if (targetObject != null && cachedMemberInfo == null) {
+        cachedMemberInfo = targetObject.GetType().FindMembers(MemberTypes.Field | MemberTypes.Property, MemberAccess, null, null);
       }
-      foreach(var Field in cachedMemberInfo) {
-        var Name = Field.Name;
-        if(!row.Table.Columns.Contains(Name))
+      if (cachedMemberInfo == null) return;
+      foreach (var field in cachedMemberInfo) {
+        var Name = field.Name;
+        if (!row.Table.Columns.Contains(Name))
           continue;
 
         var value = row[Name];
-        if(value == DBNull.Value)
+        if (value == DBNull.Value)
           value = null;
 
-        if(Field.MemberType == MemberTypes.Field) {
-          ((FieldInfo)Field).SetValue(targetObject, value);
-        } else if(Field.MemberType == MemberTypes.Property) {
-          ((PropertyInfo)Field).SetValue(targetObject, value, null);
+        if (field.MemberType == MemberTypes.Field) {
+          ((FieldInfo)field).SetValue(targetObject, value);
+        } else if (field.MemberType == MemberTypes.Property) {
+          ((PropertyInfo)field).SetValue(targetObject, value, null);
         }
       }
     }
 
     public static bool CopyObjectToDataRow(this DataRow row, object target) {
       var result = true;
-      foreach(var Field in target.GetType().FindMembers(MemberTypes.Field | MemberTypes.Property, MemberAccess, null, null)) {
+      foreach (var Field in target.GetType().FindMembers(MemberTypes.Field | MemberTypes.Property, MemberAccess, null, null)) {
         var name = Field.Name;
-        if(!row.Table.Columns.Contains(name))
+        if (!row.Table.Columns.Contains(name))
           continue;
 
         try {
-          if(Field.MemberType == MemberTypes.Field) {
+          if (Field.MemberType == MemberTypes.Field) {
             row[name] = ((FieldInfo)Field).GetValue(target) ?? DBNull.Value;
-          } else if(Field.MemberType == MemberTypes.Property) {
+          } else if (Field.MemberType == MemberTypes.Property) {
             row[name] = ((PropertyInfo)Field).GetValue(target, null) ?? DBNull.Value;
           }
         } catch { result = false; }
@@ -75,23 +73,23 @@ namespace System.Data {
 
     public static void InitializeDataRowWithBlanks(this DataRow row) {
       var loColumns = row.Table.Columns;
-      for(var x = 0; x < loColumns.Count; x++) {
-        if(!row.IsNull(x))
+      for (var x = 0; x < loColumns.Count; x++) {
+        if (!row.IsNull(x))
           continue;
         var lcRowType = loColumns[x].DataType.Name;
-        if(lcRowType == "String")
+        if (lcRowType == "String")
           row[x] = string.Empty;
-        else if(lcRowType.StartsWith("Int", StringComparison.Ordinal))
+        else if (lcRowType.StartsWith("Int", StringComparison.Ordinal))
           row[x] = 0;
-        else if(lcRowType == "Byte")
+        else if (lcRowType == "Byte")
           row[x] = 0;
-        else if(lcRowType == "Decimal")
+        else if (lcRowType == "Decimal")
           row[x] = 0.00M;
-        else if(lcRowType == "Double")
+        else if (lcRowType == "Double")
           row[x] = 0.00;
-        else if(lcRowType == "Boolean")
+        else if (lcRowType == "Boolean")
           row[x] = false;
-        else if(lcRowType == "DateTime")
+        else if (lcRowType == "DateTime")
           row[x] = MinimumSqlDate;
 
         // Everything else isn't handled explicitly and left alone
@@ -106,7 +104,7 @@ namespace System.Data {
 
     public static string ToHtmlSelectOption(this DataRow @this, string valueField, string textField, int selectedValue) => HtmlForOption((@this[valueField]), (@this[textField]), selectedValue);
 
-    private static string HtmlForOption(object dataValue, object dataText = null, object selectedValue = null) {
+    private static string HtmlForOption(object dataValue, object? dataText = null, object? selectedValue = null) {
       selectedValue = selectedValue ?? string.Empty;
       return $"<option value=\"{(dataText == null ? dataValue.ToString() : dataText.ToString())}\"{dataValue}>{(selectedValue.ToString().Equals(dataValue.ToString(), StringComparison.OrdinalIgnoreCase) ? " selected=\"selected\" " : "")}</option>";
     }

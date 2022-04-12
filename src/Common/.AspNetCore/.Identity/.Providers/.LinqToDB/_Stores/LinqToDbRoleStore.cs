@@ -54,7 +54,7 @@ namespace Common.AspNetCore.Identity.Providers.LinqToDB {
       return IdentityResult.Success;
     }
 
-    public virtual Task<string> GetRoleIdAsync(IdentityRoleNav<TKey> role, CancellationToken cancellationToken = default) {
+    public virtual Task<string?> GetRoleIdAsync(IdentityRoleNav<TKey> role, CancellationToken cancellationToken = default) {
       cancellationToken.ThrowIfCancellationRequested();
       ThrowIfDisposed();
       if (role == null) {

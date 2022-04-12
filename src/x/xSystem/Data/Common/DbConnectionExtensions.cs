@@ -12,7 +12,7 @@ namespace System.Data.Common {
     static LambdaExpression exp = Expression.Lambda(con, p);
     static Func<DbConnection, DbProviderFactory> s_func = (Func<DbConnection, DbProviderFactory>)exp.Compile();
 
-    public static DbTransaction CurrentTransactionAsync { get; set; }
+    public static DbTransaction? CurrentTransactionAsync { get; set; }
 
     public static Task<DbTransaction> BeginTransactionAsync(this DbConnection conn) => conn.BeginTransactionAsync(IsolationLevel.RepeatableRead, CancellationToken.None);
 

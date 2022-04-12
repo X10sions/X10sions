@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Net;
+﻿using System.Net;
 
 namespace System.Collections.Generic {
   public static class IDictionaryExtensions {
@@ -9,7 +8,7 @@ namespace System.Collections.Generic {
     //public static TValue AddOrUpdate<TKey, TValue>(this IDictionary<TKey, TValue> dic, TKey key, Func<TKey, TValue> valueFactory) => dic[key] = valueFactory(key);
     //public static TValue AddOrUpdate<TKey, TValue, TArg>(this IDictionary<TKey, TValue> dic, TKey key, Func<TKey, TArg, TValue> valueFactory, TArg factoryArgument) =>  dic[key] = valueFactory(key, factoryArgument);
 
-    public static TResult Get<TKey, TValue, TResult>(this IDictionary<TKey, TValue> dic, TKey key, TResult defaultValue = default) {
+    public static TResult Get<TKey, TValue, TResult>(this IDictionary<TKey, TValue> dic, TKey key, TResult defaultValue ) {
       TValue value;
       return dic.TryGetValue(key, out value) && value is TResult t ? t : defaultValue;
     }

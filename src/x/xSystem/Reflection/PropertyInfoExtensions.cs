@@ -1,7 +1,4 @@
-﻿#nullable enable
-using System.ComponentModel;
-
-namespace System.Reflection {
+﻿namespace System.Reflection {
   public static class PropertyInfoExtensions {
 
     public static string GetPropertyName(this PropertyInfo property) => property.GetCustomAttribute<DisplayNameAttribute>()?.DisplayName ?? property.Name;

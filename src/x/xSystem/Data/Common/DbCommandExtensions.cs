@@ -9,7 +9,7 @@
       return parameter;
     }
 
-    public static DbParameter GetParameterOut(this DbCommand command, string name, DbType type, object value = null, ParameterDirection parameterDirection = ParameterDirection.InputOutput) {
+    public static DbParameter GetParameterOut(this DbCommand command, string name, DbType type, object? value = null, ParameterDirection parameterDirection = ParameterDirection.InputOutput) {
       var parameter = command.CreateParameter();
       parameter.ParameterName = name;
       parameter.DbType = type;
