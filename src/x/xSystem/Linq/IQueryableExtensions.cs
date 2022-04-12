@@ -10,10 +10,6 @@ namespace System.Linq {
       return queryable.Expression.Type == typeof(IOrderedQueryable<T>);
     }
 
-    public static IQueryable<T> SkipTakeToPage<T>(this IQueryable<T> source, int currentPage, int pageSize)
-      => source.Skip((currentPage - 1) * pageSize).Take(pageSize);
-
-
     public static IOrderedQueryable<T> AddOrdering<T, TKey>(this IQueryable<T> source, Expression<Func<T, TKey>> keySelector, bool descending) {
       if (source.Expression.Type != typeof(IOrderedQueryable<T>)) {
         return descending ? source.OrderByDescending(keySelector) : source.OrderBy(keySelector);

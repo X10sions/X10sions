@@ -18,7 +18,7 @@ namespace Common.Structures {
     public decimal DecimalValue { get => decimal.Parse(StringValue); set => StringValue = value.ToString(); }
     public double DoubleValue { get => double.Parse(StringValue); set => StringValue = value.ToString(); }
     public int IntValue { get => int.Parse(StringValue); set => StringValue = value.ToString(); }
-    public string StringValue { get; set; }
+    public string StringValue { get ; set; }
 
     public static implicit operator Boolean01(bool value) => new Boolean01(value);
     public static implicit operator Boolean01(decimal value) => new Boolean01(value);
