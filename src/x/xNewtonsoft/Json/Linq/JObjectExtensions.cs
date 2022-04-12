@@ -19,7 +19,7 @@
       return new FileInfo(targetJsonFileName);
     }
 
-    public static string GetString(this JObject jObject, object key) => jObject?.Value<string>(key);
+    public static string? GetString(this JObject jObject, object key) => jObject?.Value<string>(key);
 
   }
 }
