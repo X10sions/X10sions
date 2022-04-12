@@ -10,21 +10,19 @@ public class PagedList<T> : List<T>, IPagedListOptions {
   //  TotalItemCount = options.TotalItemCount;
   //}
 
-  public PagedList(IEnumerable<T> items, int pageNumber, int? pageSize, int totalItemCount) : this(pageNumber, pageSize) {
-    TotalItemCount = totalItemCount;
+  public PagedList(IEnumerable<T> items, int pageNumber, int? pageSize = null, int? totalItemCount = null) : this(pageNumber, pageSize) {
+    TotalItemCount = totalItemCount ?? items.Count();
     AddRange(items);
   }
 
-  public PagedList(IEnumerable<T> items, IPagedListOptions options) 
+  public PagedList(IEnumerable<T> items, IPagedListOptions options)
     : this(items, options.PageNumber, options.PageSize, options.TotalItemCount) { }
 
-  public PagedList(IQueryable<T> query, int pageNumber, int? pageSize = null, CancellationToken token = default)
-    : this(query.SkipTakeToPage(pageNumber, pageSize).ToListAsync(token).Result, pageNumber, pageSize, query.CountAsync(token).Result) { }
+  //public PagedList(IQueryable<T> query, int pageNumber, int? pageSize = null, CancellationToken token = default)
+  //  : this(query.SkipTakeToPage(pageNumber, pageSize).ToListAsync(token).Result, pageNumber, pageSize, query.CountAsync(token).Result) { }
 
-  public PagedList(IQueryable<T> query, IPagedListOptions options, CancellationToken token = default) 
-    : this(query, options.PageNumber, options.PageSize, token) { }
-
-
+  //public PagedList(IQueryable<T> query, IPagedListOptions options, CancellationToken token = default)
+  //  : this(query, options.PageNumber, options.PageSize, token) { }
 
   public int TotalItemCount { get; }
   public int PageNumber { get; }

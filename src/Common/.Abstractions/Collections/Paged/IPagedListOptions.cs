@@ -15,23 +15,11 @@ public static class IPagedListOptionsExtensions {
   public static bool HasNextPage(this IPagedListOptions options) => options.PageNumber < options.PageCount();
   public static bool IsFirstPage(this IPagedListOptions options) => options.PageNumber <= 1;
   public static bool IsLastPage(this IPagedListOptions options) => options.PageNumber >= options.PageCount();
-  public static int? GetSkip(this IPagedListOptions options ) => options.PageSize.HasValue ? ((options.PageNumber< 1 ? 1 : options.PageNumber) - 1) * options.PageSize.Value : null;
+  public static int? GetSkip(this IPagedListOptions options) => options.PageSize.HasValue ? ((options.PageNumber < 1 ? 1 : options.PageNumber) - 1) * options.PageSize.Value : null;
   public static int? GetTake(this IPagedListOptions options) => options.PageSize;
-
   // IQueryable
-  public static IQueryable<T> Skip<T>(this IQueryable<T> query, IPagedListOptions options) {
-    var skip = options.GetSkip();
-    return skip.HasValue ? query.Skip(skip.Value) : query;
-  }
-
+  public static IQueryable<T> Skip<T>(this IQueryable<T> query, IPagedListOptions options) => query.Skip(options.GetSkip());
   public static IQueryable<T> SkipTakeToPage<T>(this IQueryable<T> query, IPagedListOptions options) => query.Skip(options).Take(options);
-
   public static IQueryable<T> SkipTakeToPage<T>(this IQueryable<T> query, int pageNumber, int? pageSize) => query.SkipTakeToPage(new PagedListOptions(pageNumber, pageSize, 0));
-
-  public static IQueryable<T> Take<T>(this IQueryable<T> query, IPagedListOptions options) {
-    var take = options.GetTake();
-    return take.HasValue ? query.Take(take.Value) : query;
-  }
-
+  public static IQueryable<T> Take<T>(this IQueryable<T> query, IPagedListOptions options) => query.Take(options.GetTake());
 }
-
