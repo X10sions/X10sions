@@ -10,7 +10,4 @@
     <AutoVersionIsEnabled>true</AutoVersionIsEnabled>
     -->
   </PropertyGroup>
-  <ItemGroup>
-    <Folder Include="ComponentModel\DataAnnotations\" />
-  </ItemGroup>
 </Project>  
