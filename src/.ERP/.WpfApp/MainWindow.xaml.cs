@@ -22,7 +22,7 @@ namespace X10sions.ERP.WpfApp {
     private void Button_Click(object sender, RoutedEventArgs e) {
       MessageBox.Show(this, $"Current counter value is: {_appState.Counter}", "Counter");
     }
-
+    
   }
 
   public partial class Main {
