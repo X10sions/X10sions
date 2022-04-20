@@ -3,7 +3,11 @@ using MimeKit;
 
 namespace MailKit;
 
-public interface IMailKitAppSettings {
+public interface IHaveMailKitAppSettings {
+  IMailKitAppSettings MailKit  { get; set; }
+}
+
+public interface IMailKitAppSettings: IHaveSmtpAppSettings {
   // https://code-maze.com/aspnetcore-send-email/
   // https://lukelowrey.com/dotnet-email-guide-2021/
 

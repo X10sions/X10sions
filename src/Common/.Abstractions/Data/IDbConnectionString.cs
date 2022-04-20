@@ -1,19 +1,26 @@
-﻿using System.Data;
-using System.Data.Common;
+﻿using System.Data.Common;
 
 namespace Common.Data;
+
+public interface IHaveDbConnectionStringList {
+  List<IDbConnectionString> DbConnectionStrings { get; }
+}
+public interface IHaveDbConnectionStrings {
+  IDictionary<string, IDbConnectionString> DbConnectionStrings { get; }
+}
+
 public interface IDbConnectionString {
   // https://github.com/serenity-is/Serenity/blob/master/src/Serenity.Net.Data/Connections/IConnectionString.cs
 
   //ISqlDialect Dialect { get; }
   string? Key { get; }
-  string? Provider { get; }
+  string? ProviderName { get; }
   string Value { get; }
 }
 
 public static class IDbConnectionStringExtensions {
 
-  public static DbSystemOption? GetDbSystemOption(this IDbConnectionString dbConnectionString) => dbConnectionString.Provider switch {
+  public static DbSystemOption? GetDbSystemOption(this IDbConnectionString dbConnectionString) => dbConnectionString.ProviderName switch {
     "Devart.Data.MySql" => DbSystemOption.MySql,
     "Devart.Data.Oracle" => DbSystemOption.Oracle,
     "Devart.Data.PostgreSql" => DbSystemOption.PostgreSql,
@@ -40,7 +47,6 @@ public static class IDbConnectionStringExtensions {
 
   public static DbConnectionStringBuilder GetDbConnectionStringBuilder(this string connectionString, bool useOdbcRules = false)
     => new DbConnectionStringBuilder(useOdbcRules) { ConnectionString = connectionString };
-
 
   public static object? DbConnectionStringBuilderProperty(this string connectionString, string key, bool useOdbcRules = false)
     => GetDbConnectionStringBuilder(connectionString, useOdbcRules)[key];
@@ -80,9 +86,7 @@ public static class IDbConnectionStringExtensions {
     "MSOLEDBSQL" => DbSystemOption.SqlServer,
     _ => null
   };
-
-
-  public static DbProviderOption? GetDbProviderOption(this IDbConnectionString dbConnectionString) => dbConnectionString.Provider switch {
+  public static DbProviderOption? GetDbProviderOption(this IDbConnectionString dbConnectionString) => dbConnectionString.ProviderName switch {
     "Devart.Data.MySql" => DbProviderOption.Devart_Data_MySql,
     "Devart.Data.Oracle" => DbProviderOption.Devart_Data_Oracle,
     "Devart.Data.PostgreSql" => DbProviderOption.Devart_Data_PostgreSql,

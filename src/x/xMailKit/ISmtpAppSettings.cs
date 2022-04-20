@@ -1,4 +1,9 @@
 ﻿namespace MailKit;
+
+public interface IHaveSmtpAppSettings {
+  ISmtpAppSettings Smtp { get; set; }
+}
+
 public interface ISmtpAppSettings {
   string Host { get; set; }
   int Port { get; set; }
@@ -6,3 +11,4 @@ public interface ISmtpAppSettings {
   string? Password { get; set; }
   bool UseSsl { get; set; }
 }
+

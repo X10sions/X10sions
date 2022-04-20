@@ -1,10 +1,13 @@
 ﻿using System.Configuration;
 
 namespace Common.Data;
+
 public class DbConnectionSettings : Dictionary<string, DbSystem> {
   public DbConnectionSettings() : base(StringComparer.OrdinalIgnoreCase) { }
 
   public static string GetName(string dbName, string providerName) => $"{dbName}:{providerName}";
+
+  public List<ConnectionStringSettings> ConnectionStringSettings { get; set; } = new List<ConnectionStringSettings>();
 
   public List<ConnectionStringSettings> GetConnectionStringSettings()
     => (from dbSys in this

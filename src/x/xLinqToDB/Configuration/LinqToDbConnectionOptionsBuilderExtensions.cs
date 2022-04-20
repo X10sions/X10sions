@@ -16,12 +16,19 @@ namespace LinqToDB.Configuration {
       return options.UseConnectionString(dataProvider, connectionStringSettings.ConnectionString);
     }
 
-    public static LinqToDbConnectionOptionsBuilder UseConnectionStringSettings<TConnection, TDataReader>(this LinqToDbConnectionOptionsBuilder options,  ConnectionStringSettings connectionStringSettings)
+    public static LinqToDbConnectionOptionsBuilder UseConnectionString<TConnection, TDataReader>(this LinqToDbConnectionOptionsBuilder options, string connectionString)
       where TConnection : DbConnection, new()
       where TDataReader : IDataReader {
       //logger.Information($"{nameof(UseConnectionStringSettings)}<{typeof(TConnection)},{typeof(TDataReader)};Name:{connectionStringSettings.Name};Provider:{connectionStringSettings.ProviderName};CS:{connectionStringSettings.ConnectionString}");
-      IDataProvider dataProvider = GenericDataProviderList.GetInstance<TConnection, TDataReader>(connectionStringSettings.ConnectionString);
-      return options.UseConnectionStringSettings(dataProvider, connectionStringSettings);
+      IDataProvider dataProvider = GenericDataProviderList.GetInstance<TConnection, TDataReader>(connectionString);
+      return options.UseConnectionString(dataProvider, connectionString);
+    }
+
+    public static LinqToDbConnectionOptionsBuilder UseConnectionStringSettings<TConnection, TDataReader>(this LinqToDbConnectionOptionsBuilder options, ConnectionStringSettings connectionStringSettings)
+      where TConnection : DbConnection, new()
+      where TDataReader : IDataReader {
+      //logger.Information($"{nameof(UseConnectionStringSettings)}<{typeof(TConnection)},{typeof(TDataReader)};Name:{connectionStringSettings.Name};Provider:{connectionStringSettings.ProviderName};CS:{connectionStringSettings.ConnectionString}");
+      return options.UseConnectionString<TConnection, TDataReader>(connectionStringSettings.ConnectionString);
     }
 
   }
