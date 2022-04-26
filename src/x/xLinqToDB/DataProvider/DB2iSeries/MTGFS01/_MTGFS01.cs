@@ -468,16 +468,16 @@ public class DB2iSeriesConfiguration {
 
   private void LoadExpressions() {
     string providerName = Provider.Name();
-    Linq.Expressions.MapMember(providerName, Linq.Expressions.M(() => Sql.Space(0)), Linq.Expressions.N(() => Linq.Expressions.L((int? p0) => Sql.Convert(Sql.VarChar(1000), Linq.Expressions.Replicate(" ", p0)))));
-    Linq.Expressions.MapMember(providerName, Linq.Expressions.M(() => Sql.Stuff("", 0, 0, "")), Linq.Expressions.N(() => Linq.Expressions.L((string p0, int? p1, int? p2, string p3) => Linq.Expressions.AltStuff(p0, p1, p2, p3))));
-    Linq.Expressions.MapMember(providerName, Linq.Expressions.M(() => Sql.PadRight("", 0, ' ')), Linq.Expressions.N(() => Linq.Expressions.L((string p0, int? p1, char? p2) => (p0.Length > p1) ? p0 : (p0 + Linq.Expressions.VarChar(Linq.Expressions.Replicate(p2, p1 - p0.Length), 1000)))));
-    Linq.Expressions.MapMember(providerName, Linq.Expressions.M(() => Sql.PadLeft("", 0, ' ')), Linq.Expressions.N(() => Linq.Expressions.L((string p0, int? p1, char? p2) => (p0.Length > p1) ? p0 : (Linq.Expressions.VarChar(Linq.Expressions.Replicate(p2, p1 - p0.Length), 1000) + p0))));
-    Linq.Expressions.MapMember(providerName, Linq.Expressions.M(() => Sql.ConvertTo<string>.From(0m)), Linq.Expressions.N(() => Linq.Expressions.L((decimal p) => Sql.TrimLeft(Sql.Convert<string, decimal>(p), '0'))));
+    Linq.Expressions.MapMember(providerName, Linq.Expressions.M(() => Sql.Space(0)), Linq.Expressions.L((int? p0) => Sql.Convert(Sql.VarChar(1000), Linq.Expressions.Replicate(" ", p0))));
+    Linq.Expressions.MapMember(providerName, Linq.Expressions.M(() => Sql.Stuff("", 0, 0, "")), Linq.Expressions.L((string p0, int? p1, int? p2, string p3) => Linq.Expressions.AltStuff(p0, p1, p2, p3)));
+    Linq.Expressions.MapMember(providerName, Linq.Expressions.M(() => Sql.PadRight("", 0, ' ')), Linq.Expressions.L((string p0, int? p1, char? p2) => (p0.Length > p1) ? p0 : (p0 + Linq.Expressions.VarChar(Linq.Expressions.Replicate(p2, p1 - p0.Length), 1000))));
+    Linq.Expressions.MapMember(providerName, Linq.Expressions.M(() => Sql.PadLeft("", 0, ' ')), Linq.Expressions.L((string p0, int? p1, char? p2) => (p0.Length > p1) ? p0 : (Linq.Expressions.VarChar(Linq.Expressions.Replicate(p2, p1 - p0.Length), 1000) + p0)));
+    Linq.Expressions.MapMember(providerName, Linq.Expressions.M(() => Sql.ConvertTo<string>.From(0m)), Linq.Expressions.L((decimal p) => Sql.TrimLeft(Sql.Convert<string, decimal>(p), '0')));
     if (!MapGuidAsString) {
-      Linq.Expressions.MapMember(providerName, Linq.Expressions.M(() => Sql.ConvertTo<string>.From(Guid.Empty)), Linq.Expressions.N(() => Linq.Expressions.L((Guid p) => Sql.Lower(string.Concat(string.Concat(string.Concat(string.Concat(string.Concat(string.Concat(string.Concat(string.Concat(string.Concat(string.Concat(string.Concat(string.Concat(Sql.Substring(Linq.Expressions.Hex(p), 7, 2) + Sql.Substring(Linq.Expressions.Hex(p), 5, 2), Sql.Substring(Linq.Expressions.Hex(p), 3, 2)), Sql.Substring(Linq.Expressions.Hex(p), 1, 2)), "-"), Sql.Substring(Linq.Expressions.Hex(p), 11, 2)), Sql.Substring(Linq.Expressions.Hex(p), 9, 2)), "-"), Sql.Substring(Linq.Expressions.Hex(p), 15, 2)), Sql.Substring(Linq.Expressions.Hex(p), 13, 2)), "-"), Sql.Substring(Linq.Expressions.Hex(p), 17, 4)), "-"), Sql.Substring(Linq.Expressions.Hex(p), 21, 12))))));
+      Linq.Expressions.MapMember(providerName, Linq.Expressions.M(() => Sql.ConvertTo<string>.From(Guid.Empty)), Linq.Expressions.L((Guid p) => Sql.Lower(string.Concat(string.Concat(string.Concat(string.Concat(string.Concat(string.Concat(string.Concat(string.Concat(string.Concat(string.Concat(string.Concat(string.Concat(Sql.Substring(Linq.Expressions.Hex(p), 7, 2) + Sql.Substring(Linq.Expressions.Hex(p), 5, 2), Sql.Substring(Linq.Expressions.Hex(p), 3, 2)), Sql.Substring(Linq.Expressions.Hex(p), 1, 2)), "-"), Sql.Substring(Linq.Expressions.Hex(p), 11, 2)), Sql.Substring(Linq.Expressions.Hex(p), 9, 2)), "-"), Sql.Substring(Linq.Expressions.Hex(p), 15, 2)), Sql.Substring(Linq.Expressions.Hex(p), 13, 2)), "-"), Sql.Substring(Linq.Expressions.Hex(p), 17, 4)), "-"), Sql.Substring(Linq.Expressions.Hex(p), 21, 12)))));
     }
-    Linq.Expressions.MapMember(providerName, Linq.Expressions.M(() => Sql.Log(0m, 0m)), Linq.Expressions.N(() => Linq.Expressions.L((decimal? m, decimal? n) => Sql.Log(n) / Sql.Log(m))));
-    Linq.Expressions.MapMember(providerName, Linq.Expressions.M(() => Sql.Log(0.0, 0.0)), Linq.Expressions.N(() => Linq.Expressions.L(((double? m, double? n) => Sql.Log(n) / Sql.Log(m)))));
+    Linq.Expressions.MapMember(providerName, Linq.Expressions.M(() => Sql.Log(0m, 0m)), Linq.Expressions.L((decimal? m, decimal? n) => Sql.Log(n) / Sql.Log(m)));
+    Linq.Expressions.MapMember(providerName, Linq.Expressions.M(() => Sql.Log(0.0, 0.0)), Linq.Expressions.L(((double? m, double? n) => Sql.Log(n) / Sql.Log(m))));
   }
 }
 

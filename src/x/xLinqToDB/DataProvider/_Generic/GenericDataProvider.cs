@@ -14,6 +14,7 @@ using System.Diagnostics;
 using LinqToDB.Common;
 using System.Threading.Tasks;
 using System.Threading;
+using LinqToDB.Expressions;
 
 namespace LinqToDB.DataProvider {  
 
@@ -51,7 +52,7 @@ namespace LinqToDB.DataProvider {
       };
 
       foreach (var member in MemberExpressions) {
-        MapMember(Name, member.Key, member.Value);
+        MapMember(Name, member.Key.MemberInfo, member.Value);
       }
 
       SqlOptimizer = new GenericSqlOptimizer(dataSourceInformationRow, SqlProviderFlags);
@@ -62,7 +63,7 @@ namespace LinqToDB.DataProvider {
 
     public GenericDataProvider(string connectionString, Type dataReaderType) : this(new DataSourceInformationRow<TConnection>(connectionString), dataReaderType) { }
 
-    Dictionary<MemberInfo, IExpressionInfo> MemberExpressions = new Dictionary<MemberInfo, IExpressionInfo>();
+    Dictionary<MemberHelper.MemberInfoWithType, IExpressionInfo> MemberExpressions = new Dictionary<MemberHelper.MemberInfoWithType, IExpressionInfo>();
     public DataSourceInformationRow DataSourceInformationRow { get; }
 
     [UrlAsAt.AccessOdbcDataProviderDataProvider_2021_03_14]
