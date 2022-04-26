@@ -1,8 +1,6 @@
-﻿using MailKit;
-using MailKit.Net.Smtp;
+﻿using Common.Mail;
+using MailKit;
 using MimeKit;
-using MimeKit.IO;
-using System.Linq;
 
 namespace MimeKit;
 public static class MimeMessageExtensions {
@@ -59,17 +57,17 @@ public static class MimeMessageExtensions {
   public static MimeMessage HtmlBody(this MimeMessage message, string body) => message.Body(body, Text.TextFormat.Html);
   public static MimeMessage PlainBody(this MimeMessage message, string body) => message.Body(body, Text.TextFormat.Plain);
 
-  public static void SendSmptClient(this MimeMessage message, IMailKitAppSettings settings) => settings.SendSmptClient(message);
-  public static void SendSmptClient(this IEnumerable<MimeMessage> messages, IMailKitAppSettings settings) => settings.SendSmptClient(messages.ToArray());
-  public async static Task SendSmptClientAsync(this MimeMessage message, IMailKitAppSettings settings) => await settings.SendSmptClientAsync(message);
-  public async static Task SendSmptClientAsync(this IEnumerable<MimeMessage> messages, IMailKitAppSettings settings) => await settings.SendSmptClientAsync(messages.ToArray());
-
-  public static MimeMessage ApplySettings(this MimeMessage message, IMailKitAppSettings settings) {
+  public static void SendSmptClient(this MimeMessage message, IMailAppSettings settings) => settings.SendSmptClient(message);
+  public static void SendSmptClient(this IEnumerable<MimeMessage> messages, IMailAppSettings settings) => settings.SendSmptClient(messages.ToArray());
+  public async static Task SendSmptClientAsync(this MimeMessage message, IMailAppSettings settings) => await settings.SendSmptClientAsync(message);
+  public async static Task SendSmptClientAsync(this IEnumerable<MimeMessage> messages, IMailAppSettings settings) => await settings.SendSmptClientAsync(messages.ToArray());
+    
+  public static MimeMessage ApplySettings(this MimeMessage message, IMailAppSettings settings) {
     if (message.From.Count < 1) {
-      message.From.Add(settings.DefaultFrom);
+      message.From.Add(settings.DefaultFrom.AsMailboxAddress());
     }
     if ((message.To.Count + message.Cc.Count + message.Bcc.Count) < 1) {
-      message.To.Add(settings.DefaultTo);
+      message.To.Add(settings.DefaultTo.AsMailboxAddress());
     }
     return message;
   }

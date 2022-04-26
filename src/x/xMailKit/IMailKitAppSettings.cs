@@ -1,34 +1,12 @@
-﻿using MailKit.Net.Smtp;
+﻿using Common.Mail;
+using MailKit.Net.Smtp;
 using MimeKit;
 
 namespace MailKit;
 
-public interface IHaveMailKitAppSettings {
-  IMailKitAppSettings MailKit { get; set; }
-}
-
-public interface IMailKitAppSettings : IHaveSmtpAppSettings {
-  // https://code-maze.com/aspnetcore-send-email/
-  // https://lukelowrey.com/dotnet-email-guide-2021/
-
-
-  //IPopAppSettings Pop { get; set; }
-  ISmtpAppSettings Smtp { get; set; }
-
-  //string? ServerDomainPart { get; set; }
-
-  //public static string UserNameEmailAddress(this IMailKitAppSettings settings, string userName) => userName + "@" + settings.ServerDomainPart;
-
-  MailboxAddress DefaultFrom { get; set; }
-  MailboxAddress DefaultTo { get; set; }
-
-  //    string FromAddress { get; set; }
-  //    string FromDisplayName { get; set; }
-}
-
 public static class IMailKitAppSettingsExtensions {
 
-  public static MimeMessage GetMimeMessage(this IMailKitAppSettings settings
+  public static MimeMessage GetMimeMessage(this IMailAppSettings settings
     , string subject
     , string body
     , List<MailboxAddress>? to = null
@@ -47,11 +25,11 @@ public static class IMailKitAppSettingsExtensions {
     return message;
   }
 
-  public static void SmtpClientConnectionInfo(this IMailKitAppSettings settings) {
+  public static void SmtpClientConnectionInfo(this IMailAppSettings settings) {
     using (var client = new SmtpClient()) {
-      client.Connect(settings.Smtp.Host, settings.Smtp.Port, settings.Smtp.UseSsl);
+      client.Connect(settings.Host.NameOrIpAddress, settings.Host.Port, settings.Host.UseSsl);
 
-      Console.WriteLine($"Negotiated the following SSL options with {settings.Smtp.Host}:");
+      Console.WriteLine($"Negotiated the following SSL options with {settings.Host.NameOrIpAddress}:");
       Console.WriteLine($"        Protocol Version: {client.SslProtocol}");
       Console.WriteLine($"        Cipher Algorithm: {client.SslCipherAlgorithm}");
       Console.WriteLine($"         Cipher Strength: {client.SslCipherStrength}");
@@ -75,14 +53,14 @@ public static class IMailKitAppSettingsExtensions {
     }
   }
 
-  public static void SendSmptClient(this IMailKitAppSettings settings, params MimeMessage[] messages) {
+  public static void SendSmptClient(this IMailAppSettings settings, params MimeMessage[] messages) {
     //using (var client = new SmtpClient(new ProtocolLogger("smtp.log"))) {
     using (var client = new SmtpClient()) {
       try {
-        client.Connect(settings.Smtp.Host, settings.Smtp.Port, settings.Smtp.UseSsl);
+        client.Connect(settings.Host.NameOrIpAddress, settings.Host.Port, settings.Host.UseSsl);
         //client.AuthenticationMechanisms.Remove("XOAUTH2");
-        if (settings.Smtp.UserName != null) {
-          client.Authenticate(settings.Smtp.UserName, settings.Smtp.Password);
+        if (settings.Host.UserName != null) {
+          client.Authenticate(settings.Host.UserName, settings.Host.Password);
         }
         foreach (var message in messages) {
           message.ApplySettings(settings);
@@ -98,13 +76,13 @@ public static class IMailKitAppSettingsExtensions {
     }
   }
 
-  public async static Task SendSmptClientAsync(this IMailKitAppSettings settings, params MimeMessage[] messages) {
+  public async static Task SendSmptClientAsync(this IMailAppSettings settings, params MimeMessage[] messages) {
     using (var client = new SmtpClient()) {
       try {
-        await client.ConnectAsync(settings.Smtp.Host, settings.Smtp.Port, settings.Smtp.UseSsl);
-        if (settings.Smtp.UserName != null) {
+        await client.ConnectAsync(settings.Host.NameOrIpAddress, settings.Host.Port, settings.Host.UseSsl);
+        if (settings.Host.UserName != null) {
           //client.AuthenticationMechanisms.Remove("XOAUTH2");
-          await client.AuthenticateAsync(settings.Smtp.UserName, settings.Smtp.Password);
+          await client.AuthenticateAsync(settings.Host.UserName, settings.Host.Password);
         }
         foreach (var message in messages) {
           message.ApplySettings(settings);

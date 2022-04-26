@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup Label="Application">
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Product>LinqToDB.AspNet NetStandard Extensions</Product>
+    <VersionPart1>3</VersionPart1>
+    <VersionPart2>6</VersionPart2>
+    <Nullable>enable</Nullable>
+  </PropertyGroup> 
+  <ItemGroup Label="PackageReferences">
+    <PackageReference Include="linq2db.AspNet" Version="3.6.0" />
+  </ItemGroup> 
+  <ItemGroup Label="ProjectReferences">
+    <ProjectReference Include="..\xLinqToDB.csproj" />
+  </ItemGroup>
+</Project>

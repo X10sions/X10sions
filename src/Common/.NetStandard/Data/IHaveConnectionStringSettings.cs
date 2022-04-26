@@ -2,6 +2,6 @@
 
 namespace Common.Data;
 
-public interface IHaveConnectionStringSettings {
-  ConnectionStringSettings ConnectionStringSettings { get; set; }
-}
+//public interface IHaveConnectionStringSettings {
+//  ConnectionStringSettings ConnectionStringSettings { get; set; }
+//}
