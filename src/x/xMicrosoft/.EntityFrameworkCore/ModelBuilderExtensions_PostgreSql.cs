@@ -1,7 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
-
-namespace Martogg.Data.Orms.EfCoreDbContexts {
+﻿namespace Microsoft.EntityFrameworkCore {
   public static class ModelBuilderExtensions {
 
     public static void UseSnakeCase(this ModelBuilder builder) {

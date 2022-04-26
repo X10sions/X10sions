@@ -13,7 +13,7 @@ namespace LinqToDB.AspNet {
     //  return serviceCollection.AddLinqToDbContext<TContext>((provider, options) => options.UseConnectionStringSettings(dataProvider, connectionStringSettings).UseDefaultLogging(provider));
     //}
 
-    static IServiceCollection AddLinqToDbContext<TContext, TConnection, TDataReader>(this IServiceCollection services, string connectionString, ILogger logger)
+    public static IServiceCollection AddLinqToDbContext<TContext, TConnection, TDataReader>(this IServiceCollection services, string connectionString, ILogger logger)
       where TContext : IDataContext
       where TConnection : DbConnection, new()
       where TDataReader : IDataReader {
@@ -23,7 +23,7 @@ namespace LinqToDB.AspNet {
       return services;
     }
 
-    static IServiceCollection AddLinqToDbContext<TContext, TConnection>(this IServiceCollection services, IDataProvider dataProvider, string connectionString, ILogger logger)
+    public static IServiceCollection AddLinqToDbContext<TContext, TConnection>(this IServiceCollection services, IDataProvider dataProvider, string connectionString, ILogger logger)
       where TContext : IDataContext
       where TConnection : IDbConnection {
       logger.LogInformation($"{nameof(AddLinqToDbContext)}<{typeof(TContext)},{typeof(TConnection)},{dataProvider.GetType()};CS:{connectionString}");
