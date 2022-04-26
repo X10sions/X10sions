@@ -17,16 +17,20 @@ namespace LinqToDB.AspNet {
       where TContext : IDataContext
       where TConnection : DbConnection, new()
       where TDataReader : IDataReader {
-      services.AddLinqToDbContext<TContext>((provider, options) => {
-        options.UseConnectionString<TConnection, TDataReader>(connectionString, logger).UseDefaultLogging(provider);
-      });
-      return services;
+      IDataProvider dataProvider = GenericDataProviderList.GetInstance<TConnection, TDataReader>(connectionString);
+      return services.AddLinqToDbContext<TContext, TConnection>(dataProvider, connectionString, logger);
+
+      //logger.LogInformation($"{nameof(AddLinqToDbContext)}<{typeof(TConnection)},{typeof(TDataReader)},{typeof(TContext)}>;CS:{{connectionString}}");
+      //services.AddLinqToDbContext<TContext>((provider, options) => {
+      //  options.UseConnectionString<TConnection, TDataReader>(connectionString, logger).UseDefaultLogging(provider);
+      //});
+      //return services;
     }
 
     public static IServiceCollection AddLinqToDbContext<TContext, TConnection>(this IServiceCollection services, IDataProvider dataProvider, string connectionString, ILogger logger)
       where TContext : IDataContext
       where TConnection : IDbConnection {
-      logger.LogInformation($"{nameof(AddLinqToDbContext)}<{typeof(TContext)},{typeof(TConnection)},{dataProvider.GetType()};CS:{connectionString}");
+      logger.LogInformation($"{nameof(AddLinqToDbContext)}<{typeof(TConnection)},{typeof(TContext)}>CS:{{connectionString}}");
       services.AddLinqToDbContext<TContext>((provider, options) => {
         options.UseConnectionString(dataProvider, connectionString).UseDefaultLogging(provider);
       });

@@ -90,7 +90,7 @@ namespace LinqToDB.DataProvider {
 
         SetToType<IDataReader, sbyte, int>("INTEGER", (r, i) => unchecked((sbyte)r.GetInt32(i)));
         SetToType<IDataReader, uint, int>("INTEGER", (r, i) => unchecked((uint)r.GetInt32(i)));
-        SetToType<IDataReader, ulong, int>("INTEGER", (r, i) => unchecked((ulong)(uint)r.GetInt32(i)));
+        SetToType<IDataReader, ulong, int>("INTEGER", (r, i) => unchecked((uint)r.GetInt32(i)));
         SetToType<IDataReader, ushort, short>("SMALLINT", (r, i) => unchecked((ushort)r.GetInt16(i)));
       } else if (base.ConnectionNamespace == DbProvider.Namespaces.System_Data_OleDb) {
         SetCharField("DBTYPE_WCHAR", (r, i) => r.GetString(i).TrimEnd(' '));
