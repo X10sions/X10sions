@@ -17,14 +17,13 @@ namespace LinqToDB.AspNet {
       where TContext : IDataContext
       where TConnection : DbConnection, new()
       where TDataReader : IDataReader {
-      IDataProvider dataProvider = GenericDataProviderList.GetInstance<TConnection, TDataReader>(connectionString);
-      return services.AddLinqToDbContext<TContext, TConnection>(dataProvider, connectionString, logger);
-
+      var dataProvider = GenericDataProviderList.GetInstance<TConnection, TDataReader>(connectionString);
+      logger.LogInformation($" GenericDataProvider: {dataProvider.DataSourceInformationRow.GetDataSourceProductNameWithVersion()}");
       //logger.LogInformation($"{nameof(AddLinqToDbContext)}<{typeof(TConnection)},{typeof(TDataReader)},{typeof(TContext)}>;CS:{{connectionString}}");
       //services.AddLinqToDbContext<TContext>((provider, options) => {
       //  options.UseConnectionString<TConnection, TDataReader>(connectionString, logger).UseDefaultLogging(provider);
       //});
-      //return services;
+      return services.AddLinqToDbContext<TContext, TConnection>(dataProvider, connectionString, logger);
     }
 
     public static IServiceCollection AddLinqToDbContext<TContext, TConnection>(this IServiceCollection services, IDataProvider dataProvider, string connectionString, ILogger logger)

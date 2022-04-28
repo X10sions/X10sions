@@ -95,7 +95,7 @@ public class DataSourceInformationRow : BaseTypedDataRow { //}, IEquatable<DataS
   public string ParameterMarkerFormat => DataRow.Field<string>(DbMetaDataColumnNames.ParameterMarkerFormat);
   public string ParameterMarkerPattern => DataRow.Field<string>(DbMetaDataColumnNames.ParameterMarkerPattern);
   public int? ParameterNameMaxLength => DataRow.Field<int?>(DbMetaDataColumnNames.ParameterNameMaxLength);
-  public string ParameterNamePattern => DataRow.Field<string>(DbMetaDataColumnNames.ParameterNamePattern);
+  public string? ParameterNamePattern => DataRow.Field<string?>(DbMetaDataColumnNames.ParameterNamePattern);
   public string QuotedIdentifierPattern => DataRow.Field<string>(DbMetaDataColumnNames.QuotedIdentifierPattern);
   public IdentifierCase QuotedIdentifierCase => DataRow.Field<IdentifierCase>(DbMetaDataColumnNames.QuotedIdentifierCase);
   public string StatementSeparatorPattern => DataRow.Field<string>(DbMetaDataColumnNames.StatementSeparatorPattern);
@@ -126,7 +126,7 @@ public class DataSourceInformationRow : BaseTypedDataRow { //}, IEquatable<DataS
   public Regex CompositeIdentifierSeparatorRegEx => new Regex(CompositeIdentifierSeparatorPattern);
   public Regex IdentifierRegEx => new Regex(IdentifierPattern);
   public Regex ParameterMarkerRegEx => new Regex(ParameterMarkerPattern);
-  public Regex ParameterNameRegEx => new Regex(ParameterNamePattern);
+  public Regex ParameterNameRegEx => new Regex(ParameterNamePattern ?? String.Empty);
   public Regex QuotedIdentifierRegEx => new Regex(QuotedIdentifierPattern);
   public Regex StatementSeparatorRegEx => new Regex(StatementSeparatorPattern);
   public Regex StringLiteralRegEx => new Regex(StringLiteralPattern);
@@ -181,6 +181,6 @@ public class DataSourceInformationRow : BaseTypedDataRow { //}, IEquatable<DataS
   public DataSourceProduct? GetDataSourceProduct() => DataSourceProduct.List.FirstOrDefault(x => x.Name.Equals(DataSourceProductName, StringComparison.OrdinalIgnoreCase));
   //public DbSystem? GetDbSystem() => GetDataSourceProduct()?.DbSystem;
 
-  public string ParameterName(string name) => string.Format(ParameterMarkerFormat, name);
+  public string ParameterName(string name) => ParameterNameMaxLength > 0 ? string.Format(ParameterMarker + ParameterMarkerFormat, name) : ParameterMarkerFormat;
 
 }

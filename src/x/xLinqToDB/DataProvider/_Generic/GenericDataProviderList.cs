@@ -1,12 +1,11 @@
 ﻿using System.Data;
 using System.Data.Common;
-using System.Collections.Generic;
 
 namespace LinqToDB.DataProvider {
-  public class GenericDataProviderList : Dictionary<string, IDataProvider> {
+  public class GenericDataProviderList : Dictionary<string, IGenericDataProvider> {
     GenericDataProviderList() { }
 
-    public static Dictionary<string, IDataProvider> Instances = new Dictionary<string, IDataProvider>();
+    public static Dictionary<string, IGenericDataProvider> Instances = new Dictionary<string, IGenericDataProvider>();
 
     public static GenericDataProvider<TConnection, TDataReader> GetInstance<TConnection, TDataReader>(string connectionString)
       where TConnection : DbConnection, new()

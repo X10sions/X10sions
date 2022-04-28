@@ -1,6 +1,7 @@
 ﻿using Common.Data.GetSchemaTyped.DataRows;
 using LinqToDB.Mapping;
 using LinqToDB.SqlProvider;
+using System.Text;
 
 namespace LinqToDB.DataProvider {
   public class GenericSqlBuilder : BasicSqlBuilder {
@@ -11,6 +12,14 @@ namespace LinqToDB.DataProvider {
 
     DataSourceInformationRow dataSourceInformationRow;
     protected override ISqlBuilder CreateSqlBuilder() => new GenericSqlBuilder(dataSourceInformationRow, MappingSchema, SqlOptimizer, SqlProviderFlags);
+
+    public override StringBuilder Convert(StringBuilder sb, string value, ConvertType convertType) {
+      value = convertType switch {
+        ConvertType.NameToQueryParameter =>  dataSourceInformationRow.UsesPositionalParameters ? dataSourceInformationRow.ParameterMarker : $"@{value}",
+        _ => value
+      };
+      return base.Convert(sb, value, convertType);
+    }
 
   }
 

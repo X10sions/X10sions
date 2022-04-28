@@ -1,22 +1,21 @@
 ﻿using LinqToDB.Linq;
 using static LinqToDB.Linq.Expressions;
-using System.Collections.Generic;
-using System.Reflection;
 using Common.Data;
 using Common.Data.GetSchemaTyped.DataRows;
 using LinqToDB.Mapping;
 using LinqToDB.SqlProvider;
-using System;
 using System.Data;
 using System.Data.Common;
 using LinqToDB.Data;
 using System.Diagnostics;
 using LinqToDB.Common;
-using System.Threading.Tasks;
-using System.Threading;
 using LinqToDB.Expressions;
 
-namespace LinqToDB.DataProvider {  
+namespace LinqToDB.DataProvider {
+
+  public interface IGenericDataProvider : IDataProvider {
+    DataSourceInformationRow DataSourceInformationRow { get; }
+  }
 
   public class GenericDataProvider<TConnection, TDataReader> : GenericDataProvider<TConnection> where TConnection : DbConnection, new() where TDataReader : IDataReader {
 
@@ -25,7 +24,7 @@ namespace LinqToDB.DataProvider {
     public GenericDataProvider(string connectionString) : base(connectionString, typeof(TDataReader)) { }
   }
 
-  public class GenericDataProvider<TConnection> : _BaseDataProvider<TConnection> where TConnection : DbConnection, new() {
+  public class GenericDataProvider<TConnection> : _BaseDataProvider<TConnection>, IGenericDataProvider where TConnection : DbConnection, new() {
 
     // https://docs.envobi.com/articles/adb/adb-supported-databases.html
 
@@ -81,6 +80,7 @@ namespace LinqToDB.DataProvider {
       SqlProviderFlags.IsParameterOrderDependent = true;
       SqlProviderFlags.IsUpdateFromSupported = false;
       SqlProviderFlags.DefaultMultiQueryIsolationLevel = IsolationLevel.Unspecified;
+      xLog.Debug($"DbProvider.Namespaces.System_Data_Odbc: {DbProvider.Namespaces.System_Data_Odbc}");
 
       if (base.ConnectionNamespace == DbProvider.Namespaces.System_Data_Odbc) {
         SetCharField("CHAR", (r, i) => r.GetString(i).TrimEnd(' '));
@@ -246,9 +246,10 @@ namespace LinqToDB.DataProvider {
     public override void SetParameter(DataConnection dataConnection, IDbDataParameter parameter, string name, DbDataType dataType, object? value) {
       switch (DataSourceInformationRow.DataSourceProduct?.DbSystem?.Name) {
         case DbSystem.Names.Access: SetParameter_Access(dataConnection, parameter, name, dataType, value); break;
-        //case DbSystem.Names.DB2iSeries: SetParameter_DB2iSeries_MTGFS01(dataConnection, parameter, name, dataType, value); break;
-        default: base.SetParameter(dataConnection, parameter, name, dataType, value); break;
+          //case DbSystem.Names.DB2iSeries: SetParameter_DB2iSeries_MTGFS01(dataConnection, parameter, name, dataType, value); break;
+          //default: base.SetParameter(dataConnection, parameter, name, dataType, value); break;
       };
+      base.SetParameter(dataConnection, parameter, name, dataType, value);
     }
 
     [UrlAsAt.AccessOdbcDataProviderDataProvider_2021_03_14]
@@ -277,7 +278,6 @@ namespace LinqToDB.DataProvider {
               value = (int)(uint)ulongValue;
             break;
         }
-        base.SetParameter(dataConnection, parameter, name, dataType, value);
       }
       if (base.ConnectionNamespace == DbProvider.Namespaces.System_Data_OleDb) { }
     }

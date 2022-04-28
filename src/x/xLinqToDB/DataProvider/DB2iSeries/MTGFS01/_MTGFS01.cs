@@ -2,10 +2,7 @@
 using LinqToDB.Common;
 using LinqToDB.Data;
 using LinqToDB.SchemaProvider;
-using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
 using LinqToDB.Mapping;
 using LinqToDB.SqlProvider;
 using LinqToDB.SqlQuery;
