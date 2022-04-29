@@ -20,6 +20,8 @@ public static class ClaimExtensions {
     if (valueType == null) {
       valueType = value switch {
         bool => ClaimValueTypes.Boolean,
+        //DateOnly do => ClaimValueTypes.Date,
+        //TimeOnly do => ClaimValueTypes.Time,
         DateTime dt => dt.Date == dt ? ClaimValueTypes.Date : ClaimValueTypes.DateTime,
         double => ClaimValueTypes.Double,
         int => ClaimValueTypes.Integer32,
@@ -28,10 +30,10 @@ public static class ClaimExtensions {
         TimeSpan => ClaimValueTypes.Time,
         uint => ClaimValueTypes.UInteger32,
         ulong => ClaimValueTypes.UInteger64,
-        _ => null
+        _ => throw new Exception($"Uknown ValueType for value: {value}")
       };
     }
-    claims.Add(new Claim(type, value?.ToString(), valueType, issuer, orignialIssuer));
+    claims.Add(new Claim(type, value?.ToString() ?? "null", valueType, issuer, orignialIssuer));
   }
   public static void AddBoolean(this List<Claim> claims, string type, bool value) => claims.Add(type, value, ClaimValueTypes.Boolean);
   public static void AddDate(this List<Claim> claims, string type, DateTime value) => claims.Add(type, value.Date, ClaimValueTypes.Date);
