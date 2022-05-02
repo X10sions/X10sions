@@ -1,5 +1,7 @@
 ﻿namespace Common.Data;
 
+public interface IDatabase { }
+
 public interface IDatabaseTable<T> where T : class { }
 
 //public interface IDatabaseTable<T, TDatabase, TTable> : IDatabaseTable<T> where T : class {
