@@ -16,6 +16,7 @@ namespace LinqToDB.Data {
     public GenericDataConnection(string connectionString) : base(GenericDataProviderList.GetInstance<TConnection, TDataReader>(connectionString), connectionString) {
     }
 
+    public TConnection TypedConnection => (TConnection)Connection;
   }
 
   //public class GenericDataConnection : DataConnection {
