@@ -35,13 +35,16 @@ namespace LinqToDB.DataProvider {
 
     GenericMappingSchema(DataSourceInformationRow dataSourceInformationRow) : base(dataSourceInformationRow.GetDataSourceProductNameWithVersion()) {
       this.dataSourceInformationRow = dataSourceInformationRow;
-      var initDone = dataSourceInformationRow.DataSourceProduct?.DbSystem?.Name switch {
-        DbSystem.Names.Access => GenericMappingSchema_InitAccess(),
-        DbSystem.Names.DB2 => GenericMappingSchema_InitDB2(),
-        DbSystem.Names.DB2iSeries => GenericMappingSchema_InitDB2iSeries(),
-        DbSystem.Names.SapHana => GenericMappingSchema_InitSapHana(),
-        DbSystem.Names.SqlServer => GenericMappingSchema_InitSqlServer(dataSourceInformationRow.Version),
-        _ => false
+      var initDone = dataSourceInformationRow switch {
+      //{ DataSourceProduct?.DbSystem?.Name:   DbSystem.Names.Access } => GenericMappingSchema_InitAccess(),
+      //  DbSystem.Names.DB2 => GenericMappingSchema_InitDB2(),
+       //  DbSystem.Names.DB2iSeries  => GenericMappingSchema_InitDB2iSeries(),
+        { DataSourceProductName: DataSourceInformationRow.DataSourceProductNames.DB2_for_IBM_i } => GenericMappingSchema_InitDB2iSeries(dataSourceInformationRow.Version),
+        { DataSourceProductName: DataSourceInformationRow.DataSourceProductNames.DB2_400_SQL } => GenericMappingSchema_InitDB2iSeries(dataSourceInformationRow.Version),
+        { DataSourceProductName: DataSourceInformationRow.DataSourceProductNames.IBM_DB2_for_i } => GenericMappingSchema_InitDB2iSeries(dataSourceInformationRow.Version),
+      //  DbSystem.Names.SapHana => GenericMappingSchema_InitSapHana(),
+       // DbSystem.Names.SqlServer => GenericMappingSchema_InitSqlServer(dataSourceInformationRow.Version),
+        _ => throw new NotImplementedException($"{dataSourceInformationRow.DataSourceProductName}: v{dataSourceInformationRow.Version}")
       };
     }
 
@@ -84,20 +87,20 @@ namespace LinqToDB.DataProvider {
       return true;
     }
 
-    public bool GenericMappingSchema_InitDB2iSeries() {
+    public bool GenericMappingSchema_InitDB2iSeries(Version? version) {
       ColumnNameComparer = StringComparer.OrdinalIgnoreCase;
 
       //SetDataType(typeof(bool), DataType.Int16);
       //SetDataType(typeof(DateTime), DataType.Timestamp);
-      //SetDataType(typeof(string), new SqlDataType(DataType.VarChar, typeof(string), 255));
+      SetDataType(typeof(string), new SqlDataType(DataType.VarChar, typeof(string), 255));
 
-      //SetValueToSqlConverter(typeof(byte[]), (sb, dt, v) => sb.ConvertBinaryToSql_DB2iSeries((byte[])v));
-      //SetValueToSqlConverter(typeof(Binary), (sb, dt, v) => sb.ConvertBinaryToSql_DB2iSeries(((Binary)v).ToArray()));
-      //SetValueToSqlConverter(typeof(char), (sb, dt, v) => sb.ConvertCharToSql_DB2iSeries((char)v));
-      //SetValueToSqlConverter(typeof(DateTime), (sb, dt, v) => sb.ConvertDateTimeToSql_DB2iSeries(dt, (DateTime)v));
+      SetValueToSqlConverter(typeof(byte[]), (sb, dt, v) => sb.ConvertBinaryToSql_DB2iSeries((byte[])v));
+      SetValueToSqlConverter(typeof(Binary), (sb, dt, v) => sb.ConvertBinaryToSql_DB2iSeries(((Binary)v).ToArray()));
+      SetValueToSqlConverter(typeof(char), (sb, dt, v) => sb.ConvertCharToSql_DB2iSeries((char)v));
+      SetValueToSqlConverter(typeof(DateTime), (sb, dt, v) => sb.ConvertDateTimeToSql_DB2iSeries(dt, (DateTime)v));
       //SetValueToSqlConverter(typeof(Guid), (sb, dt, v) => sb.ConvertGuidToSql_DB2iSeries((Guid)v));
-      //SetValueToSqlConverter(typeof(string), (sb, dt, v) => sb.ConvertStringToSql_DB2iSeries(v.ToString()));
-      //SetValueToSqlConverter(typeof(TimeSpan), (sb, dt, v) => sb.ConvertTimeToSql_DB2iSeries((TimeSpan)v));
+      SetValueToSqlConverter(typeof(string), (sb, dt, v) => sb.ConvertStringToSql_DB2iSeries(v.ToString()));
+      SetValueToSqlConverter(typeof(TimeSpan), (sb, dt, v) => sb.ConvertTimeToSql_DB2iSeries((TimeSpan)v));
 
       //SetConverter<string, DateTime>(GenericExtensions.ParseDateTime_DB2iSeries);
 

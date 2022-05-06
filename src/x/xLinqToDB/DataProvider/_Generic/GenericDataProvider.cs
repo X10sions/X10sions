@@ -38,16 +38,13 @@ namespace LinqToDB.DataProvider {
       DataSourceInformationRow = dataSourceInformationRow;
       //  //InitDataProvider();
 
-      //var initConnectionType = typeof(TConnection).Name switch {
-      //  "iDB2Connection" => MappingSchema.AddScalarTypes_iDB2(),
-      //  _ => throw new NotImplementedException()
-      //};
-
-      var initDbSystem = dataSourceInformationRow.DataSourceProduct?.DbSystem?.Name switch {
-        DbSystem.Names.Access => GenericDataProvider_InitAccess(),
-        DbSystem.Names.DB2 => GenericDataProvider_InitDB2(),
-        DbSystem.Names.DB2iSeries => GenericDataProvider_InitDB2iSeries(),
-        _ => false
+      var initDbSystem = dataSourceInformationRow switch {
+        //DbSystem.Names.Access => GenericDataProvider_InitAccess(),
+        //DbSystem.Names.DB2 => GenericDataProvider_InitDB2(),
+        { DataSourceProductName: DataSourceInformationRow.DataSourceProductNames.DB2_for_IBM_i } => GenericDataProvider_InitDB2iSeries(dataSourceInformationRow.Version),
+        { DataSourceProductName: DataSourceInformationRow.DataSourceProductNames.DB2_400_SQL } => GenericDataProvider_InitDB2iSeries(dataSourceInformationRow.Version),
+        { DataSourceProductName: DataSourceInformationRow.DataSourceProductNames.IBM_DB2_for_i } => GenericDataProvider_InitDB2iSeries(dataSourceInformationRow.Version),
+        _ => throw new NotImplementedException($"{dataSourceInformationRow.DataSourceProductName}: v{dataSourceInformationRow.Version}")
       };
 
       foreach (var member in MemberExpressions) {
@@ -137,7 +134,7 @@ namespace LinqToDB.DataProvider {
       return true;
     }
 
-    public bool GenericDataProvider_InitDB2iSeries() {
+    public bool GenericDataProvider_InitDB2iSeries(Version? version) {
       MemberExpressions.Add(M(() => Sql.ConvertTo<string>.From(0)), N(() => L((decimal p) => Sql.TrimLeft(Sql.Convert<string, decimal>(p), '0'))));
       MemberExpressions.Add(M(() => Sql.ConvertTo<string>.From(decimal.Zero)), N(() => L((decimal p) => Sql.TrimLeft(Sql.Convert<string, decimal>(p), '0'))));
       MemberExpressions.Add(M(() => Sql.ConvertTo<string>.From(Guid.Empty)), N(() => L((Guid p) => Sql.Lower(Sql.Substring(Hex(p), 7, 2) + Sql.Substring(Hex(p), 5, 2) + Sql.Substring(Hex(p), 3, 2) + Sql.Substring(Hex(p), 1, 2) + "-" + Sql.Substring(Hex(p), 11, 2) + Sql.Substring(Hex(p), 9, 2) + "-" + Sql.Substring(Hex(p), 15, 2) + Sql.Substring(Hex(p), 13, 2) + "-" + Sql.Substring(Hex(p), 17, 4) + "-" + Sql.Substring(Hex(p), 21, 12)))));
@@ -206,7 +203,7 @@ namespace LinqToDB.DataProvider {
       SqlProviderFlags.CanCombineParameters = false;
       SqlProviderFlags.IsCommonTableExpressionsSupported = true;
       SqlProviderFlags.IsDistinctOrderBySupported = true;
-
+      //SqlProviderFlags.IsParameterOrderDependent = true;
       SetCharField("CHAR", (IDataReader r, int i) => r.GetString(i).TrimEnd());
 
       return true;

@@ -17,6 +17,13 @@ public class DataSourceInformationRow<T> : DataSourceInformationRow where T : Db
 public class DataSourceInformationRow : BaseTypedDataRow { //}, IEquatable<DataSourceInformationRow> {
   // https://github.com/vince-koch/Sqlzor/tree/0442347fc153e10ea74a3896ed2ae642b29f042e/Sqlzor/Drivers/Models
 
+  public class DataSourceProductNames {
+    public const string DB2_400_SQL = "DB2/400 SQL";
+    public const string DB2_for_IBM_i = "DB2 for IBM i";
+    public const string IBM_DB2_for_i = "IBM DB2 for i";
+  }
+
+
   public DataSourceInformationRow(DataRow row) : base(row) {
     foreach (var col in row.Table.Columns.Cast<DataColumn>().Where(x => !dbMetaDataColumnNames.Contains(x.ColumnName))) {
       OtherColumns.Add(col.ColumnName, row.Field<object?>(col.ColumnName));

@@ -192,11 +192,12 @@ namespace LinqToDB.DataProvider {
 
     public static string GetNameWithVersion(this Version version, string name) => $"{name}.v{version}";
 
-    public static TableOptions GetTableOptions(this DataSourceInformationRow dataSourceInformationRow) => dataSourceInformationRow.DataSourceProduct?.DbSystem?.Name switch {
-      DbSystem.Names.Access => TableOptions.None,
-      DataSourceProduct.Names.DB2_400_SQL => dataSourceInformationRow.Version.GetTableOptions_DB2iSeries(),
-      //{ DataSourceProductName }
-      _ => TableOptions.None
+    public static TableOptions GetTableOptions(this DataSourceInformationRow dataSourceInformationRow) => dataSourceInformationRow switch {
+      //DbSystem.Names.Access => TableOptions.None,
+      {DataSourceProductName:  DataSourceInformationRow.DataSourceProductNames.DB2_for_IBM_i }=> dataSourceInformationRow.Version.GetTableOptions_DB2iSeries(),
+      {DataSourceProductName:  DataSourceInformationRow.DataSourceProductNames.DB2_400_SQL }=> dataSourceInformationRow.Version.GetTableOptions_DB2iSeries(),
+      {DataSourceProductName:  DataSourceInformationRow.DataSourceProductNames.IBM_DB2_for_i }=> dataSourceInformationRow.Version.GetTableOptions_DB2iSeries(),
+      _ => throw new NotImplementedException($"{dataSourceInformationRow.DataSourceProductName}: v{dataSourceInformationRow.Version}") // TableOptions.None
     };
 
     public static TableOptions GetTableOptions_DB2iSeries(this Version? version) => version switch {
