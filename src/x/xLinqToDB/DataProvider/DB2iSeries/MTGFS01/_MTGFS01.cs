@@ -236,184 +236,23 @@ public class DB2iSeriesSqlOptimizer : BasicSqlOptimizer {
     : base(sqlProviderFlags) {
   }
 
-  private static void SetQueryParameter(IQueryElement element) {
-    if (element.ElementType == QueryElementType.SqlParameter) {
-      ((SqlParameter)element).IsQueryParameter = false;
-    }
-  }
+  public override ISqlExpression ConvertExpressionImpl(ISqlExpression expr, ConvertVisitor<RunOptimizationContext> visitor) => expr.ConvertExpressionImpl_DB2iSeries_MTGFS01(
+    visitor,
+    (e, v) => base.ConvertExpressionImpl(e, v),
+    (f, pn) => AlternativeConvertToBoolean(f, 1),
+    (e, v) => Div(e, v)
+    );
 
-  private static string FixUnderscore(string text, string alternative) {
-    if (string.IsNullOrWhiteSpace(text)) {
-      return null;
-    }
-    if (text.Equals("_")) {
-      return "underscore_";
-    }
-    if (!text.All((char t) => Enumerable.Contains("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789", t))) {
-      return alternative;
-    }
-    return text;
-  }
+  protected override ISqlExpression ConvertFunction(SqlFunction func) => func.ConvertFunction_DB2iSeries_MTGFS01(
+    (f, wp) => ConvertFunctionParameters(f, wp),
+    f => base.ConvertFunction(f)
+    );
 
-  public override SqlStatement Finalize(SqlStatement statement) {
-    statement = statement.Convert(static (visitor, expr) => {
-      switch (expr.ElementType) {
-        case QueryElementType.SqlParameter: {
-            SqlParameter sqlParameter = (SqlParameter)expr;
-            sqlParameter.Name = FixUnderscore(sqlParameter.Name, $"P{sqlParameter.GetHashCode()}");
-            break;
-          }
-        case QueryElementType.TableSource: {
-            SqlTableSource sqlTableSource = (SqlTableSource)expr;
-            sqlTableSource.Alias = FixUnderscore(sqlTableSource.Alias, $"T{sqlTableSource.SourceID}");
-            break;
-          }
-        case QueryElementType.Column: {
-            SqlColumn sqlColumn = (SqlColumn)expr;
-            sqlColumn.Alias = FixUnderscore(sqlColumn.Alias, $"C{sqlColumn.GetHashCode()}");
-            break;
-          }
-      }
-      return expr;
-    });
-    if (statement.SelectQuery != null) {
-      statement = statement.Convert(static (visitor, expr) => {
-        SetQueryParameter(expr);
-        return expr;
-      });
-    }
-    statement = base.Finalize(statement);
-    switch (statement.QueryType) {
-      case QueryType.Delete: return GetAlternativeDelete((SqlDeleteStatement)statement);
-      case QueryType.Update: return GetAlternativeUpdate((SqlUpdateStatement)statement);
-      default: return statement;
-    }
-  }
-
-  //    public override ISqlExpression ConvertExpression(ISqlExpression expr) {
-  public override ISqlExpression ConvertExpressionImpl(ISqlExpression expr, ConvertVisitor<RunOptimizationContext> visitor) {
-    expr = base.ConvertExpressionImpl(expr, visitor);
-    //expr = base.ConvertExpression(expr);
-    if (expr is SqlBinaryExpression) {
-      SqlBinaryExpression be = (SqlBinaryExpression)expr;
-      switch (be.Operation) {
-        case "%": {
-            ISqlExpression sqlExpression;
-            if (ReflectionExtensions.IsIntegerType(be.Expr1.SystemType)) {
-              sqlExpression = be.Expr1;
-            } else {
-              ISqlExpression sqlExpression2 = new SqlFunction(typeof(int), "Int", be.Expr1);
-              sqlExpression = sqlExpression2;
-            }
-            ISqlExpression expr2 = sqlExpression;
-            return new SqlFunction(be.SystemType, "Mod", expr2, be.Expr2);
-          }
-        case "&": return new SqlFunction(be.SystemType, "BitAnd", be.Expr1, be.Expr2);
-        case "|": return new SqlFunction(be.SystemType, "BitOr", be.Expr1, be.Expr2);
-        case "^": return new SqlFunction(be.SystemType, "BitXor", be.Expr1, be.Expr2);
-        case "+":
-          if (!(be.SystemType == typeof(string))) {
-            return expr;
-          }
-          return new SqlBinaryExpression(be.SystemType, be.Expr1, "||", be.Expr2, be.Precedence);
-      }
-    } else if (expr is SqlFunction) {
-      SqlFunction func = (SqlFunction)expr;
-      switch (func.Name) {
-        case "EXISTS":
-          return AlternativeExists(func);
-        case "Convert": {
-            if (ReflectionExtensions.ToUnderlying(func.SystemType) == typeof(bool)) {
-              dynamic ex = AlternativeConvertToBoolean(func, 1);
-              if (ex != null) {
-                return ex;
-              }
-            }
-            if (func.Parameters[0] is SqlDataType) {
-              dynamic type = (SqlDataType)func.Parameters[0];
-              if (type.Type == typeof(string) && func.Parameters[1].SystemType != typeof(string)) {
-                return new SqlFunction(func.SystemType, "RTrim", new SqlFunction(typeof(string), "Char", func.Parameters[1]));
-              }
-              if (!((type.Length > 0) ? true : false)) {
-                if (!((type.Precision > 0) ? true : false)) {
-                  return new SqlFunction(func.SystemType, type.DataType.ToString(), func.Parameters[1]);
-                }
-                return new SqlFunction(func.SystemType, type.DataType.ToString(), func.Parameters[1], new SqlValue(type.Precision), new SqlValue(type.Scale));
-              }
-              return new SqlFunction(func.SystemType, type.DataType.ToString(), func.Parameters[1], new SqlValue(type.Length));
-            }
-            if (func.Parameters[0] is SqlFunction) {
-              dynamic f = (SqlFunction)func.Parameters[0];
-              if (!((f.Name == "Char") ? true : false)) {
-                if (!((f.Parameters.Length == 1) ? true : false)) {
-                  return new SqlFunction(func.SystemType, f.Name, func.Parameters[1], f.Parameters[0], f.Parameters[1]);
-                }
-                return new SqlFunction(func.SystemType, f.Name, func.Parameters[1], f.Parameters[0]);
-              }
-              return new SqlFunction(func.SystemType, f.Name, func.Parameters[1]);
-            }
-            dynamic e = (SqlExpression)func.Parameters[0];
-            return new SqlFunction(func.SystemType, e.Expr, func.Parameters[1]);
-          }
-        case "Millisecond":
-          return Div(new SqlFunction(func.SystemType, "Microsecond", func.Parameters), 1000);
-        case "SmallDateTime":
-        case "DateTime":
-        case "DateTime2":
-          return new SqlFunction(func.SystemType, "TimeStamp", func.Parameters);
-        case "UInt16":
-          return new SqlFunction(func.SystemType, "Int", func.Parameters);
-        case "UInt32":
-          return new SqlFunction(func.SystemType, "BigInt", func.Parameters);
-        case "UInt64":
-          return new SqlFunction(func.SystemType, "Decimal", func.Parameters);
-        case "Byte":
-        case "SByte":
-        case "Int16":
-          return new SqlFunction(func.SystemType, "SmallInt", func.Parameters);
-        case "Int32":
-          return new SqlFunction(func.SystemType, "Int", func.Parameters);
-        case "Int64":
-          return new SqlFunction(func.SystemType, "BigInt", func.Parameters);
-        case "Double":
-          return new SqlFunction(func.SystemType, "Float", func.Parameters);
-        case "Single":
-          return new SqlFunction(func.SystemType, "Real", func.Parameters);
-        case "Money":
-          return new SqlFunction(func.SystemType, "Decimal", func.Parameters[0], new SqlValue(19), new SqlValue(4));
-        case "SmallMoney":
-          return new SqlFunction(func.SystemType, "Decimal", func.Parameters[0], new SqlValue(10), new SqlValue(4));
-        case "VarChar":
-          if (ReflectionExtensions.ToUnderlying(func.Parameters[0].SystemType) == typeof(decimal)) {
-            return new SqlFunction(func.SystemType, "Char", func.Parameters[0]);
-          }
-          break;
-        case "NChar":
-        case "NVarChar":
-          return new SqlFunction(func.SystemType, "Char", func.Parameters);
-      }
-    }
-    return expr;
-  }
-
-  protected ISqlExpression AlternativeExists(SqlFunction func) {
-    SelectQuery query = (SelectQuery)func.Parameters[0];
-    if (query.Select.Columns.Count == 0) {
-      query.Select.Columns.Add(new SqlColumn(query, new SqlExpression("'.'")));
-    }
-    query.Select.Take(1, null);
-    return new SqlSearchCondition {
-      Conditions =
-      {
-        new SqlCondition(isNot: false, new SqlPredicate.IsNull(query, isNot: true))
-      }
-    };
-  }
-
-  protected override ISqlExpression ConvertFunction(SqlFunction func) {
-    func = ConvertFunctionParameters(func, false);
-    return base.ConvertFunction(func);
-  }
+  public override SqlStatement Finalize(SqlStatement statement) => statement.Finalize_DB2iSeries_MTGFS01(
+    s => base.Finalize(s),
+    ds => GetAlternativeDelete(ds),
+    us => GetAlternativeUpdate(us)
+    );
 
 }
 

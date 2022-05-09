@@ -14,6 +14,9 @@ using Common.Data.GetSchemaTyped.DataRows;
 using LinqToDB.DataProvider.DB2iSeries;
 using System.Data;
 using System.Data.Common;
+using LinqToDB.SqlProvider;
+using static LinqToDB.SqlProvider.BasicSqlOptimizer;
+using LinqToDB.Extensions;
 
 namespace LinqToDB.DataProvider {
 
@@ -46,7 +49,7 @@ namespace LinqToDB.DataProvider {
     }
     [UrlAsAt.AccessMappingSchema_2021_05_07] public static void ConvertBinaryToSql_Access(this StringBuilder stringBuilder, byte[] value) => stringBuilder.ConvertBinaryToSql(value, "0x", "");
     [UrlAsAt.DB2MappingSchema_2021_05_07] public static void ConvertBinaryToSql_DB2(this StringBuilder stringBuilder, byte[] value) => stringBuilder.ConvertBinaryToSql(value, "BX", "'");
-     public static void ConvertBinaryToSql_DB2iSeries(this StringBuilder stringBuilder, byte[] value) => stringBuilder.ConvertBinaryToSql(value, "BX", "'");
+    public static void ConvertBinaryToSql_DB2iSeries(this StringBuilder stringBuilder, byte[] value) => stringBuilder.ConvertBinaryToSql(value, "BX", "'");
     [UrlAsAt.SapHanaMappingSchema_2021_05_07] public static void ConvertBinaryToSql_SapHana(this StringBuilder stringBuilder, byte[] value) => stringBuilder.ConvertBinaryToSql(value, "x'", "'");
     [UrlAsAt.SqlServerMappingSchema_2021_05_07] public static void ConvertBinaryToSql_SqlServer(this StringBuilder stringBuilder, byte[] value) => stringBuilder.Append("0x").AppendByteArrayAsHexViaLookup32(value);
 
@@ -62,6 +65,109 @@ namespace LinqToDB.DataProvider {
     [UrlAsAt.SqlServerMappingSchema_2021_05_07] public static void ConvertDateTimeToSql_SqlServer(this StringBuilder stringBuilder, SqlDataType sqlDataType, DateTime value) => stringBuilder.Append(value.ToSqlString_ISO(sqlDataType, "'", "T", sqlDataType.Type.DataType == DataType.DateTime2 ? 7 : 3, "'"));
 
     [UrlAsAt.SqlServerMappingSchema_2021_05_07] public static void ConvertDateTimeOffsetToSql_SqlServer(this StringBuilder stringBuilder, SqlDataType sqlDataType, DateTimeOffset value) => stringBuilder.Append(value.DateTime.ToSqlString_ISO(sqlDataType, "'", " ", 7, " zzz'"));
+
+    //public static ISqlExpression ConvertExpressionImpl_DB2iSeries_MTGFS01(this SqlBinaryExpression be) {
+    //  switch (be.Operation) {
+    //    case "%":
+    //      var expr1 = be.Expr1.SystemType.IsIntegerType() ? be.Expr1 : new SqlFunction(typeof(int), "Int", be.Expr1);
+    //      return new SqlFunction(be.SystemType, "Mod", expr1, be.Expr2);
+    //    case "&": return new SqlFunction(be.SystemType, "BitAnd", be.Expr1, be.Expr2);
+    //    case "|": return new SqlFunction(be.SystemType, "BitOr", be.Expr1, be.Expr2);
+    //    case "^": return new SqlFunction(be.SystemType, "BitXor", be.Expr1, be.Expr2);
+    //    case "+": return be.SystemType == typeof(string) ? new SqlBinaryExpression(be.SystemType, be.Expr1, "||", be.Expr2, be.Precedence) : be;
+    //  }
+    //}
+
+    public static ISqlExpression ConvertExpressionImpl_DB2iSeries_MTGFS01(this ISqlExpression expression, ConvertVisitor<RunOptimizationContext> visitor
+      , Func<ISqlExpression, ConvertVisitor<RunOptimizationContext>, ISqlExpression> baseConvertExpressionImpl
+      , Func<SqlFunction, int, ISqlExpression?> baseAlternativeConvertToBoolean
+      , Func<ISqlExpression, int, ISqlExpression> baseDiv //(new SqlFunction(func.SystemType, "Microsecond", func.Parameters), 1000)
+      ) {
+      expression = baseConvertExpressionImpl(expression, visitor);
+      if (expression is SqlBinaryExpression be) {
+        switch (be.Operation) {
+          case "%":
+            var expr1 = be.Expr1.SystemType.IsIntegerType() ? be.Expr1 : new SqlFunction(typeof(int), "Int", be.Expr1);
+            return new SqlFunction(be.SystemType, "Mod", expr1, be.Expr2);
+          case "&": return new SqlFunction(be.SystemType, "BitAnd", be.Expr1, be.Expr2);
+          case "|": return new SqlFunction(be.SystemType, "BitOr", be.Expr1, be.Expr2);
+          case "^": return new SqlFunction(be.SystemType, "BitXor", be.Expr1, be.Expr2);
+          case "+": return be.SystemType == typeof(string) ? new SqlBinaryExpression(be.SystemType, be.Expr1, "||", be.Expr2, be.Precedence) : expression;
+        }
+      } else if (expression is SqlFunction func) {
+        switch (func.Name.ToLower()) {
+          case "convert": {
+              if (System.TypeExtensions.ToUnderlying(func.SystemType) == typeof(bool)) {
+                var ex = baseAlternativeConvertToBoolean(func, 1);
+                if (ex != null) {
+                  return ex;
+                }
+              }
+              var sqlType = func.Parameters[0] as SqlDataType;
+              if (sqlType != null) {
+                var type = sqlType.Type;
+                if (type.SystemType == typeof(string) && func.Parameters[1].SystemType != typeof(string)) {
+                  return new SqlFunction(func.SystemType, "RTrim", new SqlFunction(typeof(string), "Char", func.Parameters[1]));
+                }
+                if (type.Length > 0) {
+                  return new SqlFunction(func.SystemType, type.DataType.ToString(), func.Parameters[1], new SqlValue(type.Length));
+                }
+                if (type.Precision > 0 && type.Scale > 0) {
+                  return new SqlFunction(func.SystemType, type.DataType.ToString(), func.Parameters[1], new SqlValue(type.Precision), new SqlValue(type.Scale));
+                }
+                if (type.Precision > 0) {
+                  return new SqlFunction(func.SystemType, type.DataType.ToString(), func.Parameters[1], new SqlValue(type.Precision));
+                }
+                return new SqlFunction(func.SystemType, type.DataType.ToString(), func.Parameters[1]);
+              }
+              var f = func.Parameters[0] as SqlFunction;
+              if (f != null) {
+                if (!(f.Name.ToLower() == "char")) {
+                  if (f.Parameters.Length != 1) {
+                    return new SqlFunction(func.SystemType, f.Name, func.Parameters[1], f.Parameters[0], f.Parameters[1]);
+                  }
+                  return new SqlFunction(func.SystemType, f.Name, func.Parameters[1], f.Parameters[0]);
+                }
+                return new SqlFunction(func.SystemType, f.Name, func.Parameters[1]);
+              }
+              var e = (SqlExpression)func.Parameters[0];
+              return new SqlFunction(func.SystemType, e.Expr, func.Parameters[1]);
+            }
+          case "exists": return func.AlternativeExists_DB2iSeries();
+          case "millisecond": return baseDiv(new SqlFunction(func.SystemType, "Microsecond", func.Parameters), 1000);
+          case "smalldatetime":
+          case "datetime":
+          case "datetime2": return new SqlFunction(func.SystemType, "TimeStamp", func.Parameters);
+          case "uint16": return new SqlFunction(func.SystemType, "Int", func.Parameters);
+          case "uint32": return new SqlFunction(func.SystemType, "BigInt", func.Parameters);
+          case "uint64": return new SqlFunction(func.SystemType, "Decimal", func.Parameters);
+          case "byte":
+          case "sbyte":
+          case "int16": return new SqlFunction(func.SystemType, "SmallInt", func.Parameters);
+          case "int32": return new SqlFunction(func.SystemType, "Int", func.Parameters);
+          case "int64": return new SqlFunction(func.SystemType, "BigInt", func.Parameters);
+          case "double": return new SqlFunction(func.SystemType, "Float", func.Parameters);
+          case "single": return new SqlFunction(func.SystemType, "Real", func.Parameters);
+          case "money": return new SqlFunction(func.SystemType, "Decimal", func.Parameters[0], new SqlValue(19), new SqlValue(4));
+          case "smallmoney": return new SqlFunction(func.SystemType, "Decimal", func.Parameters[0], new SqlValue(10), new SqlValue(4));
+          case "varchar":
+            if (System.TypeExtensions.ToUnderlying(func.Parameters[0].SystemType) == typeof(decimal)) {
+              return new SqlFunction(func.SystemType, "Char", func.Parameters[0]);
+            }
+            break;
+          case "nchar":
+          case "nvarchar": return new SqlFunction(func.SystemType, "Char", func.Parameters);
+        }
+      }
+      return expression;
+    }
+
+    public static ISqlExpression ConvertFunction_DB2iSeries_MTGFS01(this SqlFunction func
+      , Func<SqlFunction, bool, SqlFunction> baseConvertFunctionParameters
+      , Func<SqlFunction, ISqlExpression> baseConvertFunction) {
+      func = baseConvertFunctionParameters(func, false);
+      return baseConvertFunction(func);
+    }
 
     [UrlAsAt.AccessMappingSchema_2021_05_07] public static void ConvertGuidToSql_Access(this StringBuilder stringBuilder, Guid value) => stringBuilder.Append($"'{value.ToString("B")}'");
     [UrlAsAt.DB2MappingSchema_2021_05_07]
@@ -166,6 +272,45 @@ namespace LinqToDB.DataProvider {
     //  "yyyy-MM-dd-HH.mm.ss.ffffffffffff",
     //};
 
+    public static SqlStatement Finalize_DB2iSeries_MTGFS01(this SqlStatement statement
+      , Func<SqlStatement, SqlStatement> baseFinalize
+      , Func<SqlDeleteStatement, SqlDeleteStatement> baseGetAlternativeDelete
+      , Func<SqlUpdateStatement, SqlUpdateStatement> baseGetAlternativeUpdate
+      ) {
+      statement = statement.Convert(static (visitor, expr) => {
+        switch (expr.ElementType) {
+          case QueryElementType.SqlParameter: {
+              SqlParameter sqlParameter = (SqlParameter)expr;
+              sqlParameter.Name = sqlParameter.Name.FixUnderscore_DB2iSeries($"P{sqlParameter.GetHashCode()}");
+              break;
+            }
+          case QueryElementType.TableSource: {
+              SqlTableSource sqlTableSource = (SqlTableSource)expr;
+              sqlTableSource.Alias = sqlTableSource.Alias.FixUnderscore_DB2iSeries($"T{sqlTableSource.SourceID}");
+              break;
+            }
+          case QueryElementType.Column: {
+              SqlColumn sqlColumn = (SqlColumn)expr;
+              sqlColumn.Alias = sqlColumn.Alias.FixUnderscore_DB2iSeries($"C{sqlColumn.GetHashCode()}");
+              break;
+            }
+        }
+        return expr;
+      });
+      if (statement.SelectQuery != null) {
+        statement = statement.Convert(static (visitor, expr) => {
+          expr.SetQueryParameter_DB2iSeries_MTGFS01();
+          return expr;
+        });
+      }
+      statement = baseFinalize(statement);
+      switch (statement.QueryType) {
+        case QueryType.Delete: return baseGetAlternativeDelete((SqlDeleteStatement)statement);
+        case QueryType.Update: return baseGetAlternativeUpdate((SqlUpdateStatement)statement);
+        default: return statement;
+      }
+    }
+
     public static string? FixUnderscore_DB2iSeries(this string? text, string alternative) {
       if (string.IsNullOrWhiteSpace(text)) {
         return null;
@@ -194,9 +339,7 @@ namespace LinqToDB.DataProvider {
 
     public static TableOptions GetTableOptions(this DataSourceInformationRow dataSourceInformationRow) => dataSourceInformationRow switch {
       //DbSystem.Names.Access => TableOptions.None,
-      {DataSourceProductName:  DataSourceInformationRow.DataSourceProductNames.DB2_for_IBM_i }=> dataSourceInformationRow.Version.GetTableOptions_DB2iSeries(),
-      {DataSourceProductName:  DataSourceInformationRow.DataSourceProductNames.DB2_400_SQL }=> dataSourceInformationRow.Version.GetTableOptions_DB2iSeries(),
-      {DataSourceProductName:  DataSourceInformationRow.DataSourceProductNames.IBM_DB2_for_i }=> dataSourceInformationRow.Version.GetTableOptions_DB2iSeries(),
+      { DataSourceProductName: DataSourceInformationRow.DataSourceProductNames.DB2_for_IBM_i } => dataSourceInformationRow.Version.GetTableOptions_DB2iSeries(), { DataSourceProductName: DataSourceInformationRow.DataSourceProductNames.DB2_400_SQL } => dataSourceInformationRow.Version.GetTableOptions_DB2iSeries(), { DataSourceProductName: DataSourceInformationRow.DataSourceProductNames.IBM_DB2_for_i } => dataSourceInformationRow.Version.GetTableOptions_DB2iSeries(),
       _ => throw new NotImplementedException($"{dataSourceInformationRow.DataSourceProductName}: v{dataSourceInformationRow.Version}") // TableOptions.None
     };
 
@@ -263,6 +406,12 @@ namespace LinqToDB.DataProvider {
 
     //public static string TimestampFormat_ISO(int milliSecondsPrecision, string dateTimeSeparator)
     //  => DateFormat_ISO + dateTimeSeparator + TimeFormat_ISO + ((milliSecondsPrecision > 0) ? ("." + new string('f', milliSecondsPrecision)) : "");
+
+    public static void SetQueryParameter_DB2iSeries_MTGFS01(this IQueryElement element) {
+      if (element.ElementType == QueryElementType.SqlParameter) {
+        ((SqlParameter)element).IsQueryParameter = false;
+      }
+    }
 
     public static string ToSqlString_ISO(this DateTime value, SqlDataType sqlDatatype, string prefix, string dateTimeSeparator, int maxMilliSecondsPrecision, string suffix) {
       var format = (sqlDatatype.Type.DataType == DataType.Date || "date".Equals(sqlDatatype.Type.DbType, StringComparison.OrdinalIgnoreCase))

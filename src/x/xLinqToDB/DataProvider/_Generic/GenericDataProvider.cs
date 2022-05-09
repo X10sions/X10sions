@@ -38,12 +38,10 @@ namespace LinqToDB.DataProvider {
       DataSourceInformationRow = dataSourceInformationRow;
       //  //InitDataProvider();
 
-      var initDbSystem = dataSourceInformationRow switch {
+      var initDbSystem = dataSourceInformationRow.DbSystemEnum switch {
         //DbSystem.Names.Access => GenericDataProvider_InitAccess(),
         //DbSystem.Names.DB2 => GenericDataProvider_InitDB2(),
-        { DataSourceProductName: DataSourceInformationRow.DataSourceProductNames.DB2_for_IBM_i } => GenericDataProvider_InitDB2iSeries(dataSourceInformationRow.Version),
-        { DataSourceProductName: DataSourceInformationRow.DataSourceProductNames.DB2_400_SQL } => GenericDataProvider_InitDB2iSeries(dataSourceInformationRow.Version),
-        { DataSourceProductName: DataSourceInformationRow.DataSourceProductNames.IBM_DB2_for_i } => GenericDataProvider_InitDB2iSeries(dataSourceInformationRow.Version),
+        DbSystem.Enum.DB2iSeries => GenericDataProvider_InitDB2iSeries(dataSourceInformationRow.Version),
         _ => throw new NotImplementedException($"{dataSourceInformationRow.DataSourceProductName}: v{dataSourceInformationRow.Version}")
       };
 

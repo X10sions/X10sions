@@ -23,14 +23,13 @@ public class DataSourceInformationRow : BaseTypedDataRow { //}, IEquatable<DataS
     public const string IBM_DB2_for_i = "IBM DB2 for i";
   }
 
-
   public DataSourceInformationRow(DataRow row) : base(row) {
     foreach (var col in row.Table.Columns.Cast<DataColumn>().Where(x => !dbMetaDataColumnNames.Contains(x.ColumnName))) {
       OtherColumns.Add(col.ColumnName, row.Field<object?>(col.ColumnName));
     }
     Version = GetVersion();
     DataSourceProduct = GetDataSourceProduct();
-    //DbSystem = GetDbSystem();
+    DbSystemEnum = GetDbSystemEnum(this);
   }
 
   //public override int GetHashCode() {
@@ -186,7 +185,22 @@ public class DataSourceInformationRow : BaseTypedDataRow { //}, IEquatable<DataS
 
   //public string GetConnectionTypeVersionName<T>() where T : IDbConnection => $"{typeof(T).Name}.v{Version}";
   public DataSourceProduct? GetDataSourceProduct() => DataSourceProduct.List.FirstOrDefault(x => x.Name.Equals(DataSourceProductName, StringComparison.OrdinalIgnoreCase));
-  //public DbSystem? GetDbSystem() => GetDataSourceProduct()?.DbSystem;
+  //public DbSystem GetDbSystem(DataSourceInformationRow dataSourceInformationRow) => dataSourceInformationRow.DataSourceProductName switch { 
+  //  DataSourceProductNames.DB2_for_IBM_i => DB2iSeriesDbSystem.DB2iSeries, 
+  //  DataSourceProductNames.DB2_400_SQL => DB2iSeriesDbSystem.DB2iSeries, 
+  //  DataSourceProductNames.IBM_DB2_for_i => DB2iSeriesDbSystem.DB2iSeries, 
+  //  _ => throw new NotImplementedException($"{dataSourceInformationRow.DataSourceProductName}: v{dataSourceInformationRow.Version}")
+  //};
+
+  public DbSystem.Enum GetDbSystemEnum(DataSourceInformationRow dataSourceInformationRow) => dataSourceInformationRow.DataSourceProductName switch {
+    DataSourceProductNames.DB2_for_IBM_i => DbSystem.Enum.DB2iSeries,
+    DataSourceProductNames.DB2_400_SQL => DbSystem.Enum.DB2iSeries,
+    DataSourceProductNames.IBM_DB2_for_i => DbSystem.Enum.DB2iSeries,
+    _ => throw new NotImplementedException($"{dataSourceInformationRow.DataSourceProductName}: v{dataSourceInformationRow.Version}")
+  };
+
+  //public DbSystem DbSystem { get; }
+  public DbSystem.Enum DbSystemEnum { get; }
 
   public string ParameterName(string name) => ParameterNameMaxLength > 0 ? string.Format(ParameterMarker + ParameterMarkerFormat, name) : ParameterMarkerFormat;
 
