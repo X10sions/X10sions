@@ -10,6 +10,7 @@ using LinqToDB.Extensions;
 using System.Linq.Expressions;
 using System.Text;
 using System.ComponentModel;
+using System.Data.Common;
 
 namespace LinqToDB.DataProvider.DB2iSeries.MTGFS01_V2_9_8;
 
@@ -172,9 +173,7 @@ public class DB2iSeriesMappingSchema : MappingSchema {
   public DB2iSeriesMappingSchema(DB2iSeriesConfiguration dB2ISeriesConfiguration)
     : this(dB2ISeriesConfiguration.Provider.Name()) {
     if (dB2ISeriesConfiguration.Provider != DB2iSeriesProvider.DB2_GAS) {
-      SetValueToSqlConverter(typeof(Guid), delegate (StringBuilder sb, SqlDataType dt, object v) {
-        ConvertGuidToSql(sb, (Guid)v);
-      });
+      SetValueToSqlConverter(typeof(Guid), (sb, dt, v) => sb.ConvertGuidToSql_DB2iSeries((Guid)v));
     }
   }
 
@@ -217,18 +216,6 @@ public class DB2iSeriesMappingSchema : MappingSchema {
     stringBuilder.AppendFormat(format, value);
   }
 
-  private static void ConvertGuidToSql(StringBuilder stringBuilder, Guid value) {
-    dynamic s = value.ToString("N");
-    stringBuilder.Append("Cast(x'").Append(s.Substring(6, 2)).Append(s.Substring(4, 2))
-      .Append(s.Substring(2, 2))
-      .Append(s.Substring(0, 2))
-      .Append(s.Substring(10, 2))
-      .Append(s.Substring(8, 2))
-      .Append(s.Substring(14, 2))
-      .Append(s.Substring(12, 2))
-      .Append(s.Substring(16, 16))
-      .Append("' as char(16) for bit data)");
-  }
 }
 
 public class DB2iSeriesSqlOptimizer : BasicSqlOptimizer {
@@ -317,28 +304,30 @@ public class DB2iSeriesConfiguration {
   }
 }
 
-public abstract class DB2iSeriesDataProvider_Base<TConnection, TDataReader> : DataProviderBase where TConnection : IDbConnection, new() where TDataReader : IDataReader {
+public abstract class DB2iSeriesDataProvider_Base<TConnection, TDataReader> : DataProviderBase<TConnection, TDataReader>
+  where TConnection : DbConnection, new()
+  where TDataReader : IDataReader {
   protected DB2iSeriesConfiguration dB2ISeriesConfiguration;
 
-  public override string ConnectionNamespace { get; } = typeof(TConnection).Namespace;
-  public override Type DataReaderType { get; } = typeof(TDataReader);
-  public DB2iSeriesDataProvider_Base(DB2iSeriesVersion version = DB2iSeriesVersion.v5r4) : this(new DB2iSeriesConfiguration {
+  //public override string ConnectionNamespace { get; } = typeof(TConnection).Namespace;
+  //public override Type DataReaderType { get; } = typeof(TDataReader);
+  public DB2iSeriesDataProvider_Base(Func<ISchemaProvider> getSchemaProvider, DB2iSeriesVersion version = DB2iSeriesVersion.v5r4) : this(getSchemaProvider, new DB2iSeriesConfiguration {
     Version = version
   }) { }
 
-  public DB2iSeriesDataProvider_Base(DB2iSeriesConfiguration dB2ISeriesConfiguration)
-    : base(dB2ISeriesConfiguration.Provider.Name(), dB2ISeriesConfiguration.MappingSchema) {
+  public DB2iSeriesDataProvider_Base(Func<ISchemaProvider> getSchemaProvider, DB2iSeriesConfiguration dB2ISeriesConfiguration)
+    : base(dB2ISeriesConfiguration.Provider.Name(), dB2ISeriesConfiguration.MappingSchema, getSchemaProvider, GenericExtensions.GetTableOptions_DB2iSeries(null)) {
     this.dB2ISeriesConfiguration = dB2ISeriesConfiguration;
     dB2ISeriesConfiguration.InitDataProvider(this, base.SetCharField);
   }
 
   public override ISqlOptimizer GetSqlOptimizer() => new DB2iSeriesSqlOptimizer(base.SqlProviderFlags);
 
-  protected override IDbConnection CreateConnectionInternal(string connectionString) {
-    TConnection val = new TConnection();
-    val.ConnectionString = connectionString;
-    return val;
-  }
+  //protected override IDbConnection CreateConnectionInternal(string connectionString) {
+  //  TConnection val = new TConnection();
+  //  val.ConnectionString = connectionString;
+  //  return val;
+  //}
 
   public override void SetParameter(DataConnection dataConnection, IDbDataParameter parameter, string name, DbDataType dataType, object? value) {
     if (dataType.DataType == DataType.DateTime2) {
@@ -346,15 +335,6 @@ public abstract class DB2iSeriesDataProvider_Base<TConnection, TDataReader> : Da
     }
     base.SetParameter(dataConnection, parameter, "@" + name, dataType, value);
   }
-
-  public override TableOptions SupportedTableOptions =>
-    TableOptions.IsTemporary |
-    TableOptions.IsTemporary |
-    TableOptions.IsLocalTemporaryStructure |
-    TableOptions.IsGlobalTemporaryStructure |
-    TableOptions.IsLocalTemporaryData |
-    TableOptions.CreateIfNotExists |
-    TableOptions.DropIfExists;
 
 }
 

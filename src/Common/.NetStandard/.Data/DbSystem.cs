@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
+﻿using System.Data;
 
 namespace Common.Data {
   public class DbSystem : IEquatable<DbSystem> {
@@ -23,15 +20,15 @@ namespace Common.Data {
       DB2iSeries,
       Excel,
       Firebird,
-      // Informix,
+      Informix,
       MySql,
       Oracle,
       PostgreSql,
       SapHana,
       Sqlite,
-      // SqlCE ,
+      SqlCE,
       SqlServer,
-      // Sybase 
+      Sybase
     }
 
     public class Names {

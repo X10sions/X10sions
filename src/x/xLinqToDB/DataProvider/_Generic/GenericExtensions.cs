@@ -337,9 +337,8 @@ namespace LinqToDB.DataProvider {
 
     public static string GetNameWithVersion(this Version version, string name) => $"{name}.v{version}";
 
-    public static TableOptions GetTableOptions(this DataSourceInformationRow dataSourceInformationRow) => dataSourceInformationRow switch {
-      //DbSystem.Names.Access => TableOptions.None,
-      { DataSourceProductName: DataSourceInformationRow.DataSourceProductNames.DB2_for_IBM_i } => dataSourceInformationRow.Version.GetTableOptions_DB2iSeries(), { DataSourceProductName: DataSourceInformationRow.DataSourceProductNames.DB2_400_SQL } => dataSourceInformationRow.Version.GetTableOptions_DB2iSeries(), { DataSourceProductName: DataSourceInformationRow.DataSourceProductNames.IBM_DB2_for_i } => dataSourceInformationRow.Version.GetTableOptions_DB2iSeries(),
+    public static TableOptions GetTableOptions(this DataSourceInformationRow dataSourceInformationRow) => dataSourceInformationRow.DbSystemEnum switch {
+      DbSystem.Enum.DB2iSeries => dataSourceInformationRow.Version.GetTableOptions_DB2iSeries(),
       _ => throw new NotImplementedException($"{dataSourceInformationRow.DataSourceProductName}: v{dataSourceInformationRow.Version}") // TableOptions.None
     };
 
@@ -350,6 +349,7 @@ namespace LinqToDB.DataProvider {
          | TableOptions.IsGlobalTemporaryStructure
          | TableOptions.IsLocalTemporaryData
          | TableOptions.IsGlobalTemporaryData
+         //| TableOptions.CreateIfNotExists |        TableOptions.DropIfExists;
     };
 
     [Obsolete("Please use the BulkCopy extension methods within DataConnectionExtensions")]
