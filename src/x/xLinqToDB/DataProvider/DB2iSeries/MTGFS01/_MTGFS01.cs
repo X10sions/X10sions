@@ -83,7 +83,6 @@ public static class SqlDataTypeExtensions {
   }
 }
 
-
 public static class _Extensions {
 
   public static string GetTypeForCast(this Type dataType, bool mapGuidAsString) {
