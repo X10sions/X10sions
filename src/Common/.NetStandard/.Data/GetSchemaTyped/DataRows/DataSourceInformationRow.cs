@@ -1,5 +1,5 @@
-﻿using System.Data.Common;
-using System.Data;
+﻿using System.Data;
+using System.Data.Common;
 using System.Text.RegularExpressions;
 
 namespace Common.Data.GetSchemaTyped.DataRows;
@@ -23,14 +23,35 @@ public class DataSourceInformationRow : BaseTypedDataRow { //}, IEquatable<DataS
     public const string IBM_DB2_for_i = "IBM DB2 for i";
   }
 
-  public DataSourceInformationRow(DataRow row) : base(row) {
-    foreach (var col in row.Table.Columns.Cast<DataColumn>().Where(x => !dbMetaDataColumnNames.Contains(x.ColumnName))) {
-      OtherColumns.Add(col.ColumnName, row.Field<object?>(col.ColumnName));
+  public DataSourceInformationRow() { }
+
+  public DataSourceInformationRow(DataRow dataRow) : base(dataRow) {  }
+
+  public override void SetValues(DataRow dataRow) {
+    CompositeIdentifierSeparatorPattern = dataRow.Field<string>(DbMetaDataColumnNames.CompositeIdentifierSeparatorPattern);
+    DataSourceProductName = dataRow.Field<string>(DbMetaDataColumnNames.DataSourceProductName);
+    DataSourceProductVersion = dataRow.Field<string>(DbMetaDataColumnNames.DataSourceProductVersion);
+    DataSourceProductVersionNormalized = dataRow.Field<string>(DbMetaDataColumnNames.DataSourceProductVersionNormalized);
+    GroupByBehavior = dataRow.Field<GroupByBehavior>(DbMetaDataColumnNames.GroupByBehavior);
+    IdentifierCase = dataRow.Field<IdentifierCase>(DbMetaDataColumnNames.IdentifierCase);
+    IdentifierPattern = dataRow.Field<string>(DbMetaDataColumnNames.IdentifierPattern);
+    OrderByColumnsInSelect = dataRow.Field<bool?>(DbMetaDataColumnNames.OrderByColumnsInSelect) ?? false;
+    ParameterMarkerFormat = dataRow.Field<string>(DbMetaDataColumnNames.ParameterMarkerFormat);
+    ParameterMarkerPattern = dataRow.Field<string>(DbMetaDataColumnNames.ParameterMarkerPattern);
+    ParameterNameMaxLength = dataRow.Field<int?>(DbMetaDataColumnNames.ParameterNameMaxLength);
+    ParameterNamePattern = dataRow.Field<string?>(DbMetaDataColumnNames.ParameterNamePattern);
+    QuotedIdentifierPattern = dataRow.Field<string>(DbMetaDataColumnNames.QuotedIdentifierPattern);
+    QuotedIdentifierCase = dataRow.Field<IdentifierCase>(DbMetaDataColumnNames.QuotedIdentifierCase);
+    StatementSeparatorPattern = dataRow.Field<string>(DbMetaDataColumnNames.StatementSeparatorPattern);
+    StringLiteralPattern = dataRow.Field<string>(DbMetaDataColumnNames.StringLiteralPattern);
+    SupportedJoinOperators = dataRow.Field<SupportedJoinOperators?>(DbMetaDataColumnNames.SupportedJoinOperators);
+
+    foreach (var col in dataRow.Table.Columns.Cast<DataColumn>().Where(x => !dbMetaDataColumnNames.Contains(x.ColumnName))) {
+      OtherColumns.Add(col.ColumnName, dataRow.Field<object?>(col.ColumnName));
     }
-    Version = GetVersion();
-    DataSourceProduct = GetDataSourceProduct();
-    DbSystemEnum = GetDbSystemEnum(this);
   }
+
+
 
   //public override int GetHashCode() {
   //  var hash = new HashCode();
@@ -90,23 +111,23 @@ public class DataSourceInformationRow : BaseTypedDataRow { //}, IEquatable<DataS
   public DataSourceInformationRow(GetSchemaHelper getSchema) : this(getSchema.DataSourceInformation().DataTable) { }
 
   #region Columns
-  public string CompositeIdentifierSeparatorPattern => DataRow.Field<string>(DbMetaDataColumnNames.CompositeIdentifierSeparatorPattern);
-  public string DataSourceProductName => DataRow.Field<string>(DbMetaDataColumnNames.DataSourceProductName);
-  public string DataSourceProductVersion => DataRow.Field<string>(DbMetaDataColumnNames.DataSourceProductVersion);
-  public string DataSourceProductVersionNormalized => DataRow.Field<string>(DbMetaDataColumnNames.DataSourceProductVersionNormalized);
-  public GroupByBehavior GroupByBehavior => DataRow.Field<GroupByBehavior>(DbMetaDataColumnNames.GroupByBehavior);
-  public IdentifierCase IdentifierCase => DataRow.Field<IdentifierCase>(DbMetaDataColumnNames.IdentifierCase);
-  public string IdentifierPattern => DataRow.Field<string>(DbMetaDataColumnNames.IdentifierPattern);
-  public bool OrderByColumnsInSelect => DataRow.Field<bool?>(DbMetaDataColumnNames.OrderByColumnsInSelect) ?? false;
-  public string ParameterMarkerFormat => DataRow.Field<string>(DbMetaDataColumnNames.ParameterMarkerFormat);
-  public string ParameterMarkerPattern => DataRow.Field<string>(DbMetaDataColumnNames.ParameterMarkerPattern);
-  public int? ParameterNameMaxLength => DataRow.Field<int?>(DbMetaDataColumnNames.ParameterNameMaxLength);
-  public string? ParameterNamePattern => DataRow.Field<string?>(DbMetaDataColumnNames.ParameterNamePattern);
-  public string QuotedIdentifierPattern => DataRow.Field<string>(DbMetaDataColumnNames.QuotedIdentifierPattern);
-  public IdentifierCase QuotedIdentifierCase => DataRow.Field<IdentifierCase>(DbMetaDataColumnNames.QuotedIdentifierCase);
-  public string StatementSeparatorPattern => DataRow.Field<string>(DbMetaDataColumnNames.StatementSeparatorPattern);
-  public string StringLiteralPattern => DataRow.Field<string>(DbMetaDataColumnNames.StringLiteralPattern);
-  public SupportedJoinOperators SupportedJoinOperators => DataRow.Field<SupportedJoinOperators>(DbMetaDataColumnNames.SupportedJoinOperators);
+  public string CompositeIdentifierSeparatorPattern { get; set; } = string.Empty;
+  public string DataSourceProductName { get; set; } = string.Empty;
+  public string DataSourceProductVersion { get; set; } = string.Empty;
+  public string DataSourceProductVersionNormalized { get; set; } = string.Empty;
+  public GroupByBehavior GroupByBehavior { get; set; }
+  public IdentifierCase IdentifierCase { get; set; }
+  public string IdentifierPattern { get; set; } = string.Empty;
+  public bool OrderByColumnsInSelect { get; set; }
+  public string ParameterMarkerFormat { get; set; } = string.Empty;
+  public string ParameterMarkerPattern { get; set; } = string.Empty;
+  public int? ParameterNameMaxLength { get; set; }
+  public string? ParameterNamePattern { get; set; }
+  public string QuotedIdentifierPattern { get; set; } = string.Empty;
+  public IdentifierCase QuotedIdentifierCase { get; set; }
+  public string StatementSeparatorPattern { get; set; } = string.Empty;
+  public string StringLiteralPattern { get; set; } = string.Empty;
+  public SupportedJoinOperators? SupportedJoinOperators { get; set; }
   #endregion
 
   string[] dbMetaDataColumnNames = new[]{
@@ -132,19 +153,14 @@ public class DataSourceInformationRow : BaseTypedDataRow { //}, IEquatable<DataS
   public Regex CompositeIdentifierSeparatorRegEx => new Regex(CompositeIdentifierSeparatorPattern);
   public Regex IdentifierRegEx => new Regex(IdentifierPattern);
   public Regex ParameterMarkerRegEx => new Regex(ParameterMarkerPattern);
-  public Regex ParameterNameRegEx => new Regex(ParameterNamePattern ?? String.Empty);
+  public Regex ParameterNameRegEx => new Regex(ParameterNamePattern ?? string.Empty);
   public Regex QuotedIdentifierRegEx => new Regex(QuotedIdentifierPattern);
   public Regex StatementSeparatorRegEx => new Regex(StatementSeparatorPattern);
   public Regex StringLiteralRegEx => new Regex(StringLiteralPattern);
 
-  public bool CanJoinInner => SupportedJoinOperators.HasFlag(SupportedJoinOperators.Inner);
-  public bool CanJoinLeft => SupportedJoinOperators.HasFlag(SupportedJoinOperators.LeftOuter);
-  public bool CanJoinRight => SupportedJoinOperators.HasFlag(SupportedJoinOperators.RightOuter);
-  public bool CanJoinFull => SupportedJoinOperators.HasFlag(SupportedJoinOperators.FullOuter);
-
-  public DataSourceProduct? DataSourceProduct { get; }
+  public DataSourceProduct? DataSourceProduct => GetDataSourceProduct();
   //public DbSystem? DbSystem { get; }
-  public Version? Version { get; }
+  public Version? Version => GetVersion();
 
   public string GetDataSourceProductNameWithVersion() => $"{DataSourceProductName}.v{Version ?? new Version()}";
 
@@ -200,7 +216,7 @@ public class DataSourceInformationRow : BaseTypedDataRow { //}, IEquatable<DataS
   };
 
   //public DbSystem DbSystem { get; }
-  public DbSystem.Enum DbSystemEnum { get; }
+  public DbSystem.Enum DbSystemEnum => GetDbSystemEnum(this);
 
   public string ParameterName(string name) => ParameterNameMaxLength > 0 ? string.Format(ParameterMarker + ParameterMarkerFormat, name) : ParameterMarkerFormat;
 
