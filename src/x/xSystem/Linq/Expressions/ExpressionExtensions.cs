@@ -114,6 +114,10 @@ namespace System.Linq.Expressions {
       };
     }
 
+    public static MethodInfo? GetSetMethod<T>(this Expression<Func<T>> expression) => ((expression?.Body as MemberExpression)?.Member as PropertyInfo)?.GetSetMethod(true);
+
+    public static void SetValue<T, TValue>(this Expression<Func<T>> getSetExpression, T instance, TValue value) => GetSetMethod(getSetExpression)?.Invoke(instance, new object[] { value });
+
     #endregion "GetMemberNames"
 
     public static Expression Replace(this Expression expression, Expression searchExpression, Expression replaceExpression)
