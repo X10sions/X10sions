@@ -7,7 +7,7 @@ namespace Common.Data.GetSchemaTyped.DataRows {
 
     public MetaDataCollectionRow(DataRow dataRow) :base(dataRow) { }
     public override void SetValues(DataRow dataRow) {
-    CollectionName = dataRow.Field<string>(DbMetaDataColumnNames.CollectionName);
+      CollectionName = dataRow.Field<string>(DbMetaDataColumnNames.CollectionName);
       NumberOfRestrictions = dataRow.Field<int>(DbMetaDataColumnNames.NumberOfRestrictions);
       NumberOfIdentifierParts = dataRow.Field<int>(DbMetaDataColumnNames.NumberOfIdentifierParts);
     }

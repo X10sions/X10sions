@@ -19,33 +19,13 @@ public interface IModificationHandler<T> : IModificationHandler where T : notnul
   IUpdatable<T> Updatable { get; set; }
 }
 
-//sealed class ReferencedPropertyFinder : ExpressionVisitor {
-//  private readonly Type _ownerType;
-//  private readonly List<PropertyInfo> _properties = new List<PropertyInfo>();
-
-//  public ReferencedPropertyFinder(Type ownerType) {
-//    _ownerType = ownerType;
-//  }
-
-//  public IReadOnlyList<PropertyInfo> Properties {
-//    get { return _properties; }
-//  }
-
-//  protected override Expression VisitMember(MemberExpression node) {
-//    var propertyInfo = node.Member as PropertyInfo;
-//    if (propertyInfo != null && _ownerType.IsAssignableFrom(propertyInfo.DeclaringType)) {
-//      // probably more filtering required
-//      _properties.Add(propertyInfo);
-//    }
-//    return base.VisitMember(node);
-//  }
-//}
-
 public static class IModificationHandlerExtensions {
   public static T FirstOrDefault<T>(this IModificationHandler<T> modificationHandler) where T : notnull => modificationHandler.Queryable.FirstOrDefault();
   public static T FirstOrDefault<T>(this IModificationHandler<T> modificationHandler, Expression<Func<T, bool>> predicate) where T : notnull => modificationHandler.Queryable.FirstOrDefault(predicate);
 
   public static T FirstOrInsert<T>(this IModificationHandler<T> modificationHandler) where T : notnull => modificationHandler.Queryable.FirstOrInsert(modificationHandler.Insertable);
+
+  public static int InsertIfNotExists<T>(this IModificationHandler<T> modificationHandler, DataContext dataContext, T obj) where T : notnull => modificationHandler.Queryable.InsertIfNotExists(dataContext, obj);
 
   public static IModificationHandler<T> AddPredicateValue<T, TValue>(this IModificationHandler<T> modificationHandler, Expression<Func<T, TValue>> getField, TValue value)
     where T : notnull
