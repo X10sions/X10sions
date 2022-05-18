@@ -33,8 +33,8 @@ public class DataSourceInformationRow : BaseTypedDataRow { //}, IEquatable<DataS
     DataSourceProductVersion = dataRow.Field<string>(DbMetaDataColumnNames.DataSourceProductVersion);
     DataSourceProductVersionNormalized = dataRow.Field<string>(DbMetaDataColumnNames.DataSourceProductVersionNormalized);
     GroupByBehavior = dataRow.Field<GroupByBehavior>(DbMetaDataColumnNames.GroupByBehavior);
-    IdentifierCase = dataRow.Field<IdentifierCase>(DbMetaDataColumnNames.IdentifierCase);
     IdentifierPattern = dataRow.Field<string>(DbMetaDataColumnNames.IdentifierPattern);
+    IdentifierCase = dataRow.Field<IdentifierCase>(DbMetaDataColumnNames.IdentifierCase);
     OrderByColumnsInSelect = dataRow.Field<bool?>(DbMetaDataColumnNames.OrderByColumnsInSelect) ?? false;
     ParameterMarkerFormat = dataRow.Field<string>(DbMetaDataColumnNames.ParameterMarkerFormat);
     ParameterMarkerPattern = dataRow.Field<string>(DbMetaDataColumnNames.ParameterMarkerPattern);

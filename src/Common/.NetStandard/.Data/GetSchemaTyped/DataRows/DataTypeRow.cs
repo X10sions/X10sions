@@ -8,12 +8,11 @@ namespace Common.Data.GetSchemaTyped.DataRows {
     public DataTypeRow(DataRow dataRow) :base(dataRow) {    }
     public override void SetValues(DataRow dataRow) {
       TypeName = dataRow.Field<string>(DbMetaDataColumnNames.TypeName);
+      ProviderDbType = dataRow.Field<int?>(DbMetaDataColumnNames.ProviderDbType);
+      ColumnSize = dataRow.Field<int?>(DbMetaDataColumnNames.ColumnSize);
       CreateFormat = dataRow.Field<string>(DbMetaDataColumnNames.CreateFormat);
       CreateParameters = dataRow.Field<string>(DbMetaDataColumnNames.CreateParameters);
       DataType = dataRow.Field<string>(DbMetaDataColumnNames.DataType);
-      LiteralPrefix = dataRow.Field<string>(DbMetaDataColumnNames.LiteralPrefix);
-      LiteralSuffix = dataRow.Field<string>(DbMetaDataColumnNames.LiteralSuffix);
-
       IsAutoIncrementable = dataRow.Field<bool?>(DbMetaDataColumnNames.IsAutoIncrementable);
       IsBestMatch = dataRow.Field<bool?>(DbMetaDataColumnNames.IsBestMatch);
       IsCaseSensitive = dataRow.Field<bool?>(DbMetaDataColumnNames.IsCaseSensitive);
@@ -24,14 +23,14 @@ namespace Common.Data.GetSchemaTyped.DataRows {
       IsSearchable = dataRow.Field<bool?>(DbMetaDataColumnNames.IsSearchable);
       IsSearchableWithLike = dataRow.Field<bool?>(DbMetaDataColumnNames.IsSearchable);
       IsUnsigned = dataRow.Field<bool?>(DbMetaDataColumnNames.IsUnsigned);
-      IsConcurrencyType = dataRow.Field<bool?>(DbMetaDataColumnNames.IsConcurrencyType);
-      IsLiteralSupported = dataRow.Field<bool?>(DbMetaDataColumnNames.IsLiteralSupported);
-
-      ProviderDbType = dataRow.Field<int?>(DbMetaDataColumnNames.ProviderDbType);
-      ColumnSize = dataRow.Field<int?>(DbMetaDataColumnNames.ColumnSize);
       MaximumScale = dataRow.Field<int?>(DbMetaDataColumnNames.MaximumScale);
       MinimumScale = dataRow.Field<int?>(DbMetaDataColumnNames.MinimumScale);
+      IsConcurrencyType = dataRow.Field<bool?>(DbMetaDataColumnNames.IsConcurrencyType);
+      IsLiteralSupported = dataRow.Field<bool?>(DbMetaDataColumnNames.IsLiteralSupported);
+      LiteralPrefix = dataRow.Field<string>(DbMetaDataColumnNames.LiteralPrefix);
+      LiteralSuffix = dataRow.Field<string>(DbMetaDataColumnNames.LiteralSuffix);
     }
+
     public string TypeName { get; set; } = string.Empty;
     public string CreateFormat { get; set; } = string.Empty;
     public string CreateParameters { get; set; } = string.Empty;
