@@ -3,14 +3,17 @@ using System.Linq.Expressions;
 
 namespace LinqToDB;
 public class ModificationHandler<T> : IModificationHandler<T> where T : class {
-  ITable<T> Table { get; }
-  Expression<Func<T, bool>> Predicate { get; set; }
+  public ITable<T> Table { get; }
+  public Expression<Func<T, bool>> Predicate { get; set; }
 
-
-  public Type EntityType => typeof(T);
+  public Type EntityType { get; } = typeof(T);
   //public IQueryable<T> Queryable => Table.Where(Predicate);
-  public IValueInsertable<T> Insertable { get; }
-  public IUpdatable<T> Updatable { get; }
+  //public IValueInsertable<T> Insertable { get; }
+  //public IUpdatable<T> Updatable { get; }
+
+  //public IDictionary<Expression<Func<T, object>>, object> FieldValues { get; } = new Dictionary<Expression<Func<T, object>>, object>();
+  //public IDictionary<Expression<Func<T, object>>, object> FieldValues { get; } = new Dictionary<Expression<Func<T, object>>, object>();
+  public IDictionary<Expression, object> FieldValues { get; } = new Dictionary<Expression, object>();
 
   public ModificationHandler(IDataContext dataContext, Expression<Func<T, bool>> predicate) : this(dataContext.GetTable<T>(), predicate) { }
 
@@ -19,8 +22,8 @@ public class ModificationHandler<T> : IModificationHandler<T> where T : class {
     Predicate = predicate;
     //Queryable = table.Where(predicate);
     //Deletable = table.Where(wherePredicate);
-    Updatable = table.Where(predicate).AsUpdatable();
-    Insertable = table.AsValueInsertable();//  table.DataContext.Into(table);
+    //Updatable = table.Where(predicate).AsUpdatable();
+    //Insertable = table.AsValueInsertable();//  table.DataContext.Into(table);
   }
 
 }
