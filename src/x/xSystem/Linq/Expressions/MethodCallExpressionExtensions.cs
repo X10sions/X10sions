@@ -19,4 +19,12 @@ public static class MethodCallExpressionExtensions {
     return sqlArguments;
   }
 
+  /// <summary>
+  /// Returns specified attributes for an action method along with the action's controller.
+  /// </summary>
+  /// <typeparam name="TAttribute"></typeparam>
+  /// <param name="call"></param>
+  /// <returns>Returns specified attributes for an action method along with the action's controller.</returns>
+  public static IEnumerable<TAttribute> GetAttributes<TAttribute>(this MethodCallExpression call) => call.Object.Type.GetCustomAttributes(typeof(TAttribute), true).Union(call.Method.GetCustomAttributes(typeof(TAttribute), true)).Cast<TAttribute>();
+
 }

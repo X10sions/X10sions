@@ -5,6 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 
+
 namespace LinqToDB;
 
 public interface IModificationHandler {
@@ -12,20 +13,25 @@ public interface IModificationHandler {
 }
 
 public interface IModificationHandler<T> : IModificationHandler where T : notnull {
-  //ITable<T> Table { get; }
-  IQueryable<T> Queryable { get; set; }
+  ITable<T> Table { get; }
+  Expression<Func<T, bool>> Predicate { get; set; }
+
+  //IQueryable<T> Queryable { get;  }
   //IQueryable<T> Deletable { get; }
-  IValueInsertable<T> Insertable { get; set; }
-  IUpdatable<T> Updatable { get; set; }
+  IValueInsertable<T> Insertable { get; }
+  IUpdatable<T> Updatable { get; }
 }
 
 public static class IModificationHandlerExtensions {
-  public static T FirstOrDefault<T>(this IModificationHandler<T> modificationHandler) where T : notnull => modificationHandler.Queryable.FirstOrDefault();
-  public static T FirstOrDefault<T>(this IModificationHandler<T> modificationHandler, Expression<Func<T, bool>> predicate) where T : notnull => modificationHandler.Queryable.FirstOrDefault(predicate);
+  public static IQueryable<T> Queryable<T>(this IModificationHandler<T> modificationHandler) where T : notnull => modificationHandler.Table.Where(modificationHandler.Predicate);
+  public static T FirstOrDefault<T>(this IModificationHandler<T> modificationHandler) where T : notnull => modificationHandler.Queryable().FirstOrDefault();
+  public static T FirstOrDefault<T>(this IModificationHandler<T> modificationHandler, Expression<Func<T, bool>> predicate) where T : notnull => modificationHandler.Queryable().FirstOrDefault(predicate);
 
-  public static T FirstOrInsert<T>(this IModificationHandler<T> modificationHandler) where T : notnull => modificationHandler.Queryable.FirstOrInsert(modificationHandler.Insertable);
+  public static T FirstOrInsert<T>(this IModificationHandler<T> modificationHandler) where T : notnull => modificationHandler.Queryable().FirstOrInsert(modificationHandler.Insertable);
 
-  public static int InsertIfNotExists<T>(this IModificationHandler<T> modificationHandler, DataContext dataContext, T obj) where T : notnull => modificationHandler.Queryable.InsertIfNotExists(dataContext, obj);
+  public static int InsertIfNotExists<T>(this IModificationHandler<T> modificationHandler,T obj) where T : notnull => modificationHandler.Table.InsertIfNotExists( obj, modificationHandler.Predicate);
+  //public static int InsertIfNotExists<T>(this IModificationHandler<T> modificationHandler, DataContext dataContext, T obj) where T : notnull => modificationHandler.Queryable().InsertIfNotExists(dataContext, obj);
+  //public static int InsertIfNotExists<T>(this IModificationHandler<T> modificationHandler, IValueInsertable<T> insertable) where T : notnull => modificationHandler.Queryable().InsertIfNotExists(insertable);
 
   public static IModificationHandler<T> AddPredicateValue<T, TValue>(this IModificationHandler<T> modificationHandler, Expression<Func<T, TValue>> getField, TValue value)
     where T : notnull
@@ -44,6 +50,9 @@ public static class IModificationHandlerExtensions {
     //?.GetSetMethod(true);
 
     //modificationHandler.Queryable = modificationHandler.Queryable.Where($"attrs.Name = '{value}'");
+
+    modificationHandler.Predicate = modificationHandler.Predicate.And(getField.ToPredicateExpression(value));
+
     modificationHandler.Queryable = modificationHandler.Queryable.Where(getField.ToPredicateExpression(value));
     //modificationHandler.Queryable = modificationHandler.Queryable.Where(x => prop.GetValue(x).Equals(value));
     //modificationHandler.Queryable = modificationHandler.Queryable.Where(x => getField.Compile().Invoke(x).Equals(value));

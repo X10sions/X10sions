@@ -37,4 +37,7 @@
     <ProjectReference Include="$(RepoSrcDir_X10sions)Common\.Abstractions\Common.Abstractions.csproj" />
     -->
   </ItemGroup> 
+  <ItemGroup>
+    <Folder Include="_\System\Linq\Expressions\" />
+  </ItemGroup> 
 </Project>
