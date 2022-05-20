@@ -25,7 +25,7 @@ public class DataSourceInformationRow : BaseTypedDataRow { //}, IEquatable<DataS
 
   public DataSourceInformationRow() { }
 
-  public DataSourceInformationRow(DataRow dataRow) : base(dataRow) {  }
+  public DataSourceInformationRow(DataRow dataRow) : base(dataRow) { }
 
   public override void SetValues(DataRow dataRow) {
     CompositeIdentifierSeparatorPattern = dataRow.Field<string>(DbMetaDataColumnNames.CompositeIdentifierSeparatorPattern);
@@ -212,7 +212,8 @@ public class DataSourceInformationRow : BaseTypedDataRow { //}, IEquatable<DataS
     DataSourceProductNames.DB2_for_IBM_i => DbSystem.Enum.DB2iSeries,
     DataSourceProductNames.DB2_400_SQL => DbSystem.Enum.DB2iSeries,
     DataSourceProductNames.IBM_DB2_for_i => DbSystem.Enum.DB2iSeries,
-    _ => throw new NotImplementedException($"{dataSourceInformationRow.DataSourceProductName}: v{dataSourceInformationRow.Version}")
+    _ => DbSystem.Enum._Unkown
+    //_ => throw new NotImplementedException($"{dataSourceInformationRow.DataSourceProductName}: v{dataSourceInformationRow.Version}")
   };
 
   //public DbSystem DbSystem { get; }

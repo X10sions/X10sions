@@ -15,6 +15,7 @@ namespace Common.Data {
     public override int GetHashCode() => HashCode.Combine(Name);
 
     public enum Enum {
+      _Unkown,
       Access,
       DB2,
       DB2iSeries,

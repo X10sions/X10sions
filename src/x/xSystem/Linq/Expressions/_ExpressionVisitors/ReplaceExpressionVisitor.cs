@@ -11,3 +11,13 @@ public class ReplaceExpressionVisitor : ExpressionVisitor {
 
   public override Expression Visit(Expression node) => node == source ? target : base.Visit(node);
 }
+
+public class ParameterBinder : ExpressionVisitor {
+  public ParameterBinder(ParameterExpression value) {
+    this.value = value;
+  }
+  private readonly ParameterExpression value;
+  protected override Expression VisitParameter(ParameterExpression node) {
+    return node.Type == value.Type ? value : base.VisitParameter(node);
+  }
+}

@@ -169,4 +169,7 @@ public static class ExpressionExtensions {
     return Expression.Lambda<Func<T2, T1, TResult>>(exprFunc.Body.Replace(exprFunc.Parameters[0], param1).Replace(exprFunc.Parameters[1], param2), param1, param2);
   }
 
+  public static Expression<Func<T, TResult>> Unbox<T, TResult>(this Expression<Func<T, object>> original) 
+    => Expression.Lambda<Func<T, TResult>>(Expression.Convert(original.Body, typeof(TResult)), original.Parameters);
+
 }

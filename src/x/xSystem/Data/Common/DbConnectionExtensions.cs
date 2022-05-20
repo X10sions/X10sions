@@ -67,7 +67,6 @@ namespace System.Data.Common {
       if (doOpenClose) { dbConnection.Close(); }
       return dt;
     }
-
     public static DataTable GetSchemaDataTable_DataSourceInformation(this DbConnection dbConnection, string[]? restrictionValues = null) => dbConnection.GetSchemaDataTable(DbMetaDataCollectionNames.DataSourceInformation, restrictionValues);
     public static DataTable GetSchemaDataTable_DataTypes(this DbConnection dbConnection, string[]? restrictionValues = null) => dbConnection.GetSchemaDataTable(DbMetaDataCollectionNames.DataTypes, restrictionValues);
     public static DataTable GetSchemaDataTable_MetaDataCollections(this DbConnection dbConnection, string[]? restrictionValues = null) => dbConnection.GetSchemaDataTable(DbMetaDataCollectionNames.MetaDataCollections, restrictionValues);
