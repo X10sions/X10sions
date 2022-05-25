@@ -3,14 +3,48 @@
 namespace LinqToDB.Linq;
 public static class IUpdatableExtensions {
 
-  public static IUpdatable<T> SetLambda<T>(this IUpdatable<T> source, LambdaExpression extract, object value) where T : notnull {
-    return value switch {
-      null => source.Set(extract.AsTypedExpression<T, object>(), value),
-      double dbl => source.Set(extract.AsTypedExpression<T, double>(), dbl),
-      int i => source.Set(extract.AsTypedExpression<T, int>(), i),
-      string s => source.Set(extract.AsTypedExpression<T, string>(), s),
-      _ => throw new NotImplementedException(value.GetType().ToString())
-    };
+  public static IUpdatable<T> SetLambdaByType<T>(this IUpdatable<T> updatable, LambdaExpression expression, object value) where T : notnull {
+    var fieldType = expression.Body.Type;
+    if (fieldType.IsNullable()) {
+      updatable = fieldType == typeof(bool?) ? updatable.Set(expression.AsTypedExpression<T, bool?>(), (bool?)value)
+                : fieldType == typeof(double?) ? updatable.Set(expression.AsTypedExpression<T, double?>(), (double?)value)
+                : fieldType.IsEnum ? updatable.Set(expression.AsTypedExpression<T, int?>(), (int?)value)
+                : fieldType == typeof(int?) ? updatable.Set(expression.AsTypedExpression<T, int?>(), (int?)value)
+                : fieldType == typeof(long?) ? updatable.Set(expression.AsTypedExpression<T, long?>(), (long?)value)
+                : fieldType == typeof(short?) ? updatable.Set(expression.AsTypedExpression<T, short?>(), (short?)value)
+                : fieldType == typeof(string) ? updatable.Set(expression.AsTypedExpression<T, string?>(), (string?)value)
+                : throw new NotImplementedException(fieldType.ToString());
+    } else {
+      updatable = fieldType == typeof(bool) ? updatable.Set(expression.AsTypedExpression<T, bool>(), (bool)value)
+                : fieldType == typeof(double) ? updatable.Set(expression.AsTypedExpression<T, double>(), (double)value)
+                : fieldType.IsEnum ? updatable.Set(expression.AsTypedExpression<T, int>(), (int)value)
+                : fieldType == typeof(int) ? updatable.Set(expression.AsTypedExpression<T, int>(), (int)value)
+                : fieldType == typeof(long) ? updatable.Set(expression.AsTypedExpression<T, long>(), (long)value)
+                : fieldType == typeof(short) ? updatable.Set(expression.AsTypedExpression<T, short>(), (short)value)
+                : fieldType == typeof(string) ? updatable.Set(expression.AsTypedExpression<T, string>(), (string)value)
+                : throw new NotImplementedException(fieldType.ToString());
+    }
+    return updatable;
+  }
+
+  public static IUpdatable<T> SetExpression<T, TV>(this IUpdatable<T> source, Expression field, TV value) where T : notnull {
+    source = source.Set(Expression.Lambda<Func<T, TV>>(field), value);
+    return source;
+  }
+
+  public static IUpdatable<T> SetLambda<T, TV>(this IUpdatable<T> source, LambdaExpression field, TV? value) where T : notnull {
+    source = source.Set(field.AsTypedExpressionNullable<T, TV>(value), value);
+    return source;
+  } 
+  
+  public static IUpdatable<T> SetExpressionNullable<T, TV>(this IUpdatable<T> source, Expression field, TV value) where T : notnull {
+    source = source.Set(Expression.Lambda<Func<T, TV>>(field), value);
+    return source;
+  }
+
+  public static IUpdatable<T> SetExpressionNullable<T, TV>(this IUpdatable<T> source, LambdaExpression field, TV? value) where T : notnull {
+    source = source.Set(field.AsTypedExpressionNullable<T, TV>(value), value);
+    return source;
   }
 
 }

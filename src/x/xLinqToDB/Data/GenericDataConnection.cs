@@ -13,7 +13,7 @@ namespace LinqToDB.Data {
     where TConnection : DbConnection, new()
     where TDataReader : IDataReader {
 
-    public GenericDataConnection(string connectionString) : base(GenericDataProviderList.GetInstance<TConnection, TDataReader>(connectionString), connectionString) {
+    public GenericDataConnection(string connectionString) : base(GenericDataProvider<TConnection>.GetInstance<TDataReader>(connectionString), connectionString) {
     }
 
     public TConnection TypedConnection => (TConnection)Connection;

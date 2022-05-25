@@ -23,8 +23,8 @@ public class DataTypeRow : BaseTypedDataRow {
     IsSearchable = dataRow.Field<bool?>(DbMetaDataColumnNames.IsSearchable);
     IsSearchableWithLike = dataRow.Field<bool?>(DbMetaDataColumnNames.IsSearchable);
     IsUnsigned = dataRow.Field<bool?>(DbMetaDataColumnNames.IsUnsigned);
-    MaximumScale = dataRow.Field<int?>(DbMetaDataColumnNames.MaximumScale);
-    MinimumScale = dataRow.Field<int?>(DbMetaDataColumnNames.MinimumScale);
+    MaximumScale = dataRow.Field<short?>(DbMetaDataColumnNames.MaximumScale);
+    MinimumScale = dataRow.Field<short?>(DbMetaDataColumnNames.MinimumScale);
     IsConcurrencyType = dataRow.Field<bool?>(DbMetaDataColumnNames.IsConcurrencyType);
     IsLiteralSupported = dataRow.Field<bool?>(DbMetaDataColumnNames.IsLiteralSupported);
     LiteralPrefix = dataRow.Field<string>(DbMetaDataColumnNames.LiteralPrefix);
@@ -60,8 +60,8 @@ public class DataTypeRow : BaseTypedDataRow {
 
   public int? ProviderDbType { get; set; }
   public long? ColumnSize { get; set; }
-  public int? MaximumScale { get; set; }
-  public int? MinimumScale { get; set; }
+  public short? MaximumScale { get; set; }
+  public short? MinimumScale { get; set; }
   #endregion
 
   string[] dbMetaDataColumnNames = new[]{

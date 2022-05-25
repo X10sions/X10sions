@@ -36,12 +36,14 @@
     public static object GetTypeFieldValueAs<T>(this T obj, string fieldName) where T : notnull => obj.GetTypeFieldValueAs<T, object>(fieldName);
     public static object GetTypePropertyValueAs<T>(this T obj, string propertyName) where T : notnull => obj.GetTypePropertyValueAs<T, object>(propertyName);
 
-    public static TField GetTypeFieldValueAs<T, TField>(this T obj, string fieldName) where T:notnull => obj.GetType().GetFieldValueAs<T, TField>(fieldName, obj);
+    public static TField GetTypeFieldValueAs<T, TField>(this T obj, string fieldName) where T : notnull => obj.GetType().GetFieldValueAs<T, TField>(fieldName, obj);
     public static TProperty GetTypePropertyValueAs<T, TProperty>(this T obj, string propertyName) where T : notnull => obj.GetType().GetPropertyValueAs<T, TProperty>(propertyName, obj);
 
     // Internal Field/Property helper
     //    public static TField GetTypeFieldValueAs<T, TField>(this T obj, string fieldName) => typeof(T).GetFieldValueAs<T, TField>(fieldName, obj);
     //    public static TProperty GetTypePropertyValueAs<T, TProperty>(this T obj, string propertyName) => typeof(T).GetPropertyValueAs<T, TProperty>(propertyName, obj);
+
+    public static bool IsNullable<T>(this T obj) => (obj == null) ? true : typeof(T).IsNullable();
 
     public static string ToCsv<T>(this IEnumerable<T> objectlist, List<string>? excludedPropertyNames = null, bool quoteEveryField = false, bool includeFieldNamesAsFirstRow = true) {
       if (excludedPropertyNames == null) { excludedPropertyNames = new List<string>(); }

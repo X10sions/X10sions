@@ -21,7 +21,7 @@ public static class IModificationHandlerExtensions {
   public static T InsertWithOutputIfNotExists<T>(this IModificationHandler<T> modificationHandler, T obj) where T : notnull => modificationHandler.Table.InsertWithOutputIfNotExists(obj, modificationHandler.Predicate);
 
   public static IModificationHandler<T> AddPredicateValue<T, TValue>(this IModificationHandler<T> modificationHandler, Expression<Func<T, TValue>> getField, TValue value) where T : notnull {
-    modificationHandler.Predicate = modificationHandler.Predicate.AndAlso(getField.ToPredicateExpression(value));
+    modificationHandler.Predicate = modificationHandler.Predicate.AndAlso(getField.Equal(value));
     //modificationHandler.Queryable = modificationHandler.Queryable.Where(getField.ToPredicateExpression(value));
     modificationHandler.SetValue(getField, value);
     return modificationHandler;
@@ -53,13 +53,29 @@ public static class IModificationHandlerExtensions {
   public static IValueInsertable<T> GetValueInsertable<T>(this IModificationHandler<T> modificationHandler) where T : notnull {
     var insertable = modificationHandler.Table.AsValueInsertable();//  table.DataContext.Into(table);
     foreach (KeyValuePair<LambdaExpression, object> kvp in modificationHandler.ExpressionValues) {
-      Console.WriteLine("GetInsertable:" + kvp.Key + ":" + kvp.Value);
-      var field = kvp.Key;
-      if (kvp.Value is Expression<Func<object>> exprFuncValue) {
-        insertable = insertable.ValueLambda(field, exprFuncValue);
-      } else {
-        insertable = insertable.ValueLambda(field, kvp.Value);
-      }
+      Console.WriteLine($"GetInsertable:({kvp.Key.Body.Type}){kvp.Key} => {kvp.Value}" );
+
+      insertable = insertable.ValueLambda(kvp.Key, kvp.Value);
+
+      //insertable = insertable.ValueLambdaByType(kvp.Key, kvp.Value);
+
+      //var expression = kvp.Key;
+      //var fieldType = expression.Body.Type;
+      //var value = kvp.Value;
+      //if (fieldType.IsNullable()) {
+      //  //insertable = insertable.Value(expression.Body, value);
+      //  //insertable = insertable.ValueExpressionNullable(expression.Body, value);
+      //  insertable = insertable.ValueLambdaNullable(expression, value);
+      //} else {
+      //  //insertable = insertable.Value(expression.Body, value);
+      //  //insertable = insertable.ValueExpression(expression.Body, value);
+      //  insertable = insertable.ValueLambda(expression, value);
+      //}
+      //if (kvp.Value is Expression<Func<object>> exprFuncValue) {
+      //  insertable = insertable.ValueLambda(expression, exprFuncValue);
+      //} else {
+      //  insertable = insertable.ValueLambda(expression, kvp.Value);
+      //}
     }
     return insertable;
   }
@@ -67,14 +83,25 @@ public static class IModificationHandlerExtensions {
   public static IUpdatable<T> GetUpdatable<T>(this IModificationHandler<T> modificationHandler) where T : notnull {
     var updatable = modificationHandler.GetQueryable().AsUpdatable();
     foreach (KeyValuePair<LambdaExpression, object> kvp in modificationHandler.ExpressionValues) {
-      Console.WriteLine("GetUpdatable:" + kvp.Key + ":" + kvp.Value);
-      var field = kvp.Key;
-      if (kvp.Value is Expression<Func<object>> exprFuncValue) {
-        updatable = updatable.SetLambda(field, exprFuncValue);
+      Console.WriteLine($"GetUpdatable:({kvp.Key.Body.Type}){kvp.Key} => {kvp.Value}");
+      //updatable = updatable.SetLambdaByType(kvp.Key, kvp.Value);
+      var expression = kvp.Key;
+      var fieldType = expression.Body.Type;
+      var value = kvp.Value;
+      if (fieldType.IsNullable()) {
+        //updatable = updatable.Set(expression.Body, value);
+        updatable = updatable.SetExpressionNullable(expression.Body, value);
+        //updatable = updatable.SetLambdaNullable(expression.Body, value);
       } else {
-        object value = kvp.Value;
-        updatable = updatable.SetLambda(field, value);
+        //updatable = updatable.Set(expression.Body, value);
+        updatable = updatable.SetExpression(expression.Body, value);
+        //updatable = updatable.SetLambda(expression.Body, value);
       }
+      //if (kvp.Value is Expression<Func<object>> exprFuncValue) {
+      //  updatable = updatable.SetLambda(expression, exprFuncValue);
+      //} else {
+      //  updatable = updatable.SetLambda(expression, value);
+      //}
     }
     return updatable;
   }

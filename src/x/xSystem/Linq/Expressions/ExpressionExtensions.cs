@@ -12,7 +12,6 @@ public static class ExpressionExtensions {
   public static LambdaExpression AsLambdaExpression<T1, T2, T3, T4, T5, TR>(this Expression<Func<T1, T2, T3, T4, T5, TR>> func) => func;
   public static LambdaExpression AsLambdaExpression<T1, T2, T3, T4, T5, T6, TR>(this Expression<Func<T1, T2, T3, T4, T5, T6, TR>> func) => func;
   public static LambdaExpression AsLambdaExpressionL<T1, T2, TR>(this Expression<Func<T1, T2, TR>> func) => func;
-
   public static ConstructorInfo ConstructorOf<T>(this Expression<Func<T, object>> func) => (ConstructorInfo)GetMemberInfo(func);
   public static ConstructorInfo ConstructorOf(this Expression<Func<object>> func) => (ConstructorInfo)GetMemberInfo(func);
   public static FieldInfo FieldOf<T>(this Expression<Func<T, object>> func) => (FieldInfo)GetMemberInfo(func);
@@ -110,10 +109,27 @@ public static class ExpressionExtensions {
 
   public static Expression<Func<T, bool>> AndAlsoIf<T>(this Expression<Func<T, bool>> expr1, bool? ifTrue, Expression<Func<T, bool>> truePredicate) => ifTrue.HasValue && ifTrue.Value ? expr1.AndAlso(truePredicate) : expr1;
   public static Expression<Func<T, bool>> AndAlsoIf<T>(this Expression<Func<T, bool>> expr1, bool? ifTrue, Expression<Func<T, bool>> truePredicate, Expression<Func<T, bool>> falsePredicate) => expr1.AndAlso(ifTrue.HasValue && ifTrue.Value ? truePredicate : falsePredicate);
+  public static Expression<Func<T, bool>> Compare<T, TProp>(this Expression<Func<T, TProp>> field, TProp value, ExpressionType expressionType) {
+    var valueConstantExpression = Expression.Constant(value, typeof(TProp));
+    var binaryExpression = expressionType switch {
+      ExpressionType.Equal => Expression.Equal(field.Body, valueConstantExpression),
+      ExpressionType.GreaterThan => Expression.GreaterThan(field.Body, valueConstantExpression),
+      ExpressionType.GreaterThanOrEqual => Expression.GreaterThanOrEqual(field.Body, valueConstantExpression),
+      ExpressionType.LessThan => Expression.LessThan(field.Body, valueConstantExpression),
+      ExpressionType.LessThanOrEqual => Expression.LessThanOrEqual(field.Body, valueConstantExpression),
+      ExpressionType.NotEqual => Expression.NotEqual(field.Body, valueConstantExpression),
+      _ => throw new NotImplementedException(expressionType.ToString())
+    };
+    return Expression.Lambda<Func<T, bool>>(binaryExpression, field.Parameters);
+  }
+
   public static Expression<Func<T, bool>> Equal<T, TProp>(this Expression<Func<T, TProp>> field, TProp value) => Expression.Lambda<Func<T, bool>>(Expression.Equal(field.Body, Expression.Constant(value, typeof(TProp))), field.Parameters);
+  //public static Expression<Func<T, bool>> Equal<T, TProp>(this Expression<Func<T, TProp?>> field, TProp? value) where TProp : struct => Expression.Lambda<Func<T, bool>>(Expression.Equal(field.Body, Expression.Convert(Expression.Constant(value), typeof(TProp?))), field.Parameters);
+  public static Expression<Func<T, bool>> Equal<T, TProp>(this Expression<Func<T, TProp?>> field, TProp value) where TProp : struct => Expression.Lambda<Func<T, bool>>(Expression.Equal(field.Body, Expression.Constant(value, typeof(TProp?))), field.Parameters);
+  public static Expression<Func<T, bool>> Equal<T, TProp>(this Expression<Func<T, TProp?>> field, TProp? value) where TProp : struct => Expression.Lambda<Func<T, bool>>(Expression.Equal(field.Body, Expression.Constant(value, typeof(TProp?))), field.Parameters);
   public static Expression<Func<T, bool>> EqualNull<T, TProp>(this Expression<Func<T, TProp?>> field) where TProp : struct => Expression.Lambda<Func<T, bool>>(Expression.Equal(field.Body, Expression.Constant(null, typeof(TProp?))), field.Parameters);
   public static Expression<Func<T, bool>> False<T>() => x => false;
-  public static Expression<Func<T, bool>> GreaterThan<T, TProp>(this Expression<Func<T, TProp>> field, TProp value) => Expression.Lambda<Func<T, bool>>(Expression.GreaterThan(field.Body, Expression.Constant(value, typeof(TProp))), field.Parameters);
+  public static Expression<Func<T, bool>> GreaterThan<T, TProp>(this Expression<Func<T, TProp>> field, TProp value) =>  Expression.Lambda<Func<T, bool>>(Expression.GreaterThan(field.Body, Expression.Constant(value, typeof(TProp))), field.Parameters);
   public static Expression<Func<T, bool>> GreaterThanOrEqual<T, TProp>(this Expression<Func<T, TProp>> field, TProp value) => Expression.Lambda<Func<T, bool>>(Expression.GreaterThanOrEqual(field.Body, Expression.Constant(value, typeof(TProp))), field.Parameters);
   public static Expression<Func<T, bool>> LessThan<T, TProp>(this Expression<Func<T, TProp>> field, TProp value) => Expression.Lambda<Func<T, bool>>(Expression.LessThan(field.Body, Expression.Constant(value, typeof(TProp))), field.Parameters);
   public static Expression<Func<T, bool>> LessThanOrEqual<T, TProp>(this Expression<Func<T, TProp>> field, TProp value) => Expression.Lambda<Func<T, bool>>(Expression.LessThanOrEqual(field.Body, Expression.Constant(value, typeof(TProp))), field.Parameters);
@@ -134,7 +150,6 @@ public static class ExpressionExtensions {
 
   public static Expression<Func<T, bool>> Predicate<T>(bool value) => x => value;
   public static Expression<Func<T, bool>> Predicate<T>(this Expression<Func<T, bool>> predicate) => predicate;
-  public static Expression<Func<T, bool>> ToPredicateExpression<T, TValue>(this Expression<Func<T, TValue>> field, TValue value) => Expression.Lambda<Func<T, bool>>(Expression.Equal(field.Body, Expression.Constant(value)), new[] { field.Parameters[0] });
   public static Expression<Func<T, bool>> True<T>() => x => true;
   #endregion "Predicates"
 
@@ -169,7 +184,7 @@ public static class ExpressionExtensions {
     return Expression.Lambda<Func<T2, T1, TResult>>(exprFunc.Body.Replace(exprFunc.Parameters[0], param1).Replace(exprFunc.Parameters[1], param2), param1, param2);
   }
 
-  public static Expression<Func<T, TResult>> Unbox<T, TResult>(this Expression<Func<T, object>> original) 
+  public static Expression<Func<T, TResult>> Unbox<T, TResult>(this Expression<Func<T, object>> original)
     => Expression.Lambda<Func<T, TResult>>(Expression.Convert(original.Body, typeof(TResult)), original.Parameters);
 
 }

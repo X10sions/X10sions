@@ -24,8 +24,7 @@ namespace System {
 
     public static MemberInfo[] GetStaticMembers(this Type type, string name) => type.GetMember(name, BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.Public);
 
-    public static bool IsNullable(this Type type) => Nullable.GetUnderlyingType(type) != null;
-    public static bool IsNullable2(this Type type) => type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>);
+    public static bool IsNullable(this Type type) => (!type.IsValueType) || (Nullable.GetUnderlyingType(type) != null);
     public static bool IsNullableEnum(this Type _type) => Nullable.GetUnderlyingType(_type)?.IsEnum ?? false;
 
     public static bool IsSameOrParentOf(this Type parent, Type child) {
