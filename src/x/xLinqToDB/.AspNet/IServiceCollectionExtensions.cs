@@ -20,15 +20,21 @@ public static class ServiceConfigurationExtensions {
     return services;
   }
 
-  public static IServiceCollection AddLinqToDbContext<TContext, TConnection, TDataReader>(this IServiceCollection services, string connectionString, Func<LinqToDbConnectionOptions<TContext>, TContext> newContext)
+  public static IServiceCollection AddLinqToDbContext<TContext, TConnection, TDataReader>(this IServiceCollection services, string connectionString, Func<LinqToDbConnectionOptions<TContext>, TContext> newContext, ILogger logger)
     where TContext : class, IDataContext
     where TConnection : DbConnection, new()
-    where TDataReader : IDataReader => services.AddScoped(x => GenericDataProvider<TConnection>.GetDataContext<TContext, TDataReader>(connectionString, newContext));
+    where TDataReader : IDataReader {
+    logger.LogInformation($"{nameof(AddLinqToDbContext)}<{typeof(TConnection)},{typeof(TContext)}>CS:{{connectionString}}");
+    return services.AddScoped(x => GenericDataProvider<TConnection>.GetDataContext<TContext, TDataReader>(connectionString, newContext));
+  }
 
-  public static IServiceCollection AddLinqToDbContextScoped<TContext, TConnection, TDataReader>(this IServiceCollection services, TConnection connection, Func<LinqToDbConnectionOptions<TContext>, TContext> newContext)
+  public static IServiceCollection AddLinqToDbContextScoped<TContext, TConnection, TDataReader>(this IServiceCollection services, TConnection connection, Func<LinqToDbConnectionOptions<TContext>, TContext> newContext, ILogger logger)
     where TContext : class, IDataContext
     where TConnection : DbConnection, new()
-    where TDataReader : IDataReader => services.AddScoped(x => GenericDataProvider<TConnection>.GetDataContext<TContext, TDataReader>(connection, newContext));
+    where TDataReader : IDataReader {
+    logger.LogInformation($"{nameof(AddLinqToDbContext)}<{typeof(TConnection)},{typeof(TContext)}>CS:{{connectionString}}");
+    return services.AddScoped(x => GenericDataProvider<TConnection>.GetDataContext<TContext, TDataReader>(connection, newContext));
+  }
 
   public static IServiceCollection AddLinqToDbContext<TContext, TConnection>(this IServiceCollection services, IDataProvider dataProvider, string connectionString, ILogger logger)
     where TContext : IDataContext

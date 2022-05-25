@@ -84,7 +84,7 @@ public class GenericDataProvider<TConnection> : DataProviderBase<TConnection>, I
     //where TConnection : DbConnection, new()
     where TDataReader : IDataReader {
     try {
-      connection.Open();
+      if (connection.State!= ConnectionState.Open) { connection.Open(); }
       var genericDataProvider = GenericDataProvider<TConnection>.GetInstance<TDataReader>(connection);
       if (genericDataProvider != null) {
         Console.WriteLine($"{nameof(GetDataContext)}<{typeof(TConnection)},{typeof(TContext)}>CS:{{connectionString}}");
@@ -93,7 +93,7 @@ public class GenericDataProvider<TConnection> : DataProviderBase<TConnection>, I
         var options = builder.Build<TContext>();
         return newContext(options);
       }
-      connection.Close();
+      if (connection.State == ConnectionState.Open) { connection.Close(); }
       Console.WriteLine($" GenericDataProvider: {genericDataProvider?.DataSourceInformationRow.GetDataSourceProductNameWithVersion()}");
     } catch (Exception ex) {
       throw new Exception(ex.Message);
