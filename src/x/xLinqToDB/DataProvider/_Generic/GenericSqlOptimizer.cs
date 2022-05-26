@@ -12,7 +12,7 @@ namespace LinqToDB.DataProvider {
     DataSourceInformationRow dataSourceInformationRow;
 
     public override ISqlExpression ConvertExpressionImpl(ISqlExpression expression, ConvertVisitor<RunOptimizationContext> visitor)
-      => dataSourceInformationRow.DbSystemEnum switch {
+      => dataSourceInformationRow.DbSystemEnum() switch {
         DbSystem.Enum.DB2iSeries => expression.ConvertExpressionImpl_DB2iSeries_MTGFS01(
                                                visitor,
                                                (e, v) => base.ConvertExpressionImpl(e, v),
@@ -22,13 +22,13 @@ namespace LinqToDB.DataProvider {
       };
 
     protected override ISqlExpression ConvertFunction(SqlFunction func)
-      => dataSourceInformationRow.DbSystemEnum switch {
+      => dataSourceInformationRow.DbSystemEnum() switch {
         DbSystem.Enum.DB2iSeries => func.ConvertFunction_DB2iSeries_MTGFS01((f, wp) => ConvertFunctionParameters(f, wp), f => base.ConvertFunction(f)),
         _ => throw new NotImplementedException($"{dataSourceInformationRow.DataSourceProductName}: v{dataSourceInformationRow.Version}")
       };
 
     public override SqlStatement Finalize(SqlStatement statement)
-      => dataSourceInformationRow.DbSystemEnum switch {
+      => dataSourceInformationRow.DbSystemEnum() switch {
         DbSystem.Enum.DB2iSeries => statement.Finalize_DB2iSeries_MTGFS01(
           s => base.Finalize(s),
           ds => GetAlternativeDelete(ds),

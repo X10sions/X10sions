@@ -180,10 +180,10 @@ public class DataSourceInformationRow : BaseTypedDataRow { //}, IEquatable<DataS
   //  public static char[] ForParameters = new[] { AtSign, Colon };
   //}
 
-  public bool UsesPositionalParameters => ParameterNameMaxLength == 0;
-  public string ParameterMarker => ParameterNameMaxLength != 0 ? ParameterMarkerPattern.Substring(0, 1) : ParameterMarkerFormat;
+  public bool UsesPositionalParameters() => ParameterNameMaxLength == 0;
+  public string ParameterMarker() => ParameterNameMaxLength != 0 ? ParameterMarkerPattern.Substring(0, 1) : ParameterMarkerFormat;
 
-  public string GetPlaceholder(string parameterName) => UsesPositionalParameters ? ParameterMarker : parameterName.StartsWith(ParameterMarker) ? parameterName : ParameterMarker + parameterName;
+  public string GetPlaceholder(string parameterName) => UsesPositionalParameters() ? ParameterMarker() : parameterName.StartsWith(ParameterMarker()) ? parameterName : ParameterMarker + parameterName;
 
   //public string QuoteIdentifierPart(string unquotedIdentifierPart) {
   //  if (string.IsNullOrWhiteSpace(unquotedIdentifierPart)) {
@@ -197,7 +197,7 @@ public class DataSourceInformationRow : BaseTypedDataRow { //}, IEquatable<DataS
   //  return unquotedIdentifierPart;
   //}
 
-  public string StripParameterMarker(string parameterName) => UsesPositionalParameters ? ParameterMarker : parameterName.StartsWith(ParameterMarker) ? parameterName.Substring(ParameterMarker.Length) : parameterName;
+  public string StripParameterMarker(string parameterName) => UsesPositionalParameters() ? ParameterMarker() : parameterName.StartsWith(ParameterMarker()) ? parameterName.Substring(ParameterMarker().Length) : parameterName;
 
   //public string GetConnectionTypeVersionName<T>() where T : IDbConnection => $"{typeof(T).Name}.v{Version}";
   public DataSourceProduct? GetDataSourceProduct() => DataSourceProduct.List.FirstOrDefault(x => x.Name.Equals(DataSourceProductName, StringComparison.OrdinalIgnoreCase));
@@ -217,7 +217,7 @@ public class DataSourceInformationRow : BaseTypedDataRow { //}, IEquatable<DataS
   };
 
   //public DbSystem DbSystem { get; }
-  public DbSystem.Enum DbSystemEnum => GetDbSystemEnum(this);
+  public DbSystem.Enum DbSystemEnum() => GetDbSystemEnum(this);
 
   public string ParameterName(string name) => ParameterNameMaxLength > 0 ? string.Format(ParameterMarker + ParameterMarkerFormat, name) : ParameterMarkerFormat;
 

@@ -1,8 +1,10 @@
-﻿namespace System.Reflection {
-  public static class PropertyInfoExtensions {
+﻿using System.Runtime.CompilerServices;
 
+namespace System.Reflection {
+  public static class PropertyInfoExtensions {
     public static string GetPropertyName(this PropertyInfo property) => property.GetCustomAttribute<DisplayNameAttribute>()?.DisplayName ?? property.Name;
     public static object GetPropertyValue(this PropertyInfo property, object instance) => property.GetValue(instance);
+    public static bool IsComputedProperty(this PropertyInfo property) => property.SetMethod == null && property.GetMethod.GetCustomAttribute<CompilerGeneratedAttribute>() == null;
 
     //public static bool IsNullable(this PropertyInfo property) {
     //  // https://stackoverflow.com/questions/58453972/how-to-use-net-reflection-to-check-for-nullable-reference-type

@@ -27,24 +27,10 @@ public static class IUpdatableExtensions {
     return updatable;
   }
 
-  public static IUpdatable<T> SetExpression<T, TV>(this IUpdatable<T> source, Expression field, TV value) where T : notnull {
-    source = source.Set(Expression.Lambda<Func<T, TV>>(field), value);
-    return source;
-  }
-
-  public static IUpdatable<T> SetLambda<T, TV>(this IUpdatable<T> source, LambdaExpression field, TV? value) where T : notnull {
-    source = source.Set(field.AsTypedExpressionNullable<T, TV>(value), value);
+  public static IUpdatable<T> SetLambda<T, TV>(this IUpdatable<T> source, LambdaExpression le, TV value) where T : notnull {
+    source = source.Set(Expression.Lambda<Func<T, TV>>(le.Body, le.Parameters), value);
+    //source = source.Set(le.AsTypedExpressionNullable<T, TV>(value), value);
     return source;
   } 
-  
-  public static IUpdatable<T> SetExpressionNullable<T, TV>(this IUpdatable<T> source, Expression field, TV value) where T : notnull {
-    source = source.Set(Expression.Lambda<Func<T, TV>>(field), value);
-    return source;
-  }
-
-  public static IUpdatable<T> SetExpressionNullable<T, TV>(this IUpdatable<T> source, LambdaExpression field, TV? value) where T : notnull {
-    source = source.Set(field.AsTypedExpressionNullable<T, TV>(value), value);
-    return source;
-  }
 
 }

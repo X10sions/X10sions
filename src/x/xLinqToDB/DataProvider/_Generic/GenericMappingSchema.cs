@@ -29,7 +29,7 @@ namespace LinqToDB.DataProvider {
 
     GenericMappingSchema(DataSourceInformationRow dataSourceInformationRow) : base(dataSourceInformationRow.GetDataSourceProductNameWithVersion()) {
       this.dataSourceInformationRow = dataSourceInformationRow;
-      var initDone = dataSourceInformationRow.DbSystemEnum switch {
+      var initDone = dataSourceInformationRow.DbSystemEnum() switch {
         //{ DataSourceProduct?.DbSystem?.Name:   DbSystem.Names.Access } => GenericMappingSchema_InitAccess(),
         DbSystem.Enum.DB2iSeries => this.GenericMappingSchema_InitDB2iSeries(dataSourceInformationRow.Version),
         //  DbSystem.Names.SapHana => GenericMappingSchema_InitSapHana(),

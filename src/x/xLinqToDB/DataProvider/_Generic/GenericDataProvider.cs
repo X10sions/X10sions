@@ -112,7 +112,7 @@ public class GenericDataProvider<TConnection> : DataProviderBase<TConnection>, I
     DataSourceInformationRow = dataSourceInformationRow;
     //  //InitDataProvider();
 
-    var initDbSystem = dataSourceInformationRow.DbSystemEnum switch {
+    var initDbSystem = dataSourceInformationRow.DbSystemEnum() switch {
       //DbSystem.Names.Access => GenericDataProvider_InitAccess(),
       //DbSystem.Names.DB2 => GenericDataProvider_InitDB2(),
       DbSystem.Enum.DB2iSeries => GenericDataProvider_InitDB2iSeries(dataSourceInformationRow.Version),

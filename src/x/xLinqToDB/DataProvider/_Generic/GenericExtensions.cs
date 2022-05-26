@@ -337,7 +337,7 @@ namespace LinqToDB.DataProvider {
 
     public static string GetNameWithVersion(this Version version, string name) => $"{name}.v{version}";
 
-    public static TableOptions GetTableOptions(this DataSourceInformationRow dataSourceInformationRow) => dataSourceInformationRow.DbSystemEnum switch {
+    public static TableOptions GetTableOptions(this DataSourceInformationRow dataSourceInformationRow) => dataSourceInformationRow.DbSystemEnum() switch {
       DbSystem.Enum.DB2iSeries => dataSourceInformationRow.Version.GetTableOptions_DB2iSeries(),
       _ => throw new NotImplementedException($"{dataSourceInformationRow.DataSourceProductName}: v{dataSourceInformationRow.Version}") // TableOptions.None
     };

@@ -15,7 +15,7 @@ namespace LinqToDB.DataProvider {
 
     public override StringBuilder Convert(StringBuilder sb, string value, ConvertType convertType) {
       value = convertType switch {
-        ConvertType.NameToQueryParameter =>  dataSourceInformationRow.UsesPositionalParameters ? dataSourceInformationRow.ParameterMarker : $"@{value}",
+        ConvertType.NameToQueryParameter =>  dataSourceInformationRow.UsesPositionalParameters() ? dataSourceInformationRow.ParameterMarker() : $"@{value}",
         _ => value
       };
       return base.Convert(sb, value, convertType);
