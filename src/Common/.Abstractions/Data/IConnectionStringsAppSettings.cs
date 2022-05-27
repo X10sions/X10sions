@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Data.Common;
-using System.Runtime.Serialization;
+﻿using System.Runtime.Serialization;
 
 namespace Common.Data;
 //public interface IHaveConnectionStringsAppSettings {
@@ -26,8 +24,9 @@ public class ConnectionStringProvidersAppSettings : Dictionary<string, Connectio
     from cs in provider.Value
     select new DbConnectionString(cs.Key, cs.Value, provider.Key);
 
-  public IEnumerable<IDbConnectionString> GetProvidr(string providerName) =>
+  public IEnumerable<IDbConnectionString> GetProvider(string providerName) =>
     from provider in this
+    where provider.Key == providerName
     from cs in provider.Value
     select new DbConnectionString(cs.Key, cs.Value, provider.Key);
 

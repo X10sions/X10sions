@@ -11,6 +11,7 @@ using System.Diagnostics;
 using LinqToDB.Common;
 using LinqToDB.Expressions;
 using LinqToDB.Configuration;
+using Microsoft.Extensions.Configuration;
 
 namespace LinqToDB.DataProvider;
 
@@ -52,22 +53,24 @@ public class GenericDataProvider<TConnection> : DataProviderBase<TConnection>, I
       return (GenericDataProvider<TConnection>)dataProvider;
     }
     try {
-      connection.Open();
+      var isOpen = connection.State == ConnectionState.Open;
+      if(!isOpen) connection.Open();
       var dt = connection.GetSchema(DbMetaDataCollectionNames.DataSourceInformation);
       var dataSourceInformationRow = new DataSourceInformationRow(dt);
       var genericDataProvider = new GenericDataProvider<TConnection>(dataSourceInformationRow, dataReaderType);
       Instances[connection.ConnectionString] = genericDataProvider;
       Console.WriteLine($"{nameof(GenericDataProvider<TConnection>)}: {genericDataProvider?.DataSourceInformationRow.GetDataSourceProductNameWithVersion()}");
-      connection.Close();
+      if (!isOpen) connection.Close();
       return genericDataProvider;
     } catch (Exception ex) {
-      Console.WriteLine($"{nameof(GenericDataProvider<TConnection>)}{ex.Message}");
+      Console.WriteLine($"{nameof(GenericDataProvider<TConnection>)}: {ex.Message}");
       return null;
     }
   }
 
   public static GenericDataProvider<TConnection>? GetInstance(string connectionString, Type dataReaderType) => GetInstance(new TConnection { ConnectionString = connectionString }, dataReaderType);
   public static GenericDataProvider<TConnection>? GetInstance<TDataReader>(string connectionString) where TDataReader : IDataReader => GetInstance(connectionString, typeof(TDataReader));
+  public static GenericDataProvider<TConnection>? GetInstance<TDataReader>(IConfiguration configuration, string connectionStringName) where TDataReader : IDataReader => GetInstance(configuration.GetConnectionString(connectionStringName), typeof(TDataReader));
   public static GenericDataProvider<TConnection>? GetInstance<TDataReader>(TConnection connection) where TDataReader : IDataReader => GetInstance(connection, typeof(TDataReader));
 
   public static TContext GetDataContext<TContext, TDataReader>(string connectionString, Func<LinqToDbConnectionOptions<TContext>, TContext> newContext)
@@ -79,17 +82,36 @@ public class GenericDataProvider<TConnection> : DataProviderBase<TConnection>, I
     }
   }
 
+  public static TContext GetDataContext<TContext, TDataReader>(TConnection connection, Func<IDataProvider, string, TContext> newContext)
+    where TContext : IDataContext
+    //where TConnection : DbConnection, new()
+    where TDataReader : IDataReader {
+    try {
+      if (connection.State != ConnectionState.Open) { connection.Open(); }
+      var genericDataProvider = GenericDataProvider<TConnection>.GetInstance<TDataReader>(connection);
+      if (genericDataProvider != null) {
+        Console.WriteLine($"{nameof(GetDataContext)}<{typeof(TConnection)},{typeof(TContext)}>CS:{{connectionString}}");
+        return newContext(genericDataProvider, connection.ConnectionString);
+      }
+      if (connection.State == ConnectionState.Open) { connection.Close(); }
+      Console.WriteLine($" GenericDataProvider: {genericDataProvider?.DataSourceInformationRow.GetDataSourceProductNameWithVersion()}");
+    } catch (Exception ex) {
+      throw new Exception(ex.Message);
+    }
+    throw new Exception("Not Implementation");
+  }
+
   public static TContext GetDataContext<TContext, TDataReader>(TConnection connection, Func<LinqToDbConnectionOptions<TContext>, TContext> newContext)
     where TContext : IDataContext
     //where TConnection : DbConnection, new()
     where TDataReader : IDataReader {
     try {
-      if (connection.State!= ConnectionState.Open) { connection.Open(); }
+      if (connection.State != ConnectionState.Open) { connection.Open(); }
       var genericDataProvider = GenericDataProvider<TConnection>.GetInstance<TDataReader>(connection);
       if (genericDataProvider != null) {
         Console.WriteLine($"{nameof(GetDataContext)}<{typeof(TConnection)},{typeof(TContext)}>CS:{{connectionString}}");
         var builder = new LinqToDbConnectionOptionsBuilder();
-        builder.UseConfigurationString(connection.ConnectionString);
+        builder.UseConnectionString(genericDataProvider, connection.ConnectionString);
         var options = builder.Build<TContext>();
         return newContext(options);
       }
@@ -100,7 +122,6 @@ public class GenericDataProvider<TConnection> : DataProviderBase<TConnection>, I
     }
     throw new Exception("Not Implementation");
   }
-
 
   GenericDataProvider(DataSourceInformationRow dataSourceInformationRow, Type dataReaderType) : base(
     dataSourceInformationRow.GetDataSourceProductNameWithVersion(),

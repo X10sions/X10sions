@@ -8,6 +8,7 @@
   </PropertyGroup> 
   <ItemGroup Label="PackageReferences">
     <PackageReference Include="linq2db.AspNet" Version="3.7.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="6.0.0" />
   </ItemGroup> 
   <ItemGroup Label="ProjectReferences">
     <ProjectReference Include="..\xLinqToDB.csproj" />
