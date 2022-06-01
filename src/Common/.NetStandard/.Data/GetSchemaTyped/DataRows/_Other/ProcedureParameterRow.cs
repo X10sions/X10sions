@@ -14,26 +14,29 @@ public class ProcedureParameterRow : BaseTypedDataRow {
     public string?[] RestrictionValues4 => new[] { Catalog, Schema, Procedure, Name };
   }
 
-  public override void SetValues(DataRow dataRow) {
-    BUFFER_LENGTH = dataRow.Field<int?>(nameof(BUFFER_LENGTH));
-    CHAR_OCTET_LENGTH = dataRow.Field<int?>(nameof(CHAR_OCTET_LENGTH));
-    COLUMN_SIZE = dataRow.Field<int?>(nameof(COLUMN_SIZE));
-    ORDINAL_POSITION = dataRow.Field<int?>(nameof(ORDINAL_POSITION));
-    COLUMN_TYPE = dataRow.Field<short?>(nameof(COLUMN_TYPE));
-    DATA_TYPE = dataRow.Field<short?>(nameof(DATA_TYPE));
-    DECIMAL_DIGITS = dataRow.Field<short?>(nameof(DECIMAL_DIGITS));
-    NULLABLE = dataRow.Field<short?>(nameof(NULLABLE));
-    NUM_PREC_RADIX = dataRow.Field<short?>(nameof(NUM_PREC_RADIX));
-    SQL_DATA_TYPE = dataRow.Field<short?>(nameof(SQL_DATA_TYPE));
-    SQL_DATETIME_SUB = dataRow.Field<short?>(nameof(SQL_DATETIME_SUB));
-    COLUMN_DEF = dataRow.Field<string>(nameof(COLUMN_DEF));
-    COLUMN_NAME = dataRow.Field<string>(nameof(COLUMN_NAME));
-    IS_NULLABLE = dataRow.Field<string>(nameof(IS_NULLABLE));
-    PROCEDURE_CAT = dataRow.Field<string>(nameof(PROCEDURE_CAT));
-    PROCEDURE_NAME = dataRow.Field<string>(nameof(PROCEDURE_NAME));
-    PROCEDURE_SCHEM = dataRow.Field<string>(nameof(PROCEDURE_SCHEM));
-    REMARKS = dataRow.Field<string>(nameof(REMARKS));
-    TYPE_NAME = dataRow.Field<string>(nameof(TYPE_NAME));
+  public override Dictionary<string, Action<DataRow>> GetColumnSetValueDictionary() {
+    var dic = new Dictionary<string, Action<DataRow>>();
+    //dic[nameof()] = dataRow =>
+    //    BUFFER_LENGTH = dataRow.Field<int?>(nameof(BUFFER_LENGTH));
+    //CHAR_OCTET_LENGTH = dataRow.Field<int?>(nameof(CHAR_OCTET_LENGTH));
+    //COLUMN_SIZE = dataRow.Field<int?>(nameof(COLUMN_SIZE));
+    //ORDINAL_POSITION = dataRow.Field<int?>(nameof(ORDINAL_POSITION));
+    //COLUMN_TYPE = dataRow.Field<short?>(nameof(COLUMN_TYPE));
+    //DATA_TYPE = dataRow.Field<short?>(nameof(DATA_TYPE));
+    //DECIMAL_DIGITS = dataRow.Field<short?>(nameof(DECIMAL_DIGITS));
+    //NULLABLE = dataRow.Field<short?>(nameof(NULLABLE));
+    //NUM_PREC_RADIX = dataRow.Field<short?>(nameof(NUM_PREC_RADIX));
+    //SQL_DATA_TYPE = dataRow.Field<short?>(nameof(SQL_DATA_TYPE));
+    //SQL_DATETIME_SUB = dataRow.Field<short?>(nameof(SQL_DATETIME_SUB));
+    //COLUMN_DEF = dataRow.Field<string>(nameof(COLUMN_DEF));
+    //COLUMN_NAME = dataRow.Field<string>(nameof(COLUMN_NAME));
+    //IS_NULLABLE = dataRow.Field<string>(nameof(IS_NULLABLE));
+    //PROCEDURE_CAT = dataRow.Field<string>(nameof(PROCEDURE_CAT));
+    //PROCEDURE_NAME = dataRow.Field<string>(nameof(PROCEDURE_NAME));
+    //PROCEDURE_SCHEM = dataRow.Field<string>(nameof(PROCEDURE_SCHEM));
+    //REMARKS = dataRow.Field<string>(nameof(REMARKS));
+    //TYPE_NAME = dataRow.Field<string>(nameof(TYPE_NAME));
+    return dic;
   }
 
   public int? BUFFER_LENGTH { get; set; }

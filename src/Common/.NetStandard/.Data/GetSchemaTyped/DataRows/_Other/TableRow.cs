@@ -20,12 +20,15 @@ public class TableRow : BaseTypedDataRow {
   public TableRow() { }
   public TableRow(DataRow dataRow) : base(dataRow) { }
 
-  public override void SetValues(DataRow dataRow) {
-    TABLE_CAT = dataRow.Field<string>(nameof(TABLE_CAT));
-    TABLE_SCHEM = dataRow.Field<string>(nameof(TABLE_SCHEM));
-    TABLE_NAME = dataRow.Field<string>(nameof(TABLE_NAME));
-    TABLE_TYPE = dataRow.Field<string>(nameof(TABLE_TYPE));
-    REMARKS = dataRow.Field<string>(nameof(REMARKS));
+  public override Dictionary<string, Action<DataRow>> GetColumnSetValueDictionary() {
+    var dic = new Dictionary<string, Action<DataRow>>();
+    //dic[nameof()] = dataRow =>
+    //    TABLE_CAT = dataRow.Field<string>(nameof(TABLE_CAT));
+    //TABLE_SCHEM = dataRow.Field<string>(nameof(TABLE_SCHEM));
+    //TABLE_NAME = dataRow.Field<string>(nameof(TABLE_NAME));
+    //TABLE_TYPE = dataRow.Field<string>(nameof(TABLE_TYPE));
+    //REMARKS = dataRow.Field<string>(nameof(REMARKS));
+    return dic;
   }
 
   public string? TABLE_CAT { get; set; }
