@@ -3,6 +3,6 @@
 namespace Common.Data.GetSchemaTyped {
   public class GetSchemaDictionary : DbMetaDataCollectionDictionary {
     public GetSchemaDictionary() { }
-    public GetSchemaDictionary(DbConnection dbConnection):base(dbConnection) {    }
+    public GetSchemaDictionary(DbConnection dbConnection, bool doSchemasWithRestrictions) : base(dbConnection, doSchemasWithRestrictions) { }
   }
 }

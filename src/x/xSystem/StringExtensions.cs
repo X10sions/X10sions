@@ -95,7 +95,11 @@ namespace System {
     public static string WrapIfNotNullOrEmpty(this string s, string prefix = "", string suffix = "", string defaultIfNullOrEmpty = "") => string.IsNullOrEmpty(s) ? defaultIfNullOrEmpty : prefix + s + suffix;
     public static string WrapIfNotNullOrWhiteSpace(this string s, string prefix = "", string suffix = "", string defaultIfNullOrWhiteSpace = "") => string.IsNullOrWhiteSpace(s) ? defaultIfNullOrWhiteSpace : prefix + s + suffix;
 
-    public static T ToEnum<T>(this string s, T defaultValue) => System.Enum.IsDefined(typeof(T), s) ? (T)Enum.Parse(typeof(T), s) : defaultValue;
+    public static T ToEnum<T>(this string s, T defaultValue) where T : struct => Enum.IsDefined(typeof(T), s) ? (T)Enum.Parse(typeof(T), s) : defaultValue;
+    public static T? ToEnum<T>(this string value) where T : struct {
+      var isParsed = Enum.TryParse(value, true, out T parsedValue);
+      return isParsed ? parsedValue : null;
+    }
 
     #region "BinaryFormatterExtensions"
 

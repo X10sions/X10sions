@@ -2,6 +2,7 @@
 
 namespace System.Data {
   public static class DataRowExtensionsX {
+    public static T? FieldEnum<T>(this DataRow dataRow, string columnName) where T : struct => dataRow[columnName].ToEnum<T>();
 
     public static void MapToObject(this DataRow dataRow, object obj) {
       foreach (var prop in obj.GetType().GetProperties()) {

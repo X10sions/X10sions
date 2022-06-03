@@ -18,5 +18,7 @@
 
     [Obsolete("Not introdcues until .NET 6")] public static string[] GetNames<TEnum>() where TEnum : struct, Enum =>  Enum.GetNames(typeof(TEnum));
     [Obsolete("Not introdcues until .NET 6")] public static TEnum[] GetValues<TEnum>() where TEnum : struct, Enum => (TEnum[])Enum.GetValues(typeof(TEnum));
+
+
   }
 }

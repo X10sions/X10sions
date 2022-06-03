@@ -7,6 +7,17 @@ namespace System;
 public static class ObjectExtensions {
 
   ///public static string IfNullToString(this object value, string valueIfNull) => value == null ? valueIfNull : value.ToString();
+
+  public static T? ToEnum<T>(this object? value) where T:  struct {
+    if (value == null) return null;
+    if (value is T) return (T)value;
+    var type = typeof(T);
+    if (Enum.IsDefined(type, value)) {
+      return (T)Enum.ToObject(type, value);
+    }
+    return value.ToString().ToEnum<T>() ?? throw new NotImplementedException($"{value}: {value.GetType()}");
+  }
+
   public static object MergeToExpandoObject(this object item1, object item2) {
     //
     var dictionary1 = (IDictionary<string, object>)item1;

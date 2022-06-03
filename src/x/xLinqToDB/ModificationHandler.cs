@@ -16,7 +16,7 @@ public class ModificationHandler<T> : IModificationHandler<T> where T : class {
     Table = table;
     Predicate = predicate;
     ValueInsertable = table.AsValueInsertable();
-    Updatable = table.AsUpdatable();
+    Updatable = table.Where(predicate).AsUpdatable();
   }
 
 }
