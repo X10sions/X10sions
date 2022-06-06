@@ -31,19 +31,19 @@ public class DataSourceInformationRow : BaseTypedDataRow { //}, IEquatable<DataS
     dic[DbMetaDataColumnNames.DataSourceProductName] = dataRow => DataSourceProductName = dataRow.Field<string?>(DbMetaDataColumnNames.DataSourceProductName);
     dic[DbMetaDataColumnNames.DataSourceProductVersion] = dataRow => DataSourceProductVersion = dataRow.Field<string?>(DbMetaDataColumnNames.DataSourceProductVersion);
     dic[DbMetaDataColumnNames.DataSourceProductVersionNormalized] = dataRow => DataSourceProductVersionNormalized = dataRow.Field<string?>(DbMetaDataColumnNames.DataSourceProductVersionNormalized);
-    dic[DbMetaDataColumnNames.GroupByBehavior] = dataRow => GroupByBehavior = dataRow.FieldEnum< GroupByBehavior>(DbMetaDataColumnNames.GroupByBehavior);
+    dic[DbMetaDataColumnNames.GroupByBehavior] = dataRow => GroupByBehavior = dataRow.Field<GroupByBehavior>(DbMetaDataColumnNames.GroupByBehavior);
     dic[DbMetaDataColumnNames.IdentifierPattern] = dataRow => IdentifierPattern = dataRow.Field<string?>(DbMetaDataColumnNames.IdentifierPattern);
-    dic[DbMetaDataColumnNames.IdentifierCase] = dataRow => IdentifierCase = dataRow.FieldEnum<IdentifierCase>(DbMetaDataColumnNames.IdentifierCase);
+    dic[DbMetaDataColumnNames.IdentifierCase] = dataRow => IdentifierCase = dataRow.Field<IdentifierCase>(DbMetaDataColumnNames.IdentifierCase);
     dic[DbMetaDataColumnNames.OrderByColumnsInSelect] = dataRow => OrderByColumnsInSelect = dataRow.Field<bool?>(DbMetaDataColumnNames.OrderByColumnsInSelect);
     dic[DbMetaDataColumnNames.ParameterMarkerFormat] = dataRow => ParameterMarkerFormat = dataRow.Field<string?>(DbMetaDataColumnNames.ParameterMarkerFormat);
     dic[DbMetaDataColumnNames.ParameterMarkerPattern] = dataRow => ParameterMarkerPattern = dataRow.Field<string?>(DbMetaDataColumnNames.ParameterMarkerPattern);
     dic[DbMetaDataColumnNames.ParameterNameMaxLength] = dataRow => ParameterNameMaxLength = dataRow.Field<int?>(DbMetaDataColumnNames.ParameterNameMaxLength);
     dic[DbMetaDataColumnNames.ParameterNamePattern] = dataRow => ParameterNamePattern = dataRow.Field<string?>(DbMetaDataColumnNames.ParameterNamePattern);
     dic[DbMetaDataColumnNames.QuotedIdentifierPattern] = dataRow => QuotedIdentifierPattern = dataRow.Field<string?>(DbMetaDataColumnNames.QuotedIdentifierPattern);
-    dic[DbMetaDataColumnNames.QuotedIdentifierCase] = dataRow => QuotedIdentifierCase = dataRow.FieldEnum<IdentifierCase>(DbMetaDataColumnNames.QuotedIdentifierCase);
+    dic[DbMetaDataColumnNames.QuotedIdentifierCase] = dataRow => QuotedIdentifierCase = dataRow.Field<IdentifierCase>(DbMetaDataColumnNames.QuotedIdentifierCase);
     dic[DbMetaDataColumnNames.StatementSeparatorPattern] = dataRow => StatementSeparatorPattern = dataRow.Field<string?>(DbMetaDataColumnNames.StatementSeparatorPattern);
     dic[DbMetaDataColumnNames.StringLiteralPattern] = dataRow => StringLiteralPattern = dataRow.Field<string?>(DbMetaDataColumnNames.StringLiteralPattern);
-    dic[DbMetaDataColumnNames.SupportedJoinOperators] = dataRow => SupportedJoinOperators = dataRow.FieldEnum<SupportedJoinOperators>(DbMetaDataColumnNames.SupportedJoinOperators);
+    dic[DbMetaDataColumnNames.SupportedJoinOperators] = dataRow => SupportedJoinOperators = dataRow.Field<SupportedJoinOperators?>(DbMetaDataColumnNames.SupportedJoinOperators);
     return dic;
   }
 

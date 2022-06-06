@@ -36,7 +36,7 @@ public class DataTypeRow : BaseTypedDataRow {
     dic[nameof(MinimumVersion)] = dataRow => MinimumVersion = dataRow.Field<string?>(nameof(MinimumVersion));
     dic[nameof(INTERVAL_PRECISION)] = dataRow => INTERVAL_PRECISION = dataRow.Field<short?>(nameof(INTERVAL_PRECISION));
     dic[nameof(LOCAL_TYPE_NAME)] = dataRow => LOCAL_TYPE_NAME = dataRow.Field<string?>(nameof(LOCAL_TYPE_NAME));
-    dic[nameof(NativeDataType)] = dataRow => NativeDataType = dataRow.Field<string?>(nameof(NativeDataType));
+    dic[nameof(NativeDataType)] = dataRow => NativeDataType = dataRow.Field<short?>(nameof(NativeDataType));
     dic[nameof(OID)] = dataRow => OID = dataRow.Field<uint?>(nameof(OID));
     dic[nameof(NUM_PREC_RADIX)] = dataRow => NUM_PREC_RADIX = dataRow.Field<int?>(nameof(NUM_PREC_RADIX));
     dic[nameof(PROVIDER_TYPE)] = dataRow => PROVIDER_TYPE= dataRow.Field<int?>(nameof(PROVIDER_TYPE));
@@ -129,7 +129,7 @@ public class DataTypeRow : BaseTypedDataRow {
   /// <summary>
   /// PostgreSql
   /// </summary>
-  public string? NativeDataType { get; set; }
+  public short? NativeDataType { get; set; }
   /// <summary>
   /// PostgreSql
   /// </summary>

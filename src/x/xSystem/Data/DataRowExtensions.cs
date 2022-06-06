@@ -2,7 +2,19 @@
 
 namespace System.Data {
   public static class DataRowExtensionsX {
-    public static T? FieldEnum<T>(this DataRow dataRow, string columnName) where T : struct => dataRow[columnName].ToEnum<T>();
+
+    //public static T? FieldEnum<T>(this DataRow dataRow, string columnName) where T : struct {
+    //  var value = dataRow[columnName];
+    //  return value.ToEnum<T>();
+    //  //var type = typeof(T);
+    //  //T? typedValue = value switch {
+    //  //  null => null,
+    //  //  T t => t,
+    //  //  string s => s.ToEnum<T>(),
+    //  //  object o => Enum.IsDefined(type, o) ? (T)Enum.ToObject(type, o) : throw new NotImplementedException($"{value}: {value.GetType()}")
+    //  //};
+    //  //return typedValue;
+    //}
 
     public static void MapToObject(this DataRow dataRow, object obj) {
       foreach (var prop in obj.GetType().GetProperties()) {

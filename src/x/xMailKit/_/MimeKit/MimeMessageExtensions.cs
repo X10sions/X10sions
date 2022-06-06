@@ -1,6 +1,8 @@
 ﻿using Common.Mail;
 using MailKit;
+using MailKit.Net.Smtp;
 using MimeKit;
+using System.Text;
 
 namespace MimeKit;
 public static class MimeMessageExtensions {

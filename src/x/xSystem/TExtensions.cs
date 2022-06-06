@@ -1,11 +1,5 @@
 ﻿namespace System {
   public static class TExtensions {
-
-    //public static T As<T>(this object obj, T defaultValue = default) => (obj is T) ? (T)obj : defaultValue;
-    //public static TTo As<TTo>(this object value, TTo defaultValue = default) => value.As<object, TTo>(defaultValue);
-
-    //public static TTo As<TTo>(this object value, TTo defaultValue = default) => value.As<object, TTo>(defaultValue);
-
     public static TTo? As<TFrom, TTo>(this TFrom value, TTo? defaultValue = default) {
       try {
         var converter = TypeDescriptor.GetConverter(typeof(TTo));
