@@ -81,6 +81,5 @@
     // Public Property SpoolEnabled As Boolean
     // Public Property StartTime As DateTime
     public string Status { get; set; }
-
   }
 }
