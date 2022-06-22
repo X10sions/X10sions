@@ -60,24 +60,24 @@ namespace System {
 
     public static string ToSqlDate(this DateTime d) => d.ToString(DateTimeConstants.SqlDateFormat);
     public static string ToSqlTime(this DateTime d, int milliSecondsPrecision = 0) => d.ToString(DateTimeConstants.SqlTimeFormat(milliSecondsPrecision));
-    public static string ToSqlTimestamp(this DateTime d, int milliSecondsPrecision = 0) => d.ToString(DateTimeConstants.SqlTimestampFormat(milliSecondsPrecision));
+    public static string ToSqlTimestamp(this DateTime d, int milliSecondsPrecision = 0, string dateTimeSeparator = DateTimeConstants.SqlDateTimeSeparator) => d.ToString(DateTimeConstants.SqlTimestampFormat(milliSecondsPrecision, dateTimeSeparator));
 
-    public static string SqlLiteralDate(this DateTime d, string prefix = SqlDateOptions.DefaultLiteralPrefix, string suffix =SqlDateOptions.DefaultLiteralSuffix) => prefix + d.ToSqlDate() + suffix;
+    public static string SqlLiteralDate(this DateTime d, string prefix = SqlDateOptions.DefaultLiteralPrefix, string suffix = SqlDateOptions.DefaultLiteralSuffix) => prefix + d.ToSqlDate() + suffix;
     public static string SqlLiteralDate(this DateTime d) => d.SqlLiteralDate(new SqlDateOptions());
     public static string SqlLiteralDate(this DateTime? d) => d.SqlLiteralDate(new SqlDateOptions());
-    public static string SqlLiteralDate(this DateTime d, SqlDateOptions options) =>  d.SqlLiteralDate(options.LiteralPrefix, options.LiteralSuffix  ) ;
+    public static string SqlLiteralDate(this DateTime d, SqlDateOptions options) => d.SqlLiteralDate(options.LiteralPrefix, options.LiteralSuffix);
     public static string SqlLiteralDate(this DateTime? d, SqlDateOptions options) => d.HasValue ? d.Value.SqlLiteralDate(options) : SqlOptions.SqlNullString;
 
     public static string SqlLiteralTime(this DateTime d, int milliSecondsPrecision = 0, string prefix = SqlTimeOptions.DefaultLiteralPrefix, string suffix = SqlTimeOptions.DefaultLiteralSuffix) => prefix + d.ToSqlTime(milliSecondsPrecision) + suffix;
     public static string SqlLiteralTime(this DateTime d) => d.SqlLiteralTime(new SqlTimeOptions());
     public static string SqlLiteralTime(this DateTime? d) => d.SqlLiteralTime(new SqlTimeOptions());
-    public static string SqlLiteralTime(this DateTime d, SqlTimeOptions options) => d.SqlLiteralTime (options.MilliSecondsPrecision, options.LiteralPrefix , options.LiteralSuffix);
+    public static string SqlLiteralTime(this DateTime d, SqlTimeOptions options) => d.SqlLiteralTime(options.MilliSecondsPrecision, options.LiteralPrefix, options.LiteralSuffix);
     public static string SqlLiteralTime(this DateTime? d, SqlTimeOptions options) => d.HasValue ? d.Value.SqlLiteralTime(options) : SqlOptions.SqlNullString;
 
-    public static string SqlLiteralTimestamp(this DateTime d, int milliSecondsPrecision = 0, string prefix = SqlTimestampOptions.DefaultLiteralPrefix, string suffix = SqlTimestampOptions.DefaultLiteralSuffix) => prefix + d.ToSqlTimestamp(milliSecondsPrecision) + suffix;
+    public static string SqlLiteralTimestamp(this DateTime d, int milliSecondsPrecision = 0, string prefix = SqlTimestampOptions.DefaultLiteralPrefix, string suffix = SqlTimestampOptions.DefaultLiteralSuffix, string dateTimeSeparator = DateTimeConstants.SqlDateTimeSeparator) => prefix + d.ToSqlTimestamp(milliSecondsPrecision, dateTimeSeparator) + suffix;
     public static string SqlLiteralTimestamp(this DateTime d) => d.SqlLiteralTimestamp(new SqlTimestampOptions());
     public static string SqlLiteralTimestamp(this DateTime? d) => d.SqlLiteralTimestamp(new SqlTimestampOptions());
-    public static string SqlLiteralTimestamp(this DateTime d, SqlTimestampOptions options) => d.SqlLiteralTimestamp(options.MilliSecondsPrecision, options.LiteralPrefix , options.LiteralSuffix);
+    public static string SqlLiteralTimestamp(this DateTime d, SqlTimestampOptions options) => d.SqlLiteralTimestamp(options.MilliSecondsPrecision, options.LiteralPrefix, options.LiteralSuffix);
     public static string SqlLiteralTimestamp(this DateTime? d, SqlTimestampOptions options) => d.HasValue ? d.Value.SqlLiteralTimestamp(options) : SqlOptions.SqlNullString;
 
     public static DateTime LastDayOfMonth(this DateTime d) => new DateTime(d.Year, d.Month, 1).EndOfMonth();
@@ -93,7 +93,7 @@ namespace System {
     public static string ToDDMMMYYYY(this DateTime d) => d.ToString("dd-MMM-yyyy");
     public static string ToFileDate(this DateTime d) => d.ToString(DateTimeConstants.FileDateFormat);
     public static string ToFileTimestamp(this DateTime d) => d.ToString(DateTimeConstants.FileTimestampFormat);
-    public static int? ToHHMMSS(this DateTime? d) => d.HasValue ?  (d.Value.Hour * 10000 + d.Value.Minute * 100 + d.Value.Second) : null;
+    public static int? ToHHMMSS(this DateTime? d) => d.HasValue ? (d.Value.Hour * 10000 + d.Value.Minute * 100 + d.Value.Second) : null;
     public static string ToJavascriptTimestamp(this DateTime d) => d.ToString(DateTimeConstants.JavascriptTimestampFormat);
     public static string ToTimeOnly(this DateTime? d, string format = DateTimeConstants.DefaultTimeFormat) => d.HasValue ? d.Value.ToString(format) : string.Empty;
     public static int ToYYYYMMDD(this DateTime d) => d.Year * 1000 + d.Month * 100 + d.Day;
@@ -106,10 +106,10 @@ namespace System {
     #region "iSeries/iDb2Date Dates"
 
     public static int ToIntC(this DateTime d) => d.ToIntCYY() / 100;
-    public static int ToIntCYY(this DateTime d) => d.Year - 1900;    
-    public static int ToIntCYYMM(this DateTime d) => d.ToIntCYY() * 100 + d.Month;    
+    public static int ToIntCYY(this DateTime d) => d.Year - 1900;
+    public static int ToIntCYYMM(this DateTime d) => d.ToIntCYY() * 100 + d.Month;
     public static int ToIntCYYMMDD(this DateTime d, int? day = null) => d.ToIntCYYMM() * 100 + (day ?? d.Day);
-    public static int? ToIntCYYMMDD(this DateTime? d, int? day = null) => d.HasValue ?  d.Value.ToIntCYYMMDD(day) : null;
+    public static int? ToIntCYYMMDD(this DateTime? d, int? day = null) => d.HasValue ? d.Value.ToIntCYYMMDD(day) : null;
     public static int ToIntCYYMM00(this DateTime d) => d.ToIntCYYMMDD(0);
     public static int ToIntCYYMM01(this DateTime d) => d.ToIntCYYMMDD(1);
     public static int ToIntCYYMM99(this DateTime d) => d.ToIntCYYMMDD(99);

@@ -19,6 +19,6 @@
     public const string SqlDateTimeSeparator = " ";
     public const string SqlMilliSecondsPrefixDefault = ".";
     public static string SqlTimeFormat(int milliSecondsPrecision = 0) => IsoTimeFormat + MilliSecondsFormat(milliSecondsPrecision);
-    public static string SqlTimestampFormat(int milliSecondsPrecision = 0, string dateTimeSeparator = SqlDateTimeSeparator) => SqlDateFormat + dateTimeSeparator + SqlTimeFormat(milliSecondsPrecision);
+    public static string SqlTimestampFormat(int milliSecondsPrecision = 0, string dateTimeSeparator = DateTimeConstants.SqlDateTimeSeparator) => SqlDateFormat + dateTimeSeparator + SqlTimeFormat(milliSecondsPrecision);
   }
 }

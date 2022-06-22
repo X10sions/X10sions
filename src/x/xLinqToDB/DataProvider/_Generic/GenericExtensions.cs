@@ -414,11 +414,12 @@ namespace LinqToDB.DataProvider {
     }
 
     public static string ToSqlString_ISO(this DateTime value, SqlDataType sqlDatatype, string prefix, string dateTimeSeparator, int maxMilliSecondsPrecision, string suffix) {
-      var format = (sqlDatatype.Type.DataType == DataType.Date || "date".Equals(sqlDatatype.Type.DbType, StringComparison.OrdinalIgnoreCase))
+      return  (sqlDatatype.Type.DataType == DataType.Date || "date".Equals(sqlDatatype.Type.DbType, StringComparison.OrdinalIgnoreCase))
         ? value.SqlLiteralDate(prefix, suffix)
         : (sqlDatatype.Type.DataType == DataType.Time || "time".Equals(sqlDatatype.Type.DbType, StringComparison.OrdinalIgnoreCase))
-        ? value.SqlLiteralTime(0, prefix, suffix) : value.SqlLiteralTimestamp(value.Millisecond == 0 ? 0 : maxMilliSecondsPrecision, dateTimeSeparator);
-      return $"{prefix}{value.ToString(format)}{suffix}";
+        ? value.SqlLiteralTime(0, prefix, suffix)
+        : value.SqlLiteralTimestamp(value.Millisecond == 0 ? 0 : maxMilliSecondsPrecision ,prefix,suffix, dateTimeSeparator);
+      //return $"{prefix}{value.ToString(format)}{suffix}";
     }
 
     //public static string xToSqlString_ISO(this DateTimeOffset value, SqlDataType sqlDatatype, string prefix, string dateTimeSeparator, int maxMilliSecondsPrecision, string suffix) {
