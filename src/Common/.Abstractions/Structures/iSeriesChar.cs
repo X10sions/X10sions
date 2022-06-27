@@ -3,7 +3,7 @@ using System.Data;
 
 namespace Common.Structures {
 
-  public interface IiSeriesChar: IFormattable {
+  public interface IiSeriesChar : IFormattable {
     string Value { get; set; }
     int Length { get; }
     bool IsNullable { get; }
@@ -11,8 +11,8 @@ namespace Common.Structures {
     string SqlQualifiedValue { get; }
   }
 
-  public struct iSeriesChar    : IiSeriesChar{
-                      
+  public struct iSeriesChar : IiSeriesChar {
+
     public iSeriesChar(string value) : this(value.Length, value) { }
     public iSeriesChar(int length) : this(length, null) { }
     public iSeriesChar(int length, string value) : this(length, value ?? string.Empty, false) { }
@@ -34,7 +34,7 @@ namespace Common.Structures {
 
     #region IFormattable
     public override string ToString() => Value;
-    public string ToString(string format, IFormatProvider formatProvider) => ToString(ToString(), formatProvider);
+    public string ToString(string format, IFormatProvider formatProvider) => ToString().ToString(formatProvider);
     #endregion
 
   }

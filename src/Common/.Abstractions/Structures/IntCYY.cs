@@ -1,74 +1,64 @@
-﻿using System;
-
-namespace Common.Structures {
+﻿namespace Common.Structures {
   public class IntCYY : IFormattable {
-    public IntCYY() { }
-    public IntCYY(DateTime d) {
-      Year = d.Year;
-    }
-    public IntCYY(int cyy) {
-      CYY = cyy;
-    }
     public IntCYY(int c, int yy) {
       C = c;
       YY = yy;
     }
-
-    //public IntCYY(IntYear intYear) : this() {
-    //  Year = intYear.Value;
-    //}
+    public IntCYY(DateTime d) : this(GetCYY(d.Year)) { }
+    public IntCYY(int cyy) : this(GetC(cyy), GetYY(cyy)) { }
 
     #region Min & Max Values
-    public const int _MinC = 0;
-    public const int _MaxC = 9;
+    public static readonly int MinC = 0;
+    public static readonly int MaxC = 9;
 
-    public const int _MinYY = 0;
-    public const int _MaxYY = 99;
+    public static readonly int MinYY = 0;
+    public static readonly int  MaxYY = 99;
 
-    public const int _MinCYY = 0;
-    public const int _MaxCYY = 999;
+    public static readonly int MinCYY = 0;
+    public static readonly int MaxCYY = 999;
 
-    public const int _MinYear = 1900;
-    public const int _MaxYear = 2899;
+    public static readonly int MinYYYY = 1;
+    public static readonly int MaxYYYY = 9999;
 
-    public static readonly IntCYY _MinIntCYY = new IntCYYMM(_MinCYY);
-    public static readonly IntCYY _MaxIntCYY = new IntCYYMM(_MaxCYY);
+    //public const IntCYY MinValue = new IntCYY(0);
+    //public const IntCYY MaxValue = new IntCYY(999);
+   
+    public static readonly IntCYY? MinValue = new IntCYY(0);
+    public static readonly IntCYY? MaxValue = new IntCYY(999);
     #endregion
 
-    int c;
-    int yy;
+    int c ;
+    int yy ;
 
     /// <summary>
     /// Centuries after 1900
     /// </summary>
-    public int C { get => c; set => c = value.GetValueBetween(_MinC, _MaxC); }
-    public int YY { get => yy; set => yy = value.GetValueBetween(_MinYY, _MaxYY); }
-
+    public int C { get => c; set => c = value.GetValueBetween(MinC, MaxC); }
+    public int YY { get => yy; set => yy = value.GetValueBetween(MinYY, MaxYY); }
     public int CYY {
-      get => (C * 100) + YY;
+      get => GetCYY(C, YY);
       set {
-        value = value.GetValueBetween(_MinCYY, _MaxCYY);
-        C = value / 100;
-        YY = value % 100;
+        value = value.GetValueBetween(MinCYY, MaxCYY);
+        C = GetC(value);
+        YY = GetYY(value);
       }
     }
+    public int YYYY { get => GetYYYY(CYY); set => CYY = GetCYY(value.GetValueBetween(MinYYYY, MaxYYYY)); }
 
-    public int Year { get => GetYear(CYY + 1900); set => SetYear(value); }
-    public virtual void SetYear(int year) => CYY = GetYear(year) - 1900;
-    public int GetYear(int year) => year.GetValueBetween(_MinYear, _MaxYear);
+    public static int GetC(int cyy) => cyy / 100;
+    public static int GetCYY(int c, int yy) => (c * 100) + yy;
+    public static int GetCYY(int yyyy) => yyyy - 1900;
+    public static int GetYY(int cyy) => cyy % 100;
+    public static int GetYYYY(int cyy) => cyy + 1900;
 
+    public DateTime YearStartDateTime => new DateTime(YYYY, 1, 1);
+    public DateTime YearEndDateTime => new DateTime(YYYY, 12, 31, 23, 59, 59, 999);
 
-    public DateTime YearStartDateTime => new DateTime(Year, 1, 1);
-    public DateTime YearEndDateTime => new DateTime(Year, 12, 31, 23, 59, 59, 999);
-
-    public DateTime GetDate(int month, int day) => new DateTime(Year, month, day);
-
-    //public int GetCYYMM(int month) => CYY * 100 + month;
-    //public int GetCYYMMDD(int month, int day) => GetCYYMM(month) * 100 + day;
+    public DateTime GetDate(int month, int day) => new DateTime(YYYY, month, day);
 
     #region IFormattable
     public override string ToString() => CYY.ToString();
-    public string ToString(string format, IFormatProvider formatProvider) => ToString(ToString(), formatProvider);
+    public virtual string ToString(string format, IFormatProvider formatProvider) => ToString().ToString(formatProvider);
     #endregion
 
     public static implicit operator IntCYY(decimal value) => new IntCYY((int)value);
@@ -76,14 +66,4 @@ namespace Common.Structures {
     public static implicit operator IntCYY(DateTime value) => new IntCYY(value);
 
   }
-
-  //public static class IntCYYExtensions {
-
-  //  public static int CYYToYear(this int c, int yy) => CYYToYear(c * 100 + yy);
-  //  public static int CYYToYear(this int cyy) => cyy + 1900;
-  //  public static (int C, int YY) GetCYYParts(this int cyy) => (cyy / 100, cyy % 100);
-  //  public static int YeartoCYY(this int yyyy) => yyyy - 1900;
-
-  //}
-
 }
