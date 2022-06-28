@@ -56,6 +56,11 @@ public static class MimeMessageExtensions {
     return message;
   }
 
+  public static MimeMessage Body(this MimeMessage message, BodyBuilder bodyBuilder) {
+    message.Body = bodyBuilder.ToMessageBody();
+    return message;
+  }
+
   public static MimeMessage HtmlBody(this MimeMessage message, string body) => message.Body(body, Text.TextFormat.Html);
   public static MimeMessage PlainBody(this MimeMessage message, string body) => message.Body(body, Text.TextFormat.Plain);
 
