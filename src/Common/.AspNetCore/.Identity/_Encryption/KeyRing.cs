@@ -1,16 +1,12 @@
-﻿using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Hosting;
 
 namespace Common.AspNetCore.Identity {
   public class KeyRing : ILookupProtectorKeyRing {
     // https://github.com/blowdart/AspNetCoreIdentityEncryption/blob/master/AspNetCoreIdentityEncryption/KeyRing.cs
     private readonly IDictionary<string, string> _keyDictionary = new Dictionary<string, string>();
 
-    public KeyRing(IHostingEnvironment hostingEnvironment) {
+    public KeyRing(IHostEnvironment hostingEnvironment) {
       // Create the keyring directory if one doesn't exist.
       var keyRingDirectory = Path.Combine(hostingEnvironment.ContentRootPath, "keyring");
       Directory.CreateDirectory(keyRingDirectory);
