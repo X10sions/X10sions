@@ -48,7 +48,6 @@ namespace System.Data {
     public static List<T> DataReaderToList<T>(this IDataReader reader, string? propertiesToSkip = null, Dictionary<string, PropertyInfo>? piList = null)
        where T : new() {
       var list = new List<T>();
-
       if (reader != null) {
         using (reader) {
           // Get a list of PropertyInfo objects we can cache for looping

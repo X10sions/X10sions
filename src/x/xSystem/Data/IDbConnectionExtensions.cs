@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-
-namespace System.Data {
+﻿namespace System.Data {
   public static class IDbConnectionExtensions {
 
     public static IDbCommand CreateCommand(this IDbConnection cn, string commandText, params KeyValuePair<string, object>[] parameters) {
