@@ -4,7 +4,6 @@ namespace System.Reflection;
 public static class MemberInfoExtensions {
   public static string DeclaringTypeFullName(this MemberInfo member) => string.Format($"{member.DeclaringType.FullName}.{member.Name}");
   public static string ReflectedTypeFullName(this MemberInfo member) => string.Format($"{member.ReflectedType.FullName}.{member.Name}");
-
   public static bool IsField(this MemberInfo memberInfo) => memberInfo.MemberType == MemberTypes.Field;
   public static bool IsMethod(this MemberInfo memberInfo) => memberInfo.MemberType == MemberTypes.Method;
   public static bool IsNullableHasValueMember(this MemberInfo member) => member.Name == nameof(Nullable<byte>.HasValue) && member.DeclaringType.IsGenericType && member.DeclaringType.GetGenericTypeDefinition() == typeof(Nullable<>);
