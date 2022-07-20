@@ -12,7 +12,7 @@ namespace LinqToDB.Configuration {
     //  return   options.UseConnectionString(dataProvider, connectionString);
     //}
 
-    public static LinqToDbConnectionOptionsBuilder UseConnectionStringSettings(this LinqToDbConnectionOptionsBuilder options, IDataProvider dataProvider, ConnectionStringSettings connectionStringSettings, ILogger logger) {
+    public static LinqToDBConnectionOptionsBuilder UseConnectionStringSettings(this LinqToDBConnectionOptionsBuilder options, IDataProvider dataProvider, ConnectionStringSettings connectionStringSettings, ILogger logger) {
       logger.LogInformation($"{nameof(UseConnectionStringSettings)};Name:{connectionStringSettings.Name};Provider:{connectionStringSettings.ProviderName},{dataProvider.GetType().Name};CS:{connectionStringSettings.ConnectionString}");
       return options.UseConnectionString(dataProvider, connectionStringSettings.ConnectionString);
     }

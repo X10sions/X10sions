@@ -54,7 +54,7 @@ public class GenericDataProvider<TConnection> : DataProviderBase<TConnection>, I
     }
     try {
       var isOpen = connection.State == ConnectionState.Open;
-      if(!isOpen) connection.Open();
+      if (!isOpen) connection.Open();
       var dt = connection.GetSchema(DbMetaDataCollectionNames.DataSourceInformation);
       var dataSourceInformationRow = new DataSourceInformationRow(dt);
       var genericDataProvider = new GenericDataProvider<TConnection>(dataSourceInformationRow, dataReaderType);
@@ -73,7 +73,7 @@ public class GenericDataProvider<TConnection> : DataProviderBase<TConnection>, I
   public static GenericDataProvider<TConnection>? GetInstance<TDataReader>(IConfiguration configuration, string connectionStringName) where TDataReader : IDataReader => GetInstance(configuration.GetConnectionString(connectionStringName), typeof(TDataReader));
   public static GenericDataProvider<TConnection>? GetInstance<TDataReader>(TConnection connection) where TDataReader : IDataReader => GetInstance(connection, typeof(TDataReader));
 
-  public static TContext GetDataContext<TContext, TDataReader>(string connectionString, Func<LinqToDbConnectionOptions<TContext>, TContext> newContext)
+  public static TContext GetDataContext<TContext, TDataReader>(string connectionString, Func<LinqToDBConnectionOptions<TContext>, TContext> newContext)
     where TContext : IDataContext
     //where TConnection : DbConnection, new()
     where TDataReader : IDataReader {
@@ -101,7 +101,7 @@ public class GenericDataProvider<TConnection> : DataProviderBase<TConnection>, I
     throw new Exception("Not Implementation");
   }
 
-  public static TContext GetDataContext<TContext, TDataReader>(TConnection connection, Func<LinqToDbConnectionOptions<TContext>, TContext> newContext)
+  public static TContext GetDataContext<TContext, TDataReader>(TConnection connection, Func<LinqToDBConnectionOptions<TContext>, TContext> newContext)
     where TContext : IDataContext
     //where TConnection : DbConnection, new()
     where TDataReader : IDataReader {
@@ -110,7 +110,7 @@ public class GenericDataProvider<TConnection> : DataProviderBase<TConnection>, I
       var genericDataProvider = GenericDataProvider<TConnection>.GetInstance<TDataReader>(connection);
       if (genericDataProvider != null) {
         Console.WriteLine($"{nameof(GetDataContext)}<{typeof(TConnection)},{typeof(TContext)}>CS:{{connectionString}}");
-        var builder = new LinqToDbConnectionOptionsBuilder();
+        var builder = new LinqToDBConnectionOptionsBuilder();
         builder.UseConnectionString(genericDataProvider, connection.ConnectionString);
         var options = builder.Build<TContext>();
         return newContext(options);
@@ -233,7 +233,7 @@ public class GenericDataProvider<TConnection> : DataProviderBase<TConnection>, I
     MemberExpressions.Add(M(() => Sql.Log(0.0, 0.0)), N(() => L((double? m, double? n) => Sql.Log(n) / Sql.Log(m))));
     MemberExpressions.Add(M(() => Sql.PadLeft("", 0, ' ')), N(() => L((string p0, int? p1, char? p2) => (p0.Length > p1) ? p0 : VarChar(Replicate(p2, p1 - p0.Length), 1000) + p0)));
     MemberExpressions.Add(M(() => Sql.PadRight("", 0, ' ')), N(() => L((string p0, int? p1, char? p2) => (p0.Length > p1) ? p0 : p0 + VarChar(Replicate(p2, p1 - p0.Length), 1000))));
-    MemberExpressions.Add(M(() => Sql.Space(0)), N(() => L((int? p0) => Sql.Convert(Sql.VarChar(1000), Replicate(" ", p0)))));
+    MemberExpressions.Add(M(() => Sql.Space(0)), N(() => L((int? p0) => Sql.Convert(Sql.Types.VarChar(1000), Replicate(" ", p0)))));
     MemberExpressions.Add(M(() => Sql.Stuff("", 0, 0, "")), N(() => L((string p0, int? p1, int? p2, string p3) => AltStuff(p0, p1, p2, p3))));
 
     //  MemberExpressions.Add(M(() => string.IsNullOrWhiteSpace("")), N(() => L((string s) => string.IsNullOrWhiteSpace(s))));
@@ -294,7 +294,7 @@ public class GenericDataProvider<TConnection> : DataProviderBase<TConnection>, I
     SqlProviderFlags.IsCommonTableExpressionsSupported = true;
     SqlProviderFlags.IsDistinctOrderBySupported = true;
     //SqlProviderFlags.IsParameterOrderDependent = true;
-    SetCharField("CHAR", (IDataReader r, int i) => r.GetString(i).TrimEnd());
+    SetCharField("CHAR", (DbDataReader r, int i) => r.GetString(i).TrimEnd());
 
     return true;
   }
@@ -326,12 +326,12 @@ public class GenericDataProvider<TConnection> : DataProviderBase<TConnection>, I
     };
   }
 
-  public override ISqlBuilder CreateSqlBuilder(MappingSchema mappingSchema) => new GenericSqlBuilder(DataSourceInformationRow, mappingSchema, GetSqlOptimizer(), SqlProviderFlags);
+  public override ISqlBuilder CreateSqlBuilder(MappingSchema mappingSchema) => new GenericSqlBuilder(this, DataSourceInformationRow, mappingSchema, GetSqlOptimizer(), SqlProviderFlags);
 
   public override ISqlOptimizer GetSqlOptimizer() => new GenericSqlOptimizer(DataSourceInformationRow, SqlProviderFlags);
   //protected override ISqlOptimizer SqlOptimizer { get; }
 
-  public override void SetParameter(DataConnection dataConnection, IDbDataParameter parameter, string name, DbDataType dataType, object? value) {
+  public override void SetParameter(DataConnection dataConnection, DbParameter parameter, string name, DbDataType dataType, object? value) {
     switch (DataSourceInformationRow.DataSourceProduct?.DbSystem?.Name) {
       case DbSystem.Names.Access: SetParameter_Access(dataConnection, parameter, name, dataType, value); break;
         //case DbSystem.Names.DB2iSeries: SetParameter_DB2iSeries_MTGFS01(dataConnection, parameter, name, dataType, value); break;
@@ -370,14 +370,14 @@ public class GenericDataProvider<TConnection> : DataProviderBase<TConnection>, I
     if (base.ConnectionNamespace == DbProvider.Namespaces.System_Data_OleDb) { }
   }
 
-  public void SetParameter_DB2iSeries_MTGFS01(DataConnection dataConnection, IDbDataParameter parameter, string name, DbDataType dataType, object? value) {
+  public void SetParameter_DB2iSeries_MTGFS01(DataConnection dataConnection, DbParameter parameter, string name, DbDataType dataType, object? value) {
     if (dataType.DataType == DataType.DateTime2) {
       dataType = dataType.WithDataType(DataType.DateTime);
     }
     base.SetParameter(dataConnection, parameter, "@" + name, dataType, value);
   }
 
-  protected override void SetParameterType(DataConnection dataConnection, IDbDataParameter parameter, DbDataType dataType) {
+  protected override void SetParameterType(DataConnection dataConnection, DbParameter parameter, DbDataType dataType) {
     switch (DataSourceInformationRow.DataSourceProduct?.DbSystem?.Name) {
       case DbSystem.Names.Access: SetParameterType_Access(dataConnection, parameter, dataType); break;
       default: base.SetParameterType(dataConnection, parameter, dataType); break;
@@ -386,7 +386,7 @@ public class GenericDataProvider<TConnection> : DataProviderBase<TConnection>, I
 
   [UrlAsAt.AccessOdbcDataProviderDataProvider_2021_03_14]
   [UrlAsAt.AccessOleDbDataProviderDataProvider_2021_03_14]
-  public void SetParameterType_Access(DataConnection dataConnection, IDbDataParameter parameter, DbDataType dataType) {
+  public void SetParameterType_Access(DataConnection dataConnection, DbParameter parameter, DbDataType dataType) {
     if (base.ConnectionNamespace == DbProvider.Namespaces.System_Data_Odbc) {
       //OdbcType? type = null;
       //switch (dataType.DataType) {

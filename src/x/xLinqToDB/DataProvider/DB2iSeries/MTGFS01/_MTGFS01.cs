@@ -93,7 +93,7 @@ public static class _Extensions {
     return colType;
   }
 
-  public static void SetColumnParameters(this ColumnInfo ci, long? size, int? scale) {
+  public static void SetColumnParameters(this ColumnInfo ci, int? size, int? scale) {
     switch (ci.DataType) {
       case "INTEGER":
         break;
@@ -270,7 +270,7 @@ public class DB2iSeriesConfiguration {
   public DB2iSeriesNamingConvention NamingConvention { get; set; } = DB2iSeriesNamingConvention.System;
   public DB2iSeriesVersion Version { get; set; } = DB2iSeriesVersion.v5r4;
 
-  public void InitDataProvider(IDataProvider dataProvider, Action<string, Expression<Func<IDataReader, int, string>>> baseSetCharField) {
+  public void InitDataProvider(IDataProvider dataProvider, Action<string, Expression<Func<DbDataReader, int, string>>> baseSetCharField) {
     LoadExpressions();
     dataProvider.SqlProviderFlags.AcceptsTakeAsParameter = false;
     dataProvider.SqlProviderFlags.AcceptsTakeAsParameterIfSkip = true;
@@ -284,13 +284,13 @@ public class DB2iSeriesConfiguration {
     if (DataConnection.TraceSwitch.TraceInfo) {
       DataConnection.WriteTraceLine(dataProvider.DataReaderType.Assembly.FullName, DataConnection.TraceSwitch.DisplayName, System.Diagnostics.TraceLevel.Info);
     }
-    baseSetCharField("CHAR", (IDataReader r, int i) => r.GetString(i).TrimEnd(new char[1] { ' ' }));
-    baseSetCharField("NCHAR", (IDataReader r, int i) => r.GetString(i).TrimEnd(new char[1] { ' ' }));
+    baseSetCharField("CHAR", (r, i) => r.GetString(i).TrimEnd(new char[1] { ' ' }));
+    baseSetCharField("NCHAR", (r, i) => r.GetString(i).TrimEnd(new char[1] { ' ' }));
   }
 
   private void LoadExpressions() {
     string providerName = Provider.Name();
-    Linq.Expressions.MapMember(providerName, Linq.Expressions.M(() => Sql.Space(0)), Linq.Expressions.L((int? p0) => Sql.Convert(Sql.VarChar(1000), Linq.Expressions.Replicate(" ", p0))));
+    Linq.Expressions.MapMember(providerName, Linq.Expressions.M(() => Sql.Space(0)), Linq.Expressions.L((int? p0) => Sql.Convert(Sql.Types.VarChar(1000), Linq.Expressions.Replicate(" ", p0))));
     Linq.Expressions.MapMember(providerName, Linq.Expressions.M(() => Sql.Stuff("", 0, 0, "")), Linq.Expressions.L((string p0, int? p1, int? p2, string p3) => Linq.Expressions.AltStuff(p0, p1, p2, p3)));
     Linq.Expressions.MapMember(providerName, Linq.Expressions.M(() => Sql.PadRight("", 0, ' ')), Linq.Expressions.L((string p0, int? p1, char? p2) => (p0.Length > p1) ? p0 : (p0 + Linq.Expressions.VarChar(Linq.Expressions.Replicate(p2, p1 - p0.Length), 1000))));
     Linq.Expressions.MapMember(providerName, Linq.Expressions.M(() => Sql.PadLeft("", 0, ' ')), Linq.Expressions.L((string p0, int? p1, char? p2) => (p0.Length > p1) ? p0 : (Linq.Expressions.VarChar(Linq.Expressions.Replicate(p2, p1 - p0.Length), 1000) + p0)));
@@ -328,7 +328,7 @@ public abstract class DB2iSeriesDataProvider_Base<TConnection, TDataReader> : Da
   //  return val;
   //}
 
-  public override void SetParameter(DataConnection dataConnection, IDbDataParameter parameter, string name, DbDataType dataType, object? value) {
+  public override void SetParameter(DataConnection dataConnection, DbParameter parameter, string name, DbDataType dataType, object? value) {
     if (dataType.DataType == DataType.DateTime2) {
       dataType = dataType.WithDataType(DataType.DateTime);
     }
@@ -353,12 +353,12 @@ public abstract class DB2iSeriesSchemaProvider_Base<TConnection> : SchemaProvide
         Ordinal = Converter.ChangeTypeTo<int>(dr["Ordinal_Position"]),
         TableID = dataConnection.Connection.Database + "." + Convert.ToString(dr["Table_Schema"]).TrimEnd(Array.Empty<char>()) + "." + Convert.ToString(dr["Table_Name"]).TrimEnd(Array.Empty<char>())
       };
-      obj.SetColumnParameters(Convert.ToInt64(dr["Length"]), Convert.ToInt32(dr["Numeric_Scale"]));
+      obj.SetColumnParameters(Convert.ToInt32(dr["Length"]), Convert.ToInt32(dr["Numeric_Scale"]));
       return obj;
     }
   }
 
-  protected override DataType GetDataType(string dataType, string columnType, long? length, int? prec, int? scale) {
+  protected override DataType GetDataType(string? dataType, string? columnType, int? length, int? prec, int? scale) {
     switch (dataType) {
       case "BIGINT":
         return DataType.Int64;
@@ -413,7 +413,7 @@ public abstract class DB2iSeriesSchemaProvider_Base<TConnection> : SchemaProvide
 
   protected override IReadOnlyCollection<ForeignKeyInfo> GetForeignKeys(DataConnection dataConnection, IEnumerable<TableSchema> tables, GetSchemaOptions options) {
     string sql = "\r\n      Select ref.Constraint_Name \r\n      , fk.Ordinal_Position\r\n      , fk.Column_Name  As ThisColumn\r\n      , fk.Table_Name   As ThisTable\r\n      , fk.Table_Schema As ThisSchema\r\n      , uk.Column_Name  As OtherColumn\r\n      , uk.Table_Schema As OtherSchema\r\n      , uk.Table_Name   As OtherTable\r\n      From QSYS2/SYSREFCST ref\r\n      Join QSYS2/SYSKEYCST fk on(fk.Constraint_Schema, fk.Constraint_Name) = (ref.Constraint_Schema, ref.Constraint_Name)\r\n      Join QSYS2/SYSKEYCST uk on(uk.Constraint_Schema, uk.Constraint_Name) = (ref.Unique_Constraint_Schema, ref.Unique_Constraint_Name)\r\n      Where uk.Ordinal_Position = fk.Ordinal_Position\r\n      And fk.System_Table_Schema in('" + GetLibList(dataConnection) + "')\r\n      Order By ThisSchema, ThisTable, Constraint_Name, Ordinal_Position\r\n      ";
-    Func<IDataReader, ForeignKeyInfo> drf = (IDataReader dr) => new ForeignKeyInfo {
+    Func<DbDataReader, ForeignKeyInfo> drf = (dr) => new ForeignKeyInfo {
       Name = dr["Constraint_Name"].ToString().TrimEnd(Array.Empty<char>()),
       Ordinal = Converter.ChangeTypeTo<int>(dr["Ordinal_Position"]),
       OtherColumn = dr["OtherColumn"].ToString().TrimEnd(Array.Empty<char>()),
@@ -457,11 +457,11 @@ public abstract class DB2iSeriesSchemaProvider_Base<TConnection> : SchemaProvide
 
   protected override List<ProcedureParameterInfo>? GetProcedureParameters(DataConnection dataConnection, IEnumerable<ProcedureInfo> procedures, GetSchemaOptions options) {
     string sql = "\r\n      Select \r\n      CHARACTER_MAXIMUM_LENGTH\r\n      , Data_Type\r\n      , Numeric_Precision\r\n      , Numeric_Scale\r\n      , Ordinal_position\r\n      , Parameter_Mode\r\n      , Parameter_Name\r\n      , Specific_Name\r\n      , Specific_Schema\r\n      From QSYS2/SYSPARMS \r\n      where Specific_Schema in('" + GetLibList(dataConnection) + "')\r\n      Order By Specific_Schema, Specific_Name, Parameter_Name\r\n      ";
-    Func<IDataReader, ProcedureParameterInfo> drf = (IDataReader dr) => new ProcedureParameterInfo {
+    Func<DbDataReader, ProcedureParameterInfo> drf = (dr) => new ProcedureParameterInfo {
       DataType = Convert.ToString(dr["Parameter_Name"]),
       IsIn = dr["Parameter_Mode"].ToString().Contains("IN"),
       IsOut = dr["Parameter_Mode"].ToString().Contains("OUT"),
-      Length = Converter.ChangeTypeTo<long?>(dr["CHARACTER_MAXIMUM_LENGTH"]),
+      Length = Converter.ChangeTypeTo<int?>(dr["CHARACTER_MAXIMUM_LENGTH"]),
       Ordinal = Converter.ChangeTypeTo<int>(dr["Ordinal_position"]),
       ParameterName = Convert.ToString(dr["Parameter_Name"]).TrimEnd(Array.Empty<char>()),
       Precision = Converter.ChangeTypeTo<int?>(dr["Numeric_Precision"]),
@@ -478,7 +478,7 @@ public abstract class DB2iSeriesSchemaProvider_Base<TConnection> : SchemaProvide
   protected override List<TableInfo> GetTables(DataConnection dataConnection, GetSchemaOptions options) {
     string sql = "\r\n          Select \r\n          CAST(CURRENT_SERVER AS VARCHAR(128)) AS Catalog_Name\r\n          , Table_Schema\r\n          , Table_Name\r\n          , Table_Text\r\n          , Table_Type\r\n          , System_Table_Schema\r\n          From QSYS2/SYSTABLES \r\n          Where Table_Type In('L', 'P', 'T', 'V')\r\n          And System_Table_Schema in ('" + GetLibList(dataConnection) + "')\t\r\n          Order By System_Table_Schema, System_Table_Name\r\n         ";
     string defaultSchema = dataConnection.Execute<string>("select current_schema from sysibm/sysdummy1");
-    Func<IDataReader, TableInfo> drf = (IDataReader dr) => new TableInfo {
+    Func<DbDataReader, TableInfo> drf = (dr) => new TableInfo {
       CatalogName = dr["Catalog_Name"].ToString().TrimEnd(Array.Empty<char>()),
       Description = dr["Table_Text"].ToString().TrimEnd(Array.Empty<char>()),
       IsDefaultSchema = (dr["System_Table_Schema"].ToString().TrimEnd(Array.Empty<char>()) == defaultSchema),
@@ -514,8 +514,8 @@ public abstract partial class DB2iSeriesSqlBuilder_Base : BasicSqlBuilder {
     }
   }
 
-  public DB2iSeriesSqlBuilder_Base(MappingSchema mappingSchema, ISqlOptimizer sqlOptimizer, SqlProviderFlags sqlProviderFlags, DB2iSeriesConfiguration dB2ISeriesConfiguration)
-    : base(mappingSchema, sqlOptimizer, sqlProviderFlags) {
+  public DB2iSeriesSqlBuilder_Base(IDataProvider provider, MappingSchema mappingSchema, ISqlOptimizer sqlOptimizer, SqlProviderFlags sqlProviderFlags, DB2iSeriesConfiguration dB2ISeriesConfiguration)
+    : base(provider, mappingSchema, sqlOptimizer, sqlProviderFlags) {
     this.dB2ISeriesConfiguration = dB2ISeriesConfiguration;
     MapGuidAsString = sqlProviderFlags.CustomFlags.Contains("MapGuidAsString");
   }
@@ -752,7 +752,7 @@ public abstract partial class DB2iSeriesSqlBuilder_Base : BasicSqlBuilder {
 
   protected abstract override ISqlBuilder CreateSqlBuilder();
 
-  protected abstract override string GetProviderTypeName(IDbDataParameter parameter);
+  protected abstract override string? GetProviderTypeName(IDataContext dataContext, DbParameter parameter);
 
   protected override void BuildCreateTableNullAttribute(SqlField field, DefaultNullable defaulNullable) {
     if ((defaulNullable != DefaultNullable.Null || !field.CanBeNull) && (defaulNullable != DefaultNullable.NotNull || field.CanBeNull)) {

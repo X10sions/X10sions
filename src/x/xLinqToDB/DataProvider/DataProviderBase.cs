@@ -33,7 +33,7 @@ namespace LinqToDB.DataProvider {
     public override TableOptions SupportedTableOptions { get; }
     public override string? ConnectionNamespace { get; }
     public override Type DataReaderType { get; }
-    protected override IDbConnection CreateConnectionInternal(string connectionString) => new TConnection { ConnectionString = connectionString };
+    protected override DbConnection CreateConnectionInternal(string connectionString) => new TConnection { ConnectionString = connectionString };
     public override ISchemaProvider GetSchemaProvider() => getSchemaProvider();
     //public override ISqlOptimizer GetSqlOptimizer() => SqlOptimizer;
   }

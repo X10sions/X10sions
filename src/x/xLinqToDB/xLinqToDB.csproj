@@ -2,12 +2,12 @@
   <PropertyGroup Label="Application">
     <TargetFramework>netstandard2.0</TargetFramework>
     <Product>LinqToDB Extensions</Product>
-    <VersionPart1>3</VersionPart1>
-    <VersionPart2>7</VersionPart2>
+    <VersionPart1>4</VersionPart1>
+    <VersionPart2>1</VersionPart2>
     <Nullable>enable</Nullable>
   </PropertyGroup> 
   <ItemGroup Label="PackageReferences">
-    <PackageReference Include="linq2db" Version="3.7.0" />
+    <PackageReference Include="linq2db" Version="4.1.1" />
     <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="6.0.0" />
     <PackageReference Include="Microsoft.Bcl.HashCode" Version="1.1.1" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="6.0.0" />
