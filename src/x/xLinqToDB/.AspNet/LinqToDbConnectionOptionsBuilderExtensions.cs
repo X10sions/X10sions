@@ -1,7 +1,4 @@
 ﻿using LinqToDB.DataProvider;
-using System.Configuration;
-using System.Data.Common;
-using System.Data;
 using Microsoft.Extensions.Logging;
 
 namespace LinqToDB.Configuration {

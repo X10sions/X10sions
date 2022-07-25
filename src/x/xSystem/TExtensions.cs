@@ -37,7 +37,7 @@
     //    public static TField GetTypeFieldValueAs<T, TField>(this T obj, string fieldName) => typeof(T).GetFieldValueAs<T, TField>(fieldName, obj);
     //    public static TProperty GetTypePropertyValueAs<T, TProperty>(this T obj, string propertyName) => typeof(T).GetPropertyValueAs<T, TProperty>(propertyName, obj);
 
-   // public static bool IsNullable<T>(this T obj) => (obj == null) ? true : typeof(T).IsNullable();
+    // public static bool IsNullable<T>(this T obj) => (obj == null) ? true : typeof(T).IsNullable();
 
     public static string ToCsv<T>(this IEnumerable<T> objectlist, List<string>? excludedPropertyNames = null, bool quoteEveryField = false, bool includeFieldNamesAsFirstRow = true) {
       if (excludedPropertyNames == null) { excludedPropertyNames = new List<string>(); }

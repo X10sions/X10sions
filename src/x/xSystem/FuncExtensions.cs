@@ -32,5 +32,15 @@ namespace System {
     public static Func<T2, T1, bool> SwapParameters<T1, T2>(this Func<T1, T2, bool> func) => (t1, t2) => func(t2, t1);
     public static Expression<Func<T2, T1, bool>> SwapParametersAsExpressionFunc<T1, T2>(this Func<T1, T2, bool> func) => (t1, t2) => func(t2, t1);
 
+    public static TReturn TryCatch<TReturn>(this Func<TReturn> action, Action<Exception> onError) {
+      TReturn result = default!;
+      try {
+        result = action();
+      } catch (Exception ex) {
+        onError(ex);
+      }
+      return result;
+    }
+
   }
 }

@@ -122,7 +122,7 @@ public static class _Extensions {
       case "DECIMAL":
       case "NUMERIC":
         if (size.GetValueOrDefault() > 0) {
-          ci.Precision = (int)size.Value;
+          ci.Precision = size.Value;
         }
         if (scale.GetValueOrDefault() > 0) {
           ci.Scale = scale;
@@ -262,9 +262,7 @@ public enum DB2iSeriesIdentifierQuoteMode {
 
 public class DB2iSeriesConfiguration {
   public bool MapGuidAsString { get; set; } = true;
-
   public MappingSchema MappingSchema => !MapGuidAsString ? DB2iSeriesMappingSchema.BlobGuidInstance : DB2iSeriesMappingSchema.StringGuidInstance;
-
   public DB2iSeriesIdentifierQuoteMode IdentifierQuoteMode { get; set; } = DB2iSeriesIdentifierQuoteMode.Auto;
   public DB2iSeriesProvider Provider { get; set; } = DB2iSeriesProvider.DB2;
   public DB2iSeriesNamingConvention NamingConvention { get; set; } = DB2iSeriesNamingConvention.System;
@@ -496,37 +494,23 @@ public abstract class DB2iSeriesSchemaProvider_Base<TConnection> : SchemaProvide
 }
 
 public abstract partial class DB2iSeriesSqlBuilder_Base : BasicSqlBuilder {
-  protected DB2iSeriesConfiguration dB2ISeriesConfiguration;
-
-  public bool MapGuidAsString {
-    get;
-    protected set;
+  protected DB2iSeriesSqlBuilder_Base(BasicSqlBuilder parentBuilder, DB2iSeriesConfiguration dB2ISeriesConfiguration) : base(parentBuilder) {
+    this.dB2ISeriesConfiguration = dB2ISeriesConfiguration;
   }
 
-  private bool IsVersion7_2orLater => dB2ISeriesConfiguration.Version >= DB2iSeriesVersion.v7r2;
-
-  protected override bool OffsetFirst {
-    get {
-      if (!IsVersion7_2orLater) {
-        return base.OffsetFirst;
-      }
-      return true;
-    }
-  }
-
-  public DB2iSeriesSqlBuilder_Base(IDataProvider provider, MappingSchema mappingSchema, ISqlOptimizer sqlOptimizer, SqlProviderFlags sqlProviderFlags, DB2iSeriesConfiguration dB2ISeriesConfiguration)
+  protected DB2iSeriesSqlBuilder_Base(IDataProvider? provider, MappingSchema mappingSchema, ISqlOptimizer sqlOptimizer, SqlProviderFlags sqlProviderFlags, DB2iSeriesConfiguration dB2ISeriesConfiguration)
     : base(provider, mappingSchema, sqlOptimizer, sqlProviderFlags) {
     this.dB2ISeriesConfiguration = dB2ISeriesConfiguration;
     MapGuidAsString = sqlProviderFlags.CustomFlags.Contains("MapGuidAsString");
   }
 
-  private string DummyTableSql(string prefix, string suffix) {
-    return prefix + dB2ISeriesConfiguration.NamingConvention.DummyTableName() + suffix;
-  }
+  protected DB2iSeriesConfiguration dB2ISeriesConfiguration  = new DB2iSeriesConfiguration();
 
-  protected override void BuildColumnExpression(SelectQuery selectQuery, ISqlExpression expr, string alias, ref bool addAlias) {
-    BuildColumnExpression(selectQuery, expr, alias, ref addAlias, wrapParameter: true);
-  }
+  public bool MapGuidAsString { get; protected set; }
+  private bool IsVersion7_2orLater => dB2ISeriesConfiguration.Version >= DB2iSeriesVersion.v7r2;
+  protected override bool OffsetFirst => IsVersion7_2orLater || base.OffsetFirst;
+  private string DummyTableSql(string prefix, string suffix) => $"{prefix}{dB2ISeriesConfiguration.NamingConvention.DummyTableName()}{suffix}";
+  protected override void BuildColumnExpression(SelectQuery selectQuery, ISqlExpression expr, string alias, ref bool addAlias) => BuildColumnExpression(selectQuery, expr, alias, ref addAlias, wrapParameter: true);
 
   protected void BuildColumnExpression(SelectQuery selectQuery, ISqlExpression expr, string alias, ref bool addAlias, bool wrapParameter) {
     bool wrap = false;
@@ -534,8 +518,7 @@ public abstract partial class DB2iSeriesSqlBuilder_Base : BasicSqlBuilder {
       if (expr is SqlSearchCondition) {
         wrap = true;
       } else {
-        SqlExpression ex = expr as SqlExpression;
-        wrap = (ex != null && ex.Expr == "{0}" && ex.Parameters.Length == 1 && ex.Parameters[0] is SqlSearchCondition);
+        wrap = expr is SqlExpression ex && ex.Expr == "{0}" && ex.Parameters.Length == 1 && ex.Parameters[0] is SqlSearchCondition;
       }
     }
     if (wrapParameter) {
@@ -562,9 +545,7 @@ public abstract partial class DB2iSeriesSqlBuilder_Base : BasicSqlBuilder {
     StringBuilder.AppendLine(DummyTableSql("SELECT identity_val_local() FROM ", string.Empty));
   }
 
-  protected override void BuildCreateTableIdentityAttribute1(SqlField field) {
-    StringBuilder.Append("GENERATED ALWAYS AS IDENTITY");
-  }
+  protected override void BuildCreateTableIdentityAttribute1(SqlField field) => StringBuilder.Append("GENERATED ALWAYS AS IDENTITY");
 
   protected override void BuildDataTypeFromDataType(SqlDataType type, bool forCreateTable) {
     DataType dataType = type.Type.DataType;
@@ -591,9 +572,7 @@ public abstract partial class DB2iSeriesSqlBuilder_Base : BasicSqlBuilder {
     }
   }
 
-  protected override void BuildInsertOrUpdateQuery(SqlInsertOrUpdateStatement insertOrUpdate) {
-    BuildInsertOrUpdateQueryAsMerge(insertOrUpdate, DummyTableSql("FROM ", " FETCH FIRST 1 ROW ONLY"));
-  }
+  protected override void BuildInsertOrUpdateQuery(SqlInsertOrUpdateStatement insertOrUpdate) => BuildInsertOrUpdateQueryAsMerge(insertOrUpdate, DummyTableSql("FROM ", " FETCH FIRST 1 ROW ONLY"));
 
   protected override void BuildInsertOrUpdateQueryAsMerge(SqlInsertOrUpdateStatement insertOrUpdate, string fromDummyTable) {
     SqlTable table = insertOrUpdate.Insert.Into;
@@ -701,19 +680,13 @@ public abstract partial class DB2iSeriesSqlBuilder_Base : BasicSqlBuilder {
     }
   }
 
-  protected override IEnumerable<SqlColumn> GetSelectedColumns(SelectQuery selectQuery) {
-    if (Obsolete_NeedSkip(selectQuery) && !selectQuery.OrderBy.IsEmpty) {
-      return AlternativeGetSelectedColumns(selectQuery, () => base.GetSelectedColumns(selectQuery));
-    }
-    return base.GetSelectedColumns(selectQuery);
-  }
+  protected override IEnumerable<SqlColumn> GetSelectedColumns(SelectQuery selectQuery) => Obsolete_NeedSkip(selectQuery) && !selectQuery.OrderBy.IsEmpty
+      ? AlternativeGetSelectedColumns(selectQuery, () => base.GetSelectedColumns(selectQuery))
+      : base.GetSelectedColumns(selectQuery);
 
   public override int CommandCount(SqlStatement statement) {
     SqlInsertStatement insertStatement = statement as SqlInsertStatement;
-    if (insertStatement == null || !insertStatement.Insert.WithIdentity) {
-      return 1;
-    }
-    return 2;
+    return insertStatement == null || !insertStatement.Insert.WithIdentity ? 1 : 2;
   }
 
   public override StringBuilder Convert(StringBuilder sb, string value, ConvertType convertType) {
@@ -831,22 +804,11 @@ public abstract partial class DB2iSeriesSqlBuilder_Base : BasicSqlBuilder {
     base.BuildUpdateQuery(statement, selectQuery, updateClause);
   }
 
-  protected override string OffsetFormat(SelectQuery selectQuery) {
-    if (!IsVersion7_2orLater) {
-      return base.OffsetFormat(selectQuery);
-    }
-    return "OFFSET {0} ROWS";
-  }
+  protected override string OffsetFormat(SelectQuery selectQuery) => !IsVersion7_2orLater ? base.OffsetFormat(selectQuery) : "OFFSET {0} ROWS";
 
-  protected override string LimitFormat(SelectQuery selectQuery) {
-    if (!IsVersion7_2orLater) {
-      if (selectQuery.Select.SkipValue != null) {
-        return null;
-      }
-      return " FETCH FIRST {0} ROWS ONLY";
-    }
-    return "FETCH FIRST {0} ROWS ONLY";
-  }
+  protected override string LimitFormat(SelectQuery selectQuery) => !IsVersion7_2orLater
+      ? selectQuery.Select.SkipValue != null ? null : " FETCH FIRST {0} ROWS ONLY"
+      : "FETCH FIRST {0} ROWS ONLY";
 
   protected override void BuildSql() {
     if (IsVersion7_2orLater) {

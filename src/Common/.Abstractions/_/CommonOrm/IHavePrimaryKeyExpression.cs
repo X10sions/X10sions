@@ -20,5 +20,10 @@ namespace CommonOrm {
     //  return dc.GetTable<T>();
     //}
 
+    //public static ITable<t> SetPrimaryKey<t>(this ITable<t> table) where t : class, IHavePrimaryKeyExpression<t> {
+    //  table.DataContext.MappingSchema.GetFluentMappingBuilder().Entity<t>().HasPrimaryKey(t.primarykeyexpression);
+    //  return table;
+    //}
+
   }
 }
