@@ -32,9 +32,12 @@ public interface IGenericDataProvider : IDataProvider {
 //}
 
 public class GenericDataProvider<TConnection> : DataProviderBase<TConnection>, IGenericDataProvider where TConnection : DbConnection, new() {
-  public static Dictionary<string, IGenericDataProvider> Instances = new Dictionary<string, IGenericDataProvider>();
 
   // https://docs.envobi.com/articles/adb/adb-supported-databases.html
+
+  #region Instances
+
+  public static Dictionary<string, IGenericDataProvider> Instances = new Dictionary<string, IGenericDataProvider>();
 
   //public static GenericDataProvider<TConnection> GetInstance(string connectionString, DataSourceInformationRow dataSourceInformationRow, Type dataReaderType) {
   //  GenericDataProvider<TConnection> genericDataProvider;
@@ -72,6 +75,9 @@ public class GenericDataProvider<TConnection> : DataProviderBase<TConnection>, I
   public static GenericDataProvider<TConnection>? GetInstance<TDataReader>(string connectionString) where TDataReader : IDataReader => GetInstance(connectionString, typeof(TDataReader));
   public static GenericDataProvider<TConnection>? GetInstance<TDataReader>(IConfiguration configuration, string connectionStringName) where TDataReader : IDataReader => GetInstance(configuration.GetConnectionString(connectionStringName), typeof(TDataReader));
   public static GenericDataProvider<TConnection>? GetInstance<TDataReader>(TConnection connection) where TDataReader : IDataReader => GetInstance(connection, typeof(TDataReader));
+
+  #endregion
+
 
   public static TContext GetDataContext<TContext, TDataReader>(string connectionString, Func<LinqToDBConnectionOptions<TContext>, TContext> newContext)
     where TContext : IDataContext
