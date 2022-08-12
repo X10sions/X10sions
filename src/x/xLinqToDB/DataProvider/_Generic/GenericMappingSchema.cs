@@ -13,42 +13,56 @@ using LinqToDB.Metadata;
 using LinqToDB.DataProvider;
 
 namespace LinqToDB.DataProvider {
-  public class GenericMappingSchema : MappingSchema {
+  public class GenericMappingSchema : LockedMappingSchema {
 
-    public static Dictionary<int, GenericMappingSchema> Instances = new Dictionary<int, GenericMappingSchema>();
+    #region Instances
+
+    public static Dictionary<string, GenericMappingSchema> Instances = new Dictionary<string, GenericMappingSchema>();
 
     public static GenericMappingSchema GetInstance(DataSourceInformationRow dataSourceInformationRow) {
-      var hashCode = dataSourceInformationRow.GetHashCode();
-      Instances.TryGetValue(hashCode, out var mappingSchema);
+      //var key = dataSourceInformationRow.GetHashCode();
+      var key = dataSourceInformationRow.GetDataSourceProductNameWithVersion();
+      //var key = $"{dbSystemEnum}-v{version}";
+      Instances.TryGetValue(key, out var mappingSchema);
       if (mappingSchema == null) {
         mappingSchema = new GenericMappingSchema(dataSourceInformationRow);
-        Instances[hashCode] = mappingSchema;
+        Instances[key] = mappingSchema;
       }
       return mappingSchema;
     }
 
-    GenericMappingSchema(DataSourceInformationRow dataSourceInformationRow) : base(dataSourceInformationRow.GetDataSourceProductNameWithVersion()) {
-      this.dataSourceInformationRow = dataSourceInformationRow;
-      var initDone = dataSourceInformationRow.DbSystemEnum() switch {
+    #endregion
+
+    GenericMappingSchema(DataSourceInformationRow dataSourceInformationRow) : base("Generic") {
+      DataSourceInformationRow = dataSourceInformationRow;
+      //GenericDataProvider = genericDataProvider;
+      //DbSystemEnum = dbSystemEnum;
+      //DbSystemVersion = version;
+      var initDone = DataSourceInformationRow.DbSystemEnum() switch {
         //{ DataSourceProduct?.DbSystem?.Name:   DbSystem.Names.Access } => GenericMappingSchema_InitAccess(),
-        DbSystem.Enum.DB2iSeries => this.GenericMappingSchema_InitDB2iSeries(dataSourceInformationRow.Version),
+        DbSystem.Enum.DB2iSeries => this.GenericMappingSchema_InitDB2iSeries(DataSourceInformationRow.Version),
         //  DbSystem.Names.SapHana => GenericMappingSchema_InitSapHana(),
         // DbSystem.Names.SqlServer => GenericMappingSchema_InitSqlServer(dataSourceInformationRow.Version),
-        _ => throw new NotImplementedException($"{dataSourceInformationRow.DataSourceProductName}: v{dataSourceInformationRow.Version}")
+        _ => throw new NotImplementedException($"{DataSourceInformationRow.DbSystemEnum()}: v{DataSourceInformationRow.Version}")
       };
     }
-
-    DataSourceInformationRow dataSourceInformationRow;
+    //IGenericDataProvider GenericDataProvider { get; }
+    //DbSystem.Enum DbSystemEnum { get; }
+    //Version? DbSystemVersion { get; }
+    //string connectionString { get; }
+    //DataSourceInformationRow dataSourceInformationRow => DataSourceInformationRow.GetInstance<TConnection>(connection);
+    DataSourceInformationRow DataSourceInformationRow { get; }
 
     public override LambdaExpression? TryGetConvertExpression(Type from, Type to) {
-      return dataSourceInformationRow.DataSourceProduct?.DbSystem?.Name switch {
-        DbSystem.Names.SqlServer => this.TryGetConvertExpression_SqlServer((from, to) => base.TryGetConvertExpression(from, to), from, to, dataSourceInformationRow.Version),
+      return DataSourceInformationRow.DbSystemEnum() switch {
+        DbSystem.Enum.SqlServer => this.TryGetConvertExpression_SqlServer((from, to) => base.TryGetConvertExpression(from, to), from, to, DataSourceInformationRow.Version),
         _ => base.TryGetConvertExpression(from, to)
       };
     }
 
   }
 }
+
 
 namespace LinqToDB.Mapping {
 

@@ -23,7 +23,9 @@ public interface IConnectionProvider<TConnection, TConnectionStringBuilder, TDat
 }
 
 
-public abstract class BaseConnectionProvider<TConnection, TConnectionStringBuilder, TDataReader> : IDisposable
+public abstract class BaseConnectionProvider<TConnection, TConnectionStringBuilder, TDataReader>
+  : IDisposable
+  , IConnectionProvider<TConnection,TConnectionStringBuilder, TDataReader>
   where TConnection : DbConnection, new()
   where TConnectionStringBuilder : DbConnectionStringBuilder, new()
   //where TCommand : DbCommand, new()

@@ -11,6 +11,32 @@ public class DataSourceInformationRow<T> : DataSourceInformationRow where T : Db
 }
 
 public class DataSourceInformationRow : BaseTypedDataRow { //}, IEquatable<DataSourceInformationRow> {
+  #region Instances
+
+  public static Dictionary<string, DataSourceInformationRow?> Instances = new Dictionary<string, DataSourceInformationRow?>();
+
+  public static DataSourceInformationRow? GetInstance<T>(T connection) where T: DbConnection, new() {
+    Instances.TryGetValue(connection.ConnectionString, out var dataSourceInfo);
+    if (dataSourceInfo != null) {
+      return (DataSourceInformationRow<T>)dataSourceInfo;
+    }
+    try {
+      var isOpen = connection.State == ConnectionState.Open;
+      if (!isOpen) connection.Open();
+      var dt = connection.GetSchema(DbMetaDataCollectionNames.DataSourceInformation);
+      var dataSourceInformationRow = new DataSourceInformationRow(dt);
+      Instances[connection.ConnectionString] = dataSourceInformationRow;
+      Console.WriteLine($"{nameof(DataSourceInformationRow<T>)}: {dataSourceInformationRow.GetDataSourceProductNameWithVersion()}");
+      if (!isOpen) connection.Close();
+      return dataSourceInformationRow;
+    } catch (Exception ex) {
+      Console.WriteLine($"{nameof(DataSourceInformationRow<T>)}: {ex.Message}");
+      return null;
+    }
+  }
+  public static DataSourceInformationRow? GetInstance<T>(string connectionString) where T : DbConnection, new()  => GetInstance(new T{ ConnectionString = connectionString });
+  #endregion
+
   // https://github.com/vince-koch/Sqlzor/tree/0442347fc153e10ea74a3896ed2ae642b29f042e/Sqlzor/Drivers/Models
 
   public class DataSourceProductNames {
@@ -83,16 +109,16 @@ public class DataSourceInformationRow : BaseTypedDataRow { //}, IEquatable<DataS
 
   public DataSourceProduct? DataSourceProduct => GetDataSourceProduct();
   //public DbSystem? DbSystem { get; }
-  public Version? Version => GetVersion();
+  public Version Version => GetVersion();
 
   public string GetDataSourceProductNameWithVersion() => $"{DataSourceProductName}.v{Version ?? new Version()}";
 
-  public Version? GetVersion() {
+  public Version GetVersion() {
     Version.TryParse(DataSourceProductVersion?.Split(' ')[0], out var version);
     if (version == null) {
       Version.TryParse(DataSourceProductVersionNormalized?.Split(' ')[0], out version);
     }
-    return version;
+    return version ?? new Version();
   }
 
   //public static class Characters {

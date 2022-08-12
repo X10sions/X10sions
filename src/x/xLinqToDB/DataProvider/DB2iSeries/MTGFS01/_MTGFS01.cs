@@ -305,26 +305,15 @@ public abstract class DB2iSeriesDataProvider_Base<TConnection, TDataReader> : Da
   where TConnection : DbConnection, new()
   where TDataReader : IDataReader {
   protected DB2iSeriesConfiguration dB2ISeriesConfiguration;
+  public DB2iSeriesDataProvider_Base(DB2iSeriesVersion version = DB2iSeriesVersion.v5r4) : this(new DB2iSeriesConfiguration { Version = version }) { }
 
-  //public override string ConnectionNamespace { get; } = typeof(TConnection).Namespace;
-  //public override Type DataReaderType { get; } = typeof(TDataReader);
-  public DB2iSeriesDataProvider_Base(Func<ISchemaProvider> getSchemaProvider, DB2iSeriesVersion version = DB2iSeriesVersion.v5r4) : this(getSchemaProvider, new DB2iSeriesConfiguration {
-    Version = version
-  }) { }
-
-  public DB2iSeriesDataProvider_Base(Func<ISchemaProvider> getSchemaProvider, DB2iSeriesConfiguration dB2ISeriesConfiguration)
-    : base(dB2ISeriesConfiguration.Provider.Name(), dB2ISeriesConfiguration.MappingSchema, getSchemaProvider, GenericExtensions.GetTableOptions_DB2iSeries(null)) {
+  public DB2iSeriesDataProvider_Base(DB2iSeriesConfiguration dB2ISeriesConfiguration)    : base(dB2ISeriesConfiguration.Provider.Name(), dB2ISeriesConfiguration.MappingSchema) {
     this.dB2ISeriesConfiguration = dB2ISeriesConfiguration;
     dB2ISeriesConfiguration.InitDataProvider(this, base.SetCharField);
   }
+  public override TableOptions SupportedTableOptions => GenericExtensions.GetTableOptions_DB2iSeries(null);
 
   public override ISqlOptimizer GetSqlOptimizer() => new DB2iSeriesSqlOptimizer(base.SqlProviderFlags);
-
-  //protected override IDbConnection CreateConnectionInternal(string connectionString) {
-  //  TConnection val = new TConnection();
-  //  val.ConnectionString = connectionString;
-  //  return val;
-  //}
 
   public override void SetParameter(DataConnection dataConnection, DbParameter parameter, string name, DbDataType dataType, object? value) {
     if (dataType.DataType == DataType.DateTime2) {
@@ -504,7 +493,7 @@ public abstract partial class DB2iSeriesSqlBuilder_Base : BasicSqlBuilder {
     MapGuidAsString = sqlProviderFlags.CustomFlags.Contains("MapGuidAsString");
   }
 
-  protected DB2iSeriesConfiguration dB2ISeriesConfiguration  = new DB2iSeriesConfiguration();
+  protected DB2iSeriesConfiguration dB2ISeriesConfiguration = new DB2iSeriesConfiguration();
 
   public bool MapGuidAsString { get; protected set; }
   private bool IsVersion7_2orLater => dB2ISeriesConfiguration.Version >= DB2iSeriesVersion.v7r2;

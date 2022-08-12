@@ -4,10 +4,11 @@ using Common.Data.GetSchemaTyped.DataRows;
 
 namespace LinqToDB.DataProvider {
   public class GenericSchemaProvider : SchemaProviderBase {
-    public GenericSchemaProvider(DataSourceInformationRow dataSourceInformationRow) : base() {
-      this.dataSourceInformationRow = dataSourceInformationRow;
+    public GenericSchemaProvider() : base() {
+      //DataSourceInformationRow dataSourceInformationRow
+      //this.dataSourceInformationRow = dataSourceInformationRow;
     }
-    DataSourceInformationRow dataSourceInformationRow;
+    // DataSourceInformationRow dataSourceInformationRow;
 
     protected override List<ColumnInfo> GetColumns(DataConnection dataConnection, GetSchemaOptions options) => throw new NotImplementedException();
 

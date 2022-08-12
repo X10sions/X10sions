@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Common.Data {
+﻿namespace Common.Data {
   public class DataSourceProduct : IEquatable<DataSourceProduct> {
     public DataSourceProduct(string name, DbSystem dbSystem) {
       Name = name;

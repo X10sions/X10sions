@@ -5,6 +5,7 @@ using System.Data;
 using System.Data.Common;
 using Microsoft.Extensions.Configuration;
 using Common.Data.GetSchemaTyped.DataRows;
+using LinqToDB.SchemaProvider;
 
 namespace LinqToDB.DataProvider.DB2iSeries;
 
@@ -53,20 +54,21 @@ class DB2iSeriesDataProvider<TConnection> : DataProviderBase<TConnection>, IDB2i
   public DB2iSeriesDataProvider(Version version, Type dataReaderType) : base(
     GetNameWithVersion_DB2iSeries(version),
     new DB2iSeriesMappingSchema(GetNameWithVersion_DB2iSeries(version)),
-    dataReaderType,
-    () => new DB2iSeriesSchemaProvider(),
-    version.GetTableOptions_DB2iSeries()
+    dataReaderType
     ) {
+    this.version = version;
     //DataSourceInformationRow = dataSourceInformationRow;
     //DataSourceProductName = dataSourceProductName;
     //DataSourceVersion = dbVersion;
 
     //InitDataProvider();
   }
-
+  Version version;
   static string GetNameWithVersion_DB2iSeries(Version version) => version.GetNameWithVersion(DbSystem.DB2iSeries.Name);
   //protected override ISqlOptimizer SqlOptimizer { get; }
 
-  public override ISqlBuilder CreateSqlBuilder(MappingSchema mappingSchema) => throw new NotImplementedException();
+  public override ISqlBuilder CreateSqlBuilder(MappingSchema mappingSchema) => new DB2iSeriesV5R4SqlBuilder(this, mappingSchema, GetSqlOptimizer(), SqlProviderFlags);
   public override ISqlOptimizer GetSqlOptimizer() => new DB2iSeriesV5R4SqlOptimizer(SqlProviderFlags);
+  public override ISchemaProvider GetSchemaProvider() => new DB2iSeriesSchemaProvider();
+  public override TableOptions SupportedTableOptions => version.GetTableOptions_DB2iSeries();
 }

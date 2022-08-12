@@ -1,5 +1,10 @@
-﻿namespace System.Data {
+﻿using System.Data.Common;
+
+namespace System.Data {
   public static class IDbConnectionExtensions {
+    public static string ConnectionStringWithoutPassword(this IDbConnection connection) => GetDbConnectionStringBuilder(connection).RemovePasswordKeywords().ConnectionString;
+    public static string ConnectionStringWithoutPasswordOrUser(this IDbConnection connection) => GetDbConnectionStringBuilder(connection).RemovePasswordKeywords().RemoveUserKeywords().ConnectionString;
+    public static string ConnectionStringWithoutUser(this IDbConnection connection) => GetDbConnectionStringBuilder(connection).RemoveUserKeywords().ConnectionString;
 
     public static IDbCommand CreateCommand(this IDbConnection cn, string commandText, params KeyValuePair<string, object>[] parameters) {
       using (var cmd = cn.CreateCommand(commandText)) {
@@ -12,11 +17,13 @@
       var command = connection.CreateCommand();
       command.CommandText = commandText;
       command.CommandType = commandType;
-      if (parameters!= null) {
+      if (parameters != null) {
         command.AddParameters(parameters);
-      }      
+      }
       return command;
     }
+
+    public static DbConnectionStringBuilder GetDbConnectionStringBuilder(this IDbConnection connection) => new DbConnectionStringBuilder(connection.ConnectionString.Contains("Driver=", StringComparison.OrdinalIgnoreCase)) { ConnectionString = connection.ConnectionString };
 
     public static T EnsureNotNull<T>(this T connection, Func<T> connectionFactory
       , Action? beforeNullConnectionAction = null, Action? afterNullConnectionAction = null) where T : IDbConnection, IDisposable {

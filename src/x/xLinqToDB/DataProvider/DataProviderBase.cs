@@ -8,33 +8,37 @@ namespace LinqToDB.DataProvider {
   public abstract class DataProviderBase<TConnection, TDataReader> : DataProviderBase<TConnection>
     where TConnection : DbConnection, new()
     where TDataReader : IDataReader {
-    public DataProviderBase(string name, MappingSchema mappingSchema, Func<ISchemaProvider> getSchemaProvider, TableOptions tableOptions) : base(name, mappingSchema, typeof(TDataReader), getSchemaProvider, tableOptions) { }
+    public DataProviderBase(string name, MappingSchema mappingSchema) : base(name, mappingSchema, typeof(TDataReader)) {
+      //, Func<ISchemaProvider> getSchemaProvider, TableOptions tableOptions
+      //, getSchemaProvider, tableOptions
+    }
   }
 
   public abstract class DataProviderBase<TConnection> : DataProviderBase
     where TConnection : DbConnection, new() {
 
-    public DataProviderBase(string name, MappingSchema mappingSchema, Type dataReaderType, Func<ISchemaProvider> getSchemaProvider, TableOptions tableOptions) : base(name, mappingSchema) {
+    public DataProviderBase(string name, MappingSchema mappingSchema, Type dataReaderType) : base(name, mappingSchema) {
+      //, Func<ISchemaProvider> getSchemaProvider, TableOptions tableOptions
       ConnectionNamespace = typeof(TConnection).Namespace;
       ConnectionType = typeof(TConnection);
       DataReaderType = dataReaderType;
-      this.getSchemaProvider = getSchemaProvider;
+      //this.getSchemaProvider = getSchemaProvider;
       //SchemaProvider = schemaProvider;
       //SqlOptimizer = sqlOptimizer;
-      SupportedTableOptions = tableOptions;
+      //SupportedTableOptions = tableOptions;
     }
-
     //abstract protected ISqlOptimizer SqlOptimizer { get; }
-
-    Func<ISchemaProvider> getSchemaProvider;
+    //Func<ISchemaProvider> getSchemaProvider;
     //protected ISchemaProvider SchemaProvider { get; }
     public Type ConnectionType { get; }
 
-    public override TableOptions SupportedTableOptions { get; }
     public override string? ConnectionNamespace { get; }
     public override Type DataReaderType { get; }
+    //public override TableOptions SupportedTableOptions { get; }
+    //public abstract override TableOptions SupportedTableOptions { get; }
     protected override DbConnection CreateConnectionInternal(string connectionString) => new TConnection { ConnectionString = connectionString };
-    public override ISchemaProvider GetSchemaProvider() => getSchemaProvider();
+    //public override ISqlBuilder CreateSqlBuilder(MappingSchema mappingSchema) => throw new NotImplementedException();
+    //public override ISchemaProvider GetSchemaProvider() => getSchemaProvider();
     //public override ISqlOptimizer GetSqlOptimizer() => SqlOptimizer;
   }
 

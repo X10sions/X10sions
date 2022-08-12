@@ -119,7 +119,17 @@ namespace Common.Data {
 
     public static ReleaseVerion GetReleaseVerion(Version version) {
       //https://sqlserverbuilds.blogspot.com/
-      return version switch { { Major: 15 } => ReleaseVerion.v2019, { Major: 14 } => ReleaseVerion.v2017, { Major: 13 } => ReleaseVerion.v2016, { Major: 12 } => ReleaseVerion.v2014, { Major: 11 } => ReleaseVerion.v2012, { Major: 10 } => version.Minor > 0 ? ReleaseVerion.v2008_R2 : ReleaseVerion.v2008, { Major: 9 } => ReleaseVerion.v2005, { Major: 8 } => ReleaseVerion.v2000, { Major: 7 } => ReleaseVerion.v7, { Major: 6 } => version.Minor > 0 ? ReleaseVerion.v6_5 : ReleaseVerion.v6,
+      return version switch {
+        { Major: 15 } => ReleaseVerion.v2019, 
+        { Major: 14 } => ReleaseVerion.v2017, 
+        { Major: 13 } => ReleaseVerion.v2016, 
+        { Major: 12 } => ReleaseVerion.v2014, 
+        { Major: 11 } => ReleaseVerion.v2012,
+        { Major: 10 } => version.Minor > 0 ? ReleaseVerion.v2008_R2 : ReleaseVerion.v2008,
+        { Major: 9 } => ReleaseVerion.v2005, 
+        { Major: 8 } => ReleaseVerion.v2000,
+        { Major: 7 } => ReleaseVerion.v7,
+        { Major: 6 } => version.Minor > 0 ? ReleaseVerion.v6_5 : ReleaseVerion.v6,
         _ => throw new NotImplementedException($"Unknown version: {version}")
       };
     }

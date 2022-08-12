@@ -14,7 +14,7 @@ namespace System {
     //public static long ConvertToInt64Ceiling(this string value) => Convert.ToInt64(Math.Ceiling(Convert.ToDecimal(value)));
     //public static long ConvertToInt64Floor(this string value) => Convert.ToInt64(Math.Floor(Convert.ToDecimal(value)));
     //public static long ConvertToInt64Round(this string value) => Convert.ToInt64(Math.Round(Convert.ToDecimal(value)));
-
+    public static bool Contains(this string source, string toCheck, StringComparison comp) => source?.IndexOf(toCheck, comp) >= 0;
     public static string CsvEscapeQuotes(this string s) => string.IsNullOrEmpty(s) ? s : s.Replace("\"", "\"\"");
     public static bool Equals(this string s1, string s2, bool useOrdinalIgnoreCase) => useOrdinalIgnoreCase ? s1.Equals(s2, StringComparison.OrdinalIgnoreCase) : s1.Equals(s2);
     public static bool EqualsIgnoreCase(this string s1, string s2) => s1.Equals(s2, StringComparison.OrdinalIgnoreCase);

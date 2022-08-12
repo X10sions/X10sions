@@ -12,23 +12,24 @@ using LinqToDB.Common;
 using LinqToDB.Expressions;
 using LinqToDB.Configuration;
 using Microsoft.Extensions.Configuration;
+using System.Linq;
+using LinqToDB.SchemaProvider;
 
 namespace LinqToDB.DataProvider;
 
 public interface IGenericDataProvider : IDataProvider {
+  //string ConnectionString { get; }
   DataSourceInformationRow DataSourceInformationRow { get; }
 }
 
 //public class GenericDataProvider<TConnection, TDataReader> : GenericDataProvider<TConnection> where TConnection : DbConnection, new() where TDataReader : IDataReader {
+//  public GenericDataProvider(DataSourceInformationRow dataSourceInformationRow) : base(dataSourceInformationRow, typeof(TDataReader)) { }
+//  //public GenericDataProvider(TConnection connection) : base(connection, typeof(TDataReader)) { }
+//  //public GenericDataProvider(string connectionString) : base(connectionString, typeof(TDataReader)) { }
 
-//  GenericDataProvider(DataSourceInformationRow dataSourceInformationRow) : base(dataSourceInformationRow, typeof(TDataReader)) { }
-//  public GenericDataProvider(TConnection connection) : base(connection, typeof(TDataReader)) { }
-//  public GenericDataProvider(string connectionString) : base(connectionString, typeof(TDataReader)) { }
-
-//  public GenericDataProvider(TConnection connection) {
-//    return GetInstance<TConnection, TDataReader>(connection.ConnectionString);
-//  }
-
+//  //public GenericDataProvider(TConnection connection) {
+//  //  return GetInstance<TConnection, TDataReader>(connection.ConnectionString);
+//  //}
 //}
 
 public class GenericDataProvider<TConnection> : DataProviderBase<TConnection>, IGenericDataProvider where TConnection : DbConnection, new() {
@@ -50,34 +51,30 @@ public class GenericDataProvider<TConnection> : DataProviderBase<TConnection>, I
   //  return (GenericDataProvider<TConnection>)dataProvider;
   //}
 
-  public static GenericDataProvider<TConnection>? GetInstance(TConnection connection, Type dataReaderType) {
-    Instances.TryGetValue(connection.ConnectionString, out var dataProvider);
+  public static GenericDataProvider<TConnection> GetInstance(TConnection connection, Type dataReaderType) {
+    var connectionStringWithoutPasswordOrUser = connection.ConnectionStringWithoutPasswordOrUser();
+    Instances.TryGetValue(connectionStringWithoutPasswordOrUser, out var dataProvider);
     if (dataProvider != null) {
       return (GenericDataProvider<TConnection>)dataProvider;
     }
-    try {
-      var isOpen = connection.State == ConnectionState.Open;
-      if (!isOpen) connection.Open();
-      var dt = connection.GetSchema(DbMetaDataCollectionNames.DataSourceInformation);
-      var dataSourceInformationRow = new DataSourceInformationRow(dt);
-      var genericDataProvider = new GenericDataProvider<TConnection>(dataSourceInformationRow, dataReaderType);
-      Instances[connection.ConnectionString] = genericDataProvider;
-      Console.WriteLine($"{nameof(GenericDataProvider<TConnection>)}: {genericDataProvider?.DataSourceInformationRow.GetDataSourceProductNameWithVersion()}");
-      if (!isOpen) connection.Close();
+    var dataSourceInformationRow = DataSourceInformationRow.GetInstance(connection);
+    if (dataSourceInformationRow != null) {
+      GenericDataProvider<TConnection> genericDataProvider = new GenericDataProvider<TConnection>(dataSourceInformationRow, dataReaderType);
+      Instances[connectionStringWithoutPasswordOrUser] = genericDataProvider;
+      Console.WriteLine($"{nameof(GenericDataProvider<TConnection>)}: {connectionStringWithoutPasswordOrUser}");
       return genericDataProvider;
-    } catch (Exception ex) {
-      Console.WriteLine($"{nameof(GenericDataProvider<TConnection>)}: {ex.Message}");
-      return null;
     }
+    throw new NotImplementedException(connectionStringWithoutPasswordOrUser);
   }
 
-  public static GenericDataProvider<TConnection>? GetInstance(string connectionString, Type dataReaderType) => GetInstance(new TConnection { ConnectionString = connectionString }, dataReaderType);
-  public static GenericDataProvider<TConnection>? GetInstance<TDataReader>(string connectionString) where TDataReader : IDataReader => GetInstance(connectionString, typeof(TDataReader));
-  public static GenericDataProvider<TConnection>? GetInstance<TDataReader>(IConfiguration configuration, string connectionStringName) where TDataReader : IDataReader => GetInstance(configuration.GetConnectionString(connectionStringName), typeof(TDataReader));
-  public static GenericDataProvider<TConnection>? GetInstance<TDataReader>(TConnection connection) where TDataReader : IDataReader => GetInstance(connection, typeof(TDataReader));
+  public static GenericDataProvider<TConnection> GetInstance(string  connectionString, Type dataReaderType) => GetInstance(new TConnection { ConnectionString = connectionString }, dataReaderType);
+  public static GenericDataProvider<TConnection> GetInstance<TDataReader>(string connectionString) where TDataReader : IDataReader => GetInstance(  connectionString, typeof(TDataReader));
+  //public static GenericDataProvider<TConnection> GetInstance<TDataReader>(IConfiguration configuration, string connectionStringName) where TDataReader : IDataReader => GetInstance(configuration.GetConnectionString(connectionStringName), typeof(TDataReader));
+  public static GenericDataProvider<TConnection> GetInstance<TDataReader>(TConnection connection) where TDataReader : IDataReader => GetInstance(connection, typeof(TDataReader));
 
   #endregion
 
+  #region Contexts
 
   public static TContext GetDataContext<TContext, TDataReader>(string connectionString, Func<LinqToDBConnectionOptions<TContext>, TContext> newContext)
     where TContext : IDataContext
@@ -129,21 +126,23 @@ public class GenericDataProvider<TConnection> : DataProviderBase<TConnection>, I
     throw new Exception("Not Implementation");
   }
 
-  GenericDataProvider(DataSourceInformationRow dataSourceInformationRow, Type dataReaderType) : base(
-    dataSourceInformationRow.GetDataSourceProductNameWithVersion(),
+  #endregion
+
+  protected GenericDataProvider(DataSourceInformationRow dataSourceInformationRow, Type dataReaderType) : base(
+    $"{dataSourceInformationRow.GetDataSourceProductNameWithVersion()}",
+    //$"{typeof(TConnection).FullName}.{connectionString}",
     GenericMappingSchema.GetInstance(dataSourceInformationRow),
-    dataReaderType,
-    () => new GenericSchemaProvider(dataSourceInformationRow),
-    dataSourceInformationRow.GetTableOptions()
+    dataReaderType
     ) {
-    DataSourceInformationRow = dataSourceInformationRow;
+    //ConnectionString = connectionString;
+    DataSourceInformationRow =  dataSourceInformationRow;
     //  //InitDataProvider();
 
-    var initDbSystem = dataSourceInformationRow.DbSystemEnum() switch {
+    var initDbSystem = DataSourceInformationRow?.DbSystemEnum() switch {
       //DbSystem.Names.Access => GenericDataProvider_InitAccess(),
       //DbSystem.Names.DB2 => GenericDataProvider_InitDB2(),
-      DbSystem.Enum.DB2iSeries => GenericDataProvider_InitDB2iSeries(dataSourceInformationRow.Version),
-      _ => throw new NotImplementedException($"{dataSourceInformationRow.DataSourceProductName}: v{dataSourceInformationRow.Version}")
+      DbSystem.Enum.DB2iSeries => GenericDataProvider_InitDB2iSeries(DataSourceInformationRow.Version),
+      _ => throw new NotImplementedException($"{DataSourceInformationRow.DataSourceProductName}: v{DataSourceInformationRow.Version}")
     };
 
     foreach (var member in MemberExpressions) {
@@ -156,7 +155,16 @@ public class GenericDataProvider<TConnection> : DataProviderBase<TConnection>, I
   }
 
   Dictionary<MemberHelper.MemberInfoWithType, IExpressionInfo> MemberExpressions = new Dictionary<MemberHelper.MemberInfoWithType, IExpressionInfo>();
-  public DataSourceInformationRow DataSourceInformationRow { get; }
+  //public TConnection Connection { get; }
+  //public string ConnectionString { get; }
+  //public string ConnectionString => Connection.ConnectionString;
+  public DataSourceInformationRow? DataSourceInformationRow { get; }// => DataSourceInformationRow.GetInstance<TConnection>(ConnectionString);
+  //public DbSystem.Enum? DbSystemEnum => DataSourceInformationRow.DbSystemEnum();
+  //public Version? DbSystemVrsion => DataSourceInformationRow.Version;
+  public override ISchemaProvider GetSchemaProvider() => new GenericSchemaProvider();
+  public override TableOptions SupportedTableOptions => DataSourceInformationRow.GetTableOptions();
+
+
 
   [UrlAsAt.AccessOdbcDataProviderDataProvider_2021_03_14]
   [UrlAsAt.AccessOleDbDataProviderDataProvider_2021_03_14]
