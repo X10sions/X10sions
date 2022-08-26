@@ -4,7 +4,7 @@ using System.Data;
 using System.Data.Common;
 
 namespace LinqToDB.DataProvider.DB2iSeries;
-public static class DB2iSeriesTools {
+public static class xDB2iSeriesTools {
 
   public static bool AutoDetectProvider { get; set; } = true;
 
