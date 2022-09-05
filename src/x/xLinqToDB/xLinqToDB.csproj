@@ -7,7 +7,7 @@
     <Nullable>enable</Nullable>
   </PropertyGroup> 
   <ItemGroup Label="PackageReferences">
-    <PackageReference Include="linq2db" Version="4.1.1" />
+    <PackageReference Include="linq2db" Version="4.2.0" />
     <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="6.0.0" />
     <PackageReference Include="Microsoft.Bcl.HashCode" Version="1.1.1" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="6.0.0" />

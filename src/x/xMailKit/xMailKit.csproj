@@ -7,7 +7,7 @@
     <Description>https://getbootstrap.com</Description>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="MailKit" Version="3.2.0" />
+    <PackageReference Include="MailKit" Version="3.3.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Common\.Abstractions\Common.Abstractions.csproj" />

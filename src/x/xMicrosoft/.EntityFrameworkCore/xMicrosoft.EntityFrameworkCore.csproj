@@ -1,6 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup Label="Application">
+    <TargetFramework>net6.0</TargetFramework>
+    <!-- 
     <TargetFramework>netstandard2.1</TargetFramework>
+    -->
     <Product>Microsoft .EntityFrameworkCore Extensions</Product>
     <VersionPart1>6</VersionPart1>
     <VersionPart2>0</VersionPart2>

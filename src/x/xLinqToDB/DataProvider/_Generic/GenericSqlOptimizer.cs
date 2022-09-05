@@ -2,6 +2,7 @@
 using LinqToDB.SqlQuery;
 using Common.Data;
 using Common.Data.GetSchemaTyped.DataRows;
+using LinqToDB.Mapping;
 
 namespace LinqToDB.DataProvider {
 
