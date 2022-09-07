@@ -6,6 +6,7 @@ namespace X10sions.Fake.Data {
       public BaseDbContext(DbContextOptions options) : base(options) { }
     }
 
+
     public class Access : BaseDbContext { public Access(DbContextOptions<Access> options) : base(options) { } }
     public class DB2 : BaseDbContext { public DB2(DbContextOptions<DB2> options) : base(options) { } }
     public class DB2iSeries : BaseDbContext { public DB2iSeries(DbContextOptions<DB2iSeries> options) : base(options) { } }

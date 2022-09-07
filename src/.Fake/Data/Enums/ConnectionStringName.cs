@@ -11,11 +11,11 @@ using System.Data.Odbc;
 using System.Data.OleDb;
 using System.Data.SQLite;
 
-namespace X10sions.Fake.Data;
+namespace X10sions.Fake.Data.Enums;
 
 public enum ConnectionStringName {
   Access_Odbc,
-  Access_Oledb,
+  Access_OleDb,
   DB2_IBM,
   DB2_Odbc,
   DB2iSeries_IBM,
@@ -55,9 +55,8 @@ public static class ConnectionStringNamesExtensions {
     _ => throw new NotImplementedException(name.ToString())
   };
 
+  public static string GetConnectionString(this IConfiguration configuration, ConnectionStringName name) => configuration.GetConnectionString(name.ToString());
   public static string GetConnectionString(this ConnectionStringName name, IConfiguration configuration) => configuration.GetConnectionString(name.ToString());
-
-
 
   public static DbConnection? GetDbConnection(this ConnectionStringName name, IConfiguration configuration) {
     var conn = name.GetDbProviderFactory().CreateConnection();

@@ -3,6 +3,9 @@ using LinqToDB.Configuration;
 using LinqToDB.Data;
 using X10sions.Fake.Data.Models;
 using System.Data.Common;
+using X10sions.Fake.Data.Enums;
+using X10sions.Fake.Data.Repositories;
+using Microsoft.Extensions.Configuration;
 
 namespace X10sions.Fake.Data {
   public class LinqToDbDataConnections {
@@ -41,16 +44,18 @@ namespace X10sions.Fake.Data {
 
     }
 
-    public class Access_OleDb : BaseDataConnection { public Access_OleDb(LinqToDBConnectionOptions<Access_OleDb> options) : base(options) { } }
-    public class DB2 : BaseDataConnection { public DB2(LinqToDBConnectionOptions<DB2> options) : base(options) { } }
-    public class DB2iSeries_Odbc : BaseDataConnection { public DB2iSeries_Odbc(LinqToDBConnectionOptions<DB2iSeries_Odbc> options) : base(options) { } }
-    public class DB2iSeries_OleDb : BaseDataConnection { public DB2iSeries_OleDb(LinqToDBConnectionOptions<DB2iSeries_OleDb> options) : base(options) { } }
-    public class MariaDb : BaseDataConnection { public MariaDb(LinqToDBConnectionOptions<MariaDb> options) : base(options) { } }
-    public class MySql : BaseDataConnection { public MySql(LinqToDBConnectionOptions<MySql> options) : base(options) { } }
-    public class PostgreSql : BaseDataConnection { public PostgreSql(LinqToDBConnectionOptions<PostgreSql> options) : base(options) { } }
-    public class Oracle : BaseDataConnection { public Oracle(LinqToDBConnectionOptions<Oracle> options) : base(options) { } }
-    public class SqlServer : BaseDataConnection { public SqlServer(LinqToDBConnectionOptions<SqlServer> options) : base(options) { } }
-    public class Sqlite : BaseDataConnection { public Sqlite(LinqToDBConnectionOptions<Sqlite> options) : base(options) { } }
-
+    public class Access_Odbc : BaseDataConnection { public Access_Odbc(IConfiguration configuration) : base(  ConnectionStringName.Access_Odbc.GetLinqToDBConnectionOptions<Access_Odbc>(configuration)) { } }
+    public class Access_OleDb : BaseDataConnection { public Access_OleDb(IConfiguration configuration) : base(ConnectionStringName.Access_OleDb.GetLinqToDBConnectionOptions<Access_OleDb>(configuration)) { } }
+    public class DB2_IBM : BaseDataConnection { public DB2_IBM(IConfiguration configuration) : base(ConnectionStringName.DB2_IBM.GetLinqToDBConnectionOptions<DB2_IBM>(configuration)) { } }
+    public class DB2_Odbc : BaseDataConnection { public DB2_Odbc(IConfiguration configuration) : base(ConnectionStringName.DB2_Odbc.GetLinqToDBConnectionOptions<DB2_Odbc>(configuration)) { } }
+    public class DB2iSeries_Odbc : BaseDataConnection { public DB2iSeries_Odbc(IConfiguration configuration) : base(ConnectionStringName.DB2iSeries_Odbc.GetLinqToDBConnectionOptions<DB2iSeries_Odbc>(configuration)) { } }
+    public class DB2iSeries_OleDb : BaseDataConnection { public DB2iSeries_OleDb(IConfiguration configuration) : base(ConnectionStringName.DB2iSeries_OleDb.GetLinqToDBConnectionOptions<DB2iSeries_OleDb>(configuration)) { } }
+    public class MariaDb : BaseDataConnection { public MariaDb(IConfiguration configuration) : base(ConnectionStringName.MariaDb.GetLinqToDBConnectionOptions<MariaDb>(configuration)) { } }
+    public class MySql_Client : BaseDataConnection { public MySql_Client(IConfiguration configuration) : base(ConnectionStringName.MySql_Client.GetLinqToDBConnectionOptions<MySql_Client>(configuration)) { } }
+    public class MySql_Connector : BaseDataConnection { public MySql_Connector(IConfiguration configuration) : base(ConnectionStringName.MySql_Connector.GetLinqToDBConnectionOptions<MySql_Connector>(configuration)) { } }
+    public class PostgreSql : BaseDataConnection { public PostgreSql(IConfiguration configuration) : base(ConnectionStringName.PostgreSql.GetLinqToDBConnectionOptions<PostgreSql>(configuration)) { } }
+    public class Oracle : BaseDataConnection { public Oracle(IConfiguration configuration) : base(ConnectionStringName.Oracle.GetLinqToDBConnectionOptions<Oracle>(configuration)) { } }
+    public class Sqlite_Microsoft : BaseDataConnection { public Sqlite_Microsoft(IConfiguration configuration) : base(ConnectionStringName.Sqlite_Microsoft.GetLinqToDBConnectionOptions<Sqlite_Microsoft>(configuration)) { } }
+    public class SqlServer_Microsoft : BaseDataConnection { public SqlServer_Microsoft(IConfiguration configuration) : base(ConnectionStringName.SqlServer_Microsoft.GetLinqToDBConnectionOptions<SqlServer_Microsoft>(configuration)) { } }
   }
 }

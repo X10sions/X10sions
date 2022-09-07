@@ -10,9 +10,12 @@ using System.Linq.Expressions;
 using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using System.Data.Common;
 
 namespace X10sions.Fake {
   public static class Extensions {
+
+    public static DbProviderFactory? GetDbProviderFactoryX(this DbConnection connection) => DbProviderFactories.GetFactory(connection);
 
     public static int? GetWholeYearsBetween(this DateTime? minDate, DateTime maxDate) => (minDate == null) ? null : maxDate.Year - minDate.Value.Year - ((maxDate.Month < minDate.Value.Month || (maxDate.Month == minDate.Value.Month && maxDate.Day < minDate.Value.Day)) ? 1 : 0);
     public static LambdaExpression GetWholeYearsBetween_LambdaExpr() => DelegateDecompiler.MethodBodyDecompiler.Decompile(typeof(Extensions).GetMethodInfo(nameof(Extensions.GetWholeYearsBetween)));
@@ -20,10 +23,6 @@ namespace X10sions.Fake {
     public static Expression<Func<DateTime?, DateTime, int?>> GetWholeYearsBetween_Expr2() => (DateTime? minDate, DateTime maxDate) => (minDate == null) ? null : maxDate.Year - minDate.Value.Year - ((maxDate.Month < minDate.Value.Month || (maxDate.Month == minDate.Value.Month && maxDate.Day < minDate.Value.Day)) ? 1 : 0);
     public static Expression<Func<FakePerson, string>> FirstName_Expr() => (e) => e.PreferredFirstName ?? e.ActualFirstName;
     public static Expression<Func<FakePerson, string>> FullName_Expr2() => (e) => FirstName_Expr().Compile().Invoke(e) + e.LastName;
-
-
-
-
 
     /// <summary>NotNull to NotNull </summary>
     public static FluentMappingBuilder AddAssociationNotNullToNotNull<T, TMany>(this FluentMappingBuilder fluentMappingBuilder

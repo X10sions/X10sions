@@ -3,15 +3,14 @@ using X10sions.Fake.Data.Models;
 using ServiceStack;
 using ServiceStack.OrmLite;
 using System.Data;
-using System.Data.Common;
 using X10sions.Fake.Data.Repositories;
 
 namespace X10sions.Fake.Pages.Testing.Orm {
   public class OrmLite {
 
-    public void CustomerOrdersExample(string connString, DbTypes dbType) {
+    public void CustomerOrdersExample(string connString, ConnectionStringName name) {
       // Setup SQL Server Connection Factory
-      var dbFactory = new OrmLiteConnectionFactory(connString, dbType.GetOrmLiteDialectProvider());
+      var dbFactory = new OrmLiteConnectionFactory(connString, name.GetOrmLiteDialectProvider());
 
       // Use in-memory Sqlite DB instead
       //var dbFactory = new OrmLiteConnectionFactory(":memory:", SqliteDialect.Provider, false);
