@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
+    <RootNamespace>X10sions.Fake</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup Label="FrameworkReferences">
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+  <ItemGroup Label="ProjectReferences"> 
+    <ProjectReference Include="..\..\..\..\..\..\x10sions\EntityFrameworkCore.Jet\src\EFCore.Jet\EFCore.Jet.csproj" />  
+    <ProjectReference Include="..\X10sions.Fake.csproj" />
+  </ItemGroup>
+</Project>
