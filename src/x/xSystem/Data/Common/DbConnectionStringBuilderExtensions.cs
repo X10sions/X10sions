@@ -1,5 +1,4 @@
-﻿
-namespace System.Data.Common;
+﻿namespace System.Data.Common;
 public static class DbConnectionStringBuilderExtensions {
 
   public static string DataSource(this DbConnectionStringBuilder csb) => (string)csb["Data Source"];
