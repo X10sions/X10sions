@@ -36,7 +36,7 @@ public enum ConnectionStringName {
 public static class ConnectionStringNamesExtensions {
   public static DbProviderFactory GetDbProviderFactory(this ConnectionStringName name) => name switch {
     ConnectionStringName.Access_Odbc => OdbcFactory.Instance,
-    ConnectionStringName.Access_Oledb => OleDbFactory.Instance,
+    ConnectionStringName.Access_OleDb => OleDbFactory.Instance,
     ConnectionStringName.DB2_IBM => DB2Factory.Instance,
     ConnectionStringName.DB2_Odbc => OdbcFactory.Instance,
     //ConnectionStringName.DB2iSeries_IBM=> IBM.Data.DB2.iSeries.iDB2Factory.Instance,

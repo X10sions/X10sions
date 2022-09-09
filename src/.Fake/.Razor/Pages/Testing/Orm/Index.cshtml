@@ -18,7 +18,7 @@
 
     #region UI
     [BindProperty] public OrmTypes OrmType { get; set; }
-    [BindProperty] public DbTypes DbType { get; set; }
+    [BindProperty] public ConnectionStringName ConnectionStringName { get; set; }
 
     [BindProperty] public FakePerson Person { get; set; }
     [BindProperty] public FakeProject Project { get; set; }
@@ -26,13 +26,13 @@
     [BindProperty] public FakePriority Priority { get; set; }
     #endregion
 
-    public ThisPageModel(LinqToDbDataConnections.Access_OleDb dbLinqToDb, EFCoreDbContexts.Access dbEfCore) {
+    public ThisPageModel(LinqToDbDataConnections.Access_OleDb dbLinqToDb, EFCoreDbContexts.Access_Odbc dbEfCore) {
       DbLinqToDb = dbLinqToDb;
       DbEfCore = dbEfCore;
     }
 
     public LinqToDbDataConnections.Access_OleDb DbLinqToDb { get; }
-    public EFCoreDbContexts.Access DbEfCore { get; }
+    public EFCoreDbContexts.Access_Odbc DbEfCore { get; }
 
     public void OnGet() {
       //  var products = cn.QueryBuilder($@"
@@ -141,8 +141,8 @@
   </div>
 
   <div class="form-floating">
-    <select asp-for="DbType" class="form-select" asp-items="Html.GetEnumSelectList<DbTypes>()"></select>
-    <label asp-for="DbType">DB Type</label>
+    <select asp-for="ConnectionStringName" class="form-select" asp-items="Html.GetEnumSelectList<ConnectionStringName>()"></select>
+    <label asp-for="ConnectionStringName">ConnectionStringName</label>
   </div>
 
   <button type="submit" class="btn btn-primary">Submit</button>

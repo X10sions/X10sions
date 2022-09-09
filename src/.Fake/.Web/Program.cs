@@ -1,4 +1,4 @@
-using X10sions.Fake;
+using X10sions.Fake.Data.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,7 +7,7 @@ var programLogger = programLoggerFactory.CreateLogger<Program>();
 
 // Add services to the container.
 builder.Services.AddEFCore_Fake(builder.Configuration, programLoggerFactory);
-builder.Services.AddLinqToDb_Fake(builder.Configuration, programLogger);
+builder.Services.AddLinqToDb_Fake(builder.Configuration, programLoggerFactory);
 
 builder.Services.AddRazorPages();
 

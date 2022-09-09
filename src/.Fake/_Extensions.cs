@@ -160,5 +160,7 @@ namespace X10sions.Fake {
     //  return services.AddScoped(x => GenericDataProvider<TConnection>.GetDataContext<TContext, TDataReader>(connectionString, newContext));
     //}
 
+
+
   }
 }

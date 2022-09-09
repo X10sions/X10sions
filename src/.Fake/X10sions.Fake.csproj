@@ -28,6 +28,7 @@
     <PackageReference Include="Dapper-QueryBuilder" Version="1.2.7" />
     <PackageReference Include="DelegateDecompiler" Version="0.30.0" />
     <PackageReference Include="DynamicQueryBuilder" Version="1.0.5" />
+    <PackageReference Include="FirebirdSql.EntityFrameworkCore.Firebird" Version="9.0.2" />
     <PackageReference Include="FreeSql.All" Version="3.2.666" />
     <PackageReference Include="IBM.EntityFrameworkCore" Version="6.0.0.200" />
     <PackageReference Include="linq2db.AspNet" Version="4.2.0" />
@@ -61,5 +62,9 @@
     <PackageReference Include="System.Data.Odbc" Version="6.0.0" />
     <PackageReference Include="System.Data.OleDb" Version="6.0.0" />    
     
+  </ItemGroup>  
+  
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\x10sions\EntityFrameworkCore.Jet\src\EFCore.Jet\EFCore.Jet.csproj" />
   </ItemGroup>
 </Project>
