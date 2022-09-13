@@ -1,13 +1,12 @@
-﻿using ServiceStack.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace X10sions.Fake.Data.Models {
   [Table("FakeOrderDetail")]
   public class FakeOrderDetail {
-    [AutoIncrement]
+    [ServiceStack.DataAnnotations.AutoIncrement, LinqToDB.Mapping.Identity]
     public int Id { get; set; }
 
-    [References(typeof(FakeOrder))] //Creates Foreign Key
+    [ServiceStack.DataAnnotations.References(typeof(FakeOrder))] //Creates Foreign Key
     public int OrderId { get; set; }
 
     public int ProductId { get; set; }

@@ -4,7 +4,7 @@ namespace X10sions.Fake.Data.Models {
 
   [Table("FakePerson")]
   public class FakePerson {
-    [Column] public int Id { get; set; }
+    [ServiceStack.DataAnnotations.AutoIncrement, LinqToDB.Mapping.Identity,Column] public int Id { get; set; }
     [Column] public int? FatherId { get; set; }
     [Column] public int? MotherId { get; set; }
     [Column] public string ActualFirstName { get; set; } = string.Empty;

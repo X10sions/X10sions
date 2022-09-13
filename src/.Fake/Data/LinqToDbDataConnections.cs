@@ -54,6 +54,7 @@ namespace X10sions.Fake.Data {
     public class Access_OleDb : BaseDataConnection { public Access_OleDb(IConfiguration configuration, ILoggerFactory loggerFactory) : base(ConnectionStringName.Access_OleDb.GetLinqToDBConnectionOptions<Access_OleDb>(configuration, loggerFactory)) { } }
     public class DB2_IBM : BaseDataConnection { public DB2_IBM(IConfiguration configuration, ILoggerFactory loggerFactory) : base(ConnectionStringName.DB2_IBM.GetLinqToDBConnectionOptions<DB2_IBM>(configuration, loggerFactory)) { } }
     public class DB2_Odbc : BaseDataConnection { public DB2_Odbc(IConfiguration configuration, ILoggerFactory loggerFactory) : base(ConnectionStringName.DB2_Odbc.GetLinqToDBConnectionOptions<DB2_Odbc>(configuration, loggerFactory)) { } }
+    public class DB2_OleDb : BaseDataConnection { public DB2_OleDb(IConfiguration configuration, ILoggerFactory loggerFactory) : base(ConnectionStringName.DB2_OleDb.GetLinqToDBConnectionOptions<DB2_OleDb>(configuration, loggerFactory)) { } }
     public class DB2iSeries_IBM: BaseDataConnection { public DB2iSeries_IBM(IConfiguration configuration, ILoggerFactory loggerFactory) : base(ConnectionStringName.DB2iSeries_IBM.GetLinqToDBConnectionOptions<DB2iSeries_IBM>(configuration, loggerFactory)) { } }
     public class DB2iSeries_Odbc : BaseDataConnection { public DB2iSeries_Odbc(IConfiguration configuration, ILoggerFactory loggerFactory) : base(ConnectionStringName.DB2iSeries_Odbc.GetLinqToDBConnectionOptions<DB2iSeries_Odbc>(configuration, loggerFactory)) { } }
     public class DB2iSeries_OleDb : BaseDataConnection { public DB2iSeries_OleDb(IConfiguration configuration, ILoggerFactory loggerFactory) : base(ConnectionStringName.DB2iSeries_OleDb.GetLinqToDBConnectionOptions<DB2iSeries_OleDb>(configuration, loggerFactory)) { } }
@@ -67,6 +68,8 @@ namespace X10sions.Fake.Data {
     public class Sqlite_System : BaseDataConnection { public Sqlite_System(IConfiguration configuration, ILoggerFactory loggerFactory) : base(ConnectionStringName.Sqlite_System.GetLinqToDBConnectionOptions<Sqlite_System>(configuration, loggerFactory)) { } }
     public class SqlServer_Microsoft : BaseDataConnection { public SqlServer_Microsoft(IConfiguration configuration, ILoggerFactory loggerFactory) : base(ConnectionStringName.SqlServer_Microsoft.GetLinqToDBConnectionOptions<SqlServer_Microsoft>(configuration, loggerFactory)) { } }
     public class SqlServer_System : BaseDataConnection { public SqlServer_System(IConfiguration configuration, ILoggerFactory loggerFactory) : base(ConnectionStringName.SqlServer_System.GetLinqToDBConnectionOptions<SqlServer_System>(configuration, loggerFactory)) { } }
+    public class SqlServer_Odbc : BaseDataConnection { public SqlServer_Odbc(IConfiguration configuration, ILoggerFactory loggerFactory) : base(ConnectionStringName.SqlServer_Odbc.GetLinqToDBConnectionOptions<SqlServer_Odbc>(configuration, loggerFactory)) { } }
+    public class SqlServer_OleDb : BaseDataConnection { public SqlServer_OleDb(IConfiguration configuration, ILoggerFactory loggerFactory) : base(ConnectionStringName.SqlServer_OleDb.GetLinqToDBConnectionOptions<SqlServer_OleDb>(configuration, loggerFactory)) { } }
 
   }
 }

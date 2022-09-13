@@ -3,7 +3,7 @@
 namespace X10sions.Fake.Data.Models {
   [Table("FakePriority")]
   public class FakePriority {
-    [Column] public int Id { get; set; }
+    [ServiceStack.DataAnnotations.AutoIncrement, LinqToDB.Mapping.Identity,Column] public int Id { get; set; }
     [Column] public char Code { get; set; }
     [Column] public string Description { get; set; } = string.Empty;
 

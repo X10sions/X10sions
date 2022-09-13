@@ -18,6 +18,7 @@ public enum ConnectionStringName {
   Access_OleDb,
   DB2_IBM,
   DB2_Odbc,
+  DB2_OleDb,
   DB2iSeries_IBM,
   DB2iSeries_Odbc,
   DB2iSeries_OleDb,
@@ -27,10 +28,12 @@ public enum ConnectionStringName {
   MySql_Connector,
   PostgreSql,
   Oracle,
+  Sqlite_Microsoft,
+  Sqlite_System,
   SqlServer_Microsoft,
   SqlServer_System,
-  Sqlite_Microsoft,
-  Sqlite_System
+  SqlServer_Odbc,
+  SqlServer_OleDb
 }
 
 public static class ConnectionStringNamesExtensions {
@@ -39,6 +42,7 @@ public static class ConnectionStringNamesExtensions {
     ConnectionStringName.Access_OleDb => OleDbFactory.Instance,
     ConnectionStringName.DB2_IBM => DB2Factory.Instance,
     ConnectionStringName.DB2_Odbc => OdbcFactory.Instance,
+    ConnectionStringName.DB2_OleDb => OleDbFactory.Instance,
     //ConnectionStringName.DB2iSeries_IBM=> IBM.Data.DB2.iSeries.iDB2Factory.Instance,
     ConnectionStringName.DB2iSeries_Odbc => OdbcFactory.Instance,
     ConnectionStringName.DB2iSeries_OleDb => OleDbFactory.Instance,
@@ -48,10 +52,12 @@ public static class ConnectionStringNamesExtensions {
     ConnectionStringName.MySql_Connector => MySqlConnectorFactory.Instance,
     ConnectionStringName.PostgreSql => NpgsqlFactory.Instance,
     ConnectionStringName.Oracle => OracleClientFactory.Instance,
-    ConnectionStringName.SqlServer_Microsoft => Microsoft.Data.SqlClient.SqlClientFactory.Instance,
-    ConnectionStringName.SqlServer_System => System.Data.SqlClient.SqlClientFactory.Instance,
     ConnectionStringName.Sqlite_Microsoft => SqliteFactory.Instance,
     ConnectionStringName.Sqlite_System => SQLiteFactory.Instance,
+    ConnectionStringName.SqlServer_Microsoft => Microsoft.Data.SqlClient.SqlClientFactory.Instance,
+    ConnectionStringName.SqlServer_System => System.Data.SqlClient.SqlClientFactory.Instance,
+    ConnectionStringName.SqlServer_Odbc => OdbcFactory.Instance,
+    ConnectionStringName.SqlServer_OleDb => OleDbFactory.Instance,
     _ => throw new NotImplementedException(name.ToString())
   };
 
@@ -67,25 +73,3 @@ public static class ConnectionStringNamesExtensions {
   }
 
 }
-
-//public class ConnectionStrings {
-
-//  public ConnectionStrings(IConfiguration configuration) => this.configuration = configuration;
-//  IConfiguration configuration;
-
-//  public string Access_Odbc => configuration.GetConnectionString(nameof(Access_Odbc));
-//  public string Access_Oledb => configuration.GetConnectionString(nameof(Access_Oledb));
-//  public string DB2_IBM => configuration.GetConnectionString(nameof(DB2_IBM));
-//  public string DB2_Odbc => configuration.GetConnectionString(nameof(DB2_Odbc));
-//  public string DB2iSeries_IBM => configuration.GetConnectionString(nameof(DB2iSeries_IBM));
-//  public string DB2iSeries_Odbc => configuration.GetConnectionString(nameof(DB2iSeries_Odbc));
-//  public string DB2iSeries_OleDb => configuration.GetConnectionString(nameof(DB2iSeries_OleDb));
-//  public string MariaDb => configuration.GetConnectionString(nameof(MariaDb));
-//  public string MySql => configuration.GetConnectionString(nameof(MySql));
-//  public string PostgreSql => configuration.GetConnectionString(nameof(PostgreSql));
-//  public string Oracle => configuration.GetConnectionString(nameof(Oracle));
-//  public string SqlServer => configuration.GetConnectionString(nameof(SqlServer));
-//  public string Sqlite => configuration.GetConnectionString(nameof(Sqlite));
-//}
-
-

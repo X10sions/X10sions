@@ -6,6 +6,9 @@ var programLoggerFactory = LoggerFactory.Create(loggingBuilder => loggingBuilder
 var programLogger = programLoggerFactory.CreateLogger<Program>();
 
 // Add services to the container.
+
+builder.Services.AddSingleton(x => new X10sions.Fake.Pages.Shared._LayoutSettings(typeof(Program).Assembly, "X10sions.Fake.Web"));
+
 builder.Services.AddEFCore_Fake(builder.Configuration, programLoggerFactory);
 builder.Services.AddLinqToDb_Fake(builder.Configuration, programLoggerFactory);
 

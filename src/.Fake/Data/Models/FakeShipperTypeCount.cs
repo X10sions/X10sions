@@ -1,5 +1,4 @@
-﻿
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace X10sions.Fake.Data.Models {
   [Table("FakeShipperTypeCount")]
