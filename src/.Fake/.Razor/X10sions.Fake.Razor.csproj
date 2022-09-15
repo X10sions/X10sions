@@ -6,16 +6,40 @@
     <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
     <RootNamespace>X10sions.Fake</RootNamespace>
   </PropertyGroup>
+  <ItemGroup>
+    <Content Remove="Pages\Testing\FastReports.cshtml" />
+    <Content Remove="Pages\Testing\WeasyPrint\Balbarak.cshtml" />
+    <Content Remove="Pages\Testing\xNotFree\WebClientPrint.cshtml" />
+  </ItemGroup>
   <ItemGroup Label="FrameworkReferences">
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Balbarak.WeasyPrint" Version="2.0.2" />
+    <PackageReference Include="DinkToPdf" Version="1.0.8" />
+    <PackageReference Include="DocXToPdfConverter" Version="1.0.5" />
     <PackageReference Include="MiniProfiler.AspNetCore.Mvc" Version="4.2.22" />
+    <PackageReference Include="NanoByte.Razor2Pdf" Version="0.2.0" />
+    <PackageReference Include="PdfPig" Version="0.1.6" />
+    <PackageReference Include="PuppeteerSharp" Version="7.1.0" />
+    <PackageReference Include="QuestPDF" Version="2022.8.2" />
+    <PackageReference Include="Rotativa.AspNetCore" Version="1.2.0" />
+    <PackageReference Include="Selenium.WebDriver" Version="4.4.0" />
+    <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="105.0.5195.5200" />
+    <PackageReference Include="Selenium.WebDriver.MSEdgeDriver" Version="105.0.1343.27" />
+    <PackageReference Include="Vintasoft.Barcode" Version="12.5.7.1" />
+    <PackageReference Include="Vintasoft.Imaging.Office.OpenXml" Version="4.0.5.1" />
+    <PackageReference Include="Weasyprint.Wrapped" Version="2.0.0" />
   </ItemGroup>
   <ItemGroup Label="ProjectReferences">  
     <ProjectReference Include="..\X10sions.Fake.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="wwwroot\lib\jQuery-QueryBuilder\src\plugins\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Pages\Testing\WeasyPrint\Balbarak.cshtml" />
+    <None Include="Pages\Testing\xNotFree\FastReports.cshtml" />
+    <None Include="Pages\Testing\xNotFree\WebClientPrint.cshtml" />
   </ItemGroup>
 </Project>

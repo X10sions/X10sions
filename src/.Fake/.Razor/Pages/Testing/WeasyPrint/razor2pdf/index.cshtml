@@ -1,0 +1,50 @@
+﻿@page
+@model IndexModel
+
+@using NanoByte.Razor2Pdf
+<h1>https://github.com/nano-byte/razor2pdf</h1>
+https://www.nuget.org/packages/NanoByte.Razor2Pdf#versions-body-tab
+@functions {
+
+    public class IndexModel : PageModel {
+        private readonly IPdfRenderer _pdfRenderer;
+
+        public IndexModel(IPdfRenderer pdfRenderer) {
+            _pdfRenderer = pdfRenderer;
+        }
+
+        [BindProperty] public string Name { get; set; } = "Smith";
+
+        public async Task<FileStreamResult> OnPostReportAsync() {
+            return await _pdfRenderer.RenderAsync(new Razor2Pdf.ReportModel { Name = Name });
+        }
+    public async Task<FileStreamResult> OnPostMyViewAsync() {
+      return await _pdfRenderer.RenderAsync("path/to/my/view", new MyViewModel());
+    }
+  }
+
+
+  public class MyViewModel {
+    public int Id { get; set; }
+    public DateTime Now { get; set; } = DateTime.Now;
+  }
+
+}
+
+<h1>Razor2Pdf Sample</h1>
+
+<form method="post" asp-page-handler="report">
+  <div class="form-row">
+    <div class="form-group">
+      <label asp-for="Name" class="control-label"></label>
+      <input asp-for="Name" class="form-control" />
+    </div>
+  </div>
+  <div class="form-row">
+    <input type="submit" value="Download PDF" class="btn btn-primary" />
+  </div>
+</form>
+
+<cite>
+  requires: services.AddRazor2Pdf();
+</cite>

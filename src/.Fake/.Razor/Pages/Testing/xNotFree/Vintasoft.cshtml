@@ -1,0 +1,373 @@
+﻿@using Vintasoft.Barcode
+@using Vintasoft.Imaging
+@using Vintasoft.Imaging.Office.OpenXml.Editor
+https://www.vintasoft.com/blog/create-pdf-invoice-generator-in-dotnet/
+
+https://www.nuget.org/packages/Vintasoft.Imaging
+
+https://www.vintasoft.com/vsimaging-dotnet-index.html?referer=nuget.org/Vintasoft.Imaging
+
+@functions {
+
+  public static void GenerateInvoiceUseDocxTemplate() {
+    // create DOCX document editor and use file "Invoice_template.docx" as document template
+    using (DocxDocumentEditor editor = new DocxDocumentEditor("Invoice_template.docx")) {
+      // generate test invoice data with 30 items
+      InvoiceData testData = GetTestData(30);
+
+      // fill invoice data
+      FillInvoiceData(editor, testData);
+
+      // save invoice to a DOCX document if necessary
+      //editor.Save("Invoice.docx");
+
+      // export invoice to a PDF document
+      editor.Export("Invoice_docx.pdf");
+    }
+  }
+
+  private static void FillInvoiceData(DocxDocumentEditor documentEditor, InvoiceData invoiceData) {
+    // create QR code image 200x200 px
+    //using (VintasoftImage qrCodeImage = invoiceData.GetBarcodeImage(200)) {
+    //  // set barcode image to the image element at index 1
+    //  documentEditor.Images[1].SetImage(qrCodeImage);
+    //}
+
+    // fill the document header
+    documentEditor.Body["[company_name]"] = invoiceData.Company.CompanyName;
+    documentEditor.Body["[company_address]"] = invoiceData.Company.Address;
+    documentEditor.Body["[company_city]"] = invoiceData.Company.City;
+    documentEditor.Body["[company_phone]"] = invoiceData.Company.GetPhones();
+    documentEditor.Body["[invoice_number]"] = invoiceData.InvoiceNumber;
+    documentEditor.Body["[invoice_date]"] = System.DateTime.Now.ToShortDateString();
+
+    // get all tables of document
+    OpenXmlDocumentTable[] tables = documentEditor.Tables;
+
+    // fill the "Customer Information" table
+    OpenXmlDocumentTable customerInformationTable = tables[0];
+    SetCompanyInformation(customerInformationTable, "billing", invoiceData.BillingAddress);
+    SetCompanyInformation(customerInformationTable, "shipping", invoiceData.ShippingAddress);
+
+    // fill the "Shipping Method" table
+    OpenXmlDocumentTable shippingMethodTable = tables[1];
+    shippingMethodTable["[shipping_method]"] = invoiceData.ShippingMethod;
+
+    // fill the "Order Information" table
+    OpenXmlDocumentTable orderInformationTable = tables[2];
+    OpenXmlDocumentTableRow templateRow = orderInformationTable[1];
+    int orderItemNumber = 1;
+    // for each item in invoice
+    foreach (InvoiceItem orderItem in invoiceData.OrderItems) {
+      // copy template row and insert copy after template row
+      OpenXmlDocumentTableRow currentRow = templateRow;
+      templateRow = (OpenXmlDocumentTableRow)templateRow.InsertCopyAfterSelf();
+
+      // fill data of current row
+      currentRow["[p_n]"] = orderItemNumber.ToString();
+      currentRow["[p_description]"] = orderItem.Product;
+      currentRow["[p_qty]"] = orderItem.Quantity.ToString();
+      currentRow["[p_unit_price]"] = invoiceData.GetPriceAsString(orderItem.Price);
+      currentRow["[p_price_total]"] = invoiceData.GetPriceAsString(orderItem.TotalPrice);
+
+      orderItemNumber++;
+    }
+    // remove template row
+    templateRow.Remove();
+
+    // fill order information summary fields
+    orderInformationTable["[subtotal]"] = invoiceData.GetPriceAsString(invoiceData.Subtotal);
+    orderInformationTable["[tax]"] = invoiceData.GetPriceAsString(invoiceData.Tax);
+    orderInformationTable["[shipping]"] = invoiceData.GetPriceAsString(invoiceData.Shipping);
+    orderInformationTable["[grand_total]"] = invoiceData.GetPriceAsString(invoiceData.GrandTotal);
+
+    // fill the "Notes" table
+    OpenXmlDocumentTable notesTable = tables[3];
+    notesTable["[date]"] = System.DateTime.Now.ToShortDateString();
+    notesTable["[time]"] = System.DateTime.Now.ToLongTimeString();
+  }
+
+  /// <summary>
+  /// Sets the company information.
+  /// </summary>
+  /// <param name="table">The table.</param>
+  /// <param name="fieldName">Name of the field.</param>
+  /// <param name="company">The company.</param>
+  private static void SetCompanyInformation(
+      OpenXmlDocumentTable table,
+      string fieldName,
+      Company company) {
+    string fieldFormat = string.Format("[{0}_{1}]", fieldName, "{0}");
+    table[string.Format(fieldFormat, "company")] = company.CompanyName;
+    table[string.Format(fieldFormat, "name")] = company.Name;
+    table[string.Format(fieldFormat, "address")] = company.Address;
+    table[string.Format(fieldFormat, "phone")] = company.GetPhones();
+    table[string.Format(fieldFormat, "city")] = company.City;
+  }
+
+  public static InvoiceData GetTestData(int orderItemsCount) {
+    Company vintasoftCompany = new Company();
+    vintasoftCompany.CompanyName = "VintaSoft Ltd.";
+    vintasoftCompany.Address = "M.Nagibina Ave. 33a/47";
+    vintasoftCompany.City = "Rostov-on-Don, 344068, Russia";
+    vintasoftCompany.Phones.Add("+78632924297");
+    vintasoftCompany.Phones.Add("+78632924322 (fax)");
+
+    Company billingCompany = new Company();
+    billingCompany.CompanyName = "Billing Global Company Inc.";
+    billingCompany.Name = "Mr. Q";
+    billingCompany.Address = "Address1";
+    billingCompany.City = "City1";
+    billingCompany.Phones.Add("9876543210");
+    billingCompany.Phones.Add("7654321098 (fax)");
+
+    Company shipingCompany = new Company();
+    shipingCompany.CompanyName = "Shipping Global Company Inc.";
+    shipingCompany.Name = "Mr. Z";
+    shipingCompany.Address = "Address2";
+    shipingCompany.City = "City2";
+    shipingCompany.Phones.Add("1122334455");
+    shipingCompany.Phones.Add("5544332211 (fax)");
+
+    InvoiceData data = new InvoiceData();
+
+    System.Random random = new System.Random();
+    data.InvoiceNumber = string.Format("{0}-{1}", random.Next(100000, 999999), random.Next(0, 9));
+
+    data.Company = vintasoftCompany;
+    data.BillingAddress = billingCompany;
+    data.ShippingAddress = shipingCompany;
+
+    InvoiceItem[] availableProducts = new InvoiceItem[] {
+        new InvoiceItem("VintaSoft Imaging .NET SDK, Site license for Desktop PCs", 659.95f),
+        new InvoiceItem("VintaSoft Annotation .NET Plug-in, Site license for Desktop PCs", 449.95f),
+        new InvoiceItem("VintaSoft Office .NET Plug-in, Site license for Desktop PCs", 569.95f),
+        new InvoiceItem("VintaSoft PDF .NET Plug-in (Reader+Writer), Site license for Desktop PCs", 1499.95f),
+        new InvoiceItem("VintaSoft PDF .NET Plug-in (Reader+Writer+VisualEditor), Site license for Desktop PCs", 2999.95f),
+        new InvoiceItem("VintaSoft JBIG2 .NET Plug-in, Site license for Desktop PCs", 1139.95f),
+        new InvoiceItem("VintaSoft JPEG2000 .NET Plug-in, Site license for Desktop PCs", 689.95f),
+        new InvoiceItem("VintaSoft Document Cleaup .NET Plug-in, Site license for Desktop PCs", 569.95f),
+        new InvoiceItem("VintaSoft OCR .NET Plug-in, Site license for Desktop PCs", 509.95f),
+        new InvoiceItem("VintaSoft DICOM .NET Plug-in (Codec+MPR), Site license for Desktop PCs", 1199.95f),
+        new InvoiceItem("VintaSoft Forms Processing .NET Plug-in, Site license for Desktop PCs", 509.95f),
+        new InvoiceItem("VintaSoft Barcode .NET SDK (1D+2D Reader+Writer), Site license for Desktop PCs", 1379.95f),
+        new InvoiceItem("VintaSoft Twain .NET SDK, Site license", 539.95f)
+  };
+
+    for (int i = 0; i < orderItemsCount; i++) {
+      int quantity = 1 + random.Next(10);
+      int index = random.Next(availableProducts.Length - 1);
+      data.OrderItems.Add(new InvoiceItem(availableProducts[index], quantity));
+    }
+
+    return data;
+  }
+
+  /// <summary>
+  /// Represents an information about company.
+  /// </summary>
+  public class Company {
+
+    /// <summary>
+    /// The company name.
+    /// </summary>
+    public string CompanyName;
+
+    /// <summary>
+    /// The person name.
+    /// </summary>
+    public string Name;
+
+    /// <summary>
+    /// The company location city.
+    /// </summary>
+    public string City;
+
+    /// <summary>
+    /// The company location adress.
+    /// </summary>
+    public string Address;
+
+    /// <summary>
+    /// The company phone numbers.
+    /// </summary>
+    public System.Collections.Generic.List<string> Phones = new System.Collections.Generic.List<string>();
+
+
+
+    /// <summary>
+    /// Returns the phone numbers.
+    /// </summary>
+    public string GetPhones() {
+      if (Phones.Count == 1)
+        return Phones[0];
+      System.Text.StringBuilder result = new System.Text.StringBuilder();
+      for (int i = 0; i < Phones.Count - 1; i++) {
+        result.Append(Phones[i]);
+        result.Append(", ");
+      }
+      result.Append(Phones[Phones.Count - 1]);
+      return result.ToString();
+    }
+
+  }
+
+  /// <summary>
+  /// Represents an invoice order item.
+  /// </summary>
+  public class InvoiceItem {
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="InvoiceItem"/> class.
+    /// </summary>
+    /// <param name="product">The product name.</param>
+    /// <param name="price">The product price.</param>
+    public InvoiceItem(string product, float price) {
+      Product = product;
+      Quantity = 1;
+      Price = price;
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="InvoiceItem"/> class.
+    /// </summary>
+    /// <param name="source">The source <see cref="InvoiceItem"/>.</param>
+    /// <param name="quantity">The product quantity.</param>
+    public InvoiceItem(InvoiceItem source, float quantity) {
+      Product = source.Product;
+      Price = source.Price;
+      Quantity = quantity;
+    }
+
+
+
+    /// <summary>
+    /// The product name.
+    /// </summary>
+    public string Product;
+
+    /// <summary>
+    /// The product quantity.
+    /// </summary>
+    public float Quantity;
+
+    /// <summary>
+    /// The product price.
+    /// </summary>
+    public float Price;
+
+
+
+    /// <summary>
+    /// Gets the product total price.
+    /// </summary>
+    public float TotalPrice {
+      get {
+        return Price * Quantity;
+      }
+    }
+
+  }
+
+  /// <summary>
+  /// Represents an invoice data.
+  /// </summary>
+  public class InvoiceData {
+
+    /// <summary>
+    /// The list of order items.
+    /// </summary>
+    public System.Collections.Generic.List<InvoiceItem> OrderItems = new System.Collections.Generic.List<InvoiceItem>();
+
+    /// <summary>
+    /// The invoice number.
+    /// </summary>
+    public string InvoiceNumber;
+
+    /// <summary>
+    /// The shipping method.
+    /// </summary>
+    public string ShippingMethod = "Email";
+
+    /// <summary>
+    /// The company billing address.
+    /// </summary>
+    public Company BillingAddress = new Company();
+
+    /// <summary>
+    /// The company shipping address.
+    /// </summary>
+    public Company ShippingAddress = new Company();
+
+    /// <summary>
+    /// The object that represents information about the company.
+    /// </summary>
+    public Company Company = new Company();
+
+    /// <summary>
+    /// The currency to be used in the invoice.
+    /// </summary>
+    public string Currency = "EUR";
+
+    /// <summary>
+    /// Gets or sets the tax value.
+    /// </summary>
+    public float Tax = 0;
+
+    /// <summary>
+    /// Gets or sets the shipping price.
+    /// </summary>
+    public float Shipping = 0;
+
+
+
+    /// <summary>
+    /// Gets the subtotal value.
+    /// </summary>
+    public float Subtotal {
+      get {
+        float value = 0;
+        for (int i = 0; i < OrderItems.Count; i++)
+          value += OrderItems[i].TotalPrice;
+        return value;
+      }
+    }
+
+
+    /// <summary>
+    /// Gets the grandtotal value.
+    /// </summary>
+    public float GrandTotal {
+      get {
+        return Subtotal + Shipping + Tax;
+      }
+    }
+
+
+
+    /// <summary>
+    /// Returns the price as a string.
+    /// </summary>
+    /// <param name="price">The price.</param>
+    /// <returns>The price in string representation.</returns>
+    public string GetPriceAsString(float price) => string.Format("{0} {1}", price.ToString("f2", System.Globalization.CultureInfo.InvariantCulture), Currency);
+
+    /// <summary>
+    /// Creates the QR code image.
+    /// </summary>
+    /// <param name="size">The barcode size.</param>
+    /// <returns>An instance o f<see cref="VintasoftImage"/> class that contains QR code image.</returns>
+    //public VintasoftImage GetBarcodeImage(int size) {
+    //  Vintasoft.Barcode.BarcodeWriter writer = new BarcodeWriter();
+    //  writer.Settings.Barcode = BarcodeType.QR;
+    //  writer.Settings.Value = string.Format("INVOICE={0};TOTAL={1}", InvoiceNumber, GetPriceAsString(GrandTotal));
+    //  writer.Settings.SetWidth(size);
+    //  var bitmap = writer.GetBarcodeAsBitmap();
+    //  var result = new VintasoftImage(barcodeImage, true);
+    //  result.Crop(new System.Drawing.Rectangle(0, 0, result.Width, result.Width));
+    //  return result;
+    //}
+
+  }
+
+}

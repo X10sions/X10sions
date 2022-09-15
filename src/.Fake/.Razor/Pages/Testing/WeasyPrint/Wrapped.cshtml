@@ -1,0 +1,11 @@
+﻿@using Weasyprint.Wrapped
+
+<h1>https://github.com/berthertogen/weasyprint.wrapped</h1>
+
+@{
+  // You might want to provide the printer class using your DI Container.
+  await new Printer().Initialize();
+
+  await new Printer().Print("<html><body><h1>TEST</h1></body></html>");
+
+}

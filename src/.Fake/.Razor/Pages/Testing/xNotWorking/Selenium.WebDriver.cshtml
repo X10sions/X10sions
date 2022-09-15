@@ -1,0 +1,47 @@
+﻿  @using OpenQA.Selenium.Chrome
+@using OpenQA.Selenium.Edge
+@using System.Diagnostics
+https://www.nuget.org/packages/Selenium.WebDriver
+
+https://github.com/jsakamoto/nupkg-selenium-webdriver-chromedriver/
+https://www.nuget.org/packages/Selenium.WebDriver.ChromeDriver/106.0.5249.2100-beta#dependencies-body-tab
+
+https://github.com/leandrodotec/nupkg-selenium-webdriver-msedgedriver
+https://www.nuget.org/packages/Selenium.WebDriver.MSEdgeDriver/
+
+@*
+@{
+
+  async Task<byte[]> ConvertHtmlToPdf(string html) {
+    var directory = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments), "ApplicationName");
+    Directory.CreateDirectory(directory);
+    var filePath = System.IO.Path.Combine(directory, $"{Guid.NewGuid()}.html");
+    await File.WriteAllTextAsync(filePath, html);
+
+    var driverOptions = new ChromeOptions();
+    // In headless mode, PDF writing is enabled by default (tested with driver major version 85)
+    driverOptions.AddArgument("headless");
+    using var driver = new ChromeDriver(driverOptions);
+    driver.Navigate().GoToUrl(filePath);
+
+    // Output a PDF of the first page in A4 size at 90% scale
+    var printOptions = new Dictionary<string, object>        {
+        { "paperWidth", 210 / 25.4 },
+        { "paperHeight", 297 / 25.4 },
+        { "scale", 0.9 },
+        { "pageRanges", "1" }
+    };
+    var printOutput = driver.ExecuteChromeCommandWithResult("Page.printToPDF", printOptions) as Dictionary<string, object>;
+    var pdf = Convert.FromBase64String(printOutput["data"] as string);
+    File.Delete(filePath);
+    return pdf;
+  }
+
+  void TesEdgeDriver() {
+    var edgeOptions = new EdgeOptions {
+      //          UseChromium = true
+    };
+    var edgeDriverService = EdgeDriverService.CreateDefaultService();//.CreateChromiumService();
+  }
+}
+*@
