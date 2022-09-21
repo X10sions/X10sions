@@ -6,9 +6,9 @@
     <RootNamespace>X10sions.Fake</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Remove="_\LinqToDB\DataProvider\DB2iSeries_4_0_1_1\**" />
-    <EmbeddedResource Remove="_\LinqToDB\DataProvider\DB2iSeries_4_0_1_1\**" />
-    <None Remove="_\LinqToDB\DataProvider\DB2iSeries_4_0_1_1\**" />
+    <Compile Remove="_\LinqToDB\DataProvider\**" />
+    <EmbeddedResource Remove="_\LinqToDB\DataProvider\**" />
+    <None Remove="_\LinqToDB\DataProvider\**" />
   </ItemGroup>
   <!--
     https://github.com/sapiens/SqlFu

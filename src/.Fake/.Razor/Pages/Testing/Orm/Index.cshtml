@@ -40,6 +40,12 @@
     public IFakeRepo FakeRepo { get; set; }
 
     public void OnGet() {
+
+      //using var connection = new System.Data.SQLite.SQLiteConnection("Data Source=\\\\mtg-file01\\Intranet\\App_Data\\Shared\\iSeries\\IT\\Dev\\MartoggErp.sqlite;", false);
+      //connection.Open();
+      //connection.Close();
+      //return;
+
       FakeRepo = OrmType.GetFakeRepo(ConnectionStringName, configuration, loggerFactory);
       if (FakeRepo != null) {
         FakeRepo.SimpleExample(DoDropTables, DoCreateTables);

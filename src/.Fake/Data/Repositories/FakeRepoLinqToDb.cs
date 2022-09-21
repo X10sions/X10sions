@@ -5,10 +5,16 @@ using LinqToDB.Data;
 using LinqToDB.DataProvider.DB2;
 using LinqToDB.DataProvider.DB2iSeries;
 using LinqToDB.DataProvider.Oracle;
+using LinqToDB.DataProvider.SQLite;
 using LinqToDB.DataProvider.SqlServer;
+using LinqToDB.DataProvider.X10sions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Identity.Client;
+using SQLite;
+using System.Data.Odbc;
+using System.Data.OleDb;
 using X10sions.Fake.Data.Enums;
 
 namespace X10sions.Fake.Data.Repositories {
@@ -43,7 +49,7 @@ namespace X10sions.Fake.Data.Repositories {
       }
       return count;
     }
-     
+
   }
 
   public static class LinqToDBExtensions {
@@ -68,6 +74,8 @@ namespace X10sions.Fake.Data.Repositories {
     public static LinqToDBConnectionOptions<T> GetLinqToDBConnectionOptions<T>(this ConnectionStringName name, IConfiguration configuration, ILoggerFactory loggerFactory) => name.GetLinqToDBConnectionOptionsBuilder(configuration, loggerFactory).Build<T>();
     public static LinqToDBConnectionOptions GetLinqToDBConnectionOptions(this ConnectionStringName name, IConfiguration configuration, ILoggerFactory loggerFactory) => name.GetLinqToDBConnectionOptionsBuilder(configuration, loggerFactory).Build();
 
+ 
+
     static LinqToDBConnectionOptionsBuilder GetLinqToDBConnectionOptionsBuilder(this ConnectionStringName name, IConfiguration configuration, ILoggerFactory loggerFactory) {
       var connectionString = name.GetConnectionString(configuration);
       var builder = new LinqToDBConnectionOptionsBuilder();
@@ -78,9 +86,17 @@ namespace X10sions.Fake.Data.Repositories {
         case ConnectionStringName.DB2_IBM: builder.UseDB2(connectionString, DB2Version.LUW); break;
         case ConnectionStringName.DB2_Odbc: builder.UseDB2(connectionString, DB2Version.LUW); break;
         case ConnectionStringName.DB2_OleDb: builder.UseDB2(connectionString, DB2Version.LUW); break;
-        case ConnectionStringName.DB2iSeries_IBM: builder.UseDB2iSeries(connectionString, x => { x.WithProviderType(DB2iSeriesProviderType.DB2); }); break;
-        case ConnectionStringName.DB2iSeries_Odbc: builder.UseDB2iSeries(connectionString, x => { x.WithProviderType(DB2iSeriesProviderType.Odbc); }); break;
-        case ConnectionStringName.DB2iSeries_OleDb: builder.UseDB2iSeries(connectionString, x => { x.WithProviderType(DB2iSeriesProviderType.OleDb); }); break;
+
+        //case ConnectionStringName.DB2iSeries_IBM: builder.UseDB2iSeries(connectionString, x => { x.WithProviderType(DB2iSeriesProviderType.DB2); }); break;
+        //case ConnectionStringName.DB2iSeries_Odbc: builder.UseDB2iSeries(connectionString, x => { x.WithProviderType(DB2iSeriesProviderType.Odbc); }); break;
+        //case ConnectionStringName.DB2iSeries_OleDb: builder.UseDB2iSeries(connectionString, x => { x.WithProviderType(DB2iSeriesProviderType.OleDb); }); break;
+
+        case ConnectionStringName.DB2iSeries_Odbc: builder.UseConnectionString(new XDB2LUWDataProvider<OdbcConnection, OdbcDataReader>(ConnectionStringName.DB2iSeries_Odbc, 801),connectionString); break;
+        case ConnectionStringName.DB2iSeries_OleDb: builder.UseConnectionString(new XDB2LUWDataProvider<OleDbConnection, OleDbDataReader>(ConnectionStringName.DB2iSeries_OleDb, 802), connectionString); break;
+
+        //case ConnectionStringName.DB2iSeries_Odbc: builder.UseConnectionString(new XDB2iSeriesDataProvider<OdbcConnection, OdbcDataReader>(ConnectionStringName.DB2iSeries_Odbc,901, DB2iSeriesProviderType.Odbc), connectionString); break;
+        //case ConnectionStringName.DB2iSeries_OleDb: builder.UseConnectionString(new XDB2iSeriesDataProvider<OleDbConnection, OleDbDataReader>(ConnectionStringName.DB2iSeries_OleDb,902, DB2iSeriesProviderType.OleDb), connectionString); break;
+
         case ConnectionStringName.Firebird: builder.UseFirebird(connectionString); break;
         case ConnectionStringName.MariaDb: builder.UseMySqlConnector(connectionString); break;
         case ConnectionStringName.MySql_Client: builder.UseMySql(connectionString); break;
@@ -89,6 +105,7 @@ namespace X10sions.Fake.Data.Repositories {
         case ConnectionStringName.Oracle: builder.UseOracle(connectionString, OracleVersion.v12, OracleProvider.Managed); break;
         case ConnectionStringName.Sqlite_Microsoft: builder.UseSQLiteMicrosoft(connectionString); break;
         case ConnectionStringName.Sqlite_System: builder.UseSQLiteOfficial(connectionString); break;
+        //case ConnectionStringName.Sqlite_System: builder.UseConnection(SQLiteTools.GetDataProvider(ProviderName.SQLiteClassic), new System.Data.SQLite.SQLiteConnection(connectionString, false),true); break;
         case ConnectionStringName.SqlServer_Microsoft: builder.UseSqlServer(connectionString, SqlServerProvider.MicrosoftDataSqlClient, SqlServerVersion.v2012); break;
         case ConnectionStringName.SqlServer_System: builder.UseSqlServer(connectionString, SqlServerProvider.SystemDataSqlClient, SqlServerVersion.v2012); break;
         case ConnectionStringName.SqlServer_Odbc: builder.UseSqlServer(connectionString); break;
@@ -123,8 +140,8 @@ namespace X10sions.Fake.Data.Repositories {
           ConnectionStringName.Sqlite_System => serviceProvider.GetRequiredService<LinqToDbDataConnections.Sqlite_System>(),
           ConnectionStringName.SqlServer_Microsoft => serviceProvider.GetRequiredService<LinqToDbDataConnections.SqlServer_Microsoft>(),
           ConnectionStringName.SqlServer_System => serviceProvider.GetRequiredService<LinqToDbDataConnections.SqlServer_System>(),
-          ConnectionStringName.SqlServer_Odbc=> serviceProvider.GetRequiredService<LinqToDbDataConnections.SqlServer_Odbc>(),
-          ConnectionStringName.SqlServer_OleDb=> serviceProvider.GetRequiredService<LinqToDbDataConnections.SqlServer_OleDb>(),
+          ConnectionStringName.SqlServer_Odbc => serviceProvider.GetRequiredService<LinqToDbDataConnections.SqlServer_Odbc>(),
+          ConnectionStringName.SqlServer_OleDb => serviceProvider.GetRequiredService<LinqToDbDataConnections.SqlServer_OleDb>(),
           _ => throw new NotSupportedException($"RepositoryResolver, key: {name}"),
         };
       });
