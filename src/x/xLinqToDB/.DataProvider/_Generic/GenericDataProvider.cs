@@ -11,8 +11,6 @@ using System.Diagnostics;
 using LinqToDB.Common;
 using LinqToDB.Expressions;
 using LinqToDB.Configuration;
-using Microsoft.Extensions.Configuration;
-using System.Linq;
 using LinqToDB.SchemaProvider;
 
 namespace LinqToDB.DataProvider;
@@ -67,8 +65,8 @@ public class GenericDataProvider<TConnection> : DataProviderBase<TConnection>, I
     throw new NotImplementedException(connectionStringWithoutPasswordOrUser);
   }
 
-  public static GenericDataProvider<TConnection> GetInstance(string  connectionString, Type dataReaderType) => GetInstance(new TConnection { ConnectionString = connectionString }, dataReaderType);
-  public static GenericDataProvider<TConnection> GetInstance<TDataReader>(string connectionString) where TDataReader : IDataReader => GetInstance(  connectionString, typeof(TDataReader));
+  public static GenericDataProvider<TConnection> GetInstance(string connectionString, Type dataReaderType) => GetInstance(new TConnection { ConnectionString = connectionString }, dataReaderType);
+  public static GenericDataProvider<TConnection> GetInstance<TDataReader>(string connectionString) where TDataReader : IDataReader => GetInstance(connectionString, typeof(TDataReader));
   //public static GenericDataProvider<TConnection> GetInstance<TDataReader>(IConfiguration configuration, string connectionStringName) where TDataReader : IDataReader => GetInstance(configuration.GetConnectionString(connectionStringName), typeof(TDataReader));
   public static GenericDataProvider<TConnection> GetInstance<TDataReader>(TConnection connection) where TDataReader : IDataReader => GetInstance(connection, typeof(TDataReader));
 
@@ -135,16 +133,15 @@ public class GenericDataProvider<TConnection> : DataProviderBase<TConnection>, I
     dataReaderType
     ) {
     //ConnectionString = connectionString;
-    DataSourceInformationRow =  dataSourceInformationRow;
-    //  //InitDataProvider();
-
-    var initDbSystem = DataSourceInformationRow?.DbSystemEnum() switch {
+    DataSourceInformationRow = dataSourceInformationRow;
+    DbSystem = DataSourceInformationRow?.GetDbSystem();
+    //InitDataProvider();
+    var initDbSystem = DbSystem switch {
       //DbSystem.Names.Access => GenericDataProvider_InitAccess(),
       //DbSystem.Names.DB2 => GenericDataProvider_InitDB2(),
-      DbSystem.Enum.DB2iSeries => GenericDataProvider_InitDB2iSeries(DataSourceInformationRow.Version),
+      var _ when DbSystem == DbSystem.DB2iSeries => GenericDataProvider_InitDB2iSeries(DataSourceInformationRow.Version),
       _ => throw new NotImplementedException($"{DataSourceInformationRow.DataSourceProductName}: v{DataSourceInformationRow.Version}")
     };
-
     foreach (var member in MemberExpressions) {
       MapMember(Name, member.Key.MemberInfo, member.Value);
     }
@@ -154,12 +151,14 @@ public class GenericDataProvider<TConnection> : DataProviderBase<TConnection>, I
     }
   }
 
+
+
   Dictionary<MemberHelper.MemberInfoWithType, IExpressionInfo> MemberExpressions = new Dictionary<MemberHelper.MemberInfoWithType, IExpressionInfo>();
   //public TConnection Connection { get; }
   //public string ConnectionString { get; }
   //public string ConnectionString => Connection.ConnectionString;
   public DataSourceInformationRow? DataSourceInformationRow { get; }// => DataSourceInformationRow.GetInstance<TConnection>(ConnectionString);
-  //public DbSystem.Enum? DbSystemEnum => DataSourceInformationRow.DbSystemEnum();
+  public DbSystem? DbSystem { get; }
   //public Version? DbSystemVrsion => DataSourceInformationRow.Version;
   public override ISchemaProvider GetSchemaProvider() => new GenericSchemaProvider();
   public override TableOptions SupportedTableOptions => DataSourceInformationRow.GetTableOptions();
@@ -181,9 +180,9 @@ public class GenericDataProvider<TConnection> : DataProviderBase<TConnection>, I
     SqlProviderFlags.IsParameterOrderDependent = true;
     SqlProviderFlags.IsUpdateFromSupported = false;
     SqlProviderFlags.DefaultMultiQueryIsolationLevel = IsolationLevel.Unspecified;
-    xLog.Debug($"DbProvider.Namespaces.System_Data_Odbc: {DbProvider.Namespaces.System_Data_Odbc}");
+    xLog.Debug($"DbProvider.Namespaces.System_Data_Odbc: {DbProviderNamespace.System_Data_Odbc}");
 
-    if (base.ConnectionNamespace == DbProvider.Namespaces.System_Data_Odbc) {
+    if (base.ConnectionNamespace == DbProviderNamespace.System_Data_Odbc.Name) {
       SetCharField("CHAR", (r, i) => r.GetString(i).TrimEnd(' '));
       SetCharFieldToType<char>("CHAR", DataTools.GetCharExpression);
 
@@ -193,7 +192,7 @@ public class GenericDataProvider<TConnection> : DataProviderBase<TConnection>, I
       SetToType<IDataReader, uint, int>("INTEGER", (r, i) => unchecked((uint)r.GetInt32(i)));
       SetToType<IDataReader, ulong, int>("INTEGER", (r, i) => unchecked((uint)r.GetInt32(i)));
       SetToType<IDataReader, ushort, short>("SMALLINT", (r, i) => unchecked((ushort)r.GetInt16(i)));
-    } else if (base.ConnectionNamespace == DbProvider.Namespaces.System_Data_OleDb) {
+    } else if (base.ConnectionNamespace == DbProviderNamespace.System_Data_OleDb.Name) {
       SetCharField("DBTYPE_WCHAR", (r, i) => r.GetString(i).TrimEnd(' '));
       SetCharFieldToType<char>("DBTYPE_WCHAR", DataTools.GetCharExpression);
 
@@ -316,8 +315,8 @@ public class GenericDataProvider<TConnection> : DataProviderBase<TConnection>, I
   [UrlAsAt.AccessOdbcDataProviderDataProvider_2021_03_14]
   [UrlAsAt.AccessOleDbDataProviderDataProvider_2021_03_14]
   public override BulkCopyRowsCopied BulkCopy<T>(ITable<T> table, BulkCopyOptions options, IEnumerable<T> source) {
-    switch (DataSourceInformationRow.DataSourceProduct?.DbSystem?.Name) {
-      case DbSystem.Names.Access: return new Access.AccessBulkCopy().BulkCopy(options.BulkCopyType == BulkCopyType.Default ? Access.AccessTools.DefaultBulkCopyType : options.BulkCopyType, table, options, source);
+    switch (DbSystem) {
+      case var _ when DbSystem == DbSystem.Access: return new Access.AccessBulkCopy().BulkCopy(options.BulkCopyType == BulkCopyType.Default ? Access.AccessTools.DefaultBulkCopyType : options.BulkCopyType, table, options, source);
       default: return base.BulkCopy(table, options, source);
     };
   }
@@ -325,8 +324,8 @@ public class GenericDataProvider<TConnection> : DataProviderBase<TConnection>, I
   [UrlAsAt.AccessOdbcDataProviderDataProvider_2021_03_14]
   [UrlAsAt.AccessOleDbDataProviderDataProvider_2021_03_14]
   public override Task<BulkCopyRowsCopied> BulkCopyAsync<T>(ITable<T> table, BulkCopyOptions options, IAsyncEnumerable<T> source, CancellationToken cancellationToken) {
-    switch (DataSourceInformationRow.DataSourceProduct?.DbSystem?.Name) {
-      case DbSystem.Names.Access: return new Access.AccessBulkCopy().BulkCopyAsync(options.BulkCopyType == BulkCopyType.Default ? Access.AccessTools.DefaultBulkCopyType : options.BulkCopyType, table, options, source, cancellationToken);
+    switch (DbSystem) {
+      case var _ when DbSystem == DbSystem.Access: return new Access.AccessBulkCopy().BulkCopyAsync(options.BulkCopyType == BulkCopyType.Default ? Access.AccessTools.DefaultBulkCopyType : options.BulkCopyType, table, options, source, cancellationToken);
       default: return base.BulkCopyAsync(table, options, source, cancellationToken);
     };
   }
@@ -334,8 +333,8 @@ public class GenericDataProvider<TConnection> : DataProviderBase<TConnection>, I
   [UrlAsAt.AccessOdbcDataProviderDataProvider_2021_03_14]
   [UrlAsAt.AccessOleDbDataProviderDataProvider_2021_03_14]
   public override Task<BulkCopyRowsCopied> BulkCopyAsync<T>(ITable<T> table, BulkCopyOptions options, IEnumerable<T> source, CancellationToken cancellationToken) {
-    switch (DataSourceInformationRow.DataSourceProduct?.DbSystem?.Name) {
-      case DbSystem.Names.Access: return new Access.AccessBulkCopy().BulkCopyAsync(options.BulkCopyType == BulkCopyType.Default ? Access.AccessTools.DefaultBulkCopyType : options.BulkCopyType, table, options, source, cancellationToken);
+    switch (DbSystem) {
+      case var _ when DbSystem == DbSystem.Access: return new Access.AccessBulkCopy().BulkCopyAsync(options.BulkCopyType == BulkCopyType.Default ? Access.AccessTools.DefaultBulkCopyType : options.BulkCopyType, table, options, source, cancellationToken);
       default: return base.BulkCopyAsync(table, options, source, cancellationToken);
     };
   }
@@ -346,8 +345,8 @@ public class GenericDataProvider<TConnection> : DataProviderBase<TConnection>, I
   //protected override ISqlOptimizer SqlOptimizer { get; }
 
   public override void SetParameter(DataConnection dataConnection, DbParameter parameter, string name, DbDataType dataType, object? value) {
-    switch (DataSourceInformationRow.DataSourceProduct?.DbSystem?.Name) {
-      case DbSystem.Names.Access: SetParameter_Access(dataConnection, parameter, name, dataType, value); break;
+    switch (DbSystem) {
+      case var _ when DbSystem == DbSystem.Access: SetParameter_Access(dataConnection, parameter, name, dataType, value); break;
         //case DbSystem.Names.DB2iSeries: SetParameter_DB2iSeries_MTGFS01(dataConnection, parameter, name, dataType, value); break;
         //default: base.SetParameter(dataConnection, parameter, name, dataType, value); break;
     };
@@ -357,7 +356,7 @@ public class GenericDataProvider<TConnection> : DataProviderBase<TConnection>, I
   [UrlAsAt.AccessOdbcDataProviderDataProvider_2021_03_14]
   [UrlAsAt.AccessOleDbDataProviderDataProvider_2021_03_14]
   public void SetParameter_Access(DataConnection dataConnection, IDbDataParameter parameter, string name, DbDataType dataType, object? value) {
-    if (base.ConnectionNamespace == DbProvider.Namespaces.System_Data_Odbc) {
+    if (base.ConnectionNamespace == DbProviderNamespace.System_Data_Odbc.Name) {
       switch (dataType.DataType) {
         case DataType.SByte:
           if (value is sbyte sbyteVal)
@@ -381,7 +380,7 @@ public class GenericDataProvider<TConnection> : DataProviderBase<TConnection>, I
           break;
       }
     }
-    if (base.ConnectionNamespace == DbProvider.Namespaces.System_Data_OleDb) { }
+    if (base.ConnectionNamespace == DbProviderNamespace.System_Data_OleDb.Name) { }
   }
 
   public void SetParameter_DB2iSeries_MTGFS01(DataConnection dataConnection, DbParameter parameter, string name, DbDataType dataType, object? value) {
@@ -392,8 +391,8 @@ public class GenericDataProvider<TConnection> : DataProviderBase<TConnection>, I
   }
 
   protected override void SetParameterType(DataConnection dataConnection, DbParameter parameter, DbDataType dataType) {
-    switch (DataSourceInformationRow.DataSourceProduct?.DbSystem?.Name) {
-      case DbSystem.Names.Access: SetParameterType_Access(dataConnection, parameter, dataType); break;
+    switch (DbSystem) {
+      case var _ when DbSystem == DbSystem.Access: SetParameterType_Access(dataConnection, parameter, dataType); break;
       default: base.SetParameterType(dataConnection, parameter, dataType); break;
     };
   }
@@ -401,7 +400,7 @@ public class GenericDataProvider<TConnection> : DataProviderBase<TConnection>, I
   [UrlAsAt.AccessOdbcDataProviderDataProvider_2021_03_14]
   [UrlAsAt.AccessOleDbDataProviderDataProvider_2021_03_14]
   public void SetParameterType_Access(DataConnection dataConnection, DbParameter parameter, DbDataType dataType) {
-    if (base.ConnectionNamespace == DbProvider.Namespaces.System_Data_Odbc) {
+    if (base.ConnectionNamespace == DbProviderNamespace.System_Data_Odbc.Name) {
       //OdbcType? type = null;
       //switch (dataType.DataType) {
       //  case DataType.Variant: type = OdbcType.Binary; break;
@@ -426,7 +425,7 @@ public class GenericDataProvider<TConnection> : DataProviderBase<TConnection>, I
         // fallback
         case DataType.Variant: parameter.DbType = DbType.Binary; return;
       }
-    } else if (base.ConnectionNamespace == DbProvider.Namespaces.System_Data_OleDb) {
+    } else if (base.ConnectionNamespace == DbProviderNamespace.System_Data_OleDb.Name) {
       //OleDbType? type = null;
       //switch (dataType.DataType) {
       //  case DataType.DateTime:

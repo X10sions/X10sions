@@ -1,6 +1,6 @@
 ﻿namespace LinqToDB.DataProvider {
   [UrlAsAt.AccessBulkCopy_2021_06_04]
-  public class GenericBulkCopy  :BasicBulkCopy {}
+  public class GenericBulkCopy : BasicBulkCopy { }
 
 }
 

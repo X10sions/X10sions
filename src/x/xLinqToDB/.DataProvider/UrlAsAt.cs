@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace LinqToDB.DataProvider {
+﻿namespace LinqToDB.DataProvider {
   /// <summary>
   /// Source code reference as at given date.
   /// </summary>

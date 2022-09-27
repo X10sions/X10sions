@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup Label="Application">
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Product>LinqToDB.DataProvider Extensions</Product>
+    <VersionPart1>4</VersionPart1>
+    <VersionPart2>2</VersionPart2>
+    <Nullable>enable</Nullable>
+  </PropertyGroup> 
+  <ItemGroup Label="ProjectReferences">
+    <!-- 
+    <ProjectReference Include="..\..\..\lib\IBM.git\src\xIBM.Data.DB2.iSeries\xIBM.Data.DB2.iSeries.csproj" />
+    -->
+    <ProjectReference Include="..\..\..\Common\.Data\Common.Data.csproj" />
+    <ProjectReference Include="..\xLinqToDB.csproj" />
+  </ItemGroup> 
+  <ItemGroup>
+    <Folder Include="DB2iSeries\MTGFS01\" />
+    <Folder Include="DB2iSeries\V5R4\" />
+  </ItemGroup> 
+</Project>

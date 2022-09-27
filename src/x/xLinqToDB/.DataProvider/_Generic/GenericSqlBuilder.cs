@@ -24,25 +24,3 @@ namespace LinqToDB.DataProvider {
   }
 
 }
-
-namespace LinqToDB.DataProvider.DB2iSeries {
-
-  public class DB2iSeriesV5R4SqlBuilder : BasicSqlBuilder {
-    public DB2iSeriesV5R4SqlBuilder(IDataProvider? provider, MappingSchema mappingSchema, ISqlOptimizer sqlOptimizer, SqlProviderFlags sqlProviderFlags)
-      : base(provider, mappingSchema, sqlOptimizer, sqlProviderFlags) {
-      //this.dataSourceInformationRow = dataSourceInformationRow;
-    }
-
-    //DataSourceInformationRow dataSourceInformationRow;
-    protected override ISqlBuilder CreateSqlBuilder() => new DB2iSeriesV5R4SqlBuilder(DataProvider, MappingSchema, SqlOptimizer, SqlProviderFlags);
-  }
-
-  public class DB2iSeriesV7R4SqlBuilder : DB2iSeriesV5R4SqlBuilder {
-    public DB2iSeriesV7R4SqlBuilder(IDataProvider? provider, MappingSchema mappingSchema, ISqlOptimizer sqlOptimizer, SqlProviderFlags sqlProviderFlags)
-      : base(provider, mappingSchema, sqlOptimizer, sqlProviderFlags) {
-    }
-
-    protected override ISqlBuilder CreateSqlBuilder() => new DB2iSeriesV7R4SqlBuilder(DataProvider, MappingSchema, SqlOptimizer, SqlProviderFlags);
-  }
-
-}

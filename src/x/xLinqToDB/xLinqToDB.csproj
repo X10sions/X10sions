@@ -3,16 +3,17 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <Product>LinqToDB Extensions</Product>
     <VersionPart1>4</VersionPart1>
-    <VersionPart2>1</VersionPart2>
+    <VersionPart2>2</VersionPart2>
     <Nullable>enable</Nullable>
   </PropertyGroup> 
   <ItemGroup Label="PackageReferences">
     <PackageReference Include="linq2db" Version="4.2.0" />
+    <!-- 
     <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="6.0.0" />
     <PackageReference Include="Microsoft.Bcl.HashCode" Version="1.1.1" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="6.0.0" />
-    <PackageReference Include="System.Configuration.ConfigurationManager" Version="6.0.0" />
-    <!-- 
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="6.0.1" />
+
     <PackageReference Include="Serilog" Version="2.9.0" />
     <PackageReference Include="linq2db.Tools" Version="3.3.0" />
 
@@ -31,14 +32,15 @@
     -->
   </ItemGroup> 
   <ItemGroup Label="ProjectReferences">
-    <ProjectReference Include="..\..\Common\.NetStandard\.Data\Common.NetStandard.Data.csproj" />
-    <ProjectReference Include="..\xSystem\xSystem.csproj" />
+    <ProjectReference Include="..\..\Common\.Data\Common.Data.csproj" />
     <!-- 
+    <ProjectReference Include="..\..\Common\.NetStandard\.Data\Common.NetStandard.Data.csproj" />
     <ProjectReference Include="$(RepoSrcDir_X10sions)x\xSystem\xSystem.csproj" />
     <ProjectReference Include="$(RepoSrcDir_X10sions)Common\.Abstractions\Common.Abstractions.csproj" />
     -->
   </ItemGroup> 
-  <ItemGroup>
-    <Folder Include="_\System\Linq\Expressions\" />
-  </ItemGroup> 
+  <PropertyGroup Condition="'$(TargetFramework)' == 'netstandard2.1' OR '$(TargetFramework)' == 'netcoreapp3.1' OR '$(TargetFramework)' == 'net6.0'">
+    <DefineConstants>NETSTANDARD2_1PLUS;$(DefineConstants)</DefineConstants>
+  </PropertyGroup>
+
 </Project>

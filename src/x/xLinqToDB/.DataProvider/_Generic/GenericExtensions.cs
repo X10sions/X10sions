@@ -1,25 +1,16 @@
-﻿using LinqToDB;
-using LinqToDB.Common;
+﻿using LinqToDB.Common;
 using LinqToDB.Data;
-using LinqToDB.DataProvider;
 using LinqToDB.Mapping;
 using LinqToDB.SqlQuery;
-using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using System.Text;
+using System.Data;
+using LinqToDB.Extensions;
+using static LinqToDB.SqlProvider.BasicSqlOptimizer;
 using Common.Data;
 using Common.Data.GetSchemaTyped.DataRows;
-using LinqToDB.DataProvider.DB2iSeries;
-using System.Data;
-using System.Data.Common;
-using LinqToDB.SqlProvider;
-using static LinqToDB.SqlProvider.BasicSqlOptimizer;
-using LinqToDB.Extensions;
 
 namespace LinqToDB.DataProvider {
-
   public static class GenericExtensions {
 
     public static ISqlExpression AlternativeExists_DB2iSeries(this SqlFunction func) {
@@ -97,7 +88,7 @@ namespace LinqToDB.DataProvider {
       } else if (expression is SqlFunction func) {
         switch (func.Name.ToLower()) {
           case "convert": {
-              if (System.TypeExtensions.ToUnderlying(func.SystemType) == typeof(bool)) {
+              if (func.SystemType.ToUnderlying() == typeof(bool)) {
                 var ex = baseAlternativeConvertToBoolean(func, 1);
                 if (ex != null) {
                   return ex;
@@ -151,7 +142,7 @@ namespace LinqToDB.DataProvider {
           case "money": return new SqlFunction(func.SystemType, "Decimal", func.Parameters[0], new SqlValue(19), new SqlValue(4));
           case "smallmoney": return new SqlFunction(func.SystemType, "Decimal", func.Parameters[0], new SqlValue(10), new SqlValue(4));
           case "varchar":
-            if (System.TypeExtensions.ToUnderlying(func.Parameters[0].SystemType) == typeof(decimal)) {
+            if (func.Parameters[0].SystemType?.ToUnderlying() == typeof(decimal)) {
               return new SqlFunction(func.SystemType, "Char", func.Parameters[0]);
             }
             break;
@@ -323,6 +314,14 @@ namespace LinqToDB.DataProvider {
       }
       return text;
     }
+    public static TableOptions GetTableOptions(this DataSourceInformationRow dataSourceInformationRow) {
+      var dbSystem = dataSourceInformationRow.GetDbSystem();
+      return dbSystem switch {
+        var _ when dbSystem == DbSystem.DB2iSeries => dataSourceInformationRow.Version.GetTableOptions_DB2iSeries(),
+         _ => throw new NotImplementedException($"{dataSourceInformationRow.DataSourceProductName}: v{dataSourceInformationRow.Version}") // TableOptions.None
+       };
+    }
+    
 
     public static SqlDataType GetTypeOrUnderlyingTypeDataType_DB2iSeries(this MappingSchema mappingSchema, Type type) {
       var sqlDataType = mappingSchema.GetDataType(type);
@@ -335,13 +334,6 @@ namespace LinqToDB.DataProvider {
       return SqlDataType.Undefined;
     }
 
-    public static string GetNameWithVersion(this Version version, string name) => $"{name}.v{version}";
-
-    public static TableOptions GetTableOptions(this DataSourceInformationRow dataSourceInformationRow) => dataSourceInformationRow.DbSystemEnum() switch {
-      DbSystem.Enum.DB2iSeries => dataSourceInformationRow.Version.GetTableOptions_DB2iSeries(),
-      _ => throw new NotImplementedException($"{dataSourceInformationRow.DataSourceProductName}: v{dataSourceInformationRow.Version}") // TableOptions.None
-    };
-
     public static TableOptions GetTableOptions_DB2iSeries(this Version? version) => version switch {
       //{ Major: > 5 } => TableOptions.None,
       _ => TableOptions.IsTemporary
@@ -349,7 +341,7 @@ namespace LinqToDB.DataProvider {
          | TableOptions.IsGlobalTemporaryStructure
          | TableOptions.IsLocalTemporaryData
          | TableOptions.IsGlobalTemporaryData
-         //| TableOptions.CreateIfNotExists |        TableOptions.DropIfExists;
+      //| TableOptions.CreateIfNotExists |        TableOptions.DropIfExists;
     };
 
     [Obsolete("Please use the BulkCopy extension methods within DataConnectionExtensions")]
@@ -360,11 +352,7 @@ namespace LinqToDB.DataProvider {
     }, source);
 
     [UrlAsAt.DB2MappingSchema_2021_05_07]
-    public static DateTime ParseDateTime_DB2(string value) {
-      if (DateTime.TryParse(value, out var res))
-        return res;
-      return DateTime.ParseExact(value, DateParseFormats_DB2, CultureInfo.InvariantCulture, DateTimeStyles.None);
-    }
+    public static DateTime ParseDateTime_DB2(string value) => DateTime.TryParse(value, out var res) ? res : DateTime.ParseExact(value, DateParseFormats_DB2, CultureInfo.InvariantCulture, DateTimeStyles.None);
 
     //public static DateTime ParseDateTime_DB2iSeries(this string value) {
     //  if (DateTime.TryParse(value, out var res))
@@ -403,7 +391,6 @@ namespace LinqToDB.DataProvider {
     //  };
     //}
 
-
     //public static string TimestampFormat_ISO(int milliSecondsPrecision, string dateTimeSeparator)
     //  => DateFormat_ISO + dateTimeSeparator + TimeFormat_ISO + ((milliSecondsPrecision > 0) ? ("." + new string('f', milliSecondsPrecision)) : "");
 
@@ -414,11 +401,11 @@ namespace LinqToDB.DataProvider {
     }
 
     public static string ToSqlString_ISO(this DateTime value, SqlDataType sqlDatatype, string prefix, string dateTimeSeparator, int maxMilliSecondsPrecision, string suffix) {
-      return  (sqlDatatype.Type.DataType == DataType.Date || "date".Equals(sqlDatatype.Type.DbType, StringComparison.OrdinalIgnoreCase))
+      return (sqlDatatype.Type.DataType == DataType.Date || "date".Equals(sqlDatatype.Type.DbType, StringComparison.OrdinalIgnoreCase))
         ? value.SqlLiteralDate(prefix, suffix)
         : (sqlDatatype.Type.DataType == DataType.Time || "time".Equals(sqlDatatype.Type.DbType, StringComparison.OrdinalIgnoreCase))
         ? value.SqlLiteralTime(0, prefix, suffix)
-        : value.SqlLiteralTimestamp(value.Millisecond == 0 ? 0 : maxMilliSecondsPrecision ,prefix,suffix, dateTimeSeparator);
+        : value.SqlLiteralTimestamp(value.Millisecond == 0 ? 0 : maxMilliSecondsPrecision, prefix, suffix, dateTimeSeparator);
       //return $"{prefix}{value.ToString(format)}{suffix}";
     }
 
@@ -480,8 +467,6 @@ namespace LinqToDB.DataProvider {
     }
 
     public static string ToSqlString_DB2iSeries(this DbDataType dbDataType) => ToSqlDbTypeString_DB2iSeries(dbDataType.DbType, dbDataType.Length, dbDataType.Precision, dbDataType.Scale);
-
-
 
   }
 }

@@ -36,14 +36,14 @@ namespace LinqToDB.DataProvider {
     GenericMappingSchema(DataSourceInformationRow dataSourceInformationRow) : base("Generic") {
       DataSourceInformationRow = dataSourceInformationRow;
       //GenericDataProvider = genericDataProvider;
-      //DbSystemEnum = dbSystemEnum;
+      DbSystem = DataSourceInformationRow.GetDbSystem();
       //DbSystemVersion = version;
-      var initDone = DataSourceInformationRow.DbSystemEnum() switch {
+      var initDone = DbSystem switch {
         //{ DataSourceProduct?.DbSystem?.Name:   DbSystem.Names.Access } => GenericMappingSchema_InitAccess(),
-        DbSystem.Enum.DB2iSeries => this.GenericMappingSchema_InitDB2iSeries(DataSourceInformationRow.Version),
+        var _ when DbSystem  == DbSystem.DB2iSeries => this.GenericMappingSchema_InitDB2iSeries(DataSourceInformationRow.Version),
         //  DbSystem.Names.SapHana => GenericMappingSchema_InitSapHana(),
         // DbSystem.Names.SqlServer => GenericMappingSchema_InitSqlServer(dataSourceInformationRow.Version),
-        _ => throw new NotImplementedException($"{DataSourceInformationRow.DbSystemEnum()}: v{DataSourceInformationRow.Version}")
+        _ => throw new NotImplementedException($"{DbSystem}: v{DataSourceInformationRow.Version}")
       };
     }
     //IGenericDataProvider GenericDataProvider { get; }
@@ -52,10 +52,11 @@ namespace LinqToDB.DataProvider {
     //string connectionString { get; }
     //DataSourceInformationRow dataSourceInformationRow => DataSourceInformationRow.GetInstance<TConnection>(connection);
     DataSourceInformationRow DataSourceInformationRow { get; }
+    DbSystem? DbSystem { get; }
 
     public override LambdaExpression? TryGetConvertExpression(Type from, Type to) {
-      return DataSourceInformationRow.DbSystemEnum() switch {
-        DbSystem.Enum.SqlServer => this.TryGetConvertExpression_SqlServer((from, to) => base.TryGetConvertExpression(from, to), from, to, DataSourceInformationRow.Version),
+      return DbSystem  switch {
+        var _ when DbSystem == DbSystem.SqlServer => this.TryGetConvertExpression_SqlServer((from, to) => base.TryGetConvertExpression(from, to), from, to, DataSourceInformationRow.Version),
         _ => base.TryGetConvertExpression(from, to)
       };
     }
@@ -100,7 +101,7 @@ namespace LinqToDB.Mapping {
       mappingSchema.SetValueToSqlConverter(typeof(string), (sb, dt, v) => sb.ConvertStringToSql_DB2(v.ToString()!));
       mappingSchema.SetValueToSqlConverter(typeof(TimeSpan), (sb, dt, v) => sb.ConvertTimeToSql_DB2((TimeSpan)v));
 
-      mappingSchema.SetConverter<string, DateTime>(GenericExtensions.ParseDateTime_DB2);
+      mappingSchema.SetConverter<string, DateTime>(  GenericExtensions.ParseDateTime_DB2);
       return true;
     }
 

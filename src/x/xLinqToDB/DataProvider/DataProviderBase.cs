@@ -12,7 +12,7 @@ namespace LinqToDB.DataProvider {
       //, Func<ISchemaProvider> getSchemaProvider, TableOptions tableOptions
       //, getSchemaProvider, tableOptions
     }
-  }
+  } 
 
   public abstract class DataProviderBase<TConnection> : DataProviderBase
     where TConnection : DbConnection, new() {
