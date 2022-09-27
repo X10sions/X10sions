@@ -1,7 +1,9 @@
-﻿using LinqToDB;
+﻿using Common.Data;
+using LinqToDB;
 using LinqToDB.AspNet.Logging;
 using LinqToDB.Configuration;
 using LinqToDB.Data;
+using LinqToDB.DataProvider;
 using LinqToDB.DataProvider.DB2;
 using LinqToDB.DataProvider.DB2iSeries;
 using LinqToDB.DataProvider.Oracle;
@@ -74,7 +76,12 @@ namespace X10sions.Fake.Data.Repositories {
     public static LinqToDBConnectionOptions<T> GetLinqToDBConnectionOptions<T>(this ConnectionStringName name, IConfiguration configuration, ILoggerFactory loggerFactory) => name.GetLinqToDBConnectionOptionsBuilder(configuration, loggerFactory).Build<T>();
     public static LinqToDBConnectionOptions GetLinqToDBConnectionOptions(this ConnectionStringName name, IConfiguration configuration, ILoggerFactory loggerFactory) => name.GetLinqToDBConnectionOptionsBuilder(configuration, loggerFactory).Build();
 
- 
+
+    static readonly IDataProvider xDB2DataProviderzOdbc = new DB2WrappedDataProvider<OdbcConnection, OdbcDataReader>(801);
+    static readonly IDataProvider xDB2DataProviderzOleDb = new DB2WrappedDataProvider<OleDbConnection, OleDbDataReader>(802);
+
+    static readonly IDataProvider xDB2ISeriesDataProviderzOdbc = new DB2iSeriesWrappedDataProvider<OdbcConnection, OdbcDataReader>(901, DB2iSeriesProviderType.Odbc);
+    static readonly IDataProvider xDB2ISeriesDataProviderzOleDb = new DB2iSeriesWrappedDataProvider<OleDbConnection, OleDbDataReader>(902, DB2iSeriesProviderType.OleDb);
 
     static LinqToDBConnectionOptionsBuilder GetLinqToDBConnectionOptionsBuilder(this ConnectionStringName name, IConfiguration configuration, ILoggerFactory loggerFactory) {
       var connectionString = name.GetConnectionString(configuration);
@@ -91,11 +98,11 @@ namespace X10sions.Fake.Data.Repositories {
         //case ConnectionStringName.DB2iSeries_Odbc: builder.UseDB2iSeries(connectionString, x => { x.WithProviderType(DB2iSeriesProviderType.Odbc); }); break;
         //case ConnectionStringName.DB2iSeries_OleDb: builder.UseDB2iSeries(connectionString, x => { x.WithProviderType(DB2iSeriesProviderType.OleDb); }); break;
 
-        case ConnectionStringName.DB2iSeries_Odbc: builder.UseConnectionString(new XDB2LUWDataProvider<OdbcConnection, OdbcDataReader>(ConnectionStringName.DB2iSeries_Odbc, 801),connectionString); break;
-        case ConnectionStringName.DB2iSeries_OleDb: builder.UseConnectionString(new XDB2LUWDataProvider<OleDbConnection, OleDbDataReader>(ConnectionStringName.DB2iSeries_OleDb, 802), connectionString); break;
+        //case ConnectionStringName.DB2iSeries_Odbc: builder.UseConnectionString(xDB2DataProviderzOdbc, connectionString); break;
+        //case ConnectionStringName.DB2iSeries_OleDb: builder.UseConnectionString(xDB2DataProviderzOleDb, connectionString); break;
 
-        //case ConnectionStringName.DB2iSeries_Odbc: builder.UseConnectionString(new XDB2iSeriesDataProvider<OdbcConnection, OdbcDataReader>(ConnectionStringName.DB2iSeries_Odbc,901, DB2iSeriesProviderType.Odbc), connectionString); break;
-        //case ConnectionStringName.DB2iSeries_OleDb: builder.UseConnectionString(new XDB2iSeriesDataProvider<OleDbConnection, OleDbDataReader>(ConnectionStringName.DB2iSeries_OleDb,902, DB2iSeriesProviderType.OleDb), connectionString); break;
+        case ConnectionStringName.DB2iSeries_Odbc: builder.UseConnectionString(xDB2ISeriesDataProviderzOdbc, connectionString); break;
+        case ConnectionStringName.DB2iSeries_OleDb: builder.UseConnectionString(xDB2ISeriesDataProviderzOleDb, connectionString); break;
 
         case ConnectionStringName.Firebird: builder.UseFirebird(connectionString); break;
         case ConnectionStringName.MariaDb: builder.UseMySqlConnector(connectionString); break;

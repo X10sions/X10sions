@@ -47,10 +47,12 @@
 
   <Target Name="TempFixBeforeBuild" BeforeTargets="BeforeBuild">
     <!-- Fix staticwebassets.build.json not found until fixed in .NET 7 -->
+    <!-- 
     <Copy SourceFiles="$(ProjectDir)obj\Release\net6.0-android\staticwebassets.build.json" DestinationFiles="$(ProjectDir)obj\Release\net6.0-android\android-arm\staticwebassets.build.json" />
     <Copy SourceFiles="$(ProjectDir)obj\Release\net6.0-android\staticwebassets.build.json" DestinationFiles="$(ProjectDir)obj\Release\net6.0-android\android-arm64\staticwebassets.build.json" />
     <Copy SourceFiles="$(ProjectDir)obj\Release\net6.0-android\staticwebassets.build.json" DestinationFiles="$(ProjectDir)obj\Release\net6.0-android\android-x64\staticwebassets.build.json" />
     <Copy SourceFiles="$(ProjectDir)obj\Release\net6.0-android\staticwebassets.build.json" DestinationFiles="$(ProjectDir)obj\Release\net6.0-android\android-x86\staticwebassets.build.json" />
+    -->
   </Target>
 
 </Project>

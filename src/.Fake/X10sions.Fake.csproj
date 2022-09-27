@@ -36,7 +36,9 @@
     <PackageReference Include="FreeSql.All" Version="3.2.669" />
     <PackageReference Include="IBM.EntityFrameworkCore" Version="6.0.0.300" />
     <PackageReference Include="linq2db.AspNet" Version="4.2.0" />
-    <PackageReference Include="linq2db4iSeries" Version="4.0.1.1" />
+    <!-- 
+    <PackageReference Include="linq2db.AspNet" Version="4.2.0" />
+    -->
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite.Core" Version="6.0.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.9" />
     <PackageReference Include="MySql.EntityFrameworkCore" Version="6.0.4" />
@@ -71,9 +73,10 @@
   
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\..\x10sions\EntityFrameworkCore.Jet\src\EFCore.Jet\EFCore.Jet.csproj" />
+    <ProjectReference Include="..\x\xLinqToDB\.DataProvider\.DB2iSeries\xLinqToDB.DataProvider.DB2iSeries.csproj" />
   </ItemGroup>  
   
   <ItemGroup>
-    <Folder Include="_\LinqToDB\" />
+    <Folder Include="_\LinqToDB\DataProvider\X10sions\" />
   </ItemGroup>
 </Project>

@@ -1,6 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace X10sions.Fake.Data.Models {
+
+  
+
   [Table("FakeAddress")]
   public class FakeAddress {
     public string Line1 { get; set; }
