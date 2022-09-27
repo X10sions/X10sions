@@ -1,5 +1,4 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 
 namespace X10sions.ERP.WpfApp {
   /// <summary>
