@@ -7,9 +7,6 @@ using X10sions.Fake.Data.Repositories;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System.Data.Common;
-using LinqToDB.Mapping;
-using LinqToDB.SqlQuery;
-using LinqToDB.DataProvider.DB2iSeries;
 
 namespace X10sions.Fake.Data {
   public interface IFakeDataConnection { }
@@ -59,7 +56,6 @@ namespace X10sions.Fake.Data {
     //    SetDataType(typeof(string), new SqlDataType(DataType.VarChar, typeof(string), 255));
     //  }
     //}
-
 
     public class Access_Odbc : BaseDataConnection { public Access_Odbc(IConfiguration configuration, ILoggerFactory loggerFactory) : base(ConnectionStringName.Access_Odbc.GetLinqToDBConnectionOptions<Access_Odbc>(configuration, loggerFactory)) { } }
     public class Access_OleDb : BaseDataConnection { public Access_OleDb(IConfiguration configuration, ILoggerFactory loggerFactory) : base(ConnectionStringName.Access_OleDb.GetLinqToDBConnectionOptions<Access_OleDb>(configuration, loggerFactory)) { } }

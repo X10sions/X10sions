@@ -16,7 +16,7 @@ public interface IDbConnectionProvider<TDbConnection, TConnectionStringNamesEnum
 }
 
 public class DbConnectionProvider<TDbConnection> : IDbConnectionProvider<TDbConnection> where TDbConnection : DbConnection, new() {
-  public DbConnectionProvider(ConnectionStringProvidersAppSettings providers) {
+  public DbConnectionProvider(ConnectionStringsByProviderAppSettings providers) {
     Namespace = typeof(TDbConnection)?.Namespace ?? throw new NotImplementedException("No Namespace:" + typeof(TDbConnection).FullName);
     connectionStrings = providers[Namespace];
   }
@@ -29,7 +29,7 @@ public class DbConnectionProvider<TDbConnection> : IDbConnectionProvider<TDbConn
 public class DbConnectionProvider<TDbConnection, TConnectionStringNamesEnum> : DbConnectionProvider<TDbConnection> , IDbConnectionProvider<TDbConnection, TConnectionStringNamesEnum>
   where TDbConnection : DbConnection, new()
   where TConnectionStringNamesEnum : Enum {
-  public DbConnectionProvider(ConnectionStringProvidersAppSettings providers):base(providers) {  }
+  public DbConnectionProvider(ConnectionStringsByProviderAppSettings providers):base(providers) {  }
   public string GetConnectionString(TConnectionStringNamesEnum connectionNameEnum) => GetConnectionString(connectionNameEnum.ToString());
   public TDbConnection GetDbConnection(TConnectionStringNamesEnum connectionNameEnum) => GetDbConnection(GetConnectionString(connectionNameEnum));
 }

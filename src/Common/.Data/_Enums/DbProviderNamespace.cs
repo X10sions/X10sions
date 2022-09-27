@@ -23,7 +23,7 @@ public sealed class DbProviderNamespace : SmartEnum<DbProviderNamespace> {
   public static readonly DbProviderNamespace System_Data_OleDb = new DbProviderNamespace("System.Data.OleDb", null);
   public static readonly DbProviderNamespace System_Data_OracleClient = new DbProviderNamespace("System.Data.OracleClient", DbSystem.Oracle);
   public static readonly DbProviderNamespace System_Data_SQLite = new DbProviderNamespace("System.Data.SQLite", DbSystem.Sqlite);
-  public static readonly DbProviderNamespace System_Data_SqlClien = new DbProviderNamespace("System.Data.SqlClient", DbSystem.SqlServer);
+  public static readonly DbProviderNamespace System_Data_SqlClient = new DbProviderNamespace("System.Data.SqlClient", DbSystem.SqlServer);
 
   private DbProviderNamespace(string name, DbSystem? dbSystem) : base(name, List.Count) {
     DbSystem = dbSystem;

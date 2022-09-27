@@ -54,14 +54,4 @@ public static class ServiceConfigurationExtensions {
     return services;
   }
 
-  public static IServiceCollection AddScoped<TService>(this IServiceCollection services, Func<IServiceProvider, TService> implementationFactory, ILogger logger) where TService : class {
-    logger.LogInformation($"{nameof(AddScoped)}<{typeof(TService)}>");
-    return services.AddScoped(implementationFactory);
-  }
-
-  public static IServiceCollection AddScoped<TService>(this IServiceCollection services, ILogger logger) where TService : class {
-    logger.LogInformation($"{nameof(AddScoped)}<{typeof(TService)}>");
-    return services.AddScoped<TService>();
-  }
-
 }
