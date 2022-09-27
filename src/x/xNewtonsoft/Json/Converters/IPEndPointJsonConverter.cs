@@ -1,8 +1,9 @@
-﻿using System.Net;
+﻿using Newtonsoft.Json.Linq;
+using System.Net;
 
 namespace Newtonsoft.Json.Converters {
   public class IPEndPointJsonConverter : JsonConverter {
-    public override bool CanConvert(Type objectType) => (objectType == typeof(IPEndPoint));
+    public override bool CanConvert(Type objectType) => objectType == typeof(IPEndPoint);
 
     public override object? ReadJson(JsonReader reader, Type objectType, object? existingValue, JsonSerializer serializer) {
       JObject jo = JObject.Load(reader);
