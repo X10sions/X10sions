@@ -52,7 +52,7 @@ namespace System {
 
     public static Type ToNullableUnderlying(this Type type) => Nullable.GetUnderlyingType(type) ?? type;
 
-    public static Type ToUnderlying(this Type type) => type.IsNullable() ? type.GetGenericArguments()[0] : type.IsEnum ? Enum.GetUnderlyingType(type) : type;
+    public static Type ToUnderlyingType(this Type type) => type.IsNullable() ? type.GetGenericArguments()[0] : type.IsEnum ? Enum.GetUnderlyingType(type) : type;
 
     public static TypeCode TypeCode(this Type type) => Type.GetTypeCode(type);
 
