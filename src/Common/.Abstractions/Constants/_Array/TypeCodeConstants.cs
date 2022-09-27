@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq;
-
-namespace Common.Constants {
+﻿namespace Common.Constants {
   public static class TypeCodeConstants {
 
     public static readonly TypeCode[] Float =  {
@@ -23,7 +20,7 @@ namespace Common.Constants {
 
     public static readonly TypeCode[] Numeric = Integer.Union(Float).ToArray();
 
-   public static readonly TypeCode[] Text = {
+    public static readonly TypeCode[] Text = {
       TypeCode.Char,
       TypeCode.String
     };

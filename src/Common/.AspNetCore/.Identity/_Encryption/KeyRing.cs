@@ -6,7 +6,7 @@ namespace Common.AspNetCore.Identity {
     // https://github.com/blowdart/AspNetCoreIdentityEncryption/blob/master/AspNetCoreIdentityEncryption/KeyRing.cs
     private readonly IDictionary<string, string> _keyDictionary = new Dictionary<string, string>();
 
-    public KeyRing(IHostEnvironment hostingEnvironment) {
+    public KeyRing(IHostingEnvironment hostingEnvironment) {
       // Create the keyring directory if one doesn't exist.
       var keyRingDirectory = Path.Combine(hostingEnvironment.ContentRootPath, "keyring");
       Directory.CreateDirectory(keyRingDirectory);

@@ -1,24 +1,25 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-    <PropertyGroup Label="Application">
-        <TargetFramework>netstandard2.0</TargetFramework>
-        <Product>Common NetStandard</Product>
-        <VersionPart1>2</VersionPart1>
-        <VersionPart2>0</VersionPart2>
-        <Nullable>enable</Nullable>
-    </PropertyGroup>
-    <ItemGroup Label="PackageReferences">
-        <PackageReference Include="FastExpressionCompiler" Version="3.3.3" />
-        <PackageReference Include="FastExpressionCompiler.LightExpression " Version="3.2.2" />
-        <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-        <PackageReference Include="System.Configuration.ConfigurationManager" Version="6.0.0" />
-        <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
-        <PackageReference Include="System.Data.Odbc" Version="6.0.0" />
-    </ItemGroup>
-    <ItemGroup Label="ProjectReferences">
-        <ProjectReference Include="..\..\x\xMicrosoft\.Abstractions\xMicrosoft.Abstractions.csproj" />
-        <ProjectReference Include="..\.Abstractions\Common.Abstractions.csproj" />
-    </ItemGroup>
-    <ItemGroup>
-      <PackageReference Update="FastExpressionCompiler.LightExpression" Version="3.3.3" />
-    </ItemGroup>
+  <PropertyGroup Label="Application">
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Product>Common NetStandard</Product>
+    <VersionPart1>2</VersionPart1>
+    <VersionPart2>0</VersionPart2>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  <ItemGroup Label="PackageReferences">
+    <!-- 
+    <PackageReference Include="FastExpressionCompiler" Version="3.3.3" />
+    <PackageReference Include="FastExpressionCompiler.LightExpression " Version="3.2.2" />
+    -->
+  </ItemGroup>
+  <ItemGroup Label="ProjectReferences">
+    <ProjectReference Include="..\..\x\xMicrosoft\.Abstractions\xMicrosoft.Abstractions.csproj" />
+    <ProjectReference Include="..\.Abstractions\Common.Abstractions.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Update="FastExpressionCompiler.LightExpression" Version="3.3.3" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Data\" />
+  </ItemGroup>
 </Project>

@@ -2,12 +2,9 @@
 using LinqToDB.Data;
 using LinqToDB.DataProvider;
 using Microsoft.AspNetCore.Identity;
-using System;
 using System.Data;
-using System.Linq;
+using System.Data.Common;
 using System.Linq.Expressions;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Common.AspNetCore.Identity.Providers.LinqToDB {
 
@@ -17,7 +14,7 @@ namespace Common.AspNetCore.Identity.Providers.LinqToDB {
     where TRole : class, IIdentityRole<TKey>, IIdentityRoleWithConcurrency<TKey>
     where TKey : IEquatable<TKey> {
 
-    public _BaseIdentityRoleStore_LinqToDB(IDbConnection db, IDataProvider dataProvider, Expression<Func<TRole, bool>> baseSqlWhere, IdentityErrorDescriber errorDescriber)
+    public _BaseIdentityRoleStore_LinqToDB(DbConnection db, IDataProvider dataProvider, Expression<Func<TRole, bool>> baseSqlWhere, IdentityErrorDescriber errorDescriber)
     : this(new DataConnection(dataProvider, db), baseSqlWhere, errorDescriber) { }
 
     public _BaseIdentityRoleStore_LinqToDB(DataConnection dataConnection, Expression<Func<TRole, bool>> baseSqlWhere, IdentityErrorDescriber errorDescriber) : base(errorDescriber) {

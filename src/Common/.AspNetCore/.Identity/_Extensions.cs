@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
-using System;
 
 namespace Common.AspNetCore.Identity {
   public static class CommonIdentityBuilderExtensions {
@@ -13,6 +12,7 @@ namespace Common.AspNetCore.Identity {
       where TKey : IEquatable<TKey> {
       services.AddScoped<IIdentityContext, TContext>();
 
+      
       services.AddIdentity<TUser, TRole>()
         .AddUserStore<TUserStore>()
         .AddRoleStore<TRoleStore>()
