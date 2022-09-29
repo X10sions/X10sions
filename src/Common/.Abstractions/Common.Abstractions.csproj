@@ -8,4 +8,9 @@
   <ItemGroup>
     <ProjectReference Include="..\..\x\xSystem\xSystem.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Data\GetSchemaTyped\DataRows\" />
+    <Folder Include="_\System\Data\" />
+    <Folder Include="_\System\Net\Mail\" />
+  </ItemGroup>
 </Project>

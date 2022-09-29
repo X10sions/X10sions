@@ -1,52 +1,37 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
+﻿namespace Common.Collections.Paged;
 
-namespace Common.Collections.Paged {
-
-  public class PagedList<T, TKey> : BasePagedList<T> {
-    public PagedList(IQueryable<T> superset, Expression<Func<T, TKey>> keySelector, int pageNumber, int pageSize)
-      : base(pageNumber, pageSize, superset?.Count() ?? 0) {
-      if (TotalItemCount > 0) {
-        InitSubset(superset, keySelector.Compile(), pageNumber, pageSize);
-      }
-    }
-
-    public PagedList(IQueryable<T> superset, Func<T, TKey> keySelectorMethod, int pageNumber, int pageSize)
-      : base(pageNumber, pageSize, superset?.Count() ?? 0) {
-      if (TotalItemCount > 0) {
-        InitSubset(superset, keySelectorMethod, pageNumber, pageSize);
-      }
-    }
-
-    void InitSubset(IEnumerable<T> superset, Func<T, TKey> keySelectorMethod, int pageNumber, int pageSize) {
-      var items = pageNumber == 1
-        ? superset.OrderBy(keySelectorMethod).Take(pageSize).ToList()
-        : superset.OrderBy(keySelectorMethod).Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
-      Subset.AddRange(items);
-    }
+public class PagedList<T> : List<T>, IPagedListOptions {
+  PagedList(int pageNumber, int? pageSize) {
+    PageNumber = pageNumber < 1 ? 1 : pageNumber;
+    PageSize = pageSize == null ? null : pageSize < 1 ? 1 : pageSize;
   }
 
-  public class PagedList<T> : BasePagedList<T> {
+  //PagedList(IPagedListOptions options) : this(options.PageNumber, options.PageSize) {
+  //  TotalItemCount = options.TotalItemCount;
+  //}
 
-    public PagedList(IQueryable<T> superset, int pageNumber, int pageSize)
-      : base(pageNumber, pageSize, superset?.Count() ?? 0) {
-      if (TotalItemCount > 0) {
-        Subset.AddRange(pageNumber == 1 ? superset.Take(pageSize).ToList() : superset.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList());
-      }
-    }
-
-    public PagedList(IEnumerable<T> superset, int pageNumber, int pageSize)
-      : this(superset.AsQueryable(), pageNumber, pageSize) {
-    }
-
-    public PagedList(IPagedList pagedList, IEnumerable<T> superset) {
-      TotalItemCount = pagedList.TotalItemCount;
-      PageSize = pagedList.PageSize;
-      PageNumber = pagedList.PageNumber;
-      Subset.AddRange(superset);
-    }
+  public PagedList(IEnumerable<T> items, int pageNumber, int? pageSize = null, int? totalItemCount = null) : this(pageNumber, pageSize) {
+    TotalItemCount = totalItemCount ?? items.Count();
+    AddRange(items);
   }
+
+  public PagedList(IEnumerable<T> items, IPagedListOptions options)
+    : this(items, options.PageNumber, options.PageSize, options.TotalItemCount) { }
+
+  //public PagedList(IQueryable<T> query, int pageNumber, int? pageSize = null, CancellationToken token = default)
+  //  : this(query.SkipTakeToPage(pageNumber, pageSize).ToListAsync(token).Result, pageNumber, pageSize, query.CountAsync(token).Result) { }
+
+  //public PagedList(IQueryable<T> query, IPagedListOptions options, CancellationToken token = default)
+  //  : this(query, options.PageNumber, options.PageSize, token) { }
+
+  public int TotalItemCount { get; }
+  public int PageNumber { get; }
+  public int? PageSize { get; }
+
+  //public static PaginatedList<T> Create(IQueryable<T> source, int currentPage, int pageSize) {
+  //  var count = source.Count();
+  //  var items = source.SkipTakeToPage(currentPage, pageSize).ToList();
+  //  return new PaginatedList<T>(items, count, currentPage, pageSize);
+  //}
 
 }

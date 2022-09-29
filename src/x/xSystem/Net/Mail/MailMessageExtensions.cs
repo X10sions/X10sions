@@ -1,7 +1,7 @@
 ﻿using System.Text;
 using System.Threading.Tasks;
 
-namespace System.Net.Mail {
+namespace System.Net.Mail;
   public static class MailMessageExtensions {
 
     public static MailMessage AddBcc(this MailMessage msg, MailAddress emailBCC) => msg.AddToCcBcc(null, null, emailBCC);
@@ -11,7 +11,7 @@ namespace System.Net.Mail {
     public static MailMessage AddTo(this MailMessage msg, string emailTo) => msg.AddToCcBcc(emailTo, null, null);
     public static MailMessage AddTo(this MailMessage msg, MailAddress emailTo) => msg.AddToCcBcc(emailTo, null, null);
 
-    public static MailMessage AddToCcBcc(this MailMessage msg, MailAddress emailTo = null, MailAddress emailCC = null, MailAddress emailBCC = null) {
+    public static MailMessage AddToCcBcc(this MailMessage msg, MailAddress? emailTo = null, MailAddress? emailCC = null, MailAddress? emailBCC = null) {
       if(emailTo != null) {
         msg.To.Add(emailTo);
       }
@@ -24,7 +24,7 @@ namespace System.Net.Mail {
       return msg;
     }
 
-    public static MailMessage AddToCcBcc(this MailMessage msg, string emailTo = null, string emailCC = null, string emailBCC = null) {
+    public static MailMessage AddToCcBcc(this MailMessage msg, string? emailTo = null, string? emailCC = null, string? emailBCC = null) {
       if(!string.IsNullOrWhiteSpace(emailTo)) {
         msg.To.Add(emailTo);
       }
@@ -53,7 +53,7 @@ namespace System.Net.Mail {
       return mailMessage;
     }
 
-    public static MailMessage SetFrom(this MailMessage mailMessage, string address, string displayName = null) {
+    public static MailMessage SetFrom(this MailMessage mailMessage, string address, string? displayName = null) {
       mailMessage.From = new MailAddress(address, displayName);
       return mailMessage;
     }
@@ -81,4 +81,3 @@ namespace System.Net.Mail {
     public static async Task SendMailAsync(this MailMessage mailMessage, SmtpClient client) => await client.SendMailAsync(mailMessage);
 
   }
-}

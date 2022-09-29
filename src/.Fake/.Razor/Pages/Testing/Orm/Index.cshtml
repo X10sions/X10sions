@@ -1,0 +1,160 @@
+﻿@page
+@model ThisPageModel
+@using Microsoft.Extensions.Configuration
+@using Microsoft.Extensions.Logging
+@using X10sions.Fake.Data
+@using X10sions.Fake.Data.Enums
+@using X10sions.Fake.Data.Models
+@using Microsoft.AspNetCore.Authorization
+@using X10sions.Fake.Data.Repositories
+@functions {
+  [AllowAnonymous]
+  public class ThisPageModel : PageModel {
+
+    #region UI
+    [BindProperty(SupportsGet = true)] public OrmType OrmType { get; set; } //= OrmType.Linq2Db;
+    [BindProperty(SupportsGet = true)] public ConnectionStringName ConnectionStringName { get; set; } = ConnectionStringName.DB2iSeries_Odbc;
+
+
+    [BindProperty(SupportsGet = true)] public bool DoDropTables { get; set; }
+    [BindProperty(SupportsGet = true)] public bool DoCreateTables { get; set; }
+
+    [BindProperty] public FakePerson? Person { get; set; }
+    [BindProperty] public FakeProject? Project { get; set; }
+    [BindProperty] public FakeProjectItem? ProjectItem { get; set; }
+    [BindProperty] public FakePriority? Priority { get; set; }
+    #endregion
+
+    public ThisPageModel(LinqToDbDataConnections._Resolver l2dbResolver, EFCoreDbContexts._Resolver efResolver, IConfiguration configuration, ILoggerFactory loggerFactory) {
+      LinqToDbResolver = l2dbResolver;
+      EfCoreResolver = efResolver;
+      this.configuration = configuration;
+      this.loggerFactory = loggerFactory;
+    }
+    IConfiguration configuration;
+    ILoggerFactory loggerFactory;
+
+    public LinqToDbDataConnections._Resolver LinqToDbResolver { get; }
+    public EFCoreDbContexts._Resolver EfCoreResolver { get; }
+
+    public IFakeRepo FakeRepo { get; set; }
+
+    public void OnGet() {
+
+      //using var connection = new System.Data.SQLite.SQLiteConnection("Data Source=\\\\mtg-file01\\Intranet\\App_Data\\Shared\\iSeries\\IT\\Dev\\MartoggErp.sqlite;", false);
+      //connection.Open();
+      //connection.Close();
+      //return;
+
+      FakeRepo = OrmType.GetFakeRepo(ConnectionStringName, configuration, loggerFactory);
+      if (FakeRepo != null) {
+        FakeRepo.SimpleExample(DoDropTables, DoCreateTables);
+      }
+
+    }
+
+    public List<FakePerson> PersonList { get; } = new List<FakePerson>();
+
+    public async Task<IActionResult> OnPostPerson() {
+      if (!ModelState.IsValid) {
+        return Page();
+      }
+      return Page();
+    }
+
+    public async Task<IActionResult> OnPostProject() {
+      if (!ModelState.IsValid) {
+        return Page();
+      }
+      return Page();
+    }
+
+    public async Task<IActionResult> OnPostProjectItem() {
+      if (!ModelState.IsValid) {
+        return Page();
+      }
+      return Page();
+    }
+
+    public async Task<IActionResult> OnPostPriority() {
+      if (!ModelState.IsValid) {
+        return Page();
+      }
+      return Page();
+    }
+
+  }
+
+}
+
+<form>
+  <div class="form-floating">
+    <select asp-for="OrmType" class="form-select" asp-items="Html.GetEnumSelectList<OrmType>()">
+      <option value=""></option>
+    </select>
+    <label asp-for="OrmType" class="form-label">ORM</label>
+  </div>
+
+  <div class="form-floating">
+    <select asp-for="ConnectionStringName" class="form-select" asp-items="Html.GetEnumSelectList<ConnectionStringName>()">
+      <option value=""></option>
+    </select>
+    <label asp-for="ConnectionStringName">ConnectionStringName</label>
+  </div>
+
+  <div class="form-floating input-group">
+    <span class="input-group-text" id="basic-addon1">Tables</span>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" asp-for="DoDropTables">
+      <label class="form-check-label" asp-for="DoDropTables">Drop</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" asp-for="DoCreateTables">
+      <label class="form-check-label" asp-for="DoCreateTables">Create</label>
+    </div>
+  </div>
+
+  <button type="submit" class="btn btn-primary">Submit</button>
+
+</form>
+
+<ol>
+  <li>@(Model.OrmType)</li>
+  <li>@(Model.ConnectionStringName)</li>
+  <li>@(Model.FakeRepo?.DbConnection?.ConnectionString)</li>
+</ol>
+
+<form>
+  <h1>FakePerson</h1>
+  <input type="submit" />
+  <table>
+    <thead></thead>
+    <tbody>
+      @foreach (var p in Model.PersonList) {
+        <tr>
+          <td>@p.Id</td>
+          <td>@p.FirstName</td>
+          <td>@p.LastName</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+
+</form>
+
+<form>
+  <h1>FakeProject</h1>
+  <input type="submit" />
+</form>
+
+<form>
+  <h1>FakeProjectItem</h1>
+
+  <input type="submit" />
+</form>
+
+<form>
+  <h1>FakePriority</h1>
+
+  <input type="submit" />
+</form>

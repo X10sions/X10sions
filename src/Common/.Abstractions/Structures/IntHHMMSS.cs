@@ -1,52 +1,61 @@
-﻿using System;
+﻿namespace Common.Structures {
 
-namespace Common.Structures {
-  public struct IntHHMMSS : IFormattable {
-
-    public IntHHMMSS(int hhmmss) : this() {
-      HHMMSS = hhmmss;
+  public class IntHHMMSS : IntHHMM {
+    public IntHHMMSS() : this(DateTime.Now) { }
+    public IntHHMMSS(int hh, int mm, int ss) : base(hh, mm) {
+      SS = ss;
+    }
+    public IntHHMMSS(DateTime d) : base(d) {
+      SS = d.Second;
+      Millisecond = d.Millisecond;
     }
 
-    public IntHHMMSS(DateTime d) : this() {
-      Date = d;
+    public IntHHMMSS(int hhmmss) : base(GetHHMM(hhmmss)) { SS = GetSS(hhmmss); }
+    public IntHHMMSS(string hhmmss) : this(hhmmss.As(0)) { }
+
+    #region Min & Max Values
+    public new const string Format = "hhmmss";
+    
+    public static  readonly int MinSS = 0;// 00:00:00
+    public static  readonly int MaxSS = 59; // 23:59:00
+
+    public static  readonly int MinHHMMSS = 0;// 00:00:00
+    public static  readonly int MaxHHMMSS = 235959; // 23:59:00
+
+    public static new readonly IntHHMMSS MinValue = new IntHHMMSS(0);// 00:00:00
+    public static new readonly IntHHMMSS MaxValue = new IntHHMMSS(235959); // 23:59:00
+    #endregion
+
+    int ss;
+    public int SS { get => ss; set => ss = value.GetValueBetween(MinSS, MaxSS); }
+    public int Millisecond { get; set; }
+
+    public int HHMMSS {
+      get => GetHHMMSS(HH, MM, SS);
+      set {
+        HH = GetHH(value);
+        MM = GetMM(value);
+        SS = GetSS(value);
+      }
     }
-
-    public IntHHMMSS(int hour, int minute, int second) : this() {
-      HHMMSS = hour * 10000 + minute * 100 + second;
-    }
-
-    public static readonly IntHHMMSS _Max = new IntHHMMSS(235959); // 23:59:00
-    public static readonly IntHHMMSS _Min = new IntHHMMSS(0); // 00:00:00
-
-    public const string Format = "hhmmss";
 
     public DateTime Date {
-      get => new DateTime(1, 1, 1, Hour, Minute, Second, Millisecond);
+      get => new DateTime(1, 1, 1, HH, MM, SS, Millisecond);
       set {
-        Hour = value.Hour;
-        Minute = value.Minute;
-        Second = value.Second;
+        HH = value.Hour;
+        MM = value.Minute;
+        SS = value.Second;
         Millisecond = value.Millisecond;
       }
     }
 
-    public int HHMMSS {
-      get => (Hour * 10000) + (Minute * 100) + Second;
-      set {
-        Hour = value / 10000;
-        Minute = (value / 100) % 100;
-        Second = value % 100;
-      }
-    }
+    public static new int GetHH(int hhmmss) => GetHHMM(hhmmss) / 100;
+    public static int GetHHMM(int hhmmss) => hhmmss / 100;
+    public static int GetHHMMSS(int hh, int mm, int ss) => GetHHMM(hh, mm) * 100 + ss;
+    public static new int GetMM(int hhmmss) => GetHHMM(hhmmss) % 100;
+    public static int GetSS(int hhmmss) => hhmmss % 100;
 
-    public int Hour { get; set; }
-    public int Minute { get; set; }
-    public int Second { get; set; }
-    public int Millisecond { get; set; }
-
-    public int HHMM => Hour * 100 + Minute;
-
-    public TimeSpan AsTimeSpan() => new TimeSpan(0, Hour, Minute, Second, Millisecond);
+    public TimeSpan AsTimeSpan() => new TimeSpan(0, HH, MM, SS, Millisecond);
 
     public static implicit operator IntHHMMSS(decimal value) => new IntHHMMSS((int)value);
     public static implicit operator IntHHMMSS(int value) => new IntHHMMSS(value);
@@ -62,19 +71,7 @@ namespace Common.Structures {
 
     #region IFormattable
     public override string ToString() => HHMMSS.ToString();
-    public string ToString(string format, IFormatProvider formatProvider) => ToString(ToString(), formatProvider);
+    public override string ToString(string format, IFormatProvider formatProvider) => ToString().ToString(formatProvider);
     #endregion
-
-    //public static int ToHHMM(DateTime d) => ToHHMM(d.Hour, d.Minute);
-    //public static int ToHHMM(int hour, int minute) => (hour * 100) + minute;
-    //public static int ToHHMMSS(DateTime d) => ToHHMMSS(d.Hour, d.Millisecond, d.Second);
-    //public static int ToHHMMSS(this DateTime d) => ToHHMMSS(d.Hour, d.Millisecond, d.Second);
-    //public static int ToHHMMSS(int hour, int minute, int second) => (hour * 10000 + minute * 100 + second);
-    //public static int? ToHHMMSS(this DateTime? d, int? defaultIfNull = null) => d.HasValue ? d.Value.ToHHMMSS() : defaultIfNull;
-
-
-    //public string SqlValue() => Date.ToSqlTime();
-    //public string SqlExpression() => Date.ToSqlTimeExpression();
-
   }
 }

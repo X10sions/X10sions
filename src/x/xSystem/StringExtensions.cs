@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.Serialization.Formatters.Binary;
+﻿using System.Runtime.Serialization.Formatters.Binary;
 using System.Text.RegularExpressions;
 using System.Xml.Serialization;
 
@@ -17,15 +14,16 @@ namespace System {
     //public static long ConvertToInt64Ceiling(this string value) => Convert.ToInt64(Math.Ceiling(Convert.ToDecimal(value)));
     //public static long ConvertToInt64Floor(this string value) => Convert.ToInt64(Math.Floor(Convert.ToDecimal(value)));
     //public static long ConvertToInt64Round(this string value) => Convert.ToInt64(Math.Round(Convert.ToDecimal(value)));
-
+    public static bool Contains(this string source, string toCheck, StringComparison comp) => source?.IndexOf(toCheck, comp) >= 0;
     public static string CsvEscapeQuotes(this string s) => string.IsNullOrEmpty(s) ? s : s.Replace("\"", "\"\"");
-
     public static bool Equals(this string s1, string s2, bool useOrdinalIgnoreCase) => useOrdinalIgnoreCase ? s1.Equals(s2, StringComparison.OrdinalIgnoreCase) : s1.Equals(s2);
     public static bool EqualsIgnoreCase(this string s1, string s2) => s1.Equals(s2, StringComparison.OrdinalIgnoreCase);
     public static bool EqualsCurrentCultureIgnoreCase(this string s1, string s2) => s1.Equals(s2, StringComparison.CurrentCultureIgnoreCase);
     public static bool EqualsInvariantCultureIgnoreCase(this string s1, string s2) => s1.Equals(s2, StringComparison.InvariantCultureIgnoreCase);
     public static bool EqualsOrdinalIgnoreCase(this string s1, string s2) => s1.Equals(s2, StringComparison.OrdinalIgnoreCase);
-
+    public static string FixedLengthCenter(this string s, int length, char paddingChar = ' ') => FixedLengthLeft(FixedLengthRight(s, (s.Length + length) / 2, paddingChar), length, paddingChar);
+    public static string FixedLengthLeft(this string s, int length, char paddingChar = ' ') => s.Length > length ? s.Substring(0, length) : s.PadRight(length, paddingChar);
+    public static string FixedLengthRight(this string s, int length, char paddingChar = ' ') => s.Length > length ? s.Substring(s.Length - length, length) : s.PadLeft(length, paddingChar);
     public static string IfNullOrEmpty(this string s, string defaultValue) => string.IsNullOrEmpty(s) ? defaultValue : s;
     public static string IfNullOrWhiteSpace(this string s, string defaultValue) => string.IsNullOrWhiteSpace(s) ? defaultValue : s;
 
@@ -94,7 +92,11 @@ namespace System {
     public static string WrapIfNotNullOrEmpty(this string s, string prefix = "", string suffix = "", string defaultIfNullOrEmpty = "") => string.IsNullOrEmpty(s) ? defaultIfNullOrEmpty : prefix + s + suffix;
     public static string WrapIfNotNullOrWhiteSpace(this string s, string prefix = "", string suffix = "", string defaultIfNullOrWhiteSpace = "") => string.IsNullOrWhiteSpace(s) ? defaultIfNullOrWhiteSpace : prefix + s + suffix;
 
-    public static T ToEnum<T>(this string s, T defaultValue) => System.Enum.IsDefined(typeof(T), s) ? (T)Enum.Parse(typeof(T), s) : defaultValue;
+    public static T ToEnum<T>(this string s, T defaultValue, bool ignoreCase = true) where T : struct => Enum.IsDefined(typeof(T), s) ? (T)Enum.Parse(typeof(T), s, ignoreCase) : defaultValue;
+    //public static T? ToEnum<T>(this string value) where T : struct {
+    //  var isParsed = Enum.TryParse(value, true, out T parsedValue);
+    //  return isParsed ? parsedValue : null;
+    //}
 
     #region "BinaryFormatterExtensions"
 

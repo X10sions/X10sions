@@ -30,7 +30,7 @@ namespace System.Collections.Generic {
         return list.GetType().GetElementType();
       var type = list.GetType();
       if (list is IList || list is ITypedList || list is IListSource) {
-        PropertyInfo last = null;
+        PropertyInfo? last = null;
         foreach (var pi in type.GetProperties()) {
           if (pi.GetIndexParameters().Length > 0 && pi.PropertyType != typeOfObject) {
             if (pi.Name == "Item")
@@ -56,9 +56,9 @@ namespace System.Collections.Generic {
     //public static bool HasElements<T>(this IEnumerable<T> source) => source == null || !source.Any();
     public static bool HasAnyItems<T>(this IEnumerable<T> source) => source?.Any() ?? false;
     public static bool IsNullOrEmpty<T>(this IEnumerable<T> source) => !source.HasAnyItems();
-    public static bool IsNullOrWhiteSpace<T>(this IEnumerable<T>? source) => source == null || !source.Any(x => !string.IsNullOrWhiteSpace(x.ToString()));
+    public static bool IsNullOrWhiteSpace<T>(this IEnumerable<T>? source) => source == null || !source.Any(x => !string.IsNullOrWhiteSpace(x?.ToString()));
 
-    public static string JoinToCsv<T>(this IEnumerable<T> source, string separator = ",", string prefix = "", string suffix = "") => source.IsNullOrEmpty() ? string.Empty : prefix + string.Join(suffix + separator + prefix, source.Select(x => x.ToString()).ToArray()) + suffix;
+    public static string JoinToCsv<T>(this IEnumerable<T> source, string separator = ",", string prefix = "", string suffix = "") => source.IsNullOrEmpty() ? string.Empty : prefix + string.Join(suffix + separator + prefix, source.Select(x => x?.ToString()).ToArray()) + suffix;
     public static string JoinToString(this IEnumerable<object> source, string separator = ", ") => string.Join(separator, source);
     public static string JoinToString<TKey, TValue>(this IEnumerable<KeyValuePair<TKey, TValue>> kvPairs, string keySeparator = ";", string valueSeparator = "=", string prefix = "{", string suffix = "}") => prefix + string.Join(keySeparator, kvPairs.Select(kv => $"{kv.Key}{valueSeparator}{kv.Value}").ToArray()) + suffix;
 
@@ -118,12 +118,12 @@ namespace System.Collections.Generic {
 
       public int GetHashCode(T obj) => 0; // force Equals
     }
-    public static IEnumerable<T> Replace<T>(this IEnumerable<T> source, T oldValue, T newValue) => source.Select(x => x.Equals(oldValue) ? newValue : x);
+    public static IEnumerable<T> Replace<T>(this IEnumerable<T> source, T oldValue, T newValue) where T: notnull=> source.Select(x => x.Equals(oldValue) ? newValue : x);
     public static string ToCsv<T>(this IEnumerable<T> @this, string separator = ",", string qualifer = "") {
       if (!@this.Any()) {
         return string.Empty;
       }
-      return qualifer + string.Join(qualifer + separator + qualifer, @this.Select(x => x.ToString()).ToArray()) + qualifer;
+      return qualifer + string.Join(qualifer + separator + qualifer, @this.Select(x => x?.ToString()).ToArray()) + qualifer;
     }
 
     public static IEnumerable<TSource> OrderByIf<TSource, TKey>(this IEnumerable<TSource> source, bool condition, Func<TSource, TKey> keySelector, IComparer<TKey> comparer) => condition ? source.OrderBy(keySelector, comparer) : source;
@@ -135,6 +135,8 @@ namespace System.Collections.Generic {
     public static IEnumerable<TSource> WhereIf<TSource>(this IEnumerable<TSource> source, bool condition, Func<TSource, bool> predicate) => condition ? source.Where(predicate) : source;
     public static IEnumerable<TSource> WhereIf<TSource>(this IEnumerable<TSource> source, bool condition, Func<TSource, int, bool> predicate) => condition ? source.Where(predicate) : source;
 
-  }
+    public static IEnumerable<TSource> WhereIfNotNull<TSource>(this IEnumerable<TSource> source, Func<TSource, bool>? predicate) => predicate != null ? source.Where(predicate) : source;
+    public static IEnumerable<TSource> WhereIfNotNull<TSource>(this IEnumerable<TSource> source, Func<TSource, int, bool>? predicate) => predicate != null ? source.Where(predicate) : source;
 
+  }
 }

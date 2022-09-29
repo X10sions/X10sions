@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup Label="Application">
+    <TargetFrameworks>netstandard2.0;net6.0</TargetFrameworks>
+    <Product>LinqToDB.AspNet Extensions</Product>
+    <VersionPart1>4</VersionPart1>
+    <VersionPart2>2</VersionPart2>
+    <Nullable>enable</Nullable>
+  </PropertyGroup> 
+  <ItemGroup Label="PackageReferences">
+    <PackageReference Include="linq2db.AspNet" Version="4.2.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="6.0.0" />
+  </ItemGroup> 
+  <ItemGroup>
+    <ProjectReference Include="..\.DataProvider\xLinqToDB.DataProvider.csproj" />
+  </ItemGroup>
+</Project>

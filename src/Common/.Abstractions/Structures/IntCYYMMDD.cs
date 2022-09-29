@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq.Expressions;
+﻿using System.Linq.Expressions;
 
 namespace Common.Structures {
   public class IntCYYMMDD : IntCYYMM,
@@ -18,65 +17,57 @@ namespace Common.Structures {
     IEquatable<int>,
     IEquatable<string> {
 
-    public IntCYYMMDD() { }
-    public IntCYYMMDD(DateTime d) : this(d.Year, d.Month, d.Day) { }
-    public IntCYYMMDD(int cyymmdd) {
-      CYYMMDD = cyymmdd;
-    }
-    public IntCYYMMDD(int c, int yy, int mm, int dd) {
-      C = c;
-      YY = yy;
-      MM = mm;
-      DD = dd;
-    }
-    public IntCYYMMDD(int year, int month, int day) {
-      SetYearMonthDay(year, month, day);
-    }
+    public IntCYYMMDD() : this(DateTime.Now) { }
+    public IntCYYMMDD(int cyymmdd) : base(GetCYYMM(cyymmdd)) { DD = GetDD(cyymmdd); }
+    public IntCYYMMDD(int yyyy, int mm, int dd) : base(new DateTime(yyyy, mm, dd)) { }
+    public IntCYYMMDD(int c, int yy, int mm, int dd) : base(c, yy, mm) { DD = dd; }
+    public IntCYYMMDD(DateTime d) : base(d) { DD = d.Day; }
+    public IntCYYMMDD(string c, string yy, string mm, string dd) : this(c.As(0), yy.As(0), mm.As(0), dd.As(0)) { }
+    public IntCYYMMDD(string cyymmdd) : this(cyymmdd.As(0)) { }
+    public IntCYYMMDD(string c, string yymmdd) : this((c + yymmdd).As(0)) { }
 
     #region Min & Max Values
-    public const int _MinCYYMMDD = 0;
-    public const int _MaxCYYMMDD = 9999999;
+    public static readonly int MinDD = 0; // 9999-12-31
+    public static readonly int MaxDD = 99; // 1901-01-01
 
-    public const int _MinDD = 0;
-    public const int _MaxDD = 99;
+    public static readonly int MinYYMMDD = 0; // 9999-12-31
+    public static readonly int MaxYYMMDD = 999999; // 1901-01-01
 
-    public static readonly IntCYYMMDD _MaxIntCYYMMDD = new IntCYYMMDD(_MaxCYYMMDD); // 9999-12-31
-    public static readonly IntCYYMMDD _MinIntCYYMMDD = new IntCYYMMDD(_MinCYYMMDD); // 1901-01-01
+    public static readonly int MinCYYMMDD = 0; // 9999-12-31
+    public static readonly int MaxCYYMMDD = 9999999; // 1901-01-01
 
-    //public static readonly DateTime _MaxDate = new DateTime(9999 - 1900, 12, 31).Date;
-    //public static readonly DateTime _MinDate = new DateTime(0 + 1900, 1, 1).Date;
+    public static new readonly IntCYYMMDD MinValue = new IntCYYMMDD(0); // 9999-12-31
+    public static new readonly IntCYYMMDD MaxValue = new IntCYYMMDD(9999999); // 1901-01-01
     #endregion
 
     int dd;
-    public int DD { get => dd; set => dd = value.GetValueBetween(_MinDD, _MaxDD); }
-
-
-    public int Day { get => GetDay(DD); set => SetDay(value); }
-    public void SetDay(int day) => DD = GetDay(day);
-    public int GetDay(int day) => day.GetValueBetween(1, DateTime.DaysInMonth(Year, Month));
-
-    public DateTime Date {
-      get => new DateTime(Year, Month, Day).Date;
-      set => SetYearMonthDay(value.Year, value.Month, value.Day);
-    }
+    public int DD { get => dd; set => dd = value.GetValueBetween(MinDD, MaxDD); }
 
     public int CYYMMDD {
-      get => CYYMM * 100 + DD;
+      get => CYYMM_DD_GetCYYMMDD(CYYMM, DD);
       set {
-        value = value.GetValueBetween(_MinCYYMMDD, _MaxCYYMMDD);
-        CYYMM = value / 100;
-        DD = value % 100;
+        value = value.GetValueBetween(MinCYYMMDD, MaxCYYMMDD);
+        CYYMM = GetCYYMM(value);
+        DD = GetDD(value);
       }
     }
 
-    public override void SetMonth(int month) => SetYearMonthDay(Year, month, Day);
-    public override void SetYear(int year) => SetYearMonthDay(year, Month, Day);
+    public int YYMMDD { get => GetYYMMDD(YY, MM, DD); set => CYYMMDD = C_YYMMDD_GetCYYMMDD(C, value.GetValueBetween(MinYYMMDD, MaxYYMMDD)); }
 
-    public void SetYearMonthDay(int year, int month, int day) {
-      base.SetYear(year);
-      base.SetMonth(month);
-      SetDay(day);
+    public DateTime Date {
+      get => new DateTime(YYYY, MM, DD).Date;
+      set {
+        YYYY = value.Year;
+        MM = value.Month;
+        DD = value.Day;
+      }
     }
+
+    public static int GetCYYMM(int cyymmdd) => cyymmdd / 100;
+    public static int GetDD(int cyymmdd) => cyymmdd % 100;
+    public static int CYYMM_DD_GetCYYMMDD(int cyymm, int dd) => cyymm * 100 + dd;
+    public static int GetYYMMDD(int yy, int mm, int dd) => GetYYMM(yy, mm) * 100 + dd;
+    public static int C_YYMMDD_GetCYYMMDD(int c, int yymmdd) => c * 1000000 + yymmdd;
 
     public static Expression<Func<DateTime, int>> CYYMMDD_Expression() => (DateTime d) => new IntCYYMMDD(d).CYYMMDD;
 
@@ -177,17 +168,9 @@ namespace Common.Structures {
 
     #region IFormattable
     public override string ToString() => CYYMMDD.ToString();
-    public string ToString(string format, IFormatProvider formatProvider) => ToString(ToString(), formatProvider);
+    public override string ToString(string format, IFormatProvider formatProvider) => ToString().ToString(formatProvider);
     #endregion
-
-    //[Computed] public int CYYMMDD => ToCYYMMDD(Year, Month, Day);
-    //[Computed] public bool IsMaxCYYMMDD() => CYYMMDD == _MaxCYYMMDD;
-
-    //public string SqlValue() => Date.ToSqlDate();
-    //public string SqlExpression() => Date.ToSqlDateExpression();
-
   }
-
 
   public static class IntCYYMMDDExtensions {
 

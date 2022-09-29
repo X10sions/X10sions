@@ -1,12 +1,5 @@
-﻿#nullable enable
-using Common.Constants;
+﻿using Common.Constants;
 using Microsoft.AspNetCore.Html;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 
 namespace Microsoft.AspNetCore.Mvc {
   public static class IUrlHelperExtensions {

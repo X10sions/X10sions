@@ -5,9 +5,9 @@ namespace System.Data {
 
     public static string ToHtmlSelectOption(this DataRow row, string valueField, string textField, string selectedValue)
       => new Option {
-        Value = row.Field<string>(valueField),
-        Text = row.Field<string>(textField),
-        Selected = selectedValue == row.Field<string>(valueField)
+        Value = (string)row[valueField],
+        Text = (string)row[textField],
+        Selected = selectedValue == (string)row[valueField]
       }.ToHtml();
 
   }

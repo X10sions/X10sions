@@ -1,7 +1,4 @@
-﻿#nullable enable
-using System.Linq;
-
-namespace System.Net {
+﻿namespace System.Net {
   public static class IPHostEntryExtensions {
 
     public static string ComputerDomainName(this IPHostEntry ipHostEntry) => ipHostEntry.HostName.Substring(ipHostEntry.HostName.IndexOf(".", StringComparison.Ordinal) + 1);

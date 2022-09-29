@@ -1,0 +1,79 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>X10sions.Fake</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="_\LinqToDB\DataProvider\**" />
+    <EmbeddedResource Remove="_\LinqToDB\DataProvider\**" />
+    <None Remove="_\LinqToDB\DataProvider\**" />
+  </ItemGroup>
+  <!--
+    https://github.com/sapiens/SqlFu
+    https://github.com/ServiceStack/ServiceStack.OrmLite
+    https://github.com/SQLStreamStore/SQLStreamStore
+    https://github.com/jchristn/DatabaseWrapper
+
+    https://github.com/Drizin/DapperQueryBuilder
+
+    https://github.com/mistic100/jQuery-QueryBuilder
+    https://github.com/tghamm/dynamic-linq-query-builder
+  -->  
+  
+  <ItemGroup Label="PackageReferences">
+    <PackageReference Include="Castle.DynamicLinqQueryBuilder" Version="1.2.7" />
+    <PackageReference Include="Chloe.MySql" Version="5.1.4" />
+    <PackageReference Include="Chloe.Oracle" Version="5.1.4" />
+    <PackageReference Include="Chloe.PostgreSQL" Version="5.1.4" />
+    <PackageReference Include="Chloe.SQLite" Version="5.1.5" />
+    <PackageReference Include="Chloe.SqlServer" Version="5.1.4" />
+    <PackageReference Include="Dapper-QueryBuilder" Version="1.2.7" />
+    <PackageReference Include="DelegateDecompiler" Version="0.30.0" />
+    <PackageReference Include="DynamicQueryBuilder" Version="1.0.5" />
+    <PackageReference Include="FirebirdSql.EntityFrameworkCore.Firebird" Version="9.0.2" />
+    <PackageReference Include="FreeSql.All" Version="3.2.669" />
+    <PackageReference Include="IBM.EntityFrameworkCore" Version="6.0.0.300" />
+    <PackageReference Include="linq2db.AspNet" Version="4.2.0" />
+    <PackageReference Include="linq2db4iSeries" Version="4.0.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite.Core" Version="6.0.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.9" />
+    <PackageReference Include="MySql.EntityFrameworkCore" Version="6.0.4" />
+    <PackageReference Include="NHibernate" Version="5.3.13" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.7" />
+    <PackageReference Include="Oracle.EntityFrameworkCore" Version="6.21.61" />
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="6.0.2" />
+    <PackageReference Include="RepoDb.MySql" Version="1.1.6" />
+    <PackageReference Include="RepoDb.MySqlConnector" Version="1.1.5" />
+    <PackageReference Include="RepoDb.PostgreSql" Version="1.1.5" />
+    <PackageReference Include="RepoDb.Sqlite.Microsoft" Version="1.0.1" />
+    <PackageReference Include="RepoDb.SQLite.System" Version="1.0.1" />
+    <PackageReference Include="RepoDb.SqlServer" Version="1.1.5" />
+    <PackageReference Include="ServiceStack.OrmLite.Firebird" Version="6.3.0" />
+    <PackageReference Include="ServiceStack.OrmLite.MySql" Version="6.3.0" />
+    <PackageReference Include="ServiceStack.OrmLite.MySqlConnector" Version="6.3.0" />
+    <PackageReference Include="ServiceStack.OrmLite.Oracle" Version="6.3.0" />
+    <PackageReference Include="ServiceStack.OrmLite.PostgreSQL" Version="6.3.0" />
+    <PackageReference Include="ServiceStack.OrmLite.Sqlite" Version="6.3.0" />
+    <PackageReference Include="ServiceStack.OrmLite.SqlServer" Version="6.3.0" />
+    <PackageReference Include="SmartSql.Bulk.MySql" Version="4.1.64" />
+    <PackageReference Include="SmartSql.Bulk.MySqlConnector" Version="4.1.64" />
+    <PackageReference Include="SmartSql.Bulk.PostgreSql" Version="4.1.64" />
+    <PackageReference Include="SmartSql.Bulk.SqlServer" Version="4.1.64" />
+    <PackageReference Include="sqlite-net-pcl" Version="1.8.116" />
+    <PackageReference Include="SqlSugarCore" Version="5.1.3.1" />
+    <PackageReference Include="StaTypPocoQueries.PetaPoco" Version="1.5.8" />
+    <PackageReference Include="System.Data.Odbc" Version="6.0.1" />
+    <PackageReference Include="System.Data.OleDb" Version="6.0.0" />    
+    
+  </ItemGroup>  
+  
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\x10sions\EntityFrameworkCore.Jet\src\EFCore.Jet\EFCore.Jet.csproj" />
+  </ItemGroup>  
+  
+  <ItemGroup>
+    <Folder Include="_\LinqToDB\" />
+  </ItemGroup>
+</Project>

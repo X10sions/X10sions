@@ -1,13 +1,10 @@
-﻿using System.Linq;
-using System.Text;
-
-namespace System.Security.Principal {
+﻿namespace System.Security.Principal {
   public static class IIdentityExtensions {
 
     public static string LogonDomainName(this IIdentity identity) => identity.Name.Split('\\')[0] ?? "unknown";
     public static string LogonUserName(this IIdentity identity) => identity.Name.Split('\\').LastOrDefault() ?? "unknown";
 
-    public static bool IsAllowed(this IIdentity identity, string[] allowedUserNames, Exception throwIfFalseException = null) {
+    public static bool IsAllowed(this IIdentity identity, string[] allowedUserNames, Exception? throwIfFalseException = null) {
       var b = allowedUserNames.Contains(identity.LogonUserName(), StringComparer.OrdinalIgnoreCase);
       if (!b && throwIfFalseException != null)
         //throw new PermissionDeniedException();

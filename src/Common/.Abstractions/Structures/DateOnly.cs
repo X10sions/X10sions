@@ -84,7 +84,7 @@ namespace Common.Structures {
 
     #region IFormattable
     public override string ToString() => Date.ToString("yyyy-MM-dd", CultureInfo.CurrentCulture);
-    public string ToString(string format, IFormatProvider formatProvider) => ToString(ToString(), formatProvider);
+    public string ToString(string format, IFormatProvider formatProvider) => ToString().ToString(formatProvider);
     #endregion
 
   }

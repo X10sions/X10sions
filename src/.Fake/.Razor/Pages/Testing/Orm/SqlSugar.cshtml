@@ -1,0 +1,32 @@
+﻿@using SqlSugar;
+@using X10sions.Fake.Data.Models
+@using System.Data
+@using System.Data.Common
+@functions {
+  public class Order : FakeOrder { }
+  public class OrderDetail : FakeOrderDetail { }
+  public class Customer : FakeCustomer { }
+
+  public class ViewOrder{ 
+    public int Id { get; set; }
+    public string CustomName { get; set; } = default!;
+  }
+
+}
+@{
+
+  var db = new SqlSugarClient(new ConnectionConfig() {
+    DbType = SqlSugar.DbType.Access,
+    ConnectionString = "",
+  });
+
+  var query = db.Queryable<Order>()
+            .LeftJoin<Customer>((o, cus) => o.CustomerId == cus.Id)
+            .LeftJoin<OrderDetail>((o, cus, oritem) => o.Id == oritem.OrderId)
+            .LeftJoin<OrderDetail>((o, cus, oritem, oritem2) => o.Id == oritem2.OrderId)
+            .Where(o => o.Id == 1)
+            .Select((o, cus) => new ViewOrder { Id = o.Id, CustomName = cus.LastName })
+            .ToList();
+
+}
+https://github.com/donet5/SqlSugar

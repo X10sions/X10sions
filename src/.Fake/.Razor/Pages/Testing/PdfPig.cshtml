@@ -1,0 +1,48 @@
+﻿@using UglyToad.PdfPig
+@using UglyToad.PdfPig.Content
+@using UglyToad.PdfPig.Core
+@using UglyToad.PdfPig.Fonts.Standard14Fonts
+@using UglyToad.PdfPig.Writer
+
+https://github.com/UglyToad/PdfPig
+
+https://www.nuget.org/packages/PdfPig/
+
+@functions {
+  public static void TestReadDoc() {
+    using (var document = PdfDocument.Open(@"C:\temp\document.pdf")) {
+      foreach (var page in document.GetPages()) {
+        string pageText = page.Text;
+        foreach (Word word in page.GetWords()) {
+          Console.WriteLine(word.Text);
+        }
+      }
+    }
+  }
+
+  public static void TestOpenDoc() {
+    using (var document = PdfDocument.Open(@"C:\temp\my-file.pdf")) {
+      int pageCount = document.NumberOfPages;
+      decimal version = document.Version;
+      string producer = document.Information.Producer;
+      string title = document.Information.Title;
+      string subject = document.Information.Subject;
+
+      // Page number starts from 1, not 0.
+      var page = document.GetPage(1);
+      var widthInPoints = page.Width ;
+      var heightInPoints = page.Height;
+      string text = page.Text;
+    }
+  }
+
+  public static void TestCreateDoc() {
+    PdfDocumentBuilder builder = new PdfDocumentBuilder();
+    PdfPageBuilder page = builder.AddPage(PageSize.A4);
+    // Fonts must be registered with the document builder prior to use to prevent duplication.
+    PdfDocumentBuilder.AddedFont font = builder.AddStandard14Font(Standard14Font.Helvetica);
+    page.AddText("Hello World!", 12, new PdfPoint(25, 700), font);
+    byte[] documentBytes = builder.Build();
+    File.WriteAllBytes(@"C:\temp\newPdfPig.pdf", documentBytes);
+  }
+}

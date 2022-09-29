@@ -1,4 +1,4 @@
-﻿namespace System.Net.Mail {
+﻿namespace System.Net.Mail;
   public static class MailAddressCollectionExtensions {
 
     public static MailAddressCollection Add(this MailAddressCollection coll, MailAddress[] addresses) {
@@ -21,4 +21,4 @@
     //}
 
   }
-}
+

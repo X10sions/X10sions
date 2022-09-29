@@ -1,14 +1,13 @@
 ﻿using System.Data.Common;
 
 namespace StackExchange.Profiling.Data {
-  [System.ComponentModel.DesignerCategory("")]
-  public class ProfiledDbConnection<TConnection> : ProfiledDbConnection where TConnection : DbConnection {
+  public class ProfiledDbConnection<TConnection> : ProfiledDbConnection where TConnection : DbConnection, new() {
 
-    public ProfiledDbConnection(TConnection connection, IDbProfiler profiler) : base(connection, profiler) {
-      //   WrappedTypedConnection = connection ?? throw new ArgumentNullException(nameof(connection));
-    }
+    public ProfiledDbConnection(TConnection connection, IDbProfiler? profiler = null) : base(connection, profiler ?? MiniProfiler.Current) { }
 
-    public TConnection WrappedTypedConnection => (TConnection)WrappedConnection;
+    public ProfiledDbConnection(string connectionString, IDbProfiler? profiler = null)
+      : this(new TConnection { ConnectionString = connectionString }, profiler) { }
 
+    //public TConnection UnWrappedTypedConnection => (TConnection)WrappedConnection;
   }
 }

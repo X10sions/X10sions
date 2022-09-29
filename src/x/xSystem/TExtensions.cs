@@ -1,18 +1,5 @@
-﻿using System.ComponentModel;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-
-namespace System {
+﻿namespace System {
   public static class TExtensions {
-
-    //public static T As<T>(this object obj, T defaultValue = default) => (obj is T) ? (T)obj : defaultValue;
-    //public static TTo As<TTo>(this object value, TTo defaultValue = default) => value.As<object, TTo>(defaultValue);
-
-    //public static TTo As<TTo>(this object value, TTo defaultValue = default) => value.As<object, TTo>(defaultValue);
-
     public static TTo? As<TFrom, TTo>(this TFrom value, TTo? defaultValue = default) {
       try {
         var converter = TypeDescriptor.GetConverter(typeof(TTo));
@@ -40,17 +27,19 @@ namespace System {
       }
     }
 
-    public static object GetTypeFieldValueAs<T>(this T obj, string fieldName) => obj.GetTypeFieldValueAs<T, object>(fieldName);
-    public static object GetTypePropertyValueAs<T>(this T obj, string propertyName) => obj.GetTypePropertyValueAs<T, object>(propertyName);
+    public static object GetTypeFieldValueAs<T>(this T obj, string fieldName) where T : notnull => obj.GetTypeFieldValueAs<T, object>(fieldName);
+    public static object GetTypePropertyValueAs<T>(this T obj, string propertyName) where T : notnull => obj.GetTypePropertyValueAs<T, object>(propertyName);
 
-    public static TField GetTypeFieldValueAs<T, TField>(this T obj, string fieldName) => obj.GetType().GetFieldValueAs<T, TField>(fieldName, obj);
-    public static TProperty GetTypePropertyValueAs<T, TProperty>(this T obj, string propertyName) => obj.GetType().GetPropertyValueAs<T, TProperty>(propertyName, obj);
+    public static TField GetTypeFieldValueAs<T, TField>(this T obj, string fieldName) where T : notnull => obj.GetType().GetFieldValueAs<T, TField>(fieldName, obj);
+    public static TProperty GetTypePropertyValueAs<T, TProperty>(this T obj, string propertyName) where T : notnull => obj.GetType().GetPropertyValueAs<T, TProperty>(propertyName, obj);
 
     // Internal Field/Property helper
     //    public static TField GetTypeFieldValueAs<T, TField>(this T obj, string fieldName) => typeof(T).GetFieldValueAs<T, TField>(fieldName, obj);
     //    public static TProperty GetTypePropertyValueAs<T, TProperty>(this T obj, string propertyName) => typeof(T).GetPropertyValueAs<T, TProperty>(propertyName, obj);
 
-    public static string ToCsv<T>(this IEnumerable<T> objectlist, List<string> excludedPropertyNames = null, bool quoteEveryField = false, bool includeFieldNamesAsFirstRow = true) {
+    // public static bool IsNullable<T>(this T obj) => (obj == null) ? true : typeof(T).IsNullable();
+
+    public static string ToCsv<T>(this IEnumerable<T> objectlist, List<string>? excludedPropertyNames = null, bool quoteEveryField = false, bool includeFieldNamesAsFirstRow = true) {
       if (excludedPropertyNames == null) { excludedPropertyNames = new List<string>(); }
       var separator = ",";
       var t = typeof(T);
@@ -103,6 +92,9 @@ namespace System {
       }
       return setThis;
     }
+
+
+
 
     public static string WrapIfNotNull<T>(this T value, string prefix = "", string suffix = "", string defaultIfNull = "") => (value == null) ? defaultIfNull : $"{prefix}{value}{suffix}";
 

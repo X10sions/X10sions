@@ -1,0 +1,155 @@
+﻿@page
+@using DinkToPdf
+@using System.Text
+@using DinkToPdf.Contracts
+https://github.com/rdvojmoc/DinkToPdf
+
+
+https://www.nuget.org/packages/DinkToPdf
+
+https://code-maze.com/create-pdf-dotnetcore/
+
+@functions {
+
+  [Route("api/pdfcreator")]
+  [ApiController]
+  public class PdfCreatorController : ControllerBase {
+    private IConverter _converter;
+    public PdfCreatorController(IConverter converter) {
+      _converter = converter;
+    }
+
+    [HttpGet]
+    public IActionResult CreatePDF() {
+      var globalSettings = new GlobalSettings {
+          ColorMode = ColorMode.Color,
+          Orientation = Orientation.Portrait,
+          PaperSize = PaperKind.A4,
+          Margins = new MarginSettings { Top = 10 },
+          DocumentTitle = "PDF Report",
+          //Out = @"D:\PDFCreator\Employee_Report.pdf"
+        };
+      var objectSettings = new ObjectSettings {
+          PagesCount = true,
+          HtmlContent = TemplateGenerator.GetHTMLString(),
+          WebSettings = { DefaultEncoding = "utf-8", UserStyleSheet =System.IO. Path.Combine(Directory.GetCurrentDirectory(), "assets", "styles.css") },
+          HeaderSettings = { FontName = "Arial", FontSize = 9, Right = "Page [page] of [toPage]", Line = true },
+          FooterSettings = { FontName = "Arial", FontSize = 9, Line = true, Center = "Report Footer" }
+        };
+      var pdf = new HtmlToPdfDocument() {
+          GlobalSettings = globalSettings,
+          Objects = { objectSettings }
+        };
+    var file=  _converter.Convert(pdf);
+      return File(file, "application/pdf");
+
+      //return Ok("Successfully created PDF document.");
+    }
+  }
+
+  public class Employee {
+    public string Name { get; set; }
+    public string LastName { get; set; }
+    public int Age { get; set; }
+    public string Gender { get; set; }
+  }
+
+  public static class DataStorage {
+    public static List<Employee> GetAllEmployees() =>
+        new List<Employee>                      {
+                new Employee { Name="Mike", LastName="Turner", Age=35, Gender="Male"},
+                new Employee { Name="Sonja", LastName="Markus", Age=22, Gender="Female"},
+                new Employee { Name="Luck", LastName="Martins", Age=40, Gender="Male"},
+                new Employee { Name="Sofia", LastName="Packner", Age=30, Gender="Female"},
+                new Employee { Name="John", LastName="Doe", Age=45, Gender="Male"}
+                        };
+  }
+
+  public static class TemplateGenerator {
+    public static string GetHTMLString() {
+      var employees = DataStorage.GetAllEmployees();
+      var sb = new StringBuilder();
+      sb.Append(@"
+                        <html>
+                            <head>
+                            </head>
+                            <body>
+                                <div class='header'><h1>This is the generated PDF report!!!</h1></div>
+                                <table align='center'>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>LastName</th>
+                                        <th>Age</th>
+                                        <th>Gender</th>
+                                    </tr>");
+      foreach (var emp in employees) {
+        sb.AppendFormat(@"<tr>
+                                    <td>{0}</td>
+                                    <td>{1}</td>
+                                    <td>{2}</td>
+                                    <td>{3}</td>
+                                  </tr>", emp.Name, emp.LastName, emp.Age, emp.Gender);
+      }
+      sb.Append(@"
+                                </table>
+                            </body>
+                        </html>");
+      return sb.ToString();
+    }
+  }
+}
+
+@{
+  void BasicTest() {
+    // single threaded
+    //var converter = new BasicConverter(new PdfTools());
+    // multi threaded
+    var converter = new SynchronizedConverter(new PdfTools());
+
+
+    var doc = new HtmlToPdfDocument() {
+          GlobalSettings = {
+        ColorMode = ColorMode.Color,
+        Orientation = Orientation.Landscape,
+        PaperSize = PaperKind.A4Plus,
+    },
+          Objects = {
+        new ObjectSettings() {
+            PagesCount = true,
+            HtmlContent = @"Lorem ipsum dolor sit amet, consectetur adipiscing elit. In consectetur mauris eget ultrices  iaculis. Ut                               odio viverra, molestie lectus nec, venenatis turpis.",
+            WebSettings = { DefaultEncoding = "utf-8" },
+            HeaderSettings = { FontSize = 9, Right = "Page [page] of [toPage]", Line = true, Spacing = 2.812 }
+        }
+    }
+        };
+
+    byte[] pdf = converter.Convert(doc);
+
+    var doc2 = new HtmlToPdfDocument() {
+          GlobalSettings = {
+        ColorMode = ColorMode.Color,
+        Orientation = Orientation.Portrait,
+        PaperSize = PaperKind.A4,
+        Margins = new MarginSettings() { Top = 10 },
+        Out = @"C:\DinkToPdf\src\DinkToPdf.TestThreadSafe\test.pdf",
+      },
+          Objects = {
+        new ObjectSettings()        {
+          Page = "http://google.com/",
+        },
+      }
+        };
+
+    converter.Convert(doc2);
+
+
+  }
+
+
+}
+<style>
+  .header { text-align: center; color: green; padding-bottom: 35px; }
+  table { width: 80%; border-collapse: collapse; }
+  td, th { border: 1px solid gray; padding: 15px; font-size: 22px; text-align: center; }
+  table th { background-color: green; color: white; }
+</style>

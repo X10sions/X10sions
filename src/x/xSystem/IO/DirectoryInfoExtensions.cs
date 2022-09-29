@@ -11,6 +11,9 @@ namespace System.IO {
         return path;
       return path + separator;
     }
+    public static DirectoryInfo DirectoryInfo(this DirectoryInfo directoryInfo, string childDirectoryName) => new DirectoryInfo(Path.Combine(directoryInfo.FullName, childDirectoryName));
+
+    public static FileInfo FileInfo(this DirectoryInfo directoryInfo, string fileName) => new FileInfo(Path.Combine(directoryInfo.FullName, fileName));
 
     public static DirectoryInfo GetChildDirectoryInfo(this DirectoryInfo di, string childDirectoryName) => new DirectoryInfo(Path.Combine(di.FullName, childDirectoryName));
 
@@ -22,9 +25,6 @@ namespace System.IO {
         path += Path.DirectorySeparatorChar;
       return path;
     }
-
-
-
 
     public static string NormalizePath(this DirectoryInfo di) {
       var slash = Path.DirectorySeparatorChar;
