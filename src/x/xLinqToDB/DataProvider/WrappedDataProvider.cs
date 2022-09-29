@@ -12,7 +12,21 @@ using System.Linq.Expressions;
 namespace LinqToDB.DataProvider {
   public abstract class WrappedDataProvider<TConn, TDataReader> : IDataProvider where TConn : DbConnection, new() where TDataReader : DbDataReader {
 
-    public WrappedDataProvider(DbSystem dbSystem, int id, IDataProvider baseDataProvider) {
+    //static Dictionary<string, IDataProvider> Instances = new Dictionary<string, IDataProvider>();
+
+    //public static TDataProvider GetInstance<TDataProvider>(DbSystem dbSystem, IDataProvider baseDataProvider)
+    //  where TDataProvider : WrappedDataProvider<TConn, TDataReader>, new() {
+
+    //  var key = $"{dbSystem.Name}:{typeof(TConn).Name}:{baseDataProvider.ID}";
+    //  var exists = Instances.TryGetValue(key, out IDataProvider instance);
+    //  if (!exists) {
+    //    var typedInstance = new WrappedDataProvider<TConn, TDataReader>(dbSystem, 900 + Instances.Count, baseDataProvider);
+    //    Instances[key] = typedInstance;
+    //  }
+    //  return (TDataProvider)instance;
+    //}
+
+    protected WrappedDataProvider(DbSystem dbSystem, int id, IDataProvider baseDataProvider) {
       Name = GetProviderName(dbSystem);
       ID = id;
       this.baseDataProvider = baseDataProvider;
@@ -41,7 +55,12 @@ namespace LinqToDB.DataProvider {
     public ISqlBuilder CreateSqlBuilder(MappingSchema mappingSchema) => baseDataProvider.CreateSqlBuilder(mappingSchema);
     public void DisposeCommand(DbCommand command) => baseDataProvider.DisposeCommand(command);
 #if NETSTANDARD2_1PLUS
-		public ValueTask DisposeCommandAsync(DbCommand command) => baseDataProvider.DisposeCommandAsync(command);
+		public async ValueTask DisposeCommandAsync(DbCommand command) => await baseDataProvider.DisposeCommandAsync(command);
+#else
+    public ValueTask DisposeCommandAsync(DbCommand command) {
+      baseDataProvider.DisposeCommand(command);
+      return new ValueTask(Task.CompletedTask);
+    }
 #endif
     public IExecutionScope? ExecuteScope(DataConnection dataConnection) => baseDataProvider.ExecuteScope(dataConnection);
     public CommandBehavior GetCommandBehavior(CommandBehavior commandBehavior) => baseDataProvider.GetCommandBehavior(commandBehavior);

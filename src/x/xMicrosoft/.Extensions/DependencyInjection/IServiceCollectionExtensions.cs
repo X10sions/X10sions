@@ -2,6 +2,7 @@
 //using Microsoft.Extensions.Options;
 
 using Microsoft.Extensions.Logging;
+using System.Runtime.CompilerServices;
 
 namespace Microsoft.Extensions.DependencyInjection {
   public static class IServiceCollectionExtensions {
@@ -29,10 +30,12 @@ namespace Microsoft.Extensions.DependencyInjection {
       // https://ardalis.com/how-to-list-all-services-available-to-an-asp-net-core-app/
       logger.LogDebug($"Total Services Registered: {services.Count}");
       foreach (var service in services) {
-        logger.LogDebug($"Service: {service.ServiceType.FullName} \nLifetime: {service.Lifetime} \nInstance: {service.ImplementationType?.FullName}");
+        logger.LogDebug(service.LogString());
+        //logger.LogDebug($"Service: {service.ServiceType.FullName} \nLifetime: {service.Lifetime} \nInstance: {service.ImplementationType?.FullName}");
       }
     }
 
+    public static string LogString(this ServiceDescriptor service) => $"Services.Add{service.Lifetime}<{service.ServiceType.FullName},{service.ImplementationType?.FullName}>()";
 
   }
 }

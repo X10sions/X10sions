@@ -76,7 +76,6 @@ namespace X10sions.Fake.Data.Repositories {
     public static LinqToDBConnectionOptions<T> GetLinqToDBConnectionOptions<T>(this ConnectionStringName name, IConfiguration configuration, ILoggerFactory loggerFactory) => name.GetLinqToDBConnectionOptionsBuilder(configuration, loggerFactory).Build<T>();
     public static LinqToDBConnectionOptions GetLinqToDBConnectionOptions(this ConnectionStringName name, IConfiguration configuration, ILoggerFactory loggerFactory) => name.GetLinqToDBConnectionOptionsBuilder(configuration, loggerFactory).Build();
 
-
     static readonly IDataProvider xDB2DataProviderzOdbc = new DB2WrappedDataProvider<OdbcConnection, OdbcDataReader>(801);
     static readonly IDataProvider xDB2DataProviderzOleDb = new DB2WrappedDataProvider<OleDbConnection, OleDbDataReader>(802);
 

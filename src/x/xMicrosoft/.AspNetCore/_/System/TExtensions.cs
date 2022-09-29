@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace  Systems {
+namespace System {
   public static class TExtensions {
 
     public static IEnumerable<string> GetValidationErrorMessages<T>(this T instance) where T : class 

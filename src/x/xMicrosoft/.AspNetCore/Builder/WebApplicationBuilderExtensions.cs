@@ -1,7 +1,10 @@
-﻿using Systems;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 
-namespace Microsoft.AspNetCore.Builder {
+namespace Microsoft.AspNetCore.Builder;
   public static class WebApplicationBuilderExtensions {
+
+#if NET6_0_OR_GREATER
 
     public static WebApplicationBuilder AddScopedConfigurationOptionWithValidation<TIAppSettings, TAppSettings>(this WebApplicationBuilder builder)
       where TIAppSettings : class where TAppSettings : class, TIAppSettings {
@@ -31,5 +34,6 @@ namespace Microsoft.AspNetCore.Builder {
         }
     });
 
-  }
+#endif
+
 }

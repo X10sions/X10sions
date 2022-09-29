@@ -1,17 +1,17 @@
-﻿#nullable enable
-using Newtonsoft.Json;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 
-namespace Microsoft.AspNetCore.Mvc.RazorPages {
-  public static class PageModelExtensions {
+namespace Microsoft.AspNetCore.Mvc.RazorPages;
+public static class PageModelExtensions {
 
-    public static ContentResult JsonNet(this PageModel controller, object model) {
-      var serialized = JsonConvert.SerializeObject(model, new JsonSerializerSettings {
-        ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-      });
-      return new ContentResult { Content = serialized, ContentType = "application/json" };
-    }
-
-    public static ActionResult RedirectToPageJson<TPage>(this TPage controller, string pageName) where TPage : PageModel => controller.JsonNet(new { redirect = controller.Url.Page(pageName) });
-
+  public static ContentResult AsJsonContentResult(this object model) {
+    var serialized = JsonSerializer.Serialize(model, new JsonSerializerOptions {
+      ReferenceHandler = ReferenceHandler.IgnoreCycles,
+    });
+    return new ContentResult { Content = serialized, ContentType = "application/json" };
   }
+
+  //public static ActionResult RedirectToPageJson<TPage>(this TPage page, string pageName) where TPage : PageModel =>  page.JsonNet(new { redirect = page.Url.Page(pageName) });
+  public static JsonResult RedirectToPageJson<TPage>(this TPage page, string pageName) where TPage : PageModel => new JsonResult(new { redirect = page.Url.Page(pageName) });
+
 }

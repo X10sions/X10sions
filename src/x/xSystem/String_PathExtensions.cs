@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-
-namespace System {
+﻿namespace System {
   public static class String_PathExtensions {
     public static String_PathHelper PathHelper(this string value) => new String_PathHelper(value);
     public static String_PathsHelper PathsHelper(this string[] values) => new String_PathsHelper(values);
