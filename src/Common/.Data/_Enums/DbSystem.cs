@@ -5,7 +5,7 @@ public abstract class DbSystem : SmartEnum<DbSystem> {
   public static readonly DbSystem Access = new SealedDbSystem(nameof(Access));
   public static readonly DbSystem DB2 = new SealedDbSystem(nameof(DB2));
   //public static readonly DbSystem DB2iSeries = new SealedDbSystem(nameof(DB2iSeries));
-  public static readonly DbSystem DB2iSeries  = new DB2iSeriesDbSystem();
+  public static readonly DbSystem DB2iSeries = new DB2iSeriesDbSystem();
   public static readonly DbSystem Excel = new SealedDbSystem(nameof(Excel));
   public static readonly DbSystem Firebird = new SealedDbSystem(nameof(Firebird));
   //public static readonly DbSystem Informix = new SealedDbSystem(nameof(Informix));
@@ -19,10 +19,13 @@ public abstract class DbSystem : SmartEnum<DbSystem> {
   public static readonly DbSystem Sqlite = new SealedDbSystem(nameof(Sqlite));
   //public static readonly DbSystem SqlCE = new SealedDbSystem(nameof(SqlCE));
   //public static readonly DbSystem SqlServer = new SealedDbSystem(nameof(SqlServer));
-  public static readonly DbSystem SqlServer  = new SqlServerDbSystem();
+  public static readonly DbSystem SqlServer = new SqlServerDbSystem();
   //public static readonly DbSystem Sybase = new SealedDbSystem(nameof(Sybase));
 
-  private DbSystem(string name) : base(name, List.Count) { }
+  private DbSystem(string name) : base(name, count++) { }
+  //private DbSystem(string name) : base(name, List == null ? 0 : List.Count) { }
+
+  static int count = -1;
 
   #region SealedClasses
 
@@ -99,6 +102,6 @@ public abstract class DbSystem : SmartEnum<DbSystem> {
   #endregion
 
 }
-public static class DbSystemExtensions{
-    public static List<DataSourceProduct> DataSourceProductList(this DbSystem dbSystem) => DataSourceProduct.List.Where(x => x.DbSystem.Name == dbSystem.Name).ToList();
+public static class DbSystemExtensions {
+  public static List<DataSourceProduct> DataSourceProductList(this DbSystem dbSystem) => DataSourceProduct.List.Where(x => x.DbSystem.Name == dbSystem.Name).ToList();
 }
