@@ -7,7 +7,7 @@
     <Nullable>enable</Nullable>
   </PropertyGroup> 
   <ItemGroup Label="PackageReferences">
-    <PackageReference Include="linq2db.AspNet" Version="4.2.0" />
+    <PackageReference Include="linq2db.AspNet" Version="4.3.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="6.0.0" />
   </ItemGroup> 
   <ItemGroup>
