@@ -1,7 +1,4 @@
-﻿#nullable enable
-using System;
-
-namespace Common.Attributes {
+﻿namespace Common.Attributes {
   [AttributeUsage(AttributeTargets.Field, AllowMultiple = true)]
   public class EnumValueAttribute : Attribute {
     public EnumValueAttribute(object? value, bool isDefault) : this(value) {
