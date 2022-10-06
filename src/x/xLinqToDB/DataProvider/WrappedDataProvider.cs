@@ -10,6 +10,7 @@ using System.Data.Common;
 using System.Linq.Expressions;
 
 namespace LinqToDB.DataProvider {
+
   public abstract class WrappedDataProvider<TConn, TDataReader> : IDataProvider where TConn : DbConnection, new() where TDataReader : DbDataReader {
 
     //static Dictionary<string, IDataProvider> Instances = new Dictionary<string, IDataProvider>();
@@ -31,19 +32,19 @@ namespace LinqToDB.DataProvider {
       ID = id;
       this.baseDataProvider = baseDataProvider;
       //mappingSchema = baseDataProvider.MappingSchema;
-      mappingSchema = new MappingSchema(baseDataProvider.MappingSchema);
-      mappingSchema.SetDataType(typeof(string), new SqlDataType(DataType.VarChar, typeof(string), 255));
+      MappingSchema = new MappingSchema(baseDataProvider.MappingSchema);
+      MappingSchema.SetDataType(typeof(string), new SqlDataType(DataType.VarChar, typeof(string), 255));
     }
 
     protected static string GetProviderName(DbSystem dbSystem) => $"{typeof(TConn).Namespace}.{dbSystem.Name}";
 
     IDataProvider baseDataProvider;
-    MappingSchema mappingSchema;
+
     public string Name { get; }
     public int ID { get; }// => _id ??= new IdentifierBuilder(Name).CreateID();
     public string? ConnectionNamespace => typeof(TConn).Namespace;
     public Type DataReaderType => typeof(TDataReader);
-    public MappingSchema MappingSchema => mappingSchema;
+    public MappingSchema MappingSchema { get; private set; }
     public SqlProviderFlags SqlProviderFlags => baseDataProvider.SqlProviderFlags;
     public TableOptions SupportedTableOptions => baseDataProvider.SupportedTableOptions;
     public bool TransactionsSupported => baseDataProvider.TransactionsSupported;
