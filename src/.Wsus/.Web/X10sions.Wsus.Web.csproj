@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>X10sions.Wsus</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup Label="PackageReferences">
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.9" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.9">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+  </ItemGroup>
+  <ItemGroup Label="ProjectReferences">
+    <ProjectReference Include="..\.Razor\X10sions.Wsus.Razor.csproj" />
+  </ItemGroup>
+  <!--
+  <ItemGroup>
+    <Reference Include="Microsoft.UpdateServices.Administration">
+      <HintPath>..\DLLs\Microsoft.UpdateServices.Administration.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  -->
+</Project>
