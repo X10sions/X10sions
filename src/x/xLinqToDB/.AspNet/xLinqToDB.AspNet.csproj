@@ -1,6 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup Label="Application">
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <!-- 
     <TargetFrameworks>netstandard2.0;net6.0</TargetFrameworks>
+    -->
     <Product>LinqToDB.AspNet Extensions</Product>
     <VersionPart1>4</VersionPart1>
     <VersionPart2>2</VersionPart2>

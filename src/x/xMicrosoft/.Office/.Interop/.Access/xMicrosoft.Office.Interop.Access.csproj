@@ -1,0 +1,11 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup Label="Application">
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Product>Microsoft.Office.Interop.Access</Product>
+    <VersionPart1>15</VersionPart1>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  <ItemGroup Label="PackageReferences">
+    <PackageReference Include="Microsoft.Office.Interop.Access" Version="15.0.4420.1018" />
+  </ItemGroup>
+</Project>

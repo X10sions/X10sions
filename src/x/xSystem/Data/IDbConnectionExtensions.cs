@@ -7,14 +7,14 @@ public static class IDbConnectionExtensions {
   public static string ConnectionStringWithoutUser(this IDbConnection connection) => GetDbConnectionStringBuilder(connection).RemoveUserKeywords().ConnectionString;
 
   public static IDbCommand CreateCommand(this IDbConnection cn, string commandText, params KeyValuePair<string, object>[] parameters) {
-    using (var cmd = cn.CreateCommand(commandText)) {
+    using (IDbCommand cmd = cn.CreateCommand(commandText)) {
       cmd.AddParameters(parameters);
       return cmd;
     }
   }
 
   public static IDbCommand CreateCommand(this IDbConnection connection, string commandText, IDbDataParameter[]? parameters = null, CommandType commandType = CommandType.Text) {
-    var command = connection.CreateCommand();
+    IDbCommand command = connection.CreateCommand();
     command.CommandText = commandText;
     command.CommandType = commandType;
     if (parameters != null) {
@@ -24,6 +24,10 @@ public static class IDbConnectionExtensions {
   }
 
   public static DbConnectionStringBuilder GetDbConnectionStringBuilder(this IDbConnection connection) => new DbConnectionStringBuilder(connection.ConnectionString.Contains("Driver=", StringComparison.OrdinalIgnoreCase)) { ConnectionString = connection.ConnectionString };
+
+  public static object GetConnectionStringValue(this IDbConnection connection, string connectionStringKey) => connection.GetDbConnectionStringBuilder()[connectionStringKey];
+
+  public static T? GetConnectionStringValue<T>(this IDbConnection connection, string connectionStringKey, T? defaultValue = default) => (T)connection.GetConnectionStringValue(connectionStringKey);
 
   public static T EnsureNotNull<T>(this T connection, Func<T> connectionFactory
     , Action? beforeNullConnectionAction = null, Action? afterNullConnectionAction = null) where T : IDbConnection, IDisposable {
@@ -60,7 +64,7 @@ public static class IDbConnectionExtensions {
   }
 
   public static T EnsureOpenCall<T>(this IDbConnection connection, Func<T> action) {
-    var isConnectionNotOpen = connection.State != ConnectionState.Open;
+    bool isConnectionNotOpen = connection.State != ConnectionState.Open;
     if (isConnectionNotOpen) { connection.Open(); }
     T returValue;
     try {
@@ -74,7 +78,7 @@ public static class IDbConnectionExtensions {
   }
 
   public static async Task<T> EnsureOpenCallAsync<T>(this IDbConnection connection, Func<Task<T>> action) {
-    var isConnectionNotOpen = connection.State != ConnectionState.Open;
+    bool isConnectionNotOpen = connection.State != ConnectionState.Open;
     if (isConnectionNotOpen) { await connection.OpenAsync(); }
     T returValue;
     try {
@@ -160,11 +164,14 @@ public static class IDbConnectionExtensions {
   //  return returValue;
   //}
 
+  public static bool IsOdbc(this IDbConnection connection) => connection.ConnectionString.Contains("Driver=", StringComparison.OrdinalIgnoreCase);
+  public static bool IsOleDb(this IDbConnection connection) => connection.ConnectionString.Contains("Provider=", StringComparison.OrdinalIgnoreCase);
+
   public static DataTable LoadDataTable(this IDbConnection connection, string commandText, CommandType commandType = CommandType.Text, IDbDataParameter[]? parameters = null) {
-    var isConnectionNotOpen = connection.State != ConnectionState.Open;
+    bool isConnectionNotOpen = connection.State != ConnectionState.Open;
     if (isConnectionNotOpen) { connection.Open(); }
-    var dt = new DataTable();
-    using (var cmd = connection.CreateCommand(commandText, parameters, commandType)) {
+    DataTable dt = new DataTable();
+    using (IDbCommand cmd = connection.CreateCommand(commandText, parameters, commandType)) {
       try {
         dt.Load(cmd.ExecuteReader());
       } catch (Exception ex) {
@@ -231,14 +238,14 @@ public static class IDbConnectionExtensions {
   #region AS400
 
   public static int ExecuteClCommand(this IDbConnection dbConnection, string clCommand) {
-    var commandText = ConvertClCommandToSql(clCommand);
+    string commandText = ConvertClCommandToSql(clCommand);
     return dbConnection.ExecuteNonQuery(commandText);
   }
 
   public static string ConvertClCommandToSql(string clCommand) {
     //var cmdLength = clCommand.Length.ToString().PadLeft(10, '0') + ".00000";
-    var cmdLength = clCommand.Trim().Length.ToString("0000000000.00000");
-    var cmdEscaped = clCommand.Replace("'", "''").Trim();
+    string cmdLength = clCommand.Trim().Length.ToString("0000000000.00000");
+    string cmdEscaped = clCommand.Replace("'", "''").Trim();
     return $"CALL QCMDEXC('{cmdEscaped}',{cmdLength})";
   }
 
