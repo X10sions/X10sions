@@ -1,9 +1,9 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 
 namespace ChartJs {
   public class ChartJsData {
-    public string[]? Labels { get; set; }
+
+    public IEnumerable<string>? Labels { get; set; }
     public List<Dataset> Datasets { get; set; } = new List<Dataset>();
 
     //    //public string[]? xLabels { get; set; }
@@ -16,7 +16,7 @@ namespace ChartJs {
       //      //public bool? active { get; set; }
       public string[]? BackgroundColor { get; set; }
       public string[]? BorderColor { get; set; }
-      public int[]? BorderDash{ get; set; }
+      public int[]? BorderDash { get; set; }
       public int? BorderWidth { get; set; }
       //      public Clip? clip { get; set; }
       public IEnumerable Data { get; set; }
