@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Common.Attributes {
+﻿namespace Common.Attributes {
 
   [AttributeUsage(AttributeTargets.Field)]
   public class ComputerInfoAttribute : Attribute {
