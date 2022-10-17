@@ -12,7 +12,7 @@ namespace Microsoft.AspNetCore.Mvc {
       var applicationPath = urlHelper.Content(path);
       switch (Path.GetExtension(path)) {
         case ".css": return HtmlConstants.StylesheetHtmlTagString(applicationPath);
-        case ".js": return HtmlConstants.ScriptHtmlTag(applicationPath);
+        case ".js": return HtmlConstants.ScriptHtmlTagString(applicationPath);
         default: return string.Empty;
       }
     }
