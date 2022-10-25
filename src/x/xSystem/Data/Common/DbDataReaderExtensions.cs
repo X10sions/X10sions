@@ -3,10 +3,21 @@
 namespace System.Data.Common;
 public static class DbDataReaderExtensions {
 
-  public static T GetValueOrDefault<T>(this DbDataReader reader, string name, T defaultValue) {
+  public static T GetFieldValue<T>(this DbDataReader reader, string name, T defaultValue) {
     var idx = reader.GetOrdinal(name);
     return reader.IsDBNull(idx) ? defaultValue : reader.GetFieldValue<T>(idx);
   }
+
+  public async static Task<T> GetFieldValueAsync<T>(this DbDataReader reader, string name, T defaultValue, CancellationToken cancellationToken = default) {
+    var idx = reader.GetOrdinal(name);
+    return reader.IsDBNull(idx) ? defaultValue : await reader.GetFieldValueAsync<T>(idx, cancellationToken);
+  }
+
+  public static DateTime GetDateTime(this DbDataReader reader, string name) => reader.GetDateTime(reader.GetOrdinal(name));
+  public static short GetInt16(this DbDataReader reader, string name) => reader.GetInt16(reader.GetOrdinal(name));
+  public static int GetInt32(this DbDataReader reader, string name) => reader.GetInt32(reader.GetOrdinal(name));
+  public static long GetInt64(this DbDataReader reader, string name) => reader.GetInt64(reader.GetOrdinal(name));
+  public static string GetString(this DbDataReader reader, string name) => reader.GetString(reader.GetOrdinal(name));
 
   public static List<T>? MapToList<T>(this DbDataReader dr) {
     if (dr != null && dr.HasRows) {

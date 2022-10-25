@@ -1,0 +1,8 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup Label="Application">
+    <TargetFramework>net6.0</TargetFramework>
+    <Product>Common DotNet 6 Extensions</Product>
+    <VersionPart1>1</VersionPart1>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+</Project>
