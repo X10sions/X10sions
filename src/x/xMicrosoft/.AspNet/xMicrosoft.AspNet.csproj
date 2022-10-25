@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup Label="Application">
+    <TargetFramework>net48</TargetFramework>
+    <Product>Microsoft.AspNet Extensions</Product>
+    <VersionPart1>4</VersionPart1>
+    <VersionPart2>8</VersionPart2>
+    <Nullable>enable</Nullable>
+    <RootNamespace></RootNamespace>
+  </PropertyGroup>
+  <ItemGroup Label="PackageReferences">
+    <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.9" />
+    <PackageReference Include="Microsoft.AspNet.Identity.Core" Version="2.2.3" />
+    <PackageReference Include="Microsoft.AspNet.SignalR.Core" Version="2.4.3" />
+    <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.2.9" />
+    <PackageReference Include="Microsoft.AspNet.WebPages.Data" Version="3.2.9" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\xSystem\xSystem.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Web" />
+  </ItemGroup>
+</Project>

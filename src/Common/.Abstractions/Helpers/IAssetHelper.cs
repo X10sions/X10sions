@@ -1,5 +1,4 @@
-﻿using Common.Models.Html.Tags;
-using System.Text;
+﻿using System.Text;
 
 namespace Common.Helpers;
 
@@ -73,7 +72,7 @@ public static class IAssetHelperExtensions {
 
   public static IAssetHelper AddFile(this IAssetHelper assetHelper, string path, int priority = 0, string? packageName = null, Version? packageVersion = null) {
     if (!string.IsNullOrWhiteSpace(path)) {
-      var exists = assetHelper.Files.TryGetValue(path, out IAssetFile assetFile);
+      var exists = assetHelper.Files.TryGetValue(path, out var assetFile);
       if (!exists) {
         assetFile.Path = path;
       }
@@ -134,9 +133,7 @@ public static class IAssetHelperExtensions {
   }
 
   public static string GetStylesheetHtmlTagStrings(this IAssetHelper assetHelper) => assetHelper.Render(x => x.IsStylesheet());
-
   public static string GetScriptHtmlTagStrings(this IAssetHelper assetHelper) => assetHelper.Render(x => x.IsScript());
-
 
   #region "IAssetPackage"
 
@@ -174,4 +171,9 @@ public static class IAssetHelperExtensions {
   }
 
   #endregion
+}
+
+public static class AssetHelperExtensions {
+
+
 }
