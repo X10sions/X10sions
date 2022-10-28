@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace Microsoft.AspNetCore.Mvc.Rendering {
+﻿namespace Microsoft.AspNetCore.Mvc.Rendering {
   public static class SelectListItemExtensions {
 
     public static IEnumerable<T> SelectedValues<T>(this IEnumerable<SelectListItem> SelectListItems)

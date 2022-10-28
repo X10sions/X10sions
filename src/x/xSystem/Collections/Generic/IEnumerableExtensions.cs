@@ -60,6 +60,35 @@ namespace System.Collections.Generic {
       return source.IsNullOrEmpty() ? string.Empty : prefix + string.Join(suffix + separator + prefix, source.Select(x => x?.ToString()).ToArray()) + suffix;
     }
 
+    public static string JoinToCsv<T>(this IEnumerable<T> objectlist, List<string>? excludedPropertyNames = null, bool quoteEveryField = false, bool includeFieldNamesAsFirstRow = true) {
+      if (excludedPropertyNames == null) { excludedPropertyNames = new List<string>(); }
+      var separator = ",";
+      var t = typeof(T);
+      var props = t.GetProperties();
+      var arrPropNames = props.Where(p => !excludedPropertyNames.Contains(p.Name)).Select(f => f.Name).ToArray();
+      var csvBuilder = new StringBuilder();
+      if (includeFieldNamesAsFirstRow) {
+        if (quoteEveryField) {
+          for (var i = 0; i <= arrPropNames.Length - 1; i++) {
+            if (i > 0) { csvBuilder.Append(separator); }
+            csvBuilder.Append("\"");
+            csvBuilder.Append(arrPropNames[i]);
+            csvBuilder.Append("\"");
+          }
+          csvBuilder.Append(Environment.NewLine);
+
+        } else {
+          var header = string.Join(separator, arrPropNames);
+          csvBuilder.AppendLine(header);
+        }
+      }
+      foreach (var o in objectlist) {
+        csvBuilder.AppendCsvRow(excludedPropertyNames, separator, quoteEveryField, props, o);
+        csvBuilder.Append(Environment.NewLine);
+      }
+      return csvBuilder.ToString();
+    }
+
     public static string JoinToString(this IEnumerable<object> source, string separator = ", ") => string.Join(separator, source);
     public static string JoinToString<TKey, TValue>(this IEnumerable<KeyValuePair<TKey, TValue>> kvPairs, string keySeparator = ";", string valueSeparator = "=", string prefix = "{", string suffix = "}") => prefix + string.Join(keySeparator, kvPairs.Select(kv => $"{kv.Key}{valueSeparator}{kv.Value}").ToArray()) + suffix;
 
