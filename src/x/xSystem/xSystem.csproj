@@ -6,8 +6,5 @@
     <VersionPart1>2</VersionPart1>
     <VersionPart2>0</VersionPart2>
     <VersionPart3>3</VersionPart3>
-    <!--
-    <AutoVersionIsEnabled>true</AutoVersionIsEnabled>
-    -->
   </PropertyGroup>
 </Project>  

@@ -6,9 +6,4 @@
     <VersionPart2>6</VersionPart2>
     <Description>https://getbootstrap.com</Description>
   </PropertyGroup>
-  <ItemGroup Label="PackageReferences">
-    <!-- 
-    <PackageReference Include="bootstrap" Version="4.6.0" />
-    -->
-  </ItemGroup>
 </Project>

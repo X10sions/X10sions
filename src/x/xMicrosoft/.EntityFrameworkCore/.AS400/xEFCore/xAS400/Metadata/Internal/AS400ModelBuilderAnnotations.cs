@@ -5,9 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 namespace xEFCore.xAS400.Metadata.Internal {
   public class AS400ModelBuilderAnnotations : AS400ModelAnnotations {
 
-    public AS400ModelBuilderAnnotations(
-        [NotNull] InternalModelBuilder internalBuilder,
-        ConfigurationSource configurationSource)
+    public AS400ModelBuilderAnnotations([NotNull] InternalModelBuilder internalBuilder, ConfigurationSource configurationSource)
         : base(new RelationalAnnotationsBuilder(internalBuilder, configurationSource)) {
     }
 

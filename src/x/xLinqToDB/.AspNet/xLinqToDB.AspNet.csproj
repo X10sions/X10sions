@@ -11,7 +11,7 @@
   </PropertyGroup> 
   <ItemGroup Label="PackageReferences">
     <PackageReference Include="linq2db.AspNet" Version="4.3.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="7.0.0" />
   </ItemGroup> 
   <ItemGroup>
     <ProjectReference Include="..\.DataProvider\xLinqToDB.DataProvider.csproj" />

@@ -7,7 +7,7 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup Label="PackageReferences">
-    <PackageReference Include="linq2db4iSeries" Version="4.2.0" />
+    <PackageReference Include="linq2db4iSeries" Version="4.3.0" />
   </ItemGroup>
   <ItemGroup Label="ProjectReferences">
     <ProjectReference Include="..\..\xLinqToDB.csproj" />

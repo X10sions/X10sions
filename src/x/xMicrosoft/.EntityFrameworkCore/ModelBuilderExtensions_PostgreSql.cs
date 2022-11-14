@@ -16,7 +16,7 @@
           key.SetConstraintName(key.GetConstraintName().ToSnakeCase());
         }
         foreach (var index in entity.GetIndexes()) {
-          index.SetName(index.GetName().ToSnakeCase());
+          index.SetDatabaseName(index.GetDatabaseName().ToSnakeCase());
         }
         //foreach (var nav in entity.GetNavigations()) {
         //  nav.SetField(nav.GetFieldName().ToSnakeCase());

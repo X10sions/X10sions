@@ -5,12 +5,7 @@
     <VersionPart1>1</VersionPart1>
     <Nullable>enable</Nullable>
   </PropertyGroup>
-  <ItemGroup>
+  <ItemGroup Label="ProjectReferences">
     <ProjectReference Include="..\..\x\xSystem\xSystem.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Data\GetSchemaTyped\DataRows\" />
-    <Folder Include="_\System\Data\" />
-    <Folder Include="_\System\Net\Mail\" />
   </ItemGroup>
 </Project>
