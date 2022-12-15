@@ -5,7 +5,20 @@
     <VersionPart1>15</VersionPart1>
     <Nullable>enable</Nullable>
   </PropertyGroup>
+  <!-- 
   <ItemGroup Label="PackageReferences">
     <PackageReference Include="Microsoft.Office.Interop.Access" Version="15.0.4420.1018" />
+  </ItemGroup>
+  -->
+  <ItemGroup Label="COMReferences">
+    <COMReference Include="Microsoft.Office.Interop.Access">
+      <WrapperTool>tlbimp</WrapperTool>
+      <VersionMinor>0</VersionMinor>
+      <VersionMajor>9</VersionMajor>
+      <Guid>4affc9a0-5f99-101b-af4e-00aa003f0f07</Guid>
+      <Lcid>0</Lcid>
+      <Isolated>false</Isolated>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </COMReference>
   </ItemGroup>
 </Project>
