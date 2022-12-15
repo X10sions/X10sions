@@ -14,11 +14,11 @@ public class PropertyRenameAndIgnoreSerializerContractResolver : DefaultContract
       _ignores[type].Add(prop);
   }
 
-  public void RenameProperty(Type type, string propertyName, string newJsonPropertyName) {
-    if (!_renames.ContainsKey(type))
-      _renames[type] = new Dictionary<string, string>();
-    _renames[type][propertyName] = newJsonPropertyName;
-  }
+  //public void RenameProperty(Type type, string propertyName, string newJsonPropertyName) {
+  //  if (!_renames.ContainsKey(type))
+  //    _renames[type] = new Dictionary<string, string>();
+  //  _renames[type][propertyName] = newJsonPropertyName;
+  //}
 
   protected override JsonProperty CreateProperty(MemberInfo member, MemberSerialization memberSerialization) {
     var property = base.CreateProperty(member, memberSerialization);
