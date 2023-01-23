@@ -16,4 +16,7 @@
   <ItemGroup>
     <Folder Include="Odbc\" />
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Update="FreeSql" Version="3.2.686" />
+  </ItemGroup>
 </Project>
