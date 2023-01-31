@@ -1,4 +1,4 @@
-﻿namespace FreeSql {
+﻿namespace FreeSql.v3_2_684 {
   public enum xDataType {
 
     MySql, SqlServer, PostgreSQL, Oracle, Sqlite,

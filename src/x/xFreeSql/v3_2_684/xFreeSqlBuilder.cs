@@ -1,9 +1,11 @@
 ﻿using FreeSql.Internal;
 using FreeSql.Internal.CommonProvider;
+using FreeSql.v3_2_684.Internal;
 using System.Data.Common;
 
-namespace FreeSql;
-public partial class xFreeSqlBuilder : FreeSqlBuilder {
+namespace FreeSql.v3_2_684;
+
+public partial class xFreeSqlBuilder_v3_2_684 : FreeSqlBuilder {
 
   xDataType _dataType;
   string? _masterConnectionString;
@@ -25,13 +27,13 @@ public partial class xFreeSqlBuilder : FreeSqlBuilder {
   Action<DbCommand, string>? _aopCommandExecuted = null;
   Type? _providerType = null;
 
-  public xFreeSqlBuilder UseConnectionString(xDataType dataType, string connectionString, Type? providerType = null) {
+  public xFreeSqlBuilder_v3_2_684 UseConnectionString(xDataType dataType, string connectionString, Type? providerType = null) {
     UseConnectionString(DataType.Custom, connectionString, providerType);
     _dataType = dataType;
     return this;
   }
 
-  public xFreeSqlBuilder UseConnectionFactory(xDataType dataType, Func<DbConnection> connectionFactory, Type? providerType = null) {
+  public xFreeSqlBuilder_v3_2_684 UseConnectionFactory(xDataType dataType, Func<DbConnection> connectionFactory, Type? providerType = null) {
     UseConnectionFactory(DataType.Custom, connectionFactory, providerType);
     _dataType = dataType;
     return this;
@@ -191,7 +193,7 @@ public partial class xFreeSqlBuilder : FreeSqlBuilder {
       if (_aopCommandExecuted != null)
         ret.Aop.CommandAfter += new EventHandler<Aop.CommandAfterEventArgs>((s, e) => _aopCommandExecuted?.Invoke(e.Command, e.Log));
 
-      this.EntityPropertyNameConvert(ret);
+      this.EntityPropertyNameConvert_v3_2_684(ret);
       //添加实体属性名全局AOP转换处理
       if (_nameConvertType != NameConvertType.None) {
         string PascalCaseToUnderScore(string str) => string.IsNullOrWhiteSpace(str) ? str : string.Concat(str.Select((x, i) => i > 0 && char.IsUpper(x) ? "_" + x.ToString() : x.ToString()));
@@ -340,32 +342,6 @@ public partial class xFreeSqlBuilder : FreeSqlBuilder {
     }
 
     return ret;
-  }
-
-  [Obsolete]
-  void EntityPropertyNameConvert(IFreeSql fsql) {
-    if (_entityPropertyConvertType != StringConvertType.None) {
-      string PascalCaseToUnderScore(string str) => string.IsNullOrWhiteSpace(str) ? str : string.Concat(str.Select((x, i) => i > 0 && char.IsUpper(x) ? "_" + x.ToString() : x.ToString()));
-      switch (_entityPropertyConvertType) {
-        case StringConvertType.Lower:
-          fsql.Aop.ConfigEntityProperty += (_, e) => e.ModifyResult.Name = e.ModifyResult.Name?.ToLower();
-          break;
-        case StringConvertType.Upper:
-          fsql.Aop.ConfigEntityProperty += (_, e) => e.ModifyResult.Name = e.ModifyResult.Name?.ToUpper();
-          break;
-        case StringConvertType.PascalCaseToUnderscore:
-          fsql.Aop.ConfigEntityProperty += (_, e) => e.ModifyResult.Name = PascalCaseToUnderScore(e.ModifyResult.Name);
-          break;
-        case StringConvertType.PascalCaseToUnderscoreWithLower:
-          fsql.Aop.ConfigEntityProperty += (_, e) => e.ModifyResult.Name = PascalCaseToUnderScore(e.ModifyResult.Name)?.ToLower();
-          break;
-        case StringConvertType.PascalCaseToUnderscoreWithUpper:
-          fsql.Aop.ConfigEntityProperty += (_, e) => e.ModifyResult.Name = PascalCaseToUnderScore(e.ModifyResult.Name)?.ToUpper();
-          break;
-        default:
-          break;
-      }
-    }
   }
 
 }
