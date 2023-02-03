@@ -49,7 +49,8 @@ public class xFreeSqlBuilder_v2022_12_23 : FreeSqlBuilder {
       Action<string, string> throwNotFind = (dll, providerType) => throw new Exception(CoreStrings.Missing_FreeSqlProvider_Package_Reason(dll, providerType));
       switch (_dataType) {
         case xDataType.OdbcDB2iSeries:
-          type = new FreeSql.MySql.my
+          //var provider = new FreeSql.Odbc.DB2iSeries.OdbcDB2iSeriesProvider<TMark>();
+          type = typeof(FreeSql.Odbc.DB2iSeries.OdbcDB2iSeriesProvider<TMark>);
           //type = Type.GetType("FreeSql.MySql.MySqlProvider`1,FreeSql.Provider.MySql")?.MakeGenericType(typeof(TMark)); //MySql.Data.dll
           //if (type == null) type = Type.GetType("FreeSql.MySql.MySqlProvider`1,FreeSql.Provider.MySqlConnector")?.MakeGenericType(typeof(TMark)); //MySqlConnector.dll
           //if (type == null) throwNotFind("FreeSql.Provider.MySql.dll", "FreeSql.MySql.MySqlProvider<>");

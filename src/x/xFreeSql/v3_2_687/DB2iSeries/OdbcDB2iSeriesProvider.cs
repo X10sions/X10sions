@@ -1,7 +1,7 @@
 ﻿using FreeSql.Internal.CommonProvider;
 using System.Data.Common;
 
-namespace FreeSql.Odbc.DB2iSeries;
+namespace FreeSql.DB2iSeries;
 
 public class OdbcDB2iSeriesProvider<TMark> : BaseDbProvider, IFreeSql<TMark> {
   public override ISelect<T1> CreateSelectProvider<T1>(object dywhere) => new OdbcDB2iSeriesSelect<T1>(this, this.InternalCommonUtils, this.InternalCommonExpression, dywhere);

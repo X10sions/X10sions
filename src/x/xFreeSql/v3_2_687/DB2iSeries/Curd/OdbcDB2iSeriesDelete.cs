@@ -4,17 +4,14 @@ using System.Data.Common;
 using System.Text;
 namespace FreeSql.Odbc.DB2iSeries;
 
+class OleDbDB2iSeriesDelete<T1> : Internal.CommonProvider.DeleteProvider<T1> { }
+
 class DB2iSeriesDelete<T1> : Internal.CommonProvider.DeleteProvider<T1> {
   public DB2iSeriesDelete(IFreeSql orm, CommonUtils commonUtils, CommonExpression commonExpression, object dywhere)
       : base(orm, commonUtils, commonExpression, dywhere) {
   }
-
-  public override List<T1> ExecuteDeleted() => throw new NotImplementedException($"FreeSql.Provider.DB2iSeries {CoreStrings.S_Not_Implemented_Feature}");
-
-#if net40
-#else
-  public override Task<List<T1>> ExecuteDeletedAsync(CancellationToken cancellationToken = default) => throw new NotImplementedException($"FreeSql.Provider.DB2iSeries {CoreStrings.S_Not_Implemented_Feature}");
-#endif
+  public override List<T1> ExecuteDeleted() => throw new NotImplementedException();
+  public override Task<List<T1>> ExecuteDeletedAsync(CancellationToken cancellationToken = default) => throw new NotImplementedException();
 }
 
 class OdbcDB2iSeriesDelete<T1> : Internal.CommonProvider.DeleteProvider<T1> {
@@ -24,14 +21,13 @@ class OdbcDB2iSeriesDelete<T1> : Internal.CommonProvider.DeleteProvider<T1> {
 
   public override List<T1> ExecuteDeleted() {
     var ret = new List<T1>();
-    DbParameter[] dbParms = null;
-    StringBuilder sbret = null;
+    DbParameter[]? dbParms = null;
+    StringBuilder? sbret = null;
     ToSqlFetch(sb => {
       if (dbParms == null) {
         dbParms = _params.ToArray();
         sbret = new StringBuilder();
         sbret.Append(" OUTPUT ");
-
         var colidx = 0;
         foreach (var col in _table.Columns.Values) {
           if (colidx > 0) sbret.Append(", ");

@@ -1,11 +1,12 @@
 ﻿using FreeSql.Internal;
+using FreeSql.Internal.CommonProvider;
 using FreeSql.Internal.Model;
 using System.Linq.Expressions;
 using System.Text;
 using System.Text.RegularExpressions;
 namespace FreeSql.Odbc.DB2iSeries;
 
-class DB2iSeriesSelect<T1> : FreeSql.Internal.CommonProvider.Select1Provider<T1> {
+class DB2iSeriesSelect<T1> : Select1Provider<T1> {
 
   internal static string ToSqlStatic(CommonUtils _commonUtils, CommonExpression _commonExpression, string _select, bool _distinct, string field, StringBuilder _join, StringBuilder _where, string _groupby, string _having, string _orderby, int _skip, int _limit, List<SelectTableInfo> _tables, List<Dictionary<Type, string>> tbUnions, Func<Type, string, string> _aliasRule, string _tosqlAppendContent, List<GlobalFilter.Item> _whereGlobalFilter, IFreeSql _orm) {
     if (_orm.CodeFirst.IsAutoSyncStructure)
