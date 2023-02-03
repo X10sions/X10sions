@@ -15,7 +15,7 @@ public class xFreeSqlBuilder_v2022_12_23 : FreeSqlBuilder {
 
   xDataType _dataType;
   string? _masterConnectionString;
-  //string[] _slaveConnectionString;
+  string[] _slaveConnectionString;
   //int[] _slaveWeights;
   Func<DbConnection>? _connectionFactory;
   //bool _isAutoSyncStructure = false;
@@ -49,7 +49,7 @@ public class xFreeSqlBuilder_v2022_12_23 : FreeSqlBuilder {
       Action<string, string> throwNotFind = (dll, providerType) => throw new Exception(CoreStrings.Missing_FreeSqlProvider_Package_Reason(dll, providerType));
       switch (_dataType) {
         case xDataType.OdbcDB2iSeries:
-          //var provider = new FreeSql.Odbc.DB2iSeries.OdbcDB2iSeriesProvider<TMark>();
+          var provider = new FreeSql.Odbc.DB2iSeries.OdbcDB2iSeriesProvider<TMark>(_masterConnectionString, _slaveConnectionString, _connectionFactory);
           type = typeof(FreeSql.Odbc.DB2iSeries.OdbcDB2iSeriesProvider<TMark>);
           //type = Type.GetType("FreeSql.MySql.MySqlProvider`1,FreeSql.Provider.MySql")?.MakeGenericType(typeof(TMark)); //MySql.Data.dll
           //if (type == null) type = Type.GetType("FreeSql.MySql.MySqlProvider`1,FreeSql.Provider.MySqlConnector")?.MakeGenericType(typeof(TMark)); //MySqlConnector.dll
@@ -175,6 +175,8 @@ public class xFreeSqlBuilder_v2022_12_23 : FreeSqlBuilder {
         default: throw new Exception(CoreStrings.NotSpecified_UseConnectionString_UseConnectionFactory);
       }
     }
+    var xret = new FreeSql.Odbc.DB2iSeries.OdbcDB2iSeriesProvider<TMark>(_masterConnectionString, _slaveConnectionString, _connectionFactory);
+
     ret = Activator.CreateInstance(type, new object[] { _masterConnectionString, _slaveConnectionString, _connectionFactory }) as IFreeSql<TMark>;
     if (ret != null) {
       ret.CodeFirst.IsAutoSyncStructure = _isAutoSyncStructure;
