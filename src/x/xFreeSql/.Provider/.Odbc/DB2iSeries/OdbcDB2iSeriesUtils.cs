@@ -36,6 +36,7 @@ public class OdbcDB2iSeriesUtils : CommonUtils {
       });
 
   public override string FormatSql(string sql, params object[] args) => sql?.FormatOdbcDB2iSeries(args);
+
   public override string QuoteSqlName(params string[] name) {
     if (name.Length == 1) {
       var nametrim = name[0].Trim();
