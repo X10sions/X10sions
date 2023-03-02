@@ -3,6 +3,24 @@
 namespace System.Data;
 public static class IDbCommandExtensions {
 
+  public static IDbCommand AddParameterWithValue<T>(this IDbCommand cmd, string parameterName, T value) {
+    var param = cmd.CreateParameter(parameterName, value);
+    cmd.Parameters.Add(param);
+    return cmd;
+  }
+
+  public static IDbCommand AddParameterWithValues<T>(this IDbCommand cmd, string paramNameRoot, T[] values) {
+    var i = 0;
+    var parameterNames = new List<string>();
+    foreach (var value in values) {
+      var parameterName = paramNameRoot + i;
+      cmd.AddParameterWithValue(parameterName, value);
+      parameterNames.Add(parameterName);
+    }
+    cmd.CommandText = cmd.CommandText.Replace(paramNameRoot, string.Join(", ", parameterNames));
+    return cmd;
+  }
+
   public static IDbCommand AddParameters(this IDbCommand cmd, params IDbDataParameter[] parameters) {
     cmd.Parameters.AddRange(parameters);
     return cmd;
@@ -31,6 +49,24 @@ public static class IDbCommandExtensions {
     clone.Value = parameter.Value;
     return clone;
   }
+
+  public static IDbDataParameter CreateParameter<T>(this IDbCommand cmd, string parameterName, T value) {
+    var param = cmd.CreateParameter();
+    param.ParameterName = parameterName;
+    param.Value = value;
+    return param;
+  }
+
+  //public static IEnumerable<IDbDataParameter> CreateParameters<T>(this IDbCommand cmd, string paramNameRoot, T[] values, string paramNameFormat = "{paramNameRoot}[{i}]") {
+  //  var parameters = new List<IDbDataParameter>();
+  //  var i = 0;
+  //  foreach (var value in values) {
+  //    var parameter = cmd.CreateParameter(string.Format(paramNameFormat, paramNameRoot, i), value);
+  //    parameters.Add(parameter);
+  //    i++;
+  //  }
+  //  return parameters;
+  //}
 
   #region Convert / ReWrite NamedParameters
 

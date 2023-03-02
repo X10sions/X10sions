@@ -27,4 +27,8 @@ public static class IDataParameterCollectionExtensions {
   public static IDataParameterCollection ReplaceAll(this IDataParameterCollection parameterCollection, IList<IDbDataParameter> parameters)
     => parameterCollection.ReplaceAll(parameters.ToArray());
 
+
+
+
+
 }
