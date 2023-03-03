@@ -16,10 +16,7 @@
     <PackageReference Include="Oracle.ManagedDataAccess" Version="21.8.0" />
   </ItemGroup>
   <ItemGroup Label="ProjectReferences">
-    <ProjectReference Include="..\..\..\xSystem\xSystem.csproj" />
-    <!-- 
-    <ProjectReference Include="..\xMicrosoft.EntityFrameworkCore.csproj" />
-    -->
+    <ProjectReference Include="..\..\..\xSystem\.NetStandard\xSystem.NetStandard.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Update="Properties\OracleStrings.Designer.tt">
