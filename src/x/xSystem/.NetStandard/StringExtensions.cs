@@ -1,9 +1,41 @@
-﻿using System.Runtime.Serialization.Formatters.Binary;
+﻿using System.Globalization;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text.RegularExpressions;
 using System.Xml.Serialization;
 
 namespace System {
   public static class StringExtensions {
+
+    public delegate bool TryParse<T>(string str, out T value);
+
+    public static T? AsValue<T>(this string value, TryParse<T> parseFunc) {
+      if (string.IsNullOrWhiteSpace(value)) return default;
+      parseFunc(value, out var val);
+      return val;
+    }
+    ////public static TValue As<TValue>(this string value) => value.As(default(TValue));
+    //public static bool AsBool(this string value) => value.AsBool(defaultValue: false);
+    //public static bool AsBool(this string value, bool defaultValue) => !bool.TryParse(value, out var result) ? defaultValue : result;
+    //public static DateTime AsDateTime(this string value) => value.AsDateTime(default);
+    //public static DateTime AsDateTime(this string value, DateTime defaultValue) => !DateTime.TryParse(value, out var result) ? defaultValue : result;
+    //public static decimal AsDecimal(this string value) => value.As(0m);
+    //public static decimal AsDecimal(this string value, decimal defaultValue) => value.As(defaultValue);
+    //public static float AsFloat(this string value) => value.AsFloat(0f);
+    //public static float AsFloat(this string value, float defaultValue) => !float.TryParse(value, out var result) ? defaultValue : result;
+    //public static int AsInt(this string value) => value.AsInt(0);
+    //public static int AsInt(this string value, int defaultValue) => !int.TryParse(value, out var result) ? defaultValue : result;
+
+    public static IList<T> ToList<T>(this IEnumerable<string> values, TryParse<T> parseFunc) {
+      var list = new List<T>();
+      foreach (var v in values) {
+        var typedValue = v.AsValue(parseFunc);
+        if (typedValue != null) {
+          list.Add(typedValue);
+        }
+      }
+      return list;
+    }
+
     //public static decimal ConvertToDecimal(this string value) => value.As<decimal>();
     //public static short ConvertToInt16Ceiling(this string value) => Convert.ToInt16(Math.Ceiling(Convert.ToDecimal(value)));
     //public static short ConvertToInt16Floor(this string value) => Convert.ToInt16(Math.Floor(Convert.ToDecimal(value)));
@@ -26,6 +58,29 @@ namespace System {
     public static string FixedLengthRight(this string s, int length, char paddingChar = ' ') => s.Length > length ? s.Substring(s.Length - length, length) : s.PadLeft(length, paddingChar);
     public static string IfNullOrEmpty(this string s, string defaultValue) => string.IsNullOrEmpty(s) ? defaultValue : s;
     public static string IfNullOrWhiteSpace(this string s, string defaultValue) => string.IsNullOrWhiteSpace(s) ? defaultValue : s;
+
+    public static bool Is<TValue>(this string value) {
+      var converter = TypeDescriptor.GetConverter(typeof(TValue));
+      if (converter != null) {
+        try {
+          if (value == null || converter.CanConvertFrom(null, value.GetType())) {
+            converter.ConvertFrom(null, CultureInfo.CurrentCulture, value);
+            return true;
+          }
+        } catch {
+        }
+      }
+      return false;
+    }
+    public static bool IsNullOrEmpty(this string value) => string.IsNullOrEmpty(value);
+    public static bool IsNullOrWhiteSpace(this string value) => string.IsNullOrWhiteSpace(value);
+
+
+    //public static bool IsBool(this string value) => bool.TryParse(value, out var result);
+    //public static bool IsDateTime(this string value) => DateTime.TryParse(value, out var result);
+    //public static bool IsDecimal(this string value) => decimal.TryParse(value, out var result);
+    //public static bool IsInt(this string value) => int.TryParse(value, out var result);
+    //public static bool IsFloat(this string value) => float.TryParse(value, out var result);
 
     public static bool EndsWithAny(this string s, string[] values, StringComparison comparisonType = StringComparison.OrdinalIgnoreCase) {
       foreach (var value in values) {
@@ -73,7 +128,7 @@ namespace System {
 
     public static string TrimStart(this string target, string trimString) {
       if (string.IsNullOrEmpty(trimString)) return target;
-      string result = target;
+      var result = target;
       while (result.StartsWith(trimString)) {
         result = result.Substring(trimString.Length);
       }
@@ -82,7 +137,7 @@ namespace System {
 
     public static string TrimEnd(this string target, string trimString) {
       if (string.IsNullOrEmpty(trimString)) return target;
-      string result = target;
+      var result = target;
       while (result.EndsWith(trimString)) {
         result = result.Substring(0, result.Length - trimString.Length);
       }

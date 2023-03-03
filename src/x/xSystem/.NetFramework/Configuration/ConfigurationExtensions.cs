@@ -3,7 +3,6 @@ using System.Web.Configuration;
 
 namespace System.Configuration {
   public static class ConfigurationExtensions {
-
     public static KeyValueConfigurationCollection GetAppSettings(this Configuration configuration) => (KeyValueConfigurationCollection)(configuration.AppSettings?.Settings ?? ((object)new ConnectionStringSettingsCollection()));
     public static ConnectionStringSettingsCollection GetConnectionStrings(this Configuration configuration) => configuration.ConnectionStrings?.ConnectionStrings ?? new ConnectionStringSettingsCollection();
     public static NetSectionGroup GetSystemNet(this Configuration configuration) => (NetSectionGroup)(configuration.GetSectionGroup("system.net") ?? new NetSectionGroup());
