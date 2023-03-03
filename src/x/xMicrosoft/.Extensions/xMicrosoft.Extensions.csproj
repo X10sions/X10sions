@@ -13,10 +13,6 @@
     <PackageReference Include="Microsoft.Extensions.Options" Version="7.0.0" />
   </ItemGroup>
   <ItemGroup Label="ProjectReferences">
-    <ProjectReference Include="..\..\xSystem\xSystem.csproj" />
-    <!-- 
-    <ProjectReference Include="..\..\..\Common\.NetStandard\Common.NetStandard.csproj" />
-    <ProjectReference Include="..\.Abstractions\xMicrosoft.Abstractions.csproj" />
-    -->
+    <ProjectReference Include="..\..\xSystem\.NetStandard\xSystem.NetStandard.csproj" />
   </ItemGroup>
 </Project>

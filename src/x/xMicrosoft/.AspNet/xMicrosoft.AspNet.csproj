@@ -14,10 +14,10 @@
     <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.2.9" />
     <PackageReference Include="Microsoft.AspNet.WebPages.Data" Version="3.2.9" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\xSystem\xSystem.csproj" />
+  <ItemGroup Label="ProjectReferences">
+    <ProjectReference Include="..\..\xSystem\.NetStandard\xSystem.NetStandard.csproj" />
   </ItemGroup>
-  <ItemGroup>
+  <ItemGroup Label="References">
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Web" />
   </ItemGroup>

@@ -8,9 +8,6 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.0" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\xSystem\xSystem.csproj" />
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="Infrastructure\Internal\" />
     <Folder Include="_\System\Data\Common\" />
   </ItemGroup>

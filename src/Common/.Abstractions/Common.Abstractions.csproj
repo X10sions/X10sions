@@ -6,6 +6,6 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup Label="ProjectReferences">
-    <ProjectReference Include="..\..\x\xSystem\xSystem.csproj" />
+    <ProjectReference Include="..\..\x\xSystem\.NetStandard\xSystem.NetStandard.csproj" />
   </ItemGroup>
 </Project>
