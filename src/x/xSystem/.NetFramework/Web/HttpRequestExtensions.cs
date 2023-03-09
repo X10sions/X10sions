@@ -26,10 +26,10 @@
     //public static RouteData RouteData(this HttpRequest req) =>  RouteTable.Routes.GetRouteData(new HttpContextWrapper(HttpContext.Current));
     //public static RouteData RouteData(this HttpRequest req) => req.RequestContext.RouteData;
 
-    public static DateTime GetDateTime(this HttpRequest request, string name) => request[name].As<DateTime>(DateTime.TryParse);
+    public static DateTime GetDateTime(this HttpRequest request, string name) => request[name].AsValue<DateTime>(DateTime.TryParse);
     public static IList<DateTime> GetDateTimeList(this HttpRequest request, string name) => request.GetFormAndQueryStrings(name).ToList<DateTime>(DateTime.TryParse);
     public static IEnumerable<string> GetFormAndQueryStrings(this HttpRequest request, string name) => request.Form.GetValues(name).Union(request.QueryString.GetValues(name));
-    public static int GetInt(this HttpRequest request, string name) => request[name].As<int>(int.TryParse);
+    public static int GetInt(this HttpRequest request, string name) => request[name].AsValue<int>(int.TryParse);
     public static IList<int> GetIntList(this HttpRequest request, string name) => request.GetFormAndQueryStrings(name).ToList<int>(int.TryParse);
     public static IList<T> GetList<T>(this HttpRequest request, string name, StringExtensions.TryParse<T> parseFunc) => request.GetFormAndQueryStrings(name).ToList(parseFunc);
 
