@@ -46,5 +46,14 @@
       return value;
     }
 
+    public static IDictionary<string, object?> ToDictionary(this HttpSessionState session) {
+      var dic = new Dictionary<string, object?>();
+      foreach (string k in session.Keys) {
+        var value = session[k];
+        dic.Add(k, value);
+      }
+      return dic;
+    }
+
   }
 }
