@@ -6,7 +6,18 @@ public static class IDictionaryExtensions {
   public static T? Get<T>(this IDictionary dictionary, string key, T? defaultValue = default) {
     if (dictionary is null) throw new ArgumentNullException(nameof(dictionary));
     var value = dictionary[key];
-    return value is null || value is not T ? defaultValue : (T)value;
+    return value is not T ? defaultValue : (T)value;
+  }
+
+  public static T? GetOrCreate<T>(this IDictionary dictionary, Func<T> setFunc) => dictionary.GetOrCreate(typeof(T).FullName ?? typeof(T).Name, setFunc);
+
+  public static T? GetOrCreate<T>(this IDictionary dictionary, string key, Func<T> setFunc) {
+    var value = dictionary.Get<T>(key);
+    if (value is not T) {
+      value = setFunc();
+      dictionary.Set(value);
+    }
+    return value;
   }
 
   public static bool HasKey(this IDictionary dictionary, string key) => dictionary[key] != null;

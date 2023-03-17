@@ -16,10 +16,19 @@
     public static T? Get<T>(this HttpSessionState session, string key, T? defaultValue = default) {
       if (session is null) throw new ArgumentNullException(nameof(session));
       var value = session[key];
-      return value is null || value is not T ? defaultValue : (T)value;
+      return value is not T ? defaultValue : (T)value;
     }
 
-    //public static T Get<T>(this HttpSessionState session, string key, Func<object, T> valueSelector) => valueSelector(session[key]);
+    public static T? GetOrCreate<T>(this HttpSessionState session, Func<T> setFunc) => session.GetOrCreate(typeof(T).FullName ?? typeof(T).Name, setFunc);
+
+    public static T? GetOrCreate<T>(this HttpSessionState session, string key, Func<T> setFunc) {
+      var value = session.Get<T>(key);
+      if (value is not T) {
+        value = setFunc();
+        session.Set(value);
+      }
+      return value;
+    }
 
     //public static T GetOrAdd<T>(this HttpSessionState ses, string sessionKey, T defaultValue) {
     //  var value = Get<T>(ses, sessionKey);
