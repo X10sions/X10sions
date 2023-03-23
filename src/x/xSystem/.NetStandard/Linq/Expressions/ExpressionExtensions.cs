@@ -92,7 +92,7 @@ public static class ExpressionExtensions {
   };
   public static MethodInfo? GetSetMethod<T>(this Expression<Func<T>> expression) => ((expression?.Body as MemberExpression)?.Member as PropertyInfo)?.GetSetMethod(true);
 
-  public static void SetValue<T, TValue>(this Expression<Func<T>> getSetExpression, T instance, TValue value) => GetSetMethod(getSetExpression)?.Invoke(instance, new object[] { value });
+  public static void SetValue<T, TValue>(this Expression<Func<T>> getSetExpression, T instance, TValue value) where TValue : notnull => GetSetMethod(getSetExpression)?.Invoke(instance, new object[] { value });
 
   #endregion "GetMemberNames"
 
@@ -129,7 +129,7 @@ public static class ExpressionExtensions {
   public static Expression<Func<T, bool>> Equal<T, TProp>(this Expression<Func<T, TProp?>> field, TProp? value) where TProp : struct => Expression.Lambda<Func<T, bool>>(Expression.Equal(field.Body, Expression.Constant(value, typeof(TProp?))), field.Parameters);
   public static Expression<Func<T, bool>> EqualNull<T, TProp>(this Expression<Func<T, TProp?>> field) where TProp : struct => Expression.Lambda<Func<T, bool>>(Expression.Equal(field.Body, Expression.Constant(null, typeof(TProp?))), field.Parameters);
   public static Expression<Func<T, bool>> False<T>() => x => false;
-  public static Expression<Func<T, bool>> GreaterThan<T, TProp>(this Expression<Func<T, TProp>> field, TProp value) =>  Expression.Lambda<Func<T, bool>>(Expression.GreaterThan(field.Body, Expression.Constant(value, typeof(TProp))), field.Parameters);
+  public static Expression<Func<T, bool>> GreaterThan<T, TProp>(this Expression<Func<T, TProp>> field, TProp value) => Expression.Lambda<Func<T, bool>>(Expression.GreaterThan(field.Body, Expression.Constant(value, typeof(TProp))), field.Parameters);
   public static Expression<Func<T, bool>> GreaterThanOrEqual<T, TProp>(this Expression<Func<T, TProp>> field, TProp value) => Expression.Lambda<Func<T, bool>>(Expression.GreaterThanOrEqual(field.Body, Expression.Constant(value, typeof(TProp))), field.Parameters);
   public static Expression<Func<T, bool>> LessThan<T, TProp>(this Expression<Func<T, TProp>> field, TProp value) => Expression.Lambda<Func<T, bool>>(Expression.LessThan(field.Body, Expression.Constant(value, typeof(TProp))), field.Parameters);
   public static Expression<Func<T, bool>> LessThanOrEqual<T, TProp>(this Expression<Func<T, TProp>> field, TProp value) => Expression.Lambda<Func<T, bool>>(Expression.LessThanOrEqual(field.Body, Expression.Constant(value, typeof(TProp))), field.Parameters);

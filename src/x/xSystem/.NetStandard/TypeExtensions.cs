@@ -14,15 +14,13 @@ namespace System {
 
     public static TField GetFieldValueAs<T, TField>(this Type type, string fieldName, T obj) => (TField)type.GetField(fieldName).GetValue(obj);
     public static TProperty GetPropertyValueAs<T, TProperty>(this Type type, string propertyName, T obj) => (TProperty)type.GetProperty(propertyName).GetValue(obj);
-
     public static PropertyInfo[] GetInstanceStaticProperties(this Type type) => type.GetProperties(BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic);
-
     public static MemberInfo GetMemberInfo(this Type type, string name) => type.GetMembers().FirstOrDefault(x => x.Name == name);
     public static MethodInfo GetMethodInfo(this Type type, string name) => type.GetMethods().FirstOrDefault(x => x.Name == name);
     public static ParameterInfo[] GetMethodInfoParameters(this Type type, string name) => GetMethodInfo(type, name).GetParameters();
-
+    public static string GetFullNameElseName(this Type type) => type.FullName ?? type.Name;
+    public static string GetFullNameElseName<T>() => typeof(T).GetFullNameElseName();
     public static MemberInfo[] GetStaticMembers(this Type type, string name) => type.GetMember(name, BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.Public);
-
     public static bool IsNullable(this Type type) => (!type.IsValueType) || (Nullable.GetUnderlyingType(type) != null);
     public static bool IsNullableEnum(this Type _type) => Nullable.GetUnderlyingType(_type)?.IsEnum ?? false;
 
