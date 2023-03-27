@@ -1,6 +1,7 @@
-﻿using System.Runtime.Serialization;
+﻿using Common.Data;
+using System.Runtime.Serialization;
 
-namespace Common.Data;
+namespace Common.App.Settings;
 
 public interface IConnectionStringsAppSettings : IDeserializationCallback, IReadOnlyDictionary<string, string>, ISerializable { }
 

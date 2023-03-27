@@ -1,4 +1,5 @@
-﻿using System.Data.Common;
+﻿using Common.App.Settings;
+using System.Data.Common;
 
 namespace Common.Data;
 
@@ -26,10 +27,10 @@ public class DbConnectionProvider<TDbConnection> : IDbConnectionProvider<TDbConn
   public TDbConnection GetDbConnection(string connectionString) => new TDbConnection { ConnectionString = connectionString };
 }
 
-public class DbConnectionProvider<TDbConnection, TConnectionStringNamesEnum> : DbConnectionProvider<TDbConnection> , IDbConnectionProvider<TDbConnection, TConnectionStringNamesEnum>
+public class DbConnectionProvider<TDbConnection, TConnectionStringNamesEnum> : DbConnectionProvider<TDbConnection>, IDbConnectionProvider<TDbConnection, TConnectionStringNamesEnum>
   where TDbConnection : DbConnection, new()
   where TConnectionStringNamesEnum : Enum {
-  public DbConnectionProvider(ConnectionStringsByProviderAppSettings providers):base(providers) {  }
+  public DbConnectionProvider(ConnectionStringsByProviderAppSettings providers) : base(providers) { }
   public string GetConnectionString(TConnectionStringNamesEnum connectionNameEnum) => GetConnectionString(connectionNameEnum.ToString());
   public TDbConnection GetDbConnection(TConnectionStringNamesEnum connectionNameEnum) => GetDbConnection(GetConnectionString(connectionNameEnum));
 }
