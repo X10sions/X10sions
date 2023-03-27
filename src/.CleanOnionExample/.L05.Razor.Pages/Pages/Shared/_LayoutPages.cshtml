@@ -1,0 +1,92 @@
+﻿@using Microsoft.AspNetCore.Components.Web
+@using System.Reflection
+@{
+  var razorComponentsContentPath = CleanOnionExample.Razor.Components.AppSettings.ComponentsContentPath;
+  var appTitle = "CleanOnionExample.Razor.Pages";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <base href="~/" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>@ViewData["Title"] - @appTitle</title>
+  <link rel="stylesheet" href="@(razorComponentsContentPath)/lib/bootstrap/v5.1.0/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="@(razorComponentsContentPath)/css/site.css" asp-append-version="true" />
+  <link rel="stylesheet" href="@(razorComponentsContentPath)/css/app-site.css" />
+  <link rel="stylesheet" href="~/@(Assembly.GetEntryAssembly().Name()).styles.css" asp-append-version="true" />
+
+  <!-- for water demo page -->
+  <script src="@(razorComponentsContentPath)/water/OES_texture_float_linear-polyfill.js"></script>
+  <script src="@(razorComponentsContentPath)/water/lightgl.js"></script>
+  <script src="@(razorComponentsContentPath)/water/cubemap.js"></script>
+  <script src="@(razorComponentsContentPath)/water/renderer.js"></script>
+  <script src="@(razorComponentsContentPath)/water/water.js"></script>
+  <script src="@(razorComponentsContentPath)/water/main.js"></script>
+`  <component type="typeof(HeadOutlet)" render-mode="ServerPrerendered" />
+
+</head>
+<body>
+  <header>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+      <div class="container">
+        <a class="navbar-brand" asp-area="" asp-page="/Index">@appTitle</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+          <ul class="navbar-nav flex-grow-1">
+            <li class="nav-item">
+              <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <div class="container">
+    <main role="main" class="pb-3">
+      <!-- water demo -->
+      <img id="tiles" style="display: none" src="@(razorComponentsContentPath)/water/tiles.jpg">
+      <img id="xneg" style="display: none" src="@(razorComponentsContentPath)/water/xneg.jpg">
+      <img id="xpos" style="display: none" src="@(razorComponentsContentPath)/water/xpos.jpg">
+      <img id="ypos" style="display: none" src="@(razorComponentsContentPath)/water/ypos.jpg">
+      <img id="zneg" style="display: none" src="@(razorComponentsContentPath)/water/zneg.jpg">
+      <img id="zpos" style="display: none" src="@(razorComponentsContentPath)/water/zpos.jpg">
+      @RenderBody()
+    </main>
+  </div>
+
+  <footer class="border-top footer text-muted">
+    <div class="container">
+      &copy; @(DateTime.Now.Year) - CleanOnionExample - <a asp-area="" asp-page="/Privacy">Privacy</a>
+    </div>
+  </footer>
+
+  <script src="@(razorComponentsContentPath)/lib/jquery/dist/jquery.min.js"></script>
+  <script src="@(razorComponentsContentPath)/lib/bootstrap/v5.1.0/js/bootstrap.bundle.min.js"></script>
+  <script src="@(razorComponentsContentPath)/js/site.js" asp-append-version="true"></script>
+  <script src="@(razorComponentsContentPath)/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+  <script src="@(razorComponentsContentPath)/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+
+  @await RenderSectionAsync("Scripts", required: false)
+
+  <div id="blazor-error-ui">
+    <environment include="Staging,Production">
+      An error has occurred. This application may no longer respond until reloaded.
+    </environment>
+    <environment include="Development">
+      An unhandled exception has occurred. See browser dev tools for details.
+    </environment>
+    <a href="" class="reload">Reload</a>
+    <a class="dismiss">🗙</a>
+  </div>
+  <script src="_framework/blazor.server.js"></script>
+
+</body>
+</html>

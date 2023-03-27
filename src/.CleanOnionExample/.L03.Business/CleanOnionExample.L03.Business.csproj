@@ -1,0 +1,10 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <Product>CleanOnionExample.Business</Product>
+    <RootNamespace>CleanOnionExample</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectReferences">
+    <ProjectReference Include="..\.L02.Data\CleanOnionExample.L02.Data.csproj" />
+  </ItemGroup>
+</Project>
