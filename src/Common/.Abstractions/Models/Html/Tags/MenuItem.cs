@@ -1,9 +1,8 @@
 ﻿using Common.Attributes;
-using System;
 
 namespace Common.Models.Html.Tags {
   [ToDo()]
-  public class MenuItem : _BaseHtml5 {
+  public class MenuItem : HtmlTag5Base {
     public Menu Menu { get; set; }
 
     public override string TagName { get; set; } = nameof(MenuItem);

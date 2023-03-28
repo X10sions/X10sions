@@ -1,4 +1,7 @@
-﻿namespace CleanOnionExample.Data.Entities.Services;
+﻿using Common.Data;
+using MediatR;
+
+namespace CleanOnionExample.Data.Entities.Services;
 
 public class TaskCommandHandler {
   private readonly ITaskFactory _taskFactory;

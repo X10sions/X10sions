@@ -10,8 +10,8 @@ public class PagedList<T> : List<T>, IPagedListOptions {
   //  TotalItemCount = options.TotalItemCount;
   //}
 
-  public PagedList(IEnumerable<T> items, int pageNumber, int? pageSize = null, int? totalItemCount = null) : this(pageNumber, pageSize) {
-    TotalItemCount = totalItemCount ?? items.Count();
+  public PagedList(IEnumerable<T> items, int pageNumber, int? pageSize = null, long? totalItemCount = null) : this(pageNumber, pageSize) {
+    TotalItemCount = totalItemCount ?? items.LongCount();
     AddRange(items);
   }
 
@@ -24,7 +24,7 @@ public class PagedList<T> : List<T>, IPagedListOptions {
   //public PagedList(IQueryable<T> query, IPagedListOptions options, CancellationToken token = default)
   //  : this(query, options.PageNumber, options.PageSize, token) { }
 
-  public int TotalItemCount { get; }
+  public long TotalItemCount { get; }
   public int PageNumber { get; }
   public int? PageSize { get; }
 

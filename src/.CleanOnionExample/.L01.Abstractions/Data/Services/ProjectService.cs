@@ -3,7 +3,7 @@ using Common.Data;
 
 namespace CleanOnionExample.Data.Services;
 
-public record NewItemAddedEvent(Project Project, ToDoItem NewItem) : BaseDomainEvent;
+public record NewItemAddedEvent(Project Project, ToDoItem NewItem) : DomainEventBase;
 
 public record ProjectDTO(int Id, string Name) : CreateProjectDTO(Name) {
   public ProjectDTO(int Id, string Name, List<ToDoItemDTO>? items = null) : this(Id, Name) => Items = items ?? new List<ToDoItemDTO>();

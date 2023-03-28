@@ -1,4 +1,6 @@
-﻿namespace CleanOnionExample.Controllers;
+﻿using MediatR;
+
+namespace CleanOnionExample.Controllers;
 
 [ApiController, Route("api/v{version:apiVersion}/[controller]")]
 public abstract class BaseApiVersionController<T> : ControllerBase {

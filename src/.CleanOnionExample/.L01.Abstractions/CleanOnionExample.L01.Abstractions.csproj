@@ -15,5 +15,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="_\Common\Data\Entities\" />
+    <Folder Include="_\Common\Data\Repositories\" />
+    <Folder Include="_\Common\Data\Specification\" />
   </ItemGroup>
 </Project>

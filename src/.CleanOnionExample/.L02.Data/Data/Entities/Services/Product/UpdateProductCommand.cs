@@ -1,8 +1,9 @@
-﻿using System.Linq.Expressions;
+﻿using AutoMapper;
+using Common.Data;
+using MediatR;
+using System.Linq.Expressions;
 
 namespace CleanOnionExample.Data.Entities.Services;
-
-
 public class GetAllProductsQuery : IRequest<PaginatedResult<GetAllProductsResponse>> {
   public int PageNumber { get; set; }
   public int PageSize { get; set; }

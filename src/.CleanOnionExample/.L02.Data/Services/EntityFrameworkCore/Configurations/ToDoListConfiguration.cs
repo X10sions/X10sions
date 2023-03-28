@@ -1,4 +1,5 @@
 ﻿using CleanOnionExample.Data.Entities;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CleanOnionExample.Services.EntityFrameworkCore.Configurations;

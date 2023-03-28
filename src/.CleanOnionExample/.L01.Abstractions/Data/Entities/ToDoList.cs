@@ -1,10 +1,9 @@
 ﻿using CleanOnionExample.Data.Entities.ValueObjects;
-using Common.Data;
+using Common.Data.Entities;
 
 namespace CleanOnionExample.Data.Entities;
 
-public partial class ToDoList : BaseEntityAuditable<int> {
-  public int Id { get; set; }
+public partial class ToDoList : EntityAuditableBase<int> {
   public string? Title { get; set; }
   public Colour Colour { get; set; } = Colour.White;
   public IList<ToDoItem> Items { get; private set; } = new List<ToDoItem>();

@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Common.Exceptions;
+using MailKit.Net.Smtp;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
 namespace CleanOnionExample.Services.Mail;

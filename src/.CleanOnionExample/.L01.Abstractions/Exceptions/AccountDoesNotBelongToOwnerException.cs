@@ -1,4 +1,6 @@
-﻿namespace CleanOnionExample.Exceptions;
+﻿using Common.Exceptions;
+
+namespace CleanOnionExample.Exceptions;
 
 public sealed class AccountDoesNotBelongToOwnerException : BadRequestException {
   public AccountDoesNotBelongToOwnerException(Guid ownerId, Guid accountId)

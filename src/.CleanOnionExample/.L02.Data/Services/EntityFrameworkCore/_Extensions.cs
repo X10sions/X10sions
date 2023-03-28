@@ -1,16 +1,14 @@
-﻿using Common.DTOs;
-
-namespace Microsoft.EntityFrameworkCore;
+﻿namespace Microsoft.EntityFrameworkCore;
 
 public static class Extensions {
-  public static async Task<PaginatedResult<T>> ToPaginatedListAsync<T>(this IQueryable<T> source, int pageNumber, int pageSize) where T : class {
+  public static async Task<PagedListResult<T>> ToPaginatedListAsync<T>(this IQueryable<T> source, int pageNumber, int pageSize) where T : class {
     Throw.IfNull(source, nameof(source));
     pageNumber = pageNumber == 0 ? 1 : pageNumber;
     pageSize = pageSize == 0 ? 10 : pageSize;
-    long count = await source.LongCountAsync();
+    var count = await source.LongCountAsync();
     pageNumber = pageNumber <= 0 ? 1 : pageNumber;
-    List<T> items = await source.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
-    return PaginatedResult<T>.Success(items, count, pageNumber, pageSize);
+    var items = await source.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
+    return PagedListResult<T>.Success(items, count, pageNumber, pageSize);
   }
 }
 

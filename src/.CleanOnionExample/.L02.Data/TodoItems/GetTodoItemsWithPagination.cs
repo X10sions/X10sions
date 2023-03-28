@@ -1,6 +1,8 @@
-﻿using CleanOnionExample.Data.Entities;
+﻿using CleanOnionExample.Data.DbContexts;
+using CleanOnionExample.Data.Entities;
 using Common.Mappings;
 using Common.Models;
+using FluentValidation;
 
 namespace CleanOnionExample.Application.TodoItems;
 public static class GetTodoItemsWithPagination {

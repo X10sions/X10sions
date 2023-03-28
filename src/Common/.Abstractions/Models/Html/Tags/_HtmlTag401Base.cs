@@ -1,10 +1,7 @@
 ﻿using Common.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Common.Models.Html.Tags {
-  public abstract class _BaseHtml401 : IHtmlTag {
+  public abstract class HtmlTag401Base : IHtmlTag {
     const string ClassDelimeter = " ";
     const string StyleDelimeter = ";";
     const string StyleKeyValueDelimeter = ":";

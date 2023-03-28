@@ -1,4 +1,7 @@
-﻿namespace CleanOnionExample.Data.Entities.Services;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
+
+namespace CleanOnionExample.Data.Entities.Services;
 
 public class TaskViewModel {
   public TaskViewModel() { }

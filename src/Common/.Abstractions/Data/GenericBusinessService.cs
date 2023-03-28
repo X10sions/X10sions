@@ -1,8 +1,9 @@
 ﻿using Common.Collections.Paged;
+using Common.Data.Entities;
 using System.Linq.Expressions;
 namespace Common.Data;
 
-public class GenericBusinessService<T, TKey> : IGenericBusinessService<T, TKey> where T : class, IEntity<TKey> where TKey : IEquatable<TKey> {
+public class GenericBusinessService<T, TKey> : IGenericBusinessService<T, TKey> where T : class, IEntityWithId<TKey> where TKey : IEquatable<TKey> {
   protected readonly IUnitOfWork _unitOfWork;
   protected readonly IBusinessRepository<T, TKey> _repository;
   public GenericBusinessService(IUnitOfWork unitOfWork) {
@@ -18,7 +19,7 @@ public class GenericBusinessService<T, TKey> : IGenericBusinessService<T, TKey> 
 
   public IPagedList<T> GetAllPaged(string orderBy = "Id", int startRowIndex = 1, int maxRows = 10, params Expression<Func<T, object>>[] navigationPropertiesToLoad) => _repository.GetAllPaged(orderBy, startRowIndex, maxRows, navigationPropertiesToLoad);
 
-  public T GetById(TKey id, params Expression<Func<T, object>>[] navigationPropertiesToLoad) =>  _repository.GetById(id);
+  public T GetById(TKey id, params Expression<Func<T, object>>[] navigationPropertiesToLoad) => _repository.GetById(id);
 
   public T GetSingle(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] navigationPropertiesToLoad) => _repository.GetSingle(predicate, navigationPropertiesToLoad);
 

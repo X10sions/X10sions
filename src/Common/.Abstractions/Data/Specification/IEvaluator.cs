@@ -96,7 +96,7 @@ public class SearchEvaluator : IInMemoryEvaluator {
 
   public IEnumerable<T> Evaluate<T>(IEnumerable<T> query, ISpecification<T> specification) {
     foreach (var searchGroup in specification.SearchCriterias.GroupBy(x => x.SearchGroup)) {
-      query = query.Where(x => searchGroup.Any(c => c.SelectorFunc(x).Like(c.SearchTerm)));
+      query = query.Where(x => searchGroup.Any(c => c.SelectorFunc(x).IsLikeSql(c.SearchTerm)));
     }
     return query;
   }

@@ -3,7 +3,8 @@
 /// A single unit of relational data that can be identified by a primary key.
 /// </summary>
 /// <typeparam name="TId">The type of the entity's primary key.</typeparam>
-public interface IEntityWithId<TId> : IEntity where TId : IEquatable<TId> {
+public interface IEntityWithId<TId> : IEntity {
+  //public interface IEntityWithId<TId> : IEntity where TId : IEquatable<TId> {
   TId Id { get; set; }
 }
 

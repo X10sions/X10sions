@@ -1,5 +1,6 @@
-﻿
+﻿using CleanOnionExample.Data.DbContexts;
 using CleanOnionExample.Data.Entities.Services;
+using Common.Data;
 
 namespace CleanOnionExample.Data.Entities;
 

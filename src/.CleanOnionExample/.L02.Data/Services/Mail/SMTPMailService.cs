@@ -1,4 +1,7 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Common.Mail;
+using MailKit.Net.Smtp;
+using MailKit.Security;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
 namespace CleanOnionExample.Services.Mail;
@@ -26,7 +29,7 @@ public class SMTPMailService : IMailService {
       smtp.Authenticate(_mailSettings.SmtpUser, _mailSettings.SmtpPass);
       await smtp.SendAsync(email);
       smtp.Disconnect(true);
-    } catch (System.Exception ex) {
+    } catch (Exception ex) {
       _logger.LogError(ex.Message, ex);
     }
   }

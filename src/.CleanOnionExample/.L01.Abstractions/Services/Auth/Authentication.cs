@@ -1,4 +1,6 @@
-﻿namespace CleanOnionExample.Services.Auth;
+﻿using System.Text.Json.Serialization;
+
+namespace CleanOnionExample.Services.Auth;
 
 public class Authentication {
 

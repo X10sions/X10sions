@@ -1,4 +1,6 @@
-﻿namespace CleanOnionExample.Data.Entities.Services;
+﻿using Common.Data;
+
+namespace CleanOnionExample.Data.Entities.Services;
 public interface IRepositoryManager {
   IAccountRepository AccountRepository { get; }
   IOwnerRepository OwnerRepository { get; }

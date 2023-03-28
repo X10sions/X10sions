@@ -1,4 +1,5 @@
-﻿namespace CleanOnionExample.Data.Entities.Services;
+﻿using Common.Data.Repositories;
 
-public interface ITaskRepository : IRepository<Task, TaskId> {
-}
+namespace CleanOnionExample.Data.Entities.Services;
+
+public interface ITaskRepository : IRepository<ToDoTask, TaskId> { }

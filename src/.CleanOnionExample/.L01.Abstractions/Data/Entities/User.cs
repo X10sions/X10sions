@@ -1,8 +1,8 @@
-﻿using Common.Data;
+﻿using Common.Data.Entities;
 
 namespace CleanOnionExample.Data.Entities;
 
-public class User : BaseEntity<int> {
+public class User : EntityBase<int> {
   public string EmailAddress { get; set; }
   public UserRole.Enum Role { get; set; }
   public string Password { get; set; }

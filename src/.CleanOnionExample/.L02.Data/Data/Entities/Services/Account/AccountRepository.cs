@@ -1,4 +1,6 @@
-﻿namespace CleanOnionExample.Data.Entities.Services;
+﻿using CleanOnionExample.Data.DbContexts;
+
+namespace CleanOnionExample.Data.Entities.Services;
 internal sealed class AccountRepository : BaseEntityFrameworkCoreRepository<RepositoryDbContext, Account, Guid>, IAccountRepository {
   public AccountRepository(RepositoryDbContext dbContext) : base(dbContext) { }
 

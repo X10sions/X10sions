@@ -1,11 +1,13 @@
 ﻿using Common.Collections.Paged;
+using Common.Data.Entities;
 using System.Linq.Expressions;
 
 namespace Common.Data;
 
 public interface IBusinessRepository<T, TKey>
-  where T : class, IEntity<TKey>
-  where TKey : IEquatable<TKey> {
+  where T : class, IEntityWithId<TKey>
+  //where TKey : IEquatable<TKey> 
+  {
   void Add(T entity);
   int Count();
   int Count(Expression<Func<T, bool>> predicate);

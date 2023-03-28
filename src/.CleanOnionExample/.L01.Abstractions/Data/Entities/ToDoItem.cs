@@ -1,8 +1,8 @@
 ﻿using CleanOnionExample.Data.Services;
-using Common.Data;
+using Common.Data.Entities;
 
 namespace CleanOnionExample.Data.Entities;
-public partial class ToDoItem : BaseEntity<int> {
+public partial class ToDoItem : EntityBase<int> {
   public string Title { get; set; } = string.Empty;
   public string Description { get; set; } = string.Empty;
   public bool IsDone { get; set; }

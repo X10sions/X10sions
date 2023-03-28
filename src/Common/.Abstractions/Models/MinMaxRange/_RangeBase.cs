@@ -1,9 +1,8 @@
-﻿using System;
-using System.Data;
+﻿using System.Data;
 
 namespace Common.Models.MinMaxRange {
-  public abstract class _BaseRange<T> where T : struct, IComparable, IComparable<T> {
-    public _BaseRange(T? min, T? max) {
+  public abstract class RangeBase<T> where T : struct, IComparable, IComparable<T> {
+    public RangeBase(T? min, T? max) {
       Min = min;
       Max = max;
     }
@@ -14,8 +13,8 @@ namespace Common.Models.MinMaxRange {
     public override string ToString() => $"[{Min} - {Max}]";
     public bool IsValid => Min.Value.CompareTo(Max.Value) <= 0;
     public bool ContainsValue(T? value) => value.Value.IsBetween(Min.Value, Max.Value);
-    public bool IsInsideRange(_BaseRange<T> range) => IsValid && range.IsValid && range.ContainsValue(Min.Value) && range.ContainsValue(Max.Value);
-    public bool ContainsRange(_BaseRange<T> range) => IsValid && range.IsValid && ContainsValue(range.Min.Value) && ContainsValue(range.Max.Value);
+    public bool IsInsideRange(RangeBase<T> range) => IsValid && range.IsValid && range.ContainsValue(Min.Value) && range.ContainsValue(Max.Value);
+    public bool ContainsRange(RangeBase<T> range) => IsValid && range.IsValid && ContainsValue(range.Min.Value) && ContainsValue(range.Max.Value);
 
     public abstract string SqlExpression(T? value);
 

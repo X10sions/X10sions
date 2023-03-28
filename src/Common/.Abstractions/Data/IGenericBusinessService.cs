@@ -1,8 +1,11 @@
-﻿using System.Linq.Expressions;
+﻿using Common.Data.Entities;
+using System.Linq.Expressions;
 
 namespace Common.Data;
 
-public interface IGenericBusinessService<T, TKey> : IBusinessService<T, TKey> where T : class, IEntity<TKey> where TKey : IEquatable<TKey> {
+public interface IGenericBusinessService<T, TKey> : IBusinessService<T, TKey> where T : class, IEntityWithId<TKey>
+  //where TKey : IEquatable<TKey>
+  {
   void OnAdding(T entity);
   void OnAdded(T entity);
   void OnUpdating(T entity);

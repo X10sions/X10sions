@@ -1,7 +1,5 @@
-﻿using System.Collections.Generic;
-
-namespace Common.Models.Html.Tags {
-  public abstract class _BaseHtml5 : _BaseHtml401 {
+﻿namespace Common.Models.Html.Tags {
+  public abstract class HtmlTag5Base : HtmlTag401Base {
     const string DataPrefix = "data-";
 
     public bool? ContentEditable { get; set; } // Specifies whether the content Of an element Is editable Or Not
@@ -16,7 +14,7 @@ namespace Common.Models.Html.Tags {
     public Dictionary<string, string> Attributes() {
       var dic = new Dictionary<string, string> {
         [nameof(ContentEditable)] = ContentEditable.Value.ToString(),
-        [nameof(ContextMenu)] = ContextMenu?.Id
+        [nameof(ContextMenu)] = ContextMenu.Id
       };
       foreach (var k in Data.Keys)
         dic[nameof(DataPrefix) + k] = Data[k].ToString();

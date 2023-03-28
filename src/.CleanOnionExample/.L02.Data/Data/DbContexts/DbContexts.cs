@@ -1,4 +1,6 @@
-﻿using IBM.EntityFrameworkCore;
+﻿using CleanOnionExample.Data.Entities;
+using Common.App.Settings;
+using IBM.EntityFrameworkCore;
 using LinqToDB;
 using LinqToDB.AspNet;
 using LinqToDB.Configuration;

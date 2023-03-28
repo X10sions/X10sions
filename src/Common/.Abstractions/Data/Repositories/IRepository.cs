@@ -4,8 +4,8 @@ namespace Common.Data.Repositories;
 
 public interface IRepository<T, TId> : ICommandRepository<T, TId>, IQueryRepository<T, TId>
   where T : class, IEntityWithId<TId>
-  where TId : IEquatable<TId> {
-}
+  //where TId : IEquatable<TId> 
+  { }
 
 public interface IRepositoryAsync<T> where T : class {
   IQueryable<T> Entities { get; }

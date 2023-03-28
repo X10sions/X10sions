@@ -1,4 +1,5 @@
 ﻿using CleanOnionExample.Services.Auth;
+using Common.Data;
 
 namespace CleanOnionExample.Services.Identity;
 

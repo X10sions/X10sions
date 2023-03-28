@@ -1,11 +1,12 @@
 ﻿using CleanOnionExample.Events;
 using Common.Collections.Paged;
 using Common.Data;
+using Common.Data.Entities;
 using System.Linq.Expressions;
 
 namespace CleanOnionExample.Data.Entities;
 
-public partial class WeatherForecast : BaseEntity<Guid> {
+public partial class WeatherForecast : EntityBase<Guid> {
   public DateOnly Date { get; set; }
   public int TemperatureC { get; set; }
   public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);

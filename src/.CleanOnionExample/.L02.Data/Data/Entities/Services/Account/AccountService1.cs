@@ -1,5 +1,7 @@
 ﻿using CleanOnionExample.Services.Auth;
 using CleanOnionExample.Services.JWT;
+using Common.Exceptions;
+using Common.Mail;
 using Common.Net;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;

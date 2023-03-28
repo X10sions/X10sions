@@ -1,8 +1,8 @@
-﻿using Common.Data;
+﻿using Common.Data.Entities;
 
 namespace CleanOnionExample.Data.Entities;
 
-public class Order : BaseEntity<int> {
+public class Order : EntityBase<int> {
   public Customer Customers { get; set; }
   public int CustomerId { get; set; }
   public int EmployeeId { get; set; }

@@ -3,7 +3,8 @@ using System.Linq.Expressions;
 
 namespace Common.Data.Repositories;
 
-public interface ICommandRepository<T, TId> where T : class, IEntityWithId<TId> where TId : IEquatable<TId> {
+public interface ICommandRepository<T, TId> where T : class, IEntityWithId<TId> //where TId : IEquatable<TId>
+  {
   void Delete(TId key);
   void Delete(Expression<Func<T, bool>> where);
   Task DeleteAsync(TId key, CancellationToken cancellationToken = default);

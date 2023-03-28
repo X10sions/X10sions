@@ -1,4 +1,8 @@
-﻿namespace CleanOnionExample.Data.Entities.Services;
+﻿using AutoMapper;
+using Common.Data;
+using MediatR;
+
+namespace CleanOnionExample.Data.Entities.Services;
 public class DeleteBrandCommand : IRequest<Result<int>> {
   public int Id { get; set; }
 
@@ -91,8 +95,7 @@ public class GetAllBrandsCached {
   }
 
   public class Query : IRequest<Result<List<Response>>> {
-    public Query() {
-    }
+    public Query() { }
   }
 
   public class GetAllBrandsCachedQueryHandler : IRequestHandler<Query, Result<List<Response>>> {

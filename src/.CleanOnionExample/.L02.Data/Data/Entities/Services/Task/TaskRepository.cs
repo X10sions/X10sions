@@ -122,7 +122,7 @@ public class TaskRepository : ITaskRepository {
     throw new NotImplementedException();
   }
 
-  public System.Threading.Tasks.Task UpdateAsync(TaskId key, Task item, CancellationToken cancellationToken = default) {
+  public Task UpdateAsync(TaskId key, Task item, CancellationToken cancellationToken = default) {
     throw new NotImplementedException();
   }
 
@@ -138,15 +138,15 @@ public class TaskRepository : ITaskRepository {
     throw new NotImplementedException();
   }
 
-  public System.Threading.Tasks.Task UpdateRangeAsync(IEnumerable<Task> items, CancellationToken cancellationToken = default) {
+  public Task UpdateRangeAsync(IEnumerable<Task> items, CancellationToken cancellationToken = default) {
     throw new NotImplementedException();
   }
 
-  System.Threading.Tasks.Task ICommandRepository<Task, TaskId>.DeleteAsync(TaskId key, CancellationToken cancellationToken) {
+  Task ICommandRepository<Task, TaskId>.DeleteAsync(TaskId key, CancellationToken cancellationToken) {
     throw new NotImplementedException();
   }
 
-  System.Threading.Tasks.Task ICommandRepository<Task, TaskId>.InsertAsync(Task item, CancellationToken cancellationToken) {
+  Task ICommandRepository<Task, TaskId>.InsertAsync(Task item, CancellationToken cancellationToken) {
     throw new NotImplementedException();
   }
 }

@@ -3,11 +3,11 @@ using System.Linq.Expressions;
 
 namespace Common.Data.Repositories;
 
-public abstract class BaseRepository<T, TId> : IRepository<T, TId> where T : class, IEntityWithId<TId> where TId : IEquatable<TId> {
+public abstract class RepositoryBase<T, TId> : IRepository<T, TId> where T : class, IEntityWithId<TId> where TId : IEquatable<TId> {
   private readonly ICommandRepository<T, TId> _commandRepository;
   private readonly IQueryRepository<T, TId> _queryRepository;
 
-  protected BaseRepository(ICommandRepository<T, TId> commandRepository, IQueryRepository<T, TId> queryRepository) {
+  protected RepositoryBase(ICommandRepository<T, TId> commandRepository, IQueryRepository<T, TId> queryRepository) {
     _commandRepository = commandRepository;
     _queryRepository = queryRepository;
   }

@@ -1,7 +1,7 @@
-﻿using Common.Data;
+﻿using Common.Data.Entities;
 
 namespace CleanOnionExample.Data.Entities;
-public class ToDoTask : IEntity<TaskId> {
+public class ToDoTask : IEntityWithId<TaskId> {
   public TaskId Id { get; set; }
   public TaskSummary Summary { get; set; }
   public TaskDescription Description { get; set; }

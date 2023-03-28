@@ -1,4 +1,6 @@
-﻿namespace CleanOnionExample.Data.Entities.Services;
+﻿using MediatR;
+
+namespace CleanOnionExample.Data.Entities.Services;
 
 public class TaskService : ITaskService {
   private readonly ITaskRepository _taskRepository;

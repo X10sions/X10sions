@@ -1,4 +1,5 @@
-﻿using Common.Events;
+﻿using Common.Data;
+using Common.Events;
 
 namespace Common.Models;
 

@@ -1,9 +1,9 @@
-﻿using Common.Data;
+﻿using Common.Data.Entities;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CleanOnionExample.Data.Entities;
 
-public class Product : BaseEntityAuditable<int> {
+public class Product : EntityAuditableBase<int> {
   public string Name { get; set; }
   public string Barcode { get; set; }
   public byte[] Image { get; set; }

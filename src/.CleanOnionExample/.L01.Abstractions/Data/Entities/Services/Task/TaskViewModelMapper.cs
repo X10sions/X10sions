@@ -1,7 +1,7 @@
 ﻿namespace CleanOnionExample.Data.Entities.Services;
 
 public class TaskViewModelMapper {
-  public IEnumerable<TaskViewModel> ConstructFromListOfEntities(IEnumerable<Task> tasks) {
+  public IEnumerable<TaskViewModel> ConstructFromListOfEntities(IEnumerable<ToDoTask> tasks) {
     var tasksViewModel = tasks.Select(i => new TaskViewModel {
       Id = i.Id.Value.ToString(),
       Description = i.Description.ToString(),
@@ -11,7 +11,7 @@ public class TaskViewModelMapper {
     return tasksViewModel;
   }
 
-  public TaskViewModel ConstructFromEntity(Task task) {
+  public TaskViewModel ConstructFromEntity(ToDoTask task) {
     return new TaskViewModel {
       Id = task.Id.Value.ToString(),
       Description = task.Description.ToString(),

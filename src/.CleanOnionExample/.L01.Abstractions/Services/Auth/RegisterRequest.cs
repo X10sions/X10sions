@@ -1,4 +1,6 @@
-﻿namespace CleanOnionExample.Services.Auth;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace CleanOnionExample.Services.Auth;
 
 public record RegisterRequest(
   [Required] string FirstName,

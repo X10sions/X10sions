@@ -1,4 +1,7 @@
-﻿using Microsoft.Extensions.Options;
+﻿using Microsoft.AspNetCore.Mvc.ApiExplorer;
+using Microsoft.Extensions.Options;
+using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace CleanOnionExample.Optons;
 
@@ -22,7 +25,7 @@ public class ConfigureSwaggerOptions : IConfigureNamedOptions<SwaggerGenOptions>
 
   private OpenApiInfo CreateInfoForApiVersion(ApiVersionDescription description) {
     var info = new OpenApiInfo {
-      Title = $"FullStackNinja.CleanArchitecture API V{description.ApiVersion.ToString()}",
+      Title = $"FullStackNinja.CleanArchitecture API V{description.ApiVersion}",
       Description = @"FullStackNinja.CleanArchitecture is a boilerplate solution, built to demonstrate a full stack containerized application using ASP.NET Core (.NET 6) and Docker with Clean Architecture.",
       Version = description.ApiVersion.ToString()
     };

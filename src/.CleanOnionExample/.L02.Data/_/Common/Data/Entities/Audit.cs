@@ -1,5 +1,5 @@
 ﻿namespace Common.Data.Entities {
-  public class Audit : IEntity<int> {
+  public class Audit : IEntityWithId<int> {
     public int Id { get; set; }
     public string UserId { get; set; }
     public string Type { get; set; }

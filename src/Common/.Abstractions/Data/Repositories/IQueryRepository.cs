@@ -3,7 +3,9 @@ using System.Linq.Expressions;
 
 namespace Common.Data.Repositories;
 
-public interface IQueryRepository<T, TId> where T : class, IEntityWithId<TId> where TId : IEquatable<TId> {
+public interface IQueryRepository<T, TId> where T : class, IEntityWithId<TId>
+  // where TId : IEquatable<TId> 
+  {
   IQueryable<T> Queryable { get; }
   bool Any();
   bool Any(Expression<Func<T, bool>> where);

@@ -1,4 +1,8 @@
-﻿namespace CleanOnionExample.Data.Entities.Services;
+﻿using CleanOnionExample.Data.DbContexts;
+using Common.Data;
+using MediatR;
+
+namespace CleanOnionExample.Data.Entities.Services;
 public class GetCustomerByIdQuery : IRequest<Customer> {
   public int Id { get; set; }
   public class Handler : IRequestHandler<GetCustomerByIdQuery, Customer> {

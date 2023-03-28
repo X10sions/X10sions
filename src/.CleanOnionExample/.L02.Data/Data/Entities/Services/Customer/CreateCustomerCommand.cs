@@ -1,4 +1,8 @@
-﻿namespace CleanOnionExample.Data.Entities.Services;
+﻿using AutoMapper;
+using CleanOnionExample.Data.DbContexts;
+using MediatR;
+
+namespace CleanOnionExample.Data.Entities.Services;
 
 public class CreateCustomerCommand : IRequest<int> {
   public string CustomerName { get; set; }

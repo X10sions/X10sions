@@ -9,7 +9,7 @@ public class SearchValidator : IValidator {
   public static SearchValidator Instance { get; } = new SearchValidator();
   public bool IsValid<T>(T entity, ISpecification<T> specification) {
     foreach (var searchGroup in specification.SearchCriterias.GroupBy(x => x.SearchGroup)) {
-      if (searchGroup.Any(c => c.SelectorFunc(entity).Like(c.SearchTerm)) == false) return false;
+      if (!searchGroup.Any(c => c.SelectorFunc(entity).IsLikeSql(c.SearchTerm))) return false;
     }
     return true;
   }
@@ -20,7 +20,7 @@ public class WhereValidator : IValidator {
   public static WhereValidator Instance { get; } = new WhereValidator();
   public bool IsValid<T>(T entity, ISpecification<T> specification) {
     foreach (var info in specification.WhereExpressions) {
-      if (info.FilterFunc(entity) == false) return false;
+      if (!info.FilterFunc(entity)) return false;
     }
     return true;
   }

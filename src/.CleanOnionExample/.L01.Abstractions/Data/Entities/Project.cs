@@ -1,8 +1,8 @@
 ﻿using CleanOnionExample.Data.Services;
-using Common.Data;
+using Common.Data.Entities;
 
 namespace CleanOnionExample.Data.Entities;
-public class Project : BaseEntity<int> {
+public class Project : EntityBase<int> {
   public Project(string name, PriorityStatus priority) {
     Name = Throw.IfNullOrWhiteSpace(name, nameof(name));
     Priority = priority;

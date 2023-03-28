@@ -1,12 +1,10 @@
 ﻿using Common.Attributes;
-using System;
-using System.Collections.Generic;
 using System.Linq.Expressions;
 
 namespace CommonOrm {
-  public class x_BaseOrmClass<T> : xIOrmClass<T> where T : class {
+  public class x_OrmClassBase<T> : xIOrmClass<T> where T : class {
 
-    public x_BaseOrmClass(string tableName, Expression<Func<T, object>> primaryKeyExpression, string schemaName = null) {
+    public x_OrmClassBase(string tableName, Expression<Func<T, object>> primaryKeyExpression, string? schemaName = null) {
       type = typeof(T);
       TableName = tableName ?? type.Name;
       PrimaryKeyExpression = primaryKeyExpression;
