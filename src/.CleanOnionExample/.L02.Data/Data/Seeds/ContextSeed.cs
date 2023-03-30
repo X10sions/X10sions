@@ -2,6 +2,7 @@
 using CleanOnionExample.Data.Entities;
 using CleanOnionExample.Data.Entities.ValueObjects;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace CleanOnionExample.Data.Seeds;
 

@@ -1,5 +1,6 @@
 ﻿using CleanOnionExample.Data.Entities;
 using Common.App.Settings;
+using Common.Data;
 using IBM.EntityFrameworkCore;
 using LinqToDB;
 using LinqToDB.AspNet;
@@ -13,6 +14,7 @@ using LinqToDB.DataProvider.SQLite;
 using LinqToDB.DataProvider.SqlServer;
 using Microsoft.Data.SqlClient;
 using Microsoft.Data.Sqlite;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using NHibernate;
@@ -146,7 +148,7 @@ public static class Extensions {
     return services;
   }
 
-  public static IServiceCollection AddEFCore_CleanOnionExample(this IServiceCollection services, IAppSettings appSettings, Microsoft.Extensions.Logging.ILoggerFactory loggerFactory) {
+  public static IServiceCollection AddEFCore_CleanOnionExample(this IServiceCollection services, IDataAppSettings appSettings, Microsoft.Extensions.Logging.ILoggerFactory loggerFactory) {
     services.AddDbContext<EFCoreDbContexts.Access>(options => { options.UseLoggerFactory(loggerFactory).UseJet(appSettings.ConnectionStrings.Access_OleDb()); });
     services.AddDbContext<EFCoreDbContexts.DB2>(options => {
       options.UseLoggerFactory(loggerFactory).UseDb2(appSettings.ConnectionStrings.DB2iSeries_IBM(), p => {
@@ -172,7 +174,7 @@ public static class Extensions {
     return services;
   }
 
-  public static IServiceCollection AddLinqToDb_CleanOnionExample(this IServiceCollection services, IAppSettings appSettings, ILogger logger) {
+  public static IServiceCollection AddLinqToDb_CleanOnionExample(this IServiceCollection services, IDataAppSettings appSettings, ILogger logger) {
     services.AddLinqToDBContext<LinqToDbDataConnections.Access, OleDbConnection>(AccessTools.GetDataProvider(ProviderName.Access), appSettings.ConnectionStrings.Access_OleDb(), logger);
     //services.AddLinqToDbContext<LinqToDbDataConnections.DB2, DB2Connection>(new DB2DataProvider(nameof(IBM.Data.Db2), DB2Version.LUW), appSettings.ConnectionStrings.DB2(), logger);
     services.AddLinqToDBContext<LinqToDbDataConnections.DB2iSeries_Odbc, OdbcConnection, OdbcDataReader>(appSettings.ConnectionStrings.DB2iSeries_Odbc(), logger);

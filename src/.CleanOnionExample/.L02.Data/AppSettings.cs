@@ -1,4 +1,6 @@
-﻿namespace CleanOnionExample.Data;
+﻿using Common.App.Settings;
+
+namespace CleanOnionExample.Data;
 
 public static class AppSettingsExtensions {
   public static string Access_OleDb(this ConnectionStringsAppSettings cs) => cs[nameof(Access_OleDb)];

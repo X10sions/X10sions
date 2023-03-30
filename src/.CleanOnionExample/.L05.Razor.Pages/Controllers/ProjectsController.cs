@@ -1,6 +1,6 @@
-﻿using Common.Data;
-using CleanOnionExample.Data.Entities;
+﻿using CleanOnionExample.Data.Entities;
 using CleanOnionExample.Data.Services;
+using Common.Data;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CleanOnionExample.Controllers;
@@ -28,7 +28,8 @@ public class ProjectsController : BaseApiController {
   public async Task<IActionResult> GetById(int id) {
     var project = await repository.GetByIdAsync(id);
     if (project == null) {
-      return NotFound();    }
+      return NotFound();
+    }
     var result = new ProjectDTO(project.Id, project.Name, new List<ToDoItemDTO>(project.Items.Select(i => new ToDoItemDTO(i)).ToList()));
     return Ok(result);
   }
@@ -44,10 +45,10 @@ public class ProjectsController : BaseApiController {
 
   // PATCH: api/Projects/{projectId}/complete/{itemId}
   [HttpPatch("{projectId:int}/complete/{itemId}")]
-  public async Task<IActionResult> Complete(int projectId, int itemId) {
+  public async Task<IActionResult> Complete(int projectId, Guid itemId) {
     var project = await repository.GetByIdAsync(projectId);
     if (project == null) return NotFound("No such project");
-    var toDoItem = project.Items.FirstOrDefault(item => item.Id == itemId);
+    var toDoItem = project.Items.FirstOrDefault(item => item.Id.Value == itemId);
     if (toDoItem == null) return NotFound("No such item.");
     toDoItem.MarkComplete();
     await repository.UpdateAsync(project);

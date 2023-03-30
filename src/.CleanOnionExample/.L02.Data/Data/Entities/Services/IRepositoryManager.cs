@@ -1,4 +1,4 @@
-﻿using Common.Data;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace CleanOnionExample.Data.Entities.Services;
 public interface IRepositoryManager {

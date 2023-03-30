@@ -1,6 +1,6 @@
 ﻿namespace Common {
   /// <summary>
-  /// Author: NMick Chapsas
+  /// Author: Nick Chapsas
   ///
   /// for each(var i in 0..10){
   ///   DoSomething(i);

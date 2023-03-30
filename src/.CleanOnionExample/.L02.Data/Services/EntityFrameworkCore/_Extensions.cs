@@ -1,4 +1,6 @@
-﻿namespace Microsoft.EntityFrameworkCore;
+﻿using Common.Data;
+
+namespace Microsoft.EntityFrameworkCore;
 
 public static class Extensions {
   public static async Task<PagedListResult<T>> ToPaginatedListAsync<T>(this IQueryable<T> source, int pageNumber, int pageSize) where T : class {

@@ -8,7 +8,7 @@ namespace System.Collections.Generic {
     //public static TValue AddOrUpdate<TKey, TValue>(this IDictionary<TKey, TValue> dic, TKey key, Func<TKey, TValue> valueFactory) => dic[key] = valueFactory(key);
     //public static TValue AddOrUpdate<TKey, TValue, TArg>(this IDictionary<TKey, TValue> dic, TKey key, Func<TKey, TArg, TValue> valueFactory, TArg factoryArgument) =>  dic[key] = valueFactory(key, factoryArgument);
 
-    public static TResult Get<TKey, TValue, TResult>(this IDictionary<TKey, TValue> dic, TKey key, TResult defaultValue ) {
+    public static TResult Get<TKey, TValue, TResult>(this IDictionary<TKey, TValue> dic, TKey key, TResult defaultValue) {
       TValue value;
       return dic.TryGetValue(key, out value) && value is TResult t ? t : defaultValue;
     }
@@ -18,12 +18,20 @@ namespace System.Collections.Generic {
     //public static TValue GetOrAdd<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key) where TValue : new() => dictionary.GetOrAdd(key, () => new TValue());
     //public static TValue GetOrAdd<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, TValue value) => dictionary.GetOrAdd(key, () => value);
     public static TValue GetOrAdd<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, Func<TValue> valueFunction) {
-      TValue value;
-      if (!dictionary.TryGetValue(key, out value)) {
+      if (!dictionary.TryGetValue(key, out var value)) {
         value = dictionary[key] = valueFunction();
       }
       return value;
     }
+
+    //public static TValue GetOrAdd<TKey, TValue>(this IDictionary<TKey, object> dictionary, TKey key, Func<TValue> valueFunction) {
+    //  var exists = dictionary.TryGetValue(key, out var value);
+    //  if (exists && value is TValue) return (TValue)value;
+    //  var tValue = valueFunction();
+    //  dictionary[key] = tValue;
+    //  return tValue;
+    //}
+
     //public static TValue GetOrAdd<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, Func<TKey, TValue> valueFactory) => dictionary.GetOrAdd(key,  valueFactory(key));
     //public static TValue GetOrAdd<TKey, TValue, TArg>(this IDictionary<TKey, TValue> dictionary, TKey key, Func<TKey, TArg, TValue> valueFactory, TArg factoryArgument) => dictionary.GetOrAdd (key,  valueFactory(key, factoryArgument));
 

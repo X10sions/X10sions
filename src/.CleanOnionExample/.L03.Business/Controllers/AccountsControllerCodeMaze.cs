@@ -1,4 +1,5 @@
 ﻿using CleanOnionExample.Data.Entities;
+using Microsoft.AspNetCore.Mvc;
 
 namespace CleanOnionExample.Controllers;
 

@@ -1,4 +1,7 @@
 ﻿using CleanOnionExample.Data.Entities.Services;
+using MediatR;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace CleanOnionExample.Controllers;
 

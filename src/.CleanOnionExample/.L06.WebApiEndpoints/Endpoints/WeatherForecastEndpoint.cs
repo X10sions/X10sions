@@ -1,5 +1,6 @@
 ﻿using CleanOnionExample.Data.Entities;
 using FastEndpoints;
+using FluentValidation;
 using System.Text.Json.Serialization;
 
 namespace CleanOnionExample.Endpoints {
@@ -15,7 +16,7 @@ namespace CleanOnionExample.Endpoints {
       Verbs(Http.GET);
       Routes("weather/{days}");
       AllowAnonymous();
-      Describe(x => x.Produces<Contracts.Response>(200, "application/json"));
+      Description(x => x.Produces<Contracts.Response>(200, "application/json"));
     }
 
     public override async Task HandleAsync(Contracts.Request req, CancellationToken ct) {

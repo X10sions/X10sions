@@ -6,20 +6,20 @@ namespace CleanOnionExample.Data.Entities.Services;
 public class DeleteBrandCommand : IRequest<Result<int>> {
   public int Id { get; set; }
 
-  public class DeleteBrandCommandHandler : IRequestHandler<DeleteBrandCommand, Result<int>> {
+  public class DeleteBrandCommandHandler : IRequestHandler<DeleteBrandCommand, IResult<int>> {
     private readonly IBrandRepository _brandRepository;
-    private readonly IUnitOfWork _unitOfWork;
+    private readonly Microsoft.EntityFrameworkCore.IUnitOfWork _unitOfWork;
 
-    public DeleteBrandCommandHandler(IBrandRepository brandRepository, IUnitOfWork unitOfWork) {
+    public DeleteBrandCommandHandler(IBrandRepository brandRepository, Microsoft.EntityFrameworkCore.IUnitOfWork unitOfWork) {
       _brandRepository = brandRepository;
       _unitOfWork = unitOfWork;
     }
 
-    public async Task<Result<int>> Handle(DeleteBrandCommand command, CancellationToken cancellationToken) {
+    public async Task<IResult<int>> Handle(DeleteBrandCommand command, CancellationToken cancellationToken) {
       var product = await _brandRepository.GetByIdAsync(command.Id);
       await _brandRepository.DeleteAsync(product);
       await _unitOfWork.SaveChangesAsync(cancellationToken);
-      return Result<int>.Success(product.Id);
+      return Common.Data.Result<int>.Success(product.Id);
     }
   }
 }
@@ -31,19 +31,19 @@ public partial class CreateBrand {
     public decimal Tax { get; set; }
   }
 
-  public class CommandHandler : IRequestHandler<Command, Result<int>> {
+  public class CommandHandler : IRequestHandler<Command, IResult<int>> {
     private readonly IBrandRepository _brandRepository;
     private readonly IMapper _mapper;
 
-    private IUnitOfWork _unitOfWork { get; set; }
+    private Microsoft.EntityFrameworkCore.IUnitOfWork _unitOfWork { get; set; }
 
-    public CommandHandler(IBrandRepository brandRepository, IUnitOfWork unitOfWork, IMapper mapper) {
+    public CommandHandler(IBrandRepository brandRepository, Microsoft.EntityFrameworkCore.IUnitOfWork unitOfWork, IMapper mapper) {
       _brandRepository = brandRepository;
       _unitOfWork = unitOfWork;
       _mapper = mapper;
     }
 
-    public async Task<Result<int>> Handle(Command request, CancellationToken cancellationToken) {
+    public async Task<IResult<int>> Handle(Command request, CancellationToken cancellationToken) {
       var product = _mapper.Map<Brand>(request);
       await _brandRepository.InsertAsync(product);
       await _unitOfWork.SaveChangesAsync(cancellationToken);
@@ -59,16 +59,16 @@ public class UpdateBrand {
     public string Description { get; set; }
     public decimal Tax { get; set; }
 
-    public class CommandHandler : IRequestHandler<Command, Result<int>> {
-      private readonly IUnitOfWork _unitOfWork;
+    public class CommandHandler : IRequestHandler<Command, IResult<int>> {
+      private readonly Microsoft.EntityFrameworkCore.IUnitOfWork _unitOfWork;
       private readonly IBrandRepository _brandRepository;
 
-      public CommandHandler(IBrandRepository brandRepository, IUnitOfWork unitOfWork) {
+      public CommandHandler(IBrandRepository brandRepository, Microsoft.EntityFrameworkCore.IUnitOfWork unitOfWork) {
         _brandRepository = brandRepository;
         _unitOfWork = unitOfWork;
       }
 
-      public async Task<Result<int>> Handle(Command command, CancellationToken cancellationToken) {
+      public async Task<IResult<int>> Handle(Command command, CancellationToken cancellationToken) {
         var brand = await _brandRepository.GetByIdAsync(command.Id);
 
         if (brand == null) {
@@ -98,7 +98,7 @@ public class GetAllBrandsCached {
     public Query() { }
   }
 
-  public class GetAllBrandsCachedQueryHandler : IRequestHandler<Query, Result<List<Response>>> {
+  public class GetAllBrandsCachedQueryHandler : IRequestHandler<Query, IResult<List<Response>>> {
     private readonly IBrandCacheRepository _productCache;
     private readonly IMapper _mapper;
 
@@ -107,7 +107,7 @@ public class GetAllBrandsCached {
       _mapper = mapper;
     }
 
-    public async Task<Result<List<Response>>> Handle(Query request, CancellationToken cancellationToken) {
+    public async Task<IResult<List<Response>>> Handle(Query request, CancellationToken cancellationToken) {
       var brandList = await _productCache.GetCachedListAsync();
       var mappedBrands = _mapper.Map<List<Response>>(brandList);
       return Result<List<Response>>.Success(mappedBrands);
@@ -119,7 +119,7 @@ public class GetBrandById {
   public class Query : IRequest<Result<Response>> {
     public int Id { get; set; }
 
-    public class GetProductByIdQueryHandler : IRequestHandler<Query, Result<Response>> {
+    public class GetProductByIdQueryHandler : IRequestHandler<Query, IResult<Response>> {
       private readonly IBrandCacheRepository _brandCache;
       private readonly IMapper _mapper;
 
@@ -128,7 +128,7 @@ public class GetBrandById {
         _mapper = mapper;
       }
 
-      public async Task<Result<Response>> Handle(Query query, CancellationToken cancellationToken) {
+      public async Task<IResult<Response>> Handle(Query query, CancellationToken cancellationToken) {
         var product = await _brandCache.GetByIdAsync(query.Id);
         var mappedProduct = _mapper.Map<Response>(product);
         return Result<Response>.Success(mappedProduct);

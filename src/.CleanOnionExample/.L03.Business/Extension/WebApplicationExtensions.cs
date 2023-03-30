@@ -1,6 +1,7 @@
 ﻿using CleanOnionExample.Data.Entities;
 using CleanOnionExample.Data.Seeds;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Hosting;
 
 namespace CleanOnionExample.Infrastructure.Extension {
   public static class WebApplicationExtensions {

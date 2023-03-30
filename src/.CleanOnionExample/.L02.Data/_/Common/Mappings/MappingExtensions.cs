@@ -1,4 +1,7 @@
-﻿using Common.Models;
+﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using Common.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Common.Mappings;
 

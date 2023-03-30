@@ -1,4 +1,4 @@
-﻿using CleanOnionExample.Application.TodoLists;
+﻿using CleanOnionExample.Data.Entities.Services;
 
 namespace Common.Interfaces;
 

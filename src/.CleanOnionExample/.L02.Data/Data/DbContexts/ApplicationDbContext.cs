@@ -1,7 +1,10 @@
 ﻿using CleanOnionExample.Data.Entities;
 using CleanOnionExample.Data.Entities.Services;
+using CleanOnionExample.Services;
 using Common.Data.DbContexts;
+using Common.Data.Entities;
 using Common.Events;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System.Data;
 using System.Reflection;
@@ -85,19 +88,19 @@ public class ApplicationDbContext : AuditableContext, IApplicationDbContext {
   }
 
   public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default) {
-    foreach (var entry in ChangeTracker.Entries<BaseEntityAuditable<int>>().ToList()) {
+    foreach (var entry in ChangeTracker.Entries<EntityAuditableBase<int>>().ToList()) {
       switch (entry.State) {
         case EntityState.Added:
-          entry.Entity.CreatedOn = _dateTime.Now;
+          entry.Entity.InsertDate = _dateTime.Now;
           //entry.Entity.CreatedOn = _dateTime.NowUtc;
-          entry.Entity.CreatedBy = _authenticatedUser.UserId;
+          entry.Entity.InsertBy = _authenticatedUser.UserId;
           //entry.Entity.CreatedBy = _currentUserService.UserId;
           break;
 
         case EntityState.Modified:
-          entry.Entity.LastModifiedOn = _dateTime.Now;
+          entry.Entity.UpdateDate = _dateTime.Now;
           //entry.Entity.LastModifiedOn = _dateTime.NowUtc;
-          entry.Entity.LastModifiedBy = _authenticatedUser.UserId;
+          entry.Entity.UpdateBy = _authenticatedUser.UserId;
           //entry.Entity.LastModifiedBy = _currentUserService.UserId;
           break;
       }

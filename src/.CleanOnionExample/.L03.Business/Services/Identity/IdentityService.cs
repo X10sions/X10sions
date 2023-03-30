@@ -1,7 +1,7 @@
-﻿
-using CleanOnionExample.Data.Entities;
+﻿using CleanOnionExample.Data.Entities;
 using CleanOnionExample.Services.Identity;
 using Common.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 
 namespace xCleanOnionExample.Services.Identity;

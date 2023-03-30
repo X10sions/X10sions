@@ -1,4 +1,5 @@
 ﻿using CleanOnionExample.Data.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace CleanOnionExample.Data.DbContexts;
 

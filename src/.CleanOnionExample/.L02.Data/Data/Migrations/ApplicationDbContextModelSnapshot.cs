@@ -1,4 +1,5 @@
 ﻿using CleanOnionExample.Data.DbContexts;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 
 #nullable disable

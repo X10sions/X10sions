@@ -1,12 +1,20 @@
-﻿using CleanOnionExample.Services.Auth;
+﻿using CleanOnionExample.Enums;
+using CleanOnionExample.Services;
+using CleanOnionExample.Services.Auth;
 using CleanOnionExample.Services.JWT;
+using Common.Data;
 using Common.Exceptions;
 using Common.Mail;
 using Common.Net;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Options;
+using Microsoft.FeatureManagement;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace CleanOnionExample.Data.Entities.Services;
 
@@ -14,7 +22,7 @@ public class AccountService1 : IAccountService1 {
   private readonly UserManager<ApplicationUser> _userManager;
   private readonly RoleManager<IdentityRole> _roleManager;
   private readonly SignInManager<ApplicationUser> _signInManager;
-  private readonly IEmailService _emailService;
+  private readonly IMailService _emailService;
   private readonly JWTSettings _jwtSettings;
   private readonly IDateTimeService _dateTimeService;
   private readonly IFeatureManager _featureManager;
@@ -23,7 +31,7 @@ public class AccountService1 : IAccountService1 {
       IOptions<JWTSettings> jwtSettings,
       IDateTimeService dateTimeService,
       SignInManager<ApplicationUser> signInManager,
-      IEmailService emailService,
+      IMailService emailService,
       IFeatureManager featureManager) {
     _userManager = userManager;
     _roleManager = roleManager;
@@ -75,11 +83,14 @@ public class AccountService1 : IAccountService1 {
     if (userWithSameEmail == null) {
       var result = await _userManager.CreateAsync(user, request.Password);
       if (result.Succeeded) {
-        await _userManager.AddToRoleAsync(user, UserRole.Basic.ToString());
+        await _userManager.AddToRoleAsync(user, UserRole.Basic);
         var verificationUri = await SendVerificationEmail(user, origin);
 
         if (await _featureManager.IsEnabledAsync(nameof(FeatureManagement.EnableEmailService))) {
-          await _emailService.SendEmailAsync(new MailRequest(From: "amit.naik8103@gmail.com", To: user.Email, Body: $"Please confirm your account by visiting this URL {verificationUri}", Subject: "Confirm Registration"));
+          await _emailService.SendAsync(new MailRequest(
+            from: "amit.naik8103@gmail.com",
+            to: user.Email,
+            body: $"Please confirm your account by visiting this URL {verificationUri}", subject: "Confirm Registration"));
         }
         return new Response<string>(user.Id, message: $"User Registered. Please confirm your account by visiting this URL {verificationUri}");
       } else {
@@ -102,8 +113,7 @@ public class AccountService1 : IAccountService1 {
 
     var ipAddress = IpHelper.GetIpAddress();
 
-    var claims = new[]
-    {
+    var claims = new[]    {
               new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
               new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
               new Claim(JwtRegisteredClaimNames.Email, user.Email),
@@ -126,11 +136,14 @@ public class AccountService1 : IAccountService1 {
   }
 
   private string RandomTokenString() {
-    using var rngCryptoServiceProvider = new RNGCryptoServiceProvider();
     var randomBytes = new byte[40];
-    rngCryptoServiceProvider.GetBytes(randomBytes);
-    // convert random bytes to hex string
-    return BitConverter.ToString(randomBytes).Replace("-", "");
+    var refreshToken = string.Empty;
+    using (var rng = RandomNumberGenerator.Create()) {
+      rng.GetBytes(randomBytes);
+      refreshToken = Convert.ToBase64String(randomBytes);
+    }
+    return refreshToken;
+    //return BitConverter.ToString(randomBytes).Replace("-", "");
   }
 
   private async Task<string> SendVerificationEmail(ApplicationUser user, string origin) {
@@ -171,7 +184,7 @@ public class AccountService1 : IAccountService1 {
     var code = await _userManager.GeneratePasswordResetTokenAsync(account);
     var route = "api/account/reset-password/";
     var _enpointUri = new Uri(string.Concat($"{origin}/", route));
-    var emailRequest = new MailRequest(Body: $"You reset token is - {code}", To: model.Email, Subject: "Reset Password");
+    var emailRequest = new MailRequest(body: $"You reset token is - {code}", to: model.Email, subject: "Reset Password");
     await _emailService.SendEmailAsync(emailRequest);
   }
 

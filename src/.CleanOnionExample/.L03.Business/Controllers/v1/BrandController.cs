@@ -1,11 +1,12 @@
 ﻿using CleanOnionExample.Data.Entities.Services;
+using Microsoft.AspNetCore.Mvc;
 
 namespace CleanOnionExample.Controllers.v1;
 
 public class BrandController : BaseApiVersionController<BrandController> {
   [HttpGet]
   public async Task<IActionResult> GetAll() {
-    var brands = await _mediator.Send(new GetAllBrandsCached.Query());
+    var brands = await base._mediator.Send(new GetAllBrandsCached.Query());
     return Ok(brands);
   }
 

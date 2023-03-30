@@ -1,5 +1,8 @@
 ﻿using CleanOnionExample.Services.Auth;
 using CleanOnionExample.Services.Identity;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 
 namespace CleanOnionExample.Controllers;
 

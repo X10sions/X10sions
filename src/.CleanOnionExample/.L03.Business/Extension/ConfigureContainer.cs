@@ -1,4 +1,6 @@
-﻿namespace Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Hosting;
+
+namespace Microsoft.AspNetCore.Builder;
 public static class ConfigureContainer {
 
   // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

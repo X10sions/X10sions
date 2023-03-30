@@ -1,5 +1,6 @@
 ﻿using CleanOnionExample.Data.Entities.Services;
 using CleanOnionExample.Services.Auth;
+using Microsoft.AspNetCore.Mvc;
 
 namespace CleanOnionExample.Controllers;
 

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Common.Data;
+using Common.Exceptions;
 using MediatR;
 using System.Linq.Expressions;
 
@@ -27,7 +28,7 @@ public class GetProductByIdResponse {
 public class GetProductByIdQuery : IRequest<Result<GetProductByIdResponse>> {
   public int Id { get; set; }
 
-  public class GetProductByIdQueryHandler : IRequestHandler<GetProductByIdQuery, Result<GetProductByIdResponse>> {
+  public class GetProductByIdQueryHandler : IRequestHandler<GetProductByIdQuery, IResult<GetProductByIdResponse>> {
     private readonly IProductCacheRepository _productCache;
     private readonly IMapper _mapper;
 
@@ -36,7 +37,7 @@ public class GetProductByIdQuery : IRequest<Result<GetProductByIdResponse>> {
       _mapper = mapper;
     }
 
-    public async Task<Result<GetProductByIdResponse>> Handle(GetProductByIdQuery query, CancellationToken cancellationToken) {
+    public async Task<IResult<GetProductByIdResponse>> Handle(GetProductByIdQuery query, CancellationToken cancellationToken) {
       var product = await _productCache.GetByIdAsync(query.Id);
       var mappedProduct = _mapper.Map<GetProductByIdResponse>(product);
       return Result<GetProductByIdResponse>.Success(mappedProduct);
@@ -88,7 +89,7 @@ public class GetAllProductsCachedQuery : IRequest<Result<List<GetAllProductsCach
   }
 }
 
-public class GetAllProductsCachedQueryHandler : IRequestHandler<GetAllProductsCachedQuery, Result<List<GetAllProductsCachedResponse>>> {
+public class GetAllProductsCachedQueryHandler : IRequestHandler<GetAllProductsCachedQuery, IResult<List<GetAllProductsCachedResponse>>> {
   private readonly IProductCacheRepository _productCache;
   private readonly IMapper _mapper;
 
@@ -97,7 +98,7 @@ public class GetAllProductsCachedQueryHandler : IRequestHandler<GetAllProductsCa
     _mapper = mapper;
   }
 
-  public async Task<Result<List<GetAllProductsCachedResponse>>> Handle(GetAllProductsCachedQuery request, CancellationToken cancellationToken) {
+  public async Task<IResult<List<GetAllProductsCachedResponse>>> Handle(GetAllProductsCachedQuery request, CancellationToken cancellationToken) {
     var productList = await _productCache.GetCachedListAsync();
     var mappedProducts = _mapper.Map<List<GetAllProductsCachedResponse>>(productList);
     return Result<List<GetAllProductsCachedResponse>>.Success(mappedProducts);
@@ -112,19 +113,19 @@ public partial class CreateProductCommand : IRequest<Result<int>> {
   public int BrandId { get; set; }
 }
 
-public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand, Result<int>> {
+public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand, IResult<int>> {
   private readonly IProductRepository _productRepository;
   private readonly IMapper _mapper;
 
-  private IUnitOfWork _unitOfWork { get; set; }
+  private Microsoft.EntityFrameworkCore.IUnitOfWork _unitOfWork { get; set; }
 
-  public CreateProductCommandHandler(IProductRepository productRepository, IUnitOfWork unitOfWork, IMapper mapper) {
+  public CreateProductCommandHandler(IProductRepository productRepository, Microsoft.EntityFrameworkCore.IUnitOfWork unitOfWork, IMapper mapper) {
     _productRepository = productRepository;
     _unitOfWork = unitOfWork;
     _mapper = mapper;
   }
 
-  public async Task<Result<int>> Handle(CreateProductCommand request, CancellationToken cancellationToken) {
+  public async Task<IResult<int>> Handle(CreateProductCommand request, CancellationToken cancellationToken) {
     var product = _mapper.Map<Product>(request);
     await _productRepository.InsertAsync(product);
     await _unitOfWork.SaveChangesAsync(cancellationToken);
@@ -135,16 +136,16 @@ public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand,
 public class DeleteProductCommand : IRequest<Result<int>> {
   public int Id { get; set; }
 
-  public class DeleteProductCommandHandler : IRequestHandler<DeleteProductCommand, Result<int>> {
+  public class DeleteProductCommandHandler : IRequestHandler<DeleteProductCommand, IResult<int>> {
     private readonly IProductRepository _productRepository;
-    private readonly IUnitOfWork _unitOfWork;
+    private readonly Microsoft.EntityFrameworkCore.IUnitOfWork _unitOfWork;
 
-    public DeleteProductCommandHandler(IProductRepository productRepository, IUnitOfWork unitOfWork) {
+    public DeleteProductCommandHandler(IProductRepository productRepository, Microsoft.EntityFrameworkCore.IUnitOfWork unitOfWork) {
       _productRepository = productRepository;
       _unitOfWork = unitOfWork;
     }
 
-    public async Task<Result<int>> Handle(DeleteProductCommand command, CancellationToken cancellationToken) {
+    public async Task<IResult<int>> Handle(DeleteProductCommand command, CancellationToken cancellationToken) {
       var product = await _productRepository.GetByIdAsync(command.Id);
       await _productRepository.DeleteAsync(product);
       await _unitOfWork.SaveChangesAsync(cancellationToken);
@@ -159,16 +160,16 @@ public class UpdateProductCommand : IRequest<Result<int>> {
   public decimal Rate { get; set; }
   public int BrandId { get; set; }
 
-  public class UpdateProductCommandHandler : IRequestHandler<UpdateProductCommand, Result<int>> {
-    private readonly IUnitOfWork _unitOfWork;
+  public class UpdateProductCommandHandler : IRequestHandler<UpdateProductCommand, IResult<int>> {
+    private readonly Microsoft.EntityFrameworkCore.IUnitOfWork _unitOfWork;
     private readonly IProductRepository _productRepository;
 
-    public UpdateProductCommandHandler(IProductRepository productRepository, IUnitOfWork unitOfWork) {
+    public UpdateProductCommandHandler(IProductRepository productRepository, Microsoft.EntityFrameworkCore.IUnitOfWork unitOfWork) {
       _productRepository = productRepository;
       _unitOfWork = unitOfWork;
     }
 
-    public async Task<Result<int>> Handle(UpdateProductCommand command, CancellationToken cancellationToken) {
+    public async Task<IResult<int>> Handle(UpdateProductCommand command, CancellationToken cancellationToken) {
       var product = await _productRepository.GetByIdAsync(command.Id);
 
       if (product == null) {
@@ -186,20 +187,20 @@ public class UpdateProductCommand : IRequest<Result<int>> {
   }
 }
 
-public class UpdateProductImageCommand : IRequest<Result<int>> {
+public class UpdateProductImageCommand : IRequest<IResult<int>> {
   public int Id { get; set; }
   public byte[] Image { get; set; }
 
-  public class UpdateProductImageCommandHandler : IRequestHandler<UpdateProductImageCommand, Result<int>> {
-    private readonly IUnitOfWork _unitOfWork;
+  public class UpdateProductImageCommandHandler : IRequestHandler<UpdateProductImageCommand, IResult<int>> {
+    private readonly Microsoft.EntityFrameworkCore.IUnitOfWork _unitOfWork;
     private readonly IProductRepository _productRepository;
 
-    public UpdateProductImageCommandHandler(IProductRepository productRepository, IUnitOfWork unitOfWork) {
+    public UpdateProductImageCommandHandler(IProductRepository productRepository, Microsoft.EntityFrameworkCore.IUnitOfWork unitOfWork) {
       _productRepository = productRepository;
       _unitOfWork = unitOfWork;
     }
 
-    public async Task<Result<int>> Handle(UpdateProductImageCommand command, CancellationToken cancellationToken) {
+    public async Task<IResult<int>> Handle(UpdateProductImageCommand command, CancellationToken cancellationToken) {
       var product = await _productRepository.GetByIdAsync(command.Id);
 
       if (product == null) {

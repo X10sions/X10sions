@@ -1,4 +1,5 @@
-﻿using CleanOnionExample.Data.Entities;
+﻿using AutoMapper;
+using CleanOnionExample.Data.Entities;
 using CleanOnionExample.Data.Entities.Services;
 namespace CleanOnionExample.Infrastructure.Mapping;
 

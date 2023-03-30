@@ -2,9 +2,9 @@
 
 public interface IBrandRepository {
   IQueryable<Brand> Brands { get; }
-  System.Threading.Tasks.Task<List<Brand>> GetListAsync();
-  System.Threading.Tasks.Task<Brand> GetByIdAsync(int brandId);
-  System.Threading.Tasks.Task<int> InsertAsync(Brand brand);
-  System.Threading.Tasks.Task UpdateAsync(Brand brand);
-  System.Threading.Tasks.Task DeleteAsync(Brand brand);
+  Task<List<Brand>> GetListAsync();
+  Task<Brand> GetByIdAsync(int brandId);
+  Task<int> InsertAsync(Brand brand);
+  Task UpdateAsync(Brand brand);
+  Task DeleteAsync(Brand brand);
 }

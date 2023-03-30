@@ -33,8 +33,8 @@ public partial class Person {
 
 public interface IPersonService {
   Task<Person.GetQuery> InsertAsync(Person.UpdateCommand person, CancellationToken cancellationToken = default);
-  System.Threading.Tasks.Task UpdateAsync(int id, Person.UpdateCommand person, CancellationToken cancellationToken = default);
-  System.Threading.Tasks.Task DeleteAsync(int id, CancellationToken cancellationToken = default);
+  Task UpdateAsync(int id, Person.UpdateCommand person, CancellationToken cancellationToken = default);
+  Task DeleteAsync(int id, CancellationToken cancellationToken = default);
   Task<IEnumerable<Person.GetQuery>> GetAllAsync(CancellationToken cancellationToken = default);
   Task<Person.GetQuery> GetByIdAsync(int id, CancellationToken cancellationToken = default);
 }

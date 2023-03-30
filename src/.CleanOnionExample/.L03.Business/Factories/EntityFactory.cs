@@ -3,8 +3,8 @@ using CleanOnionExample.Data.Entities.Services;
 
 namespace CleanOnionExample.Infrastructure.Factories;
 
-public class EntityFactory : ITaskFactory {
-  public CleanOnionExample.Data.Entities.Task CreateTaskInstance(TaskSummary summary, TaskDescription description) {
-    return new TaskFactory(summary, description);
+public class EntityFactory : IToDoItemFactory {
+  public ToDoItem CreateToDoItemInstance(ToDoItemSummary summary, ToDoItemDescription description) {
+    return new ToDoItemFactory(summary, description);
   }
 }

@@ -1,5 +1,6 @@
 ﻿using CleanOnionExample.CacheKeys;
 using Common.Data.Repositories;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Distributed;
 
 namespace CleanOnionExample.Data.Entities.Services;

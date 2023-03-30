@@ -5,6 +5,6 @@ public interface IProductRepository {
   Task<List<Product>> GetListAsync();
   Task<Product> GetByIdAsync(int productId);
   Task<int> InsertAsync(Product product);
-  System.Threading.Tasks.Task UpdateAsync(Product product);
-  System.Threading.Tasks.Task DeleteAsync(Product product);
+  Task UpdateAsync(Product product);
+  Task DeleteAsync(Product product);
 }

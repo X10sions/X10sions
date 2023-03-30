@@ -301,12 +301,12 @@ public static class ConfigureServiceContainer {
 
   public static void ConfigureServices_PereirenWebApi(this IServiceCollection services) {
     services.AddControllers();
-    services.AddScoped<ITaskService, TaskService>();
-    services.AddTransient<ITaskRepository, TaskRepository>(); //just as an example, you may use it as .AddScoped
-    services.AddSingleton<TaskViewModelMapper>();
-    services.AddTransient<ITaskFactory, EntityFactory>();
+    services.AddScoped<IToDoItemService, ToDoItemService>();
+    services.AddTransient<IToDoItemRepository, ToDoItemRepository>(); //just as an example, you may use it as .AddScoped
+    services.AddSingleton<ToDoItemViewModelMapper>();
+    services.AddTransient<IToDoItemFactory, EntityFactory>();
     services.AddScoped<TaskCommandHandler>();
-    services.AddScoped<TaskEventHandler>();
+    services.AddScoped<ToDoItemEventHandler>();
     services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
     //services.AddFluentMediator(builder => {
     //   builder.On<CreateNewTaskCommand>().PipelineAsync().Return<Domain.Tasks.Task, TaskCommandHandler>((handler, request) => handler.HandleNewTask(request));
