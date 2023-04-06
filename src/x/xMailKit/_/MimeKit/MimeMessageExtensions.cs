@@ -104,14 +104,6 @@ public static class MimeMessageExtensions {
   //public static void Send(this MimeMessage msg, Type debugType, string subjectSufix, string htmlBody) => msg.Send(debugType.FullName + ": " + subjectSufix, htmlBody);
   ////public static void Send(this MimeMessage msg, object debugObject, string subjectSufix, string htmlBody) => msg.Send(debugObject.GetType(), subjectSufix, htmlBody);
 
-  //public static void Send<T>(this MimeMessage msg, string subjectSuffix, Dictionary<string, string> body) {
-  //  var sb = new StringBuilder();
-  //  foreach (var dic in body) {
-  //    sb.AppendFormat("<tr><th>{0}</th><td>{1}</td></tr>", dic.Key, dic.Value);
-  //  }
-  //  msg.Send<T>(subjectSuffix, $"<style>\r\ntable{{ border-collapse:collapse}}\r\nth{{background:#eee;border:1px solid #ccc;font-weight:bold;padding:.5em;text-align:left;}}\r\ntd{{ border:1px solid #ccc;padding:.5em;}}\r\n</style>\r\n<table><tbody>{sb}</tbody></table>");
-  //}
-
   public static void SetMailMessageAlternateViews(this MimeMessage msg, BodyBuilder htmlBody, MimeEntity[] linkedResources) {
     var alternateViews = new MultipartAlternative();
     var htmlView = new MultipartAlternative {

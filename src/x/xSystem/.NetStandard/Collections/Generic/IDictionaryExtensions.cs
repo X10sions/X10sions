@@ -8,9 +8,10 @@ namespace System.Collections.Generic {
     //public static TValue AddOrUpdate<TKey, TValue>(this IDictionary<TKey, TValue> dic, TKey key, Func<TKey, TValue> valueFactory) => dic[key] = valueFactory(key);
     //public static TValue AddOrUpdate<TKey, TValue, TArg>(this IDictionary<TKey, TValue> dic, TKey key, Func<TKey, TArg, TValue> valueFactory, TArg factoryArgument) =>  dic[key] = valueFactory(key, factoryArgument);
 
+    public static TResult? Get<TKey, TValue, TResult>(this IDictionary<TKey, TValue> dic, TKey key) => dic.Get<TKey, TValue, TResult>(key, default);
+
     public static TResult Get<TKey, TValue, TResult>(this IDictionary<TKey, TValue> dic, TKey key, TResult defaultValue) {
-      TValue value;
-      return dic.TryGetValue(key, out value) && value is TResult t ? t : defaultValue;
+      return dic.TryGetValue(key, out var value) && value is TResult t ? t : defaultValue;
     }
 
     //public static T Get<T>(this IDictionary<object, object> dic) => dic.Get<object, object, T>(typeof(T).FullName);

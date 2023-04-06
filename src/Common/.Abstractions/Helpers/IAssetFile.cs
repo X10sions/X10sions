@@ -1,6 +1,4 @@
-﻿using Common.Constants;
-
-namespace Common.Helpers {
+﻿namespace Common.Helpers {
   public interface IAssetFile {
     //string RootVirtualPath { get; set; } //   ~/cdn/packages/
     //string? PackageName { get; set; }     //    jquery
@@ -60,8 +58,8 @@ namespace Common.Helpers {
     public static bool IsStylesheet(this IAssetFile assetFile) => assetFile.Extension() == ".css";
 
     public static string HtmlTagString(this IAssetFile assetFile) => assetFile.Extension() switch {
-      ".css" => HtmlConstants.StylesheetHtmlTagString(assetFile.Path),
-      ".js" => HtmlConstants.ScriptHtmlTagString(assetFile.Path),
+      ".css" => Html.Tags.Style.StylesheetHtmlTagString(assetFile.Path),
+      ".js" => Html.Tags.Script.ScriptHtmlTagString(assetFile.Path),
       _ => throw new NotImplementedException()
     };
 

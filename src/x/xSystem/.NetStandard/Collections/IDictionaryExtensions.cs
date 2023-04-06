@@ -3,7 +3,9 @@ public static class IDictionaryExtensions {
 
   public static T? Get<T>(this IDictionary dictionary) => dictionary.Get<T>(typeof(T).FullName ?? typeof(T).Name);
 
-  public static T? Get<T>(this IDictionary dictionary, string key, T? defaultValue = default) {
+  public static T? Get<T>(this IDictionary dictionary, string key) => dictionary.Get<T>(key, default);
+
+  public static T Get<T>(this IDictionary dictionary, string key, T defaultValue) {
     if (dictionary is null) throw new ArgumentNullException(nameof(dictionary));
     var value = dictionary[key];
     return value is not T ? defaultValue : (T)value;
