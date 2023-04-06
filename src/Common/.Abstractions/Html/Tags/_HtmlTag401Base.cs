@@ -1,12 +1,13 @@
 ﻿using Common.Enums;
 
-namespace Common.Models.Html.Tags {
-  public abstract class HtmlTag401Base : IHtmlTag {
+namespace Common.Html.Tags {
+  public abstract class HtmlTag401Base<T> : IHtmlTag where T : IHtmlTag {
     const string ClassDelimeter = " ";
     const string StyleDelimeter = ";";
     const string StyleKeyValueDelimeter = ":";
 
-    public abstract string TagName { get; set; }
+    public string TagName => nameof(T).ToLower();
+
     public abstract string ToHtml();
 
     public char AccessKey { get; set; } // Specifies a shortcut key To activate/focus an element (<a>, <area>, <button>, <input>, <label>, <legend>, and <textarea>.)
@@ -26,6 +27,8 @@ namespace Common.Models.Html.Tags {
     public HashSet<StyleDefinition> StyleList { get; set; } = new HashSet<StyleDefinition>();
     public int TabIndex { get; set; } // Specifies the tabbing order Of an element
     public string Title { get; set; } // Specifies extra information about an element
+
+    public static string NotNullAttr(string name, object value) => value == null ? string.Empty : $" {name}=\"{value}\"";
 
     public class StyleDefinition {
       public string Key { get; set; }

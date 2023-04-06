@@ -1,11 +1,9 @@
 ﻿using Common.Attributes;
 
-namespace Common.Models.Html.Tags {
+namespace Common.Html.Tags {
   [ToDo()]
-  public class MenuItem : HtmlTag5Base {
+  public class MenuItem : HtmlTag5Base<MenuItem> {
     public Menu Menu { get; set; }
-
-    public override string TagName { get; set; } = nameof(MenuItem);
 
     public override string ToHtml() => throw new NotImplementedException();
 

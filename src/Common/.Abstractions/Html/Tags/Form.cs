@@ -1,9 +1,9 @@
 ﻿using Common.Attributes;
 using System.ComponentModel;
 
-namespace Common.Models.Html.Tags;
-[ToDo()]
-public class Form : HtmlTag5Base {
+namespace Common.Html.Tags;
+[ToDo]
+public class Form : HtmlTag5Base<Form> {
   // WARNING: THIS is a test warning
   // ERROR: test error
   // FIX: test fix
@@ -21,16 +21,14 @@ public class Form : HtmlTag5Base {
   public bool? novalidate { get; set; }  // Specifies that the form should Not be validated When submitted
   public Form_Target? target { get; set; } // Specifies where To display the response that Is received
 
-  [ToDo()] public List<object> InputList { get; set; } = new List<object>(); // input)
-  [ToDo()] public List<object> ButtonList { get; set; } = new List<object>(); // button)
-  [ToDo()] public List<object> LabelList { get; set; } = new List<object>(); // label)
-  [ToDo()] public List<object> FieldSetList { get; set; } = new List<object>(); // fieldset)
+  [ToDo] public List<object> InputList { get; set; } = new List<object>(); // input)
+  [ToDo] public List<object> ButtonList { get; set; } = new List<object>(); // button)
+  [ToDo] public List<object> LabelList { get; set; } = new List<object>(); // label)
+  [ToDo] public List<object> FieldSetList { get; set; } = new List<object>(); // fieldset)
   public List<OptGroup> OptGroupList { get; set; } = new List<OptGroup>();
   public List<Option> OptionList { get; set; } = new List<Option>();
   public List<Select> SelectList { get; set; } = new List<Select>();
   [ToDo()] public List<object> TextAreaList { get; set; } = new List<object>(); // textarea)
-
-  public override string TagName { get; set; } = nameof(Form);
 
   public override string ToHtml() => throw new NotImplementedException();
 
@@ -40,12 +38,9 @@ public class Form : HtmlTag5Base {
   }
 
   public enum Form_EncType {
-    [Description("application/x-www-form-urlencoded")]
-    application_x_www_form_urlencoded,
-    [Description("multipart/form-data")]
-    multipart_form_data,
-    [Description("text/plain")]
-    text_plain
+    [Description("application/x-www-form-urlencoded")] application_x_www_form_urlencoded,
+    [Description("multipart/form-data")] multipart_form_data,
+    [Description("text/plain")] text_plain
   }
 
   public enum Form_Method {

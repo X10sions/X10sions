@@ -1,7 +1,6 @@
-﻿namespace Common.Models.Html.Tags;
+﻿namespace Common.Html.Tags;
 // TODO
-public class Select : HtmlTag5Base {
-  public override string TagName { get; set; } = nameof(Select);
+public class Select : HtmlTag5Base<Select> {
   public override string ToHtml() => throw new NotImplementedException();
   public bool? AutoFocus { get; set; } // Specifies that the drop-down list should automatically Get focus When the page loads
   public Form Form { get; set; } // form_id'	Defines one Or more forms the Select field belongs To

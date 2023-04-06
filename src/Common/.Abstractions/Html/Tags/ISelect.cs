@@ -1,4 +1,4 @@
-﻿namespace Common.Models.Html.Tags {
+﻿namespace Common.Html.Tags {
   public interface ISelect {
     bool? AutoFocus { get; set; }
     Form Form { get; set; }

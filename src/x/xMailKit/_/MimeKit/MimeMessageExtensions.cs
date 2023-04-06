@@ -1,6 +1,7 @@
 ﻿using MailKit;
 using MimeKit;
 using MimeKit.Text;
+using System.Text;
 
 namespace MimeKit;
 public static class MimeMessageExtensions {
@@ -82,6 +83,7 @@ public static class MimeMessageExtensions {
 
 
   public static MimeMessage HtmlBody(this MimeMessage message, string body) => message.Body(body, TextFormat.Html);
+  public static MimeMessage HtmlBody(this MimeMessage message, StringBuilder sb) => message.HtmlBody(sb.ToString());
   public static MimeMessage HtmlBodyFromFile(this MimeMessage message, string fileName, Func<string, string>? fileContentsFormatter = null) => message.BodyFromFile(fileName, TextFormat.Html, fileContentsFormatter);
 
   public static void SendUsingSmptClient(this MimeMessage message, IMailKitAppSettings settings) => settings.SendUsingSmptClient(message);

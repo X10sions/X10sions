@@ -1,5 +1,5 @@
-﻿namespace Common.Models.Html.Tags {
-  public abstract class HtmlTag5Base : HtmlTag401Base {
+﻿namespace Common.Html.Tags {
+  public abstract class HtmlTag5Base<T> : HtmlTag401Base<T> where T : IHtmlTag {
     const string DataPrefix = "data-";
 
     public bool? ContentEditable { get; set; } // Specifies whether the content Of an element Is editable Or Not
