@@ -1,43 +1,31 @@
-﻿using Common.Attributes;
-using Common.Constants;
+﻿using Common.Constants;
 using System.Text;
 
 namespace Common.Html.Tags;
-
 public class Style : HtmlTag5Base<Style> {
-  //public const string StartTag = "<style>";
-  //public const string EndTag = "</style>";
+  public const string TypeDefault = "text/css";
 
-  public override string ToHtml() {
-
-    var sb = new StringBuilder();
-    sb.AppendLine($"<{TagName}");
-    sb.Append($" {NotNullAttr(nameof(Type), Type)}");
-    sb.Append(">");
-    foreach (var s in Selctors) {
-      sb.AppendLine(s.ToHtml());
-    }
-    sb.AppendLine($"</{TagName}>");
-
-    //sb.AppendLine(StartTag);
-    //sb.AppendLine($" type='{Type}'");
-    //sb.AppendLine(EndTag);
-    return sb.ToString();
+  public Style() {
+    Type = TypeDefault;
   }
 
-  [ToDo] public bool? Media { get; set; }
-
+  public override string ToHtml() => this.ToHtml(CssSelctorHtml());
 
   /// <summary>
   /// Media type 
   /// </summary>
-  [ToDo] public string Type { get; set; } = "text/css";
+  public bool? Media { get => GetAttribute<bool?>(nameof(Media)); set => attributes[nameof(Media)] = value; }
 
-  public HashSet<StyleSelctor> Selctors { get; set; } = new HashSet<StyleSelctor>();
-  //public Dictionary<string, string> Selectors { get; } = new Dictionary<string, string>();
+  public string Type { get => GetAttribute<string>(nameof(Type)); set => attributes[nameof(Type)] = value.IfNullOrWhiteSpace(TypeDefault); }
 
-
-
+  public HashSet<CssSelctor> Selctors { get; set; } = new HashSet<CssSelctor>();
+  public string CssSelctorHtml() {
+    var sb = new StringBuilder();
+    foreach (var s in Selctors) {
+      sb.AppendLine(s.ToHtml());
+    }
+    return sb.ToString();
+  }
 
   public static string InlineStylesheetHtmlTagString(string contents) => $"<style type=\"{MediaTypeNames.Text.Css}\">{contents}</style>";
   public static string StylesheetHtmlTagString(string href) => $"<link rel=\"stylesheet\" href=\"{href}\" />";

@@ -20,4 +20,5 @@ public static class ITableCellHtmlTagExtensions {
 
 public abstract class TableCellHtmlTagBase<T> : HtmlTag5Base<T>, ITableCellHtmlTag where T : IHtmlTag {
   public string InnerHtml { get; set; } = string.Empty;
+  public override string ToHtml() => this.ToHtml(InnerHtml);
 }

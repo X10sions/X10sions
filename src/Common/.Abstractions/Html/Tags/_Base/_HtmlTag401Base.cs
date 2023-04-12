@@ -1,11 +1,25 @@
 ﻿using Common.Enums;
+using System.Collections.ObjectModel;
 
 namespace Common.Html.Tags {
+
+  //public class GenericDictionary<TKey, TValue> {
+  //  private Dictionary<TKey, TValue> _dict = new Dictionary<TKey, TValue>();
+  //  public void SetAttribute<T>(TKey key, T value) where T : class => _dict.Add(key, value);
+  //  public T GetAttribute<T>(TKey key) where T : class => _dict[key] as T;
+
+  //}
+
+
   public abstract class HtmlTag401Base<T> : IHtmlTag where T : IHtmlTag {
     const string CssClassDelimeter = " ";
-
-    public Dictionary<string, object> Attributes { get; } = new Dictionary<string, object>();
-
+    protected Dictionary<string, object?> attributes { get; } = new Dictionary<string, object?>();
+    public ReadOnlyDictionary<string, object?> Attributes => new ReadOnlyDictionary<string, object?>(attributes);
+    public void AddAttribute<TValue>(string key, TValue value) => attributes.Add(key, value);
+    public void SetAttribute<TValue>(string key, TValue value) => attributes[key] = value;
+    //public TValue? GetAttribute<TValue>(string key) where TValue : class => attributes[key] as TValue;
+    public TValue? GetAttribute<TValue>(string key) => attributes.TryGetValue(key, out var value) && value is TValue t ? t : default;
+    public TValue GetAttribute<TValue>(string key, TValue defaultValue) => attributes.TryGetValue(key, out var value) && value is TValue t ? t : defaultValue;
     public string TagName => nameof(T).ToLower();
 
     public abstract string ToHtml();
@@ -13,7 +27,7 @@ namespace Common.Html.Tags {
     /// <summary>
     /// Specifies a shortcut key To activate/focus an element (<a>, <area>, <button>, <input>, <label>, <legend>, and <textarea>.
     /// </summary>
-    public char AccessKey { get => this.GetAttribute<char>(nameof(AccessKey)); set => Attributes[nameof(AccessKey)] = value; }
+    public char AccessKey { get => GetAttribute<char>(nameof(AccessKey)); set => attributes[nameof(AccessKey)] = value; }
 
 
     /// <summary>
@@ -21,7 +35,7 @@ namespace Common.Html.Tags {
     /// </summary>
     public HashSet<string> Class {
       get {
-        return this.GetAttribute<HashSet<string>>(nameof(Class));
+        return GetAttribute<HashSet<string>>(nameof(Class));
       }
       set {
         cssClassList = value;
@@ -29,7 +43,7 @@ namespace Common.Html.Tags {
         foreach (var s in value) {
           cssClassList.Add(s);
         }
-        Attributes[nameof(Class)] = cssClassList;
+        attributes[nameof(Class)] = cssClassList;
       }
     }
 
@@ -65,21 +79,21 @@ namespace Common.Html.Tags {
     /// <summary>
     ///  Specifies the text direction For the content In an element
     /// </summary>
-    public TextDirectionCode Dir { get => this.GetAttribute<TextDirectionCode>(nameof(Dir)); set => Attributes[nameof(Dir)] = value; }
+    public TextDirectionCode Dir { get => GetAttribute<TextDirectionCode>(nameof(Dir)); set => attributes[nameof(Dir)] = value; }
 
     /// <summary>
     /// Specifies a unique id For an element
     /// </summary>
-    public string? Id { get => this.GetAttribute<string>(nameof(Id)); set => Attributes[nameof(Id)] = value; }
+    public string? Id { get => GetAttribute<string>(nameof(Id)); set => attributes[nameof(Id)] = value; }
 
 
     /// <summary>
     /// Specifies the language Of the element's content
     /// </summary>
-    public ISO_639_1_LanguageCode Lang { get => this.GetAttribute<ISO_639_1_LanguageCode>(nameof(Lang)); set => Attributes[nameof(Lang)] = value; }
+    public ISO_639_1_LanguageCode Lang { get => GetAttribute<ISO_639_1_LanguageCode>(nameof(Lang)); set => attributes[nameof(Lang)] = value; }
 
 
-    public HashSet<CssSelctor> Style { get => this.GetAttribute<HashSet<CssSelctor>>(nameof(Style)); set => Attributes[nameof(Style)] = value; }
+    public HashSet<CssSelctor> Style { get => GetAttribute<HashSet<CssSelctor>>(nameof(Style)); set => attributes[nameof(Style)] = value; }
     //public string Style {
     //  get => string.Join(StyleDelimeter, from x in StyleList select x.Key + StyleKeyValueDelimeter + x.Value);
     //  set => StyleList = new HashSet<StyleDefinition>((from x in value.Split(StyleDelimeter) orderby x select new StyleDefinition(x)).Distinct());
@@ -89,16 +103,14 @@ namespace Common.Html.Tags {
     /// <summary>
     ///  Specifies the tabbing order Of an element
     /// </summary>
-    public int TabIndex { get => this.GetAttribute<int>(nameof(TabIndex)); set => Attributes[nameof(TabIndex)] = value; }
+    public int TabIndex { get => GetAttributes<int>(nameof(TabIndex)); set => attributes[nameof(TabIndex)] = value; }
 
     /// <summary>
     /// Specifies extra information about an element
     /// </summary>
-    public string Title { get => this.GetAttribute<string>(nameof(Title)); set => Attributes[nameof(Title)] = value; }
+    public string? Title { get => GetAttributes<string?>(nameof(Title)); set => attributes[nameof(Title)] = value; }
 
-    public static string NotNullAttr(string name, object value) => value == null ? string.Empty : $" {name}=\"{value}\"";
-
-
+    //public static string NotNullAttr(string name, object value) => value == null ? string.Empty : $" {name}=\"{value}\"";
 
   }
 }

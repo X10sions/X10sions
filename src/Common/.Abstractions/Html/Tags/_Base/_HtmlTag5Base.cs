@@ -1,46 +1,8 @@
-﻿namespace Common.Html.Tags {
+﻿using System.Collections;
+
+namespace Common.Html.Tags {
   public abstract class HtmlTag5Base<T> : HtmlTag401Base<T> where T : IHtmlTag {
     const string DataPrefix = "data-";
-
-    /// <summary>
-    ///  Specifies whether the content Of an element Is editable Or Not
-    /// </summary>
-    public bool? ContentEditable { get => this.GetAttribute<bool>(nameof(ContentEditable)); set => Attributes[nameof(ContentEditable)] = value; }
-
-    /// <summary>
-    /// Specifies a context menu For an element. The context menu appears When a user right-clicks On the element
-    /// </summary>
-    public Menu ContextMenu { get => this.GetAttribute<Menu>(nameof(ContextMenu)); set => Attributes[nameof(ContextMenu)] = value; }
-
-    /// <summary>
-    /// Used To store custom data Private To the page Or application
-    /// </summary>
-    public Dictionary<string, object> Data { get => this.GetAttribute<Dictionary<string, object>>(nameof(Data)); set => Attributes[nameof(Data)] = value; }
-
-    /// <summary>
-    /// Specifies whether an element Is draggable Or Not
-    /// </summary>
-    public TrueFalseAuto? Draggable { get => this.GetAttribute<TrueFalseAuto>(nameof(Draggable)); set => Attributes[nameof(Draggable)] = value; }
-
-    /// <summary>
-    /// Specifies whether the dragged data Is copied, moved, Or linked, When dropped
-    /// </summary>
-    public DropZone_Code? DropZone { get => this.GetAttribute<DropZone_Code>(nameof(DropZone)); set => Attributes[nameof(DropZone)] = value; }
-
-    /// <summary>
-    /// Specifies that an element Is Not yet, Or Is no longer, relevant
-    /// </summary>
-    public bool? Hidden { get => this.GetAttribute<bool>(nameof(Hidden)); set => Attributes[nameof(Hidden)] = value; }
-
-    /// <summary>
-    /// Specifies whether the element Is To have its spelling And grammar checked Or Not
-    /// </summary>
-    public bool? SpellCheck { get => this.GetAttribute<bool>(nameof(SpellCheck)); set => Attributes[nameof(SpellCheck)] = value; }
-
-    /// <summary>
-    /// Specifies whether the content Of an element should be translated Or Not
-    /// </summary>
-    public YesNo? Translate { get => this.GetAttribute<YesNo>(nameof(Translate)); set => Attributes[nameof(Translate)] = value; }
 
     public Dictionary<string, string> xAttributes() {
       var dic = new Dictionary<string, string> {
@@ -56,6 +18,47 @@
       dic[nameof(Translate)] = Translate.Value.ToString();
       return dic;
     }
+
+
+    /// <summary>
+    ///  Specifies whether the content Of an element Is editable Or Not
+    /// </summary>
+    public bool? ContentEditable { get => Attributes.Get<bool>(nameof(ContentEditable)); set => Attributes[nameof(ContentEditable)] = value; }
+
+    /// <summary>
+    /// Specifies a context menu For an element. The context menu appears When a user right-clicks On the element
+    /// </summary>
+    public Menu ContextMenu { get => Attributes.Get<Menu>(nameof(ContextMenu)); set => Attributes[nameof(ContextMenu)] = value; }
+
+    /// <summary>
+    /// Used To store custom data Private To the page Or application
+    /// </summary>
+    public Dictionary<string, object> Data { get => Attributes.Get<Dictionary<string, object>>(nameof(Data)); set => Attributes[nameof(Data)] = value; }
+
+    /// <summary>
+    /// Specifies whether an element Is draggable Or Not
+    /// </summary>
+    public TrueFalseAuto? Draggable { get => Attributes.Get<TrueFalseAuto>(nameof(Draggable)); set => Attributes[nameof(Draggable)] = value; }
+
+    /// <summary>
+    /// Specifies whether the dragged data Is copied, moved, Or linked, When dropped
+    /// </summary>
+    public DropZone_Code? DropZone { get => Attributes.Get<DropZone_Code>(nameof(DropZone)); set => Attributes[nameof(DropZone)] = value; }
+
+    /// <summary>
+    /// Specifies that an element Is Not yet, Or Is no longer, relevant
+    /// </summary>
+    public bool? Hidden { get => Attributes.Get<bool>(nameof(Hidden)); set => Attributes[nameof(Hidden)] = value; }
+
+    /// <summary>
+    /// Specifies whether the element Is To have its spelling And grammar checked Or Not
+    /// </summary>
+    public bool? SpellCheck { get => Attributes.Get<bool>(nameof(SpellCheck)); set => Attributes[nameof(SpellCheck)] = value; }
+
+    /// <summary>
+    /// Specifies whether the content Of an element should be translated Or Not
+    /// </summary>
+    public YesNo? Translate { get => Attributes.Get<YesNo>(nameof(Translate)); set => Attributes[nameof(Translate)] = value; }
 
     public enum TrueFalseAuto {
       True,

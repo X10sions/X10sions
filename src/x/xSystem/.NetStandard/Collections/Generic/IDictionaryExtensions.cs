@@ -10,9 +10,7 @@ namespace System.Collections.Generic {
 
     public static TResult? Get<TKey, TValue, TResult>(this IDictionary<TKey, TValue> dic, TKey key) => dic.Get<TKey, TValue, TResult>(key, default);
 
-    public static TResult Get<TKey, TValue, TResult>(this IDictionary<TKey, TValue> dic, TKey key, TResult defaultValue) {
-      return dic.TryGetValue(key, out var value) && value is TResult t ? t : defaultValue;
-    }
+    public static TResult Get<TKey, TValue, TResult>(this IDictionary<TKey, TValue> dic, TKey key, TResult defaultValue) => dic.TryGetValue(key, out var value) && value is TResult t ? t : defaultValue;
 
     //public static T Get<T>(this IDictionary<object, object> dic) => dic.Get<object, object, T>(typeof(T).FullName);
 
