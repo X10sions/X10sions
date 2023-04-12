@@ -6,8 +6,9 @@ public interface IHtmlTag {
   string TagName { get; }
   //ReadOnlyCollection<string, object?> Attributes { get; }
   ReadOnlyDictionary<string, object?> Attributes { get; }
-  TValue GetAttribute<TValue>(string key);
   void AddAttribute<TValue>(string key, TValue value);
+  TValue? GetAttribute<TValue>(string key);
+  TValue GetAttribute<TValue>(string key, TValue defaultValue);
   void SetAttribute<TValue>(string key, TValue value);
 
   //GenericDictionary<string, object?> Attributes { get; }
