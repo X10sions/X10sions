@@ -2,15 +2,6 @@
 using System.Collections.ObjectModel;
 
 namespace Common.Html.Tags {
-
-  //public class GenericDictionary<TKey, TValue> {
-  //  private Dictionary<TKey, TValue> _dict = new Dictionary<TKey, TValue>();
-  //  public void SetAttribute<T>(TKey key, T value) where T : class => _dict.Add(key, value);
-  //  public T GetAttribute<T>(TKey key) where T : class => _dict[key] as T;
-
-  //}
-
-
   public abstract class HtmlTag401Base<T> : IHtmlTag where T : IHtmlTag {
     const string CssClassDelimeter = " ";
     protected Dictionary<string, object?> attributes { get; } = new Dictionary<string, object?>();
@@ -28,7 +19,6 @@ namespace Common.Html.Tags {
     /// Specifies a shortcut key To activate/focus an element (<a>, <area>, <button>, <input>, <label>, <legend>, and <textarea>.
     /// </summary>
     public char AccessKey { get => GetAttribute<char>(nameof(AccessKey)); set => attributes[nameof(AccessKey)] = value; }
-
 
     /// <summary>
     /// Specifies one Or more classnames For an element (refers To a Class In a style sheet)
@@ -92,7 +82,6 @@ namespace Common.Html.Tags {
     /// </summary>
     public ISO_639_1_LanguageCode Lang { get => GetAttribute<ISO_639_1_LanguageCode>(nameof(Lang)); set => attributes[nameof(Lang)] = value; }
 
-
     public HashSet<CssSelctor> Style { get => GetAttribute<HashSet<CssSelctor>>(nameof(Style)); set => attributes[nameof(Style)] = value; }
     //public string Style {
     //  get => string.Join(StyleDelimeter, from x in StyleList select x.Key + StyleKeyValueDelimeter + x.Value);
@@ -103,12 +92,12 @@ namespace Common.Html.Tags {
     /// <summary>
     ///  Specifies the tabbing order Of an element
     /// </summary>
-    public int TabIndex { get => GetAttributes<int>(nameof(TabIndex)); set => attributes[nameof(TabIndex)] = value; }
+    public int TabIndex { get => GetAttribute<int>(nameof(TabIndex)); set => attributes[nameof(TabIndex)] = value; }
 
     /// <summary>
     /// Specifies extra information about an element
     /// </summary>
-    public string? Title { get => GetAttributes<string?>(nameof(Title)); set => attributes[nameof(Title)] = value; }
+    public string? Title { get => GetAttribute<string?>(nameof(Title)); set => attributes[nameof(Title)] = value; }
 
     //public static string NotNullAttr(string name, object value) => value == null ? string.Empty : $" {name}=\"{value}\"";
 

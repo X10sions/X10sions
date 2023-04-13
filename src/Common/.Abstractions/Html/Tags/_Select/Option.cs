@@ -1,28 +1,29 @@
-﻿using System.Collections;
+﻿namespace Common.Html.Tags;
 
-namespace Common.Html.Tags;
-// TODO
 public class Option : HtmlTag5Base<Option>, IInnerText {
   //public Option(Select select) {
   //  Select = select;
   //}
 
-  public bool? Disabled { get; set; }
+  #region Attributes
+  public bool? Disabled { get => GetAttribute<bool?>(nameof(Disabled)); set => attributes[nameof(Disabled)] = value; }
 
   /// <summary>
   /// Specifies a shorter label For an Option
   /// </summary>
-  public string Label { get; set; }
+  public string? Label { get => GetAttribute<string?>(nameof(Label)); set => attributes[nameof(Label)] = value; }
 
   /// <summary>
   /// Specifies that an Option should be pre-selected When the page loads
   /// </summary>
-  public bool? Selected { get; set; }
+  public bool? Selected { get => GetAttribute<bool?>(nameof(Selected)); set => attributes[nameof(Selected)] = value; }
 
   /// <summary>
   /// Specifies the value To be sent To a server
   /// </summary>
-  public string? Value { get => Attributes.Get<string?>(nameof(Value)); set => Attributes.Set(nameof(Value), value); }
+  public string? Value { get => GetAttribute<string?>(nameof(Value)); set => attributes[nameof(Value)] = value; }
+  #endregion
+
   public OptGroup? OptGroup { get; set; }
   public Select? Select { get; set; }
   public bool? DefaultSelected { get; set; }

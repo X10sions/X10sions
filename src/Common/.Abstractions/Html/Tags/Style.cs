@@ -9,14 +9,22 @@ public class Style : HtmlTag5Base<Style> {
     Type = TypeDefault;
   }
 
-  public override string ToHtml() => this.ToHtml(CssSelctorHtml());
+  #region Attributes
 
   /// <summary>
   /// Media type 
   /// </summary>
   public bool? Media { get => GetAttribute<bool?>(nameof(Media)); set => attributes[nameof(Media)] = value; }
 
+  /// <summary>
+  /// Specifies the media type of the <style> tag
+  /// </summary>
   public string Type { get => GetAttribute<string>(nameof(Type)); set => attributes[nameof(Type)] = value.IfNullOrWhiteSpace(TypeDefault); }
+
+  #endregion
+
+  public override string ToHtml() => this.ToHtml(CssSelctorHtml());
+
 
   public HashSet<CssSelctor> Selctors { get; set; } = new HashSet<CssSelctor>();
   public string CssSelctorHtml() {

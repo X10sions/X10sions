@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Common.Html {
+﻿namespace Common.Html {
   [Flags]
   public enum HttpVerbs {
     Delete = 8,
@@ -11,7 +9,5 @@ namespace Common.Html {
     Post = 2,
     Put = 4
   }
-
-
 
 }

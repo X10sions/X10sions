@@ -3,6 +3,9 @@
 namespace Common.Html.Tags;
 
 public class TR : HtmlTag5Base<TR> {
+  #region Attributes
+  #endregion
+
   public List<ITableCellHtmlTag> Cells { get; set; } = new List<ITableCellHtmlTag>();
   public override string ToHtml() => $"<{TagName}>{Cells.ToHtml()}</{TagName}>";
 

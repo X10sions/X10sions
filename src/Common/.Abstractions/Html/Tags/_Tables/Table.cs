@@ -4,6 +4,9 @@ namespace Common.Html.Tags;
 public class Table : HtmlTag5Base<Table> {
   public const string DefaultCss = "table{border-collapse:collapse;}";
 
+  #region Attributes
+  #endregion
+
   public Caption Caption { get; set; } = new Caption();
   public ColGroup? ColGroup { get; set; }
   public THead? THead { get; set; }
