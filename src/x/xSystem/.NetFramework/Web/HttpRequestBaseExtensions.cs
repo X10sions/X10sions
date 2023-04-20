@@ -1,5 +1,6 @@
 ﻿namespace System.Web {
   public static class HttpRequestBaseExtensions {
+
     public static HttpContext Current(this HttpContextBase httpContextBase) => httpContextBase.ApplicationInstance.Context;
 
     public static bool? GetBoolean(this HttpRequestBase httpContextBase, string key, bool? defaultValue) {
