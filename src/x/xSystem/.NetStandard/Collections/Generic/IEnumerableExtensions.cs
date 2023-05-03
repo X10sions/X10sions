@@ -51,8 +51,8 @@ namespace System.Collections.Generic {
     }
 
     //public static bool HasElements<T>(this IEnumerable<T> source) => source == null || !source.Any();
-    public static bool HasAnyItems<T>(this IEnumerable<T> source) => source?.Any() ?? false;
-    public static bool IsNullOrEmpty<T>(this IEnumerable<T> source) => !source.HasAnyItems();
+    public static bool HasAnyItems<T>(this IEnumerable<T>? source) => source?.Any() ?? false;
+    public static bool IsNullOrEmpty<T>(this IEnumerable<T>? source) => !source.HasAnyItems();
     public static bool IsNullOrWhiteSpace<T>(this IEnumerable<T>? source) => source == null || !source.Any(x => !string.IsNullOrWhiteSpace(x?.ToString()));
 
     public static string JoinToCsv<T>(this IEnumerable<T> source, string separator = ",", string prefix = "", string? suffix = null) {
