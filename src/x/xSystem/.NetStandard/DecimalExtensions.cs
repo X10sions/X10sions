@@ -3,7 +3,7 @@
 namespace System {
   public static class DecimalExtensions {
 
-    public static decimal? DivideBy(this decimal value, decimal denominator) => denominator == 0 ? null : (decimal?)(value / denominator);
+    public static decimal? DivideBy(this decimal value, decimal denominator) => denominator == 0 ? null : decimal.Divide(value, denominator);
     public static decimal? DivideBy(this decimal value, decimal? denominator) => !denominator.HasValue ? null : value.DivideBy(denominator.Value);
     public static decimal? DivideBy(this decimal? value, decimal denominator) => value?.DivideBy(denominator);
     public static decimal? DivideBy(this decimal? value, decimal? denominator) => value?.DivideBy(denominator);
