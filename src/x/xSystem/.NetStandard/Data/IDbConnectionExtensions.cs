@@ -1,4 +1,5 @@
-﻿using System.Data.Common;
+﻿
+using System.Data.Common;
 
 namespace System.Data;
 public static class IDbConnectionExtensions {
@@ -12,7 +13,6 @@ public static class IDbConnectionExtensions {
       return cmd;
     }
   }
-
   public static IDbCommand CreateCommand(this IDbConnection connection, string commandText, IDbDataParameter[]? parameters = null, CommandType commandType = CommandType.Text) {
     var command = connection.CreateCommand();
     command.CommandText = commandText;
@@ -22,12 +22,21 @@ public static class IDbConnectionExtensions {
     }
     return command;
   }
+  //public static IDbDataAdapter? CreateDataAdapter(this IDbConnection connection) => (connection is DbConnection dbConn) ? dbConn.CreateDataAdapter() : null;
+
+  //public static IDbDataAdapter? CreateDataAdapter(this IDbConnection connection, IDbCommand selectCommand) {
+  //  var dataAdapter = connection.CreateDataAdapter();
+  //  if (dataAdapter is not null) {
+  //    dataAdapter.SelectCommand = selectCommand;
+  //  }
+  //  return dataAdapter;
+  //}
 
   public static DbConnectionStringBuilder GetDbConnectionStringBuilder(this IDbConnection connection) => new DbConnectionStringBuilder(connection.ConnectionString.Contains("Driver=", StringComparison.OrdinalIgnoreCase)) { ConnectionString = connection.ConnectionString };
 
   public static object GetConnectionStringValue(this IDbConnection connection, string connectionStringKey) => connection.GetDbConnectionStringBuilder()[connectionStringKey];
 
-  public static T? GetConnectionStringValue<T>(this IDbConnection connection, string connectionStringKey, T? defaultValue = default) => (T)connection.GetConnectionStringValue(connectionStringKey);
+  public static T? GetConnectionStringValue<T>(this IDbConnection connection, string connectionStringKey, T? defaultValue = default) => connection.GetConnectionStringValue(connectionStringKey, defaultValue);
 
   public static T EnsureNotNull<T>(this T connection, Func<T> connectionFactory
     , Action? beforeNullConnectionAction = null, Action? afterNullConnectionAction = null) where T : IDbConnection, IDisposable {

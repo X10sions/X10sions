@@ -1,6 +1,8 @@
 ﻿namespace System.Data.Common;
 public static class DbCommandExtensions {
 
+  //public static DbDataAdapter CreateDataAdapter(this DbCommand selectCommand, DbCommand selectCommand, DbCommand? deleteCommand = null, DbCommand? insertCommand = null, DbCommand? updateCommand = null)  =>  selectCommand.Connection.CreateDataAdapter(selectCommand, deleteCommand ,  insertCommand ,  updateCommand);
+
   public static DbParameter GetParameter(this DbCommand command, string name, object value) {
     var parameter = command.CreateParameter();
     parameter.ParameterName = name;

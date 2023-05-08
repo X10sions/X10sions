@@ -21,6 +21,7 @@ namespace Common.Enums {
   }
 
   public static class SqlComparisonExtensions {
+
     public static IEnumerable<SqlComparison> GetValues() => EnumExtensions.GetValuesOfType<SqlComparison>();
 
     public static SqlComparisonAttribute Attributes(this SqlComparison sqlComparison) => sqlComparison.GetAttribute<SqlComparisonAttribute>();

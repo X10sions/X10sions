@@ -9,13 +9,10 @@ public static class DbConnectionExtensions {
   static UnaryExpression con = Expression.Convert(prop, typeof(DbProviderFactory));
   static LambdaExpression exp = Expression.Lambda(con, p);
   static Func<DbConnection, DbProviderFactory> s_func = (Func<DbConnection, DbProviderFactory>)exp.Compile();
-
   public static DbTransaction? CurrentTransactionAsync { get; set; }
 
   public static Task<DbTransaction> BeginTransactionAsync(this DbConnection conn) => conn.BeginTransactionAsync(IsolationLevel.RepeatableRead, CancellationToken.None);
-
   public static Task<DbTransaction> BeginTransactionAsync(this DbConnection conn, CancellationToken cancellationToken) => conn.BeginTransactionAsync(IsolationLevel.RepeatableRead, cancellationToken);
-
   public static Task<DbTransaction> BeginTransactionAsync(this DbConnection conn, IsolationLevel iso) => conn.BeginTransactionAsync(iso, CancellationToken.None);
 
   public static Task<DbTransaction> BeginTransactionAsync(this DbConnection conn, IsolationLevel iso, CancellationToken cancellationToken) {
@@ -33,9 +30,15 @@ public static class DbConnectionExtensions {
     return result.Task;
   }
 
-  public static DbDataAdapter CreateDataAdapter(this DbConnection connection) {
-    var fact = GetProvider(connection);
-    return fact.CreateDataAdapter();
+  public static DbDataAdapter CreateDataAdapter(this DbConnection connection) => connection.GetProvider().CreateDataAdapter();
+
+  public static DbDataAdapter CreateDataAdapter(this DbConnection connection, DbCommand selectCommand, DbCommand? deleteCommand = null, DbCommand? insertCommand = null, DbCommand? updateCommand = null) {
+    var dataAdapter = connection.CreateDataAdapter();
+    dataAdapter.SelectCommand = selectCommand;
+    dataAdapter.DeleteCommand = deleteCommand;
+    dataAdapter.InsertCommand = insertCommand;
+    dataAdapter.UpdateCommand = updateCommand;
+    return dataAdapter;
   }
 
   public static DataSet GetDataSet(this DbConnection connection, string commandText) {

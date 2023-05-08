@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-
-namespace System.Data;
+﻿namespace System.Data;
 public static class IDbTransactionExtensions {
 
   public static IDbCommand CreateCommand(this IDbTransaction transaction, string commandText, IDbDataParameter[]? parameters = null, CommandType commandType = CommandType.Text) {

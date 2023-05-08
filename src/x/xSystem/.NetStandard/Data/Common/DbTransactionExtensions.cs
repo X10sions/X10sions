@@ -1,18 +1,8 @@
 ﻿namespace System.Data.Common;
 public static class DbTransactionExtensions {
-
-  //static bool m_isDisposed;
-
-  //static void VerifyNotDisposed() {
-  //  if (m_isDisposed) {
-  //    throw new ObjectDisposedException(nameof(DbTransaction));
-  //  }
-  //}
-
   public static Task CommitAsync(this DbTransaction trans) => trans.CommitAsync();
 
   public static async Task CommitAsync(this DbTransaction trans, CancellationToken cancellationToken) {
-    //VerifyNotDisposed();
     if (trans.Connection == null) {
       throw new InvalidOperationException("Already committed or rolled back.");
     }
@@ -33,7 +23,6 @@ public static class DbTransactionExtensions {
   public static Task RollbackAsync(this DbTransaction trans) => trans.RollbackAsync();
 
   public static async Task RollbackAsync(this DbTransaction trans, CancellationToken cancellationToken) {
-    //VerifyNotDisposed();
     if (trans.Connection == null) {
       throw new InvalidOperationException("Already committed or rolled back.");
     }
