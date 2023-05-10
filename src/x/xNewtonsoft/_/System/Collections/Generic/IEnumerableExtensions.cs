@@ -3,9 +3,8 @@
 namespace System.Collections.Generic;
 public static class IEnumerableExtensions {
 
-  public static T? GetFromJson<T>(this IEnumerable<KeyValuePair<string, string>> kvps, string key, T defaultValue) {
+  public static T? GetFromNewtonsoftJson<T>(this IEnumerable<KeyValuePair<string, string>> kvps, string key, T defaultValue) {
     var json = kvps.GetValue(key);
-
     return json is null ? defaultValue : JsonConvert.DeserializeObject<T>(json);
   }
 

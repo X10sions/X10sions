@@ -6,6 +6,7 @@ namespace MailKit;
 public interface IMailKitAppSettings {
   MailboxAddressAppSettings DefaultFrom { get; set; }
   MailboxAddressAppSettings DefaultTo { get; set; }
+  //[Required]
   string Host { get; set; }
   int Port { get; set; }
   bool UseSsl { get; set; }
