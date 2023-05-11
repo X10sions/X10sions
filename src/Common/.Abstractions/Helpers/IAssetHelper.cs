@@ -48,7 +48,6 @@ public class AssetHelper : IAssetHelper {
 
 }
 
-
 public static class IAssetHelperExtensions {
   //public static IEnumerable<IAssetFile> Files(this IAssetHelper assetHelper) => from v in assetHelper.PackageVersions() from f in v.Files orderby f.Priority select f;
 

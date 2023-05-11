@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http.Features;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http.Features;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Primitives;
 using Microsoft.Net.Http.Headers;
 using System.Text;
@@ -6,6 +8,9 @@ using System.Text.RegularExpressions;
 
 namespace Microsoft.AspNetCore.Http;
 public static class HttpRequestExtensions {
+
+  public static IFileInfo GetPathFileInfo(this HttpRequest request, IWebHostEnvironment webHostEnvironment) => webHostEnvironment.WebRootFileProvider.GetFileInfo(request.Path);
+
   public static StringValues Item(this HttpRequest httpRequest, string key, StringValues defaultValue = default) => httpRequest.Item(key, new HttpRequestItemOptions { DefaultValue = defaultValue });
 
   public static StringValues Item(this HttpRequest httpRequest, string key, HttpRequestItemOptions options)
@@ -42,6 +47,8 @@ public static class HttpRequestExtensions {
   }
 
   public static string PathAndQuery(this HttpRequest request) => request.Path + request.QueryString;
+
+  public static string PhysicalPath(this HttpRequest request, IWebHostEnvironment webHostEnvironment) => request.GetPathFileInfo(webHostEnvironment).PhysicalPath;
 
   public static Uri GetBaseUri(this HttpRequest request) {
     var hostComponents = request.Host.ToUriComponent().Split(':');
@@ -142,5 +149,15 @@ public static class HttpRequestExtensions {
       Query = request.QueryString.Value,
       Fragment = fragment
     };
+
+  public static HttpRequestValues Values(this HttpRequest request) => new HttpRequestValues(request);
+
+  public class HttpRequestValues {
+    public HttpRequestValues(HttpRequest request) {
+      this.request = request;
+    }
+    HttpRequest request;
+    public string State => request.Item(nameof(State));
+  }
 
 }
