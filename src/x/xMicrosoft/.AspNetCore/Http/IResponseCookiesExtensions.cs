@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using System.Text.Json;
 
 namespace Microsoft.AspNetCore.Http {
   public static class IResponseCookiesExtensions {
@@ -23,6 +24,9 @@ namespace Microsoft.AspNetCore.Http {
       return cookies;
     }
 
+    public static void AppendJson<T>(this IResponseCookies cookies, string key, T value, CookieOptions? options = null) {
+      cookies.Append(key, JsonSerializer.Serialize(value), options ?? new CookieOptions());
+    }
 
   }
 }

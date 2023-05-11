@@ -1,6 +1,14 @@
 ﻿namespace System.Data.Common;
 public static class DbConnectionStringBuilderExtensions {
 
+  public static string ConnectionStringWithUpperCaseKeys(this DbConnectionStringBuilder csBuilder) {
+    var sb = new StringBuilder();
+    foreach (string k in csBuilder.Keys) {
+      sb.Append($"{k.ToUpper()}={csBuilder[k]};");
+    }
+    return sb.ToString();
+  }
+
   public static string DataSource(this DbConnectionStringBuilder csb) => (string)csb["Data Source"];
 
   public static string Provider(this DbConnectionStringBuilder csb) => (string)csb[nameof(Provider)];
