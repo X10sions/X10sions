@@ -1,14 +1,16 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace System {
-  public static class TExtensions {
+namespace System;
+public static class TExtensions {
 
-    public static IEnumerable<string> GetValidationAttributeErrors<T>(this T instance) {
-      var context = new ValidationContext(instance, serviceProvider: null, items: null);
-      var results = new List<ValidationResult>();
-      Validator.TryValidateObject(instance, context, results, true);
-      return from x in results where !string.IsNullOrWhiteSpace(x.ErrorMessage) select x.ErrorMessage;
-    }
+  public static IEnumerable<string> GetValidationErrorMessages<T>(this T instance) where T : class
+    => from x in instance.GetValidationResult() where !string.IsNullOrWhiteSpace(x.ErrorMessage) select x.ErrorMessage;
 
+  public static IEnumerable<ValidationResult> GetValidationResult<T>(this T instance) where T : class {
+    var context = new ValidationContext(instance, null, null);
+    var results = new List<ValidationResult>();
+    Validator.TryValidateObject(instance, context, results, true);
+    return results;
   }
+
 }

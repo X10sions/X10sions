@@ -1,6 +1,7 @@
 ﻿using System.Linq.Expressions;
 
 namespace System.Linq {
+
   public static class IQueryableExtensions {
 
     public static bool IsOrderedQueryable<T>(this IQueryable<T> queryable) {
@@ -20,6 +21,24 @@ namespace System.Linq {
 
     public static IQueryable<T> Skip<T>(this IQueryable<T> query, int? skip) => skip.HasValue ? query.Skip(skip.Value) : query;
     public static IQueryable<T> Take<T>(this IQueryable<T> query, int? take) => take.HasValue ? query.Take(take.Value) : query;
+
+    public static TSource? TryFirstOrDefault<TSource>(this IQueryable<TSource> source, StringBuilder? debugInfo = null) {
+      try {
+        debugInfo?.AppendLine($"{source}");
+        return source.FirstOrDefault();
+      } catch (Exception ex) {
+        throw new Exception($"{ex.Message}\n\n{source}");
+      }
+    }
+
+    public static List<TSource> TryToList<TSource>(this IQueryable<TSource> source, StringBuilder? debugInfo = null) {
+      try {
+        debugInfo?.AppendLine($"{source}");
+        return source.ToList();
+      } catch (Exception ex) {
+        throw new Exception($"{ex.Message}\n\n{source}");
+      }
+    }
 
     public static IQueryable<T> WhereIf<T>(this IQueryable<T> source, bool condition, Expression<Func<T, bool>> truePredicate, Expression<Func<T, bool>> falsePredicate) => condition ? source.Where(truePredicate) : source.Where(falsePredicate);
     public static IQueryable<T> WhereIf<T>(this IQueryable<T> source, bool condition, Expression<Func<T, int, bool>> truePredicate, Expression<Func<T, int, bool>> falsePredicate) => condition ? source.Where(truePredicate) : source.Where(falsePredicate);
