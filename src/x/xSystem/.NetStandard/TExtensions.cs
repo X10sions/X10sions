@@ -34,6 +34,8 @@ public static class TExtensions {
   public static TField GetTypeFieldValueAs<T, TField>(this T obj, string fieldName) where T : notnull => obj.GetType().GetFieldValueAs<T, TField>(fieldName, obj);
   public static TProperty GetTypePropertyValueAs<T, TProperty>(this T obj, string propertyName) where T : notnull => obj.GetType().GetPropertyValueAs<T, TProperty>(propertyName, obj);
 
+  public static bool IsNullable<T>(this T o) => typeof(T).IsNullable();
+
   // Internal Field/Property helper
   //    public static TField GetTypeFieldValueAs<T, TField>(this T obj, string fieldName) => typeof(T).GetFieldValueAs<T, TField>(fieldName, obj);
   //    public static TProperty GetTypePropertyValueAs<T, TProperty>(this T obj, string propertyName) => typeof(T).GetPropertyValueAs<T, TProperty>(propertyName, obj);
