@@ -44,6 +44,8 @@ public static class StringBuilderExtensions {
     return sb;
   }
 
+  public static StringBuilder AppendLine(this StringBuilder sb, IQueryable qry) => sb.AppendLine(qry.ToString());
+
   public static StringBuilder AppendLineIfTrue(this StringBuilder sb, bool test, string value) {
     if (test) {
       sb.AppendLine(value);
