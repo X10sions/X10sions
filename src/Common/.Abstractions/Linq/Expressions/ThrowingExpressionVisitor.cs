@@ -1,0 +1,77 @@
+﻿using System.Linq.Expressions;
+
+namespace Common.Linq.Expressions {
+  public abstract class ThrowingExpressionVisitor : ExpressionVisitor {
+    public override Expression? Visit(Expression? node) => throw new NotImplementedException();
+    protected override Expression VisitBinary(BinaryExpression node) => throw new NotImplementedException();
+    protected override Expression VisitBlock(BlockExpression node) => throw new NotImplementedException();
+    protected override CatchBlock VisitCatchBlock(CatchBlock node) => throw new NotImplementedException();
+    protected override Expression VisitConditional(ConditionalExpression node) => throw new NotImplementedException();
+    protected override Expression VisitConstant(ConstantExpression node) => throw new NotImplementedException();
+    protected override Expression VisitDebugInfo(DebugInfoExpression node) => throw new NotImplementedException();
+    protected override Expression VisitDefault(DefaultExpression node) => throw new NotImplementedException();
+    protected override Expression VisitDynamic(DynamicExpression node) => throw new NotImplementedException();
+    protected override ElementInit VisitElementInit(ElementInit node) => throw new NotImplementedException();
+    protected override Expression VisitExtension(Expression node) => throw new NotImplementedException();
+    protected override Expression VisitGoto(GotoExpression node) => throw new NotImplementedException();
+    protected override Expression VisitIndex(IndexExpression node) => throw new NotImplementedException();
+    protected override Expression VisitInvocation(InvocationExpression node) => throw new NotImplementedException();
+    protected override Expression VisitLabel(LabelExpression node) => throw new NotImplementedException();
+    protected override LabelTarget? VisitLabelTarget(LabelTarget? node) => throw new NotImplementedException();
+    protected override Expression VisitLambda<T>(Expression<T> node) => throw new NotImplementedException();
+    protected override Expression VisitListInit(ListInitExpression node) => throw new NotImplementedException();
+    protected override Expression VisitLoop(LoopExpression node) => throw new NotImplementedException();
+    protected override Expression VisitMember(MemberExpression node) => throw new NotImplementedException();
+    protected override MemberAssignment VisitMemberAssignment(MemberAssignment node) => throw new NotImplementedException();
+    protected override MemberBinding VisitMemberBinding(MemberBinding node) => throw new NotImplementedException();
+    protected override Expression VisitMemberInit(MemberInitExpression node) => throw new NotImplementedException();
+    protected override MemberListBinding VisitMemberListBinding(MemberListBinding node) => throw new NotImplementedException();
+    protected override MemberMemberBinding VisitMemberMemberBinding(MemberMemberBinding node) => throw new NotImplementedException();
+    protected override Expression VisitMethodCall(MethodCallExpression node) => throw new NotImplementedException();
+    protected override Expression VisitNew(NewExpression node) => throw new NotImplementedException();
+    protected override Expression VisitNewArray(NewArrayExpression node) => throw new NotImplementedException();
+    protected override Expression VisitParameter(ParameterExpression node) => throw new NotImplementedException();
+    protected override Expression VisitRuntimeVariables(RuntimeVariablesExpression node) => throw new NotImplementedException();
+    protected override Expression VisitSwitch(SwitchExpression node) => throw new NotImplementedException();
+    protected override SwitchCase VisitSwitchCase(SwitchCase node) => throw new NotImplementedException();
+    protected override Expression VisitTry(TryExpression node) => throw new NotImplementedException();
+    protected override Expression VisitTypeBinary(TypeBinaryExpression node) => throw new NotImplementedException();
+    protected override Expression VisitUnary(UnaryExpression node) => throw new NotImplementedException();
+
+    public virtual Expression? BaseVisit(Expression? node) => base.Visit(node);
+    protected virtual Expression BaseVisitBinary(BinaryExpression node) => base.VisitBinary(node);
+    protected virtual Expression BaseVisitBlock(BlockExpression node) => base.VisitBlock(node);
+    protected virtual CatchBlock BaseVisitCatchBlock(CatchBlock node) => base.VisitCatchBlock(node);
+    protected virtual Expression BaseVisitConditional(ConditionalExpression node) => base.VisitConditional(node);
+    protected virtual Expression BaseVisitConstant(ConstantExpression node) => base.VisitConstant(node);
+    protected virtual Expression BaseVisitDebugInfo(DebugInfoExpression node) => base.VisitDebugInfo(node);
+    protected virtual Expression BaseVisitDefault(DefaultExpression node) => base.VisitDefault(node);
+    protected virtual Expression BaseVisitDynamic(DynamicExpression node) => base.VisitDynamic(node);
+    protected virtual ElementInit BaseVisitElementInit(ElementInit node) => base.VisitElementInit(node);
+    protected virtual Expression BaseVisitExtension(Expression node) => base.VisitExtension(node);
+    protected virtual Expression BaseVisitGoto(GotoExpression node) => base.VisitGoto(node);
+    protected virtual Expression BaseVisitIndex(IndexExpression node) => base.VisitIndex(node);
+    protected virtual Expression BaseVisitInvocation(InvocationExpression node) => base.VisitInvocation(node);
+    protected virtual Expression BaseVisitLabel(LabelExpression node) => base.VisitLabel(node);
+    protected virtual LabelTarget? BaseVisitLabelTarget(LabelTarget? node) => base.VisitLabelTarget(node);
+    protected virtual Expression BaseVisitLambda<T>(Expression<T> node) => base.VisitLambda<T>(node);
+    protected virtual Expression BaseVisitListInit(ListInitExpression node) => base.VisitListInit(node);
+    protected virtual Expression BaseVisitLoop(LoopExpression node) => base.VisitLoop(node);
+    protected virtual Expression BaseVisitMember(MemberExpression node) => base.VisitMember(node);
+    protected virtual MemberAssignment BaseVisitMemberAssignment(MemberAssignment node) => base.VisitMemberAssignment(node);
+    protected virtual MemberBinding BaseVisitMemberBinding(MemberBinding node) => base.VisitMemberBinding(node);
+    protected virtual Expression BaseVisitMemberInit(MemberInitExpression node) => base.VisitMemberInit(node);
+    protected virtual MemberListBinding BaseVisitMemberListBinding(MemberListBinding node) => base.VisitMemberListBinding(node);
+    protected virtual MemberMemberBinding BaseVisitMemberMemberBinding(MemberMemberBinding node) => base.VisitMemberMemberBinding(node);
+    protected virtual Expression BaseVisitMethodCall(MethodCallExpression node) => base.VisitMethodCall(node);
+    protected virtual Expression BaseVisitNew(NewExpression node) => base.VisitNew(node);
+    protected virtual Expression BaseVisitNewArray(NewArrayExpression node) => base.VisitNewArray(node);
+    protected virtual Expression BaseVisitParameter(ParameterExpression node) => base.VisitParameter(node);
+    protected virtual Expression BaseVisitRuntimeVariables(RuntimeVariablesExpression node) => base.VisitRuntimeVariables(node);
+    protected virtual Expression BaseVisitSwitch(SwitchExpression node) => base.VisitSwitch(node);
+    protected virtual SwitchCase BaseVisitSwitchCase(SwitchCase node) => base.VisitSwitchCase(node);
+    protected virtual Expression BaseVisitTry(TryExpression node) => base.VisitTry(node);
+    protected virtual Expression BaseVisitTypeBinary(TypeBinaryExpression node) => base.VisitTypeBinary(node);
+    protected virtual Expression BaseVisitUnary(UnaryExpression node) => base.VisitUnary(node);
+  }
+}
