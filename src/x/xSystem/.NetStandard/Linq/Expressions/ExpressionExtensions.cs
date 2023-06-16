@@ -59,19 +59,12 @@ public static class ExpressionExtensions {
 
   public static MemberExpression AsMemberExpression(this Expression expression) => expression switch {
     //null => null,
+    LambdaExpression le => le.Body.AsMemberExpression(),
     MemberExpression me => me,
     UnaryExpression ue => ue.Operand.AsMemberExpression(),
     _ => throw new Exception()
   };
 
-  public static MemberInfo GetBodyMemberInfo<T>(this Expression<Func<T, object>> expression) => expression.Body.GetMemberInfo();
-  public static MemberInfo GetBodyMemberInfo<T>(this T instance, Expression<Action<T>> expression) => expression.Body.GetMemberInfo();
-  public static List<MemberInfo> GetBodyMemberInfoList<T>(this T instance, params Expression<Func<T, object>>[] expressions) => expressions.Select(e => e.Body.GetMemberInfo()).ToList();
-  public static string GetBodyMemberName<T>(this Expression<Func<T, object>> expression) => expression.Body.GetMemberInfo().Name;
-  public static string GetBodyMemberName<T>(this T instance, Expression<Action<T>> expression) => expression.Body.GetMemberInfo().Name;
-  public static List<string> GetBodyMemberNameList<T>(this T instance, params Expression<Func<T, object>>[] expressions) => expressions.Select(e => e.Body.GetMemberInfo().Name).ToList();
-  public static MemberExpression GetMemberExpression<T, TProp>(this Expression<Func<T, TProp>> member) => member.Body.AsMemberExpression();
-  public static MemberInfo GetMemberInfo<T, TProp>(this Expression<Func<T, TProp>> exp) => exp.GetMemberExpression().Member;
   public static MemberInfo GetMemberInfo(this Expression expression) {
     if (expression == null)
       throw new ArgumentException(nameof(expression));
@@ -84,12 +77,7 @@ public static class ExpressionExtensions {
       _ => throw new ArgumentException($"Invalid Expression Type: '{expression.Type}' NodeType: '{expression.NodeType}'")
     };
   }
-  public static string GetMemberName<T, TProp>(this Expression<Func<T, TProp>> exp) => exp.GetMemberExpression().Member.Name;
-  public static string GetMemberName(this Expression expression) => expression.NodeType switch {
-    ExpressionType.MemberAccess => ((MemberExpression)expression).Member.Name,
-    ExpressionType.Convert => GetMemberName(((UnaryExpression)expression).Operand),
-    _ => throw new NotSupportedException(expression.NodeType.ToString())
-  };
+  public static string GetMemberName(this Expression expression) => expression.GetMemberInfo().Name;
   public static MethodInfo? GetSetMethod<T>(this Expression<Func<T>> expression) => ((expression?.Body as MemberExpression)?.Member as PropertyInfo)?.GetSetMethod(true);
 
   public static void SetValue<T, TValue>(this Expression<Func<T>> getSetExpression, T instance, TValue value) where TValue : notnull => GetSetMethod(getSetExpression)?.Invoke(instance, new object[] { value });
