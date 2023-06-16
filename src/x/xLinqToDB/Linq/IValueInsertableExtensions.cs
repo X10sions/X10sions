@@ -6,11 +6,11 @@ public static class IValueInsertableExtensions {
 
   public static IValueInsertable<T> ValueLambdaByType<T>(this IValueInsertable<T> insertable, LambdaExpression expression, object? value) where T : notnull {
     var fieldType = expression.Body.Type;
-
-    if (fieldType.IsNullable()) {
+    if (expression.IsPropertyNullable()) {
+      //if (fieldType.IsNullable()) {
       insertable = fieldType == typeof(bool?) ? insertable.Value(expression.AsTypedExpression<T, bool?>(), (bool?)value)
                  : fieldType == typeof(double?) ? insertable.Value(expression.AsTypedExpression<T, double?>(), (double?)value)
-                 : fieldType.IsEnum ? insertable.Value(expression.AsTypedExpression<T, object>(), value is string ? Enum.Parse(fieldType, value as string): Enum.ToObject(fieldType, value))
+                 : fieldType.IsEnum ? insertable.Value(expression.AsTypedExpression<T, object>(), value is string ? Enum.Parse(fieldType, value as string) : Enum.ToObject(fieldType, value))
                  : fieldType == typeof(int?) ? insertable.Value(expression.AsTypedExpression<T, int?>(), (int?)value)
                  : fieldType == typeof(long?) ? insertable.Value(expression.AsTypedExpression<T, long?>(), (long?)value)
                  : fieldType == typeof(short?) ? insertable.Value(expression.AsTypedExpression<T, short?>(), (short?)value)
@@ -29,7 +29,7 @@ public static class IValueInsertableExtensions {
     return insertable;
   }
 
-  public static IValueInsertable<T> ValueLambda<T,TV>(this IValueInsertable<T> source, LambdaExpression le, TV value, IQueryable<T> query) where T : notnull {
+  public static IValueInsertable<T> ValueLambda<T, TV>(this IValueInsertable<T> source, LambdaExpression le, TV value, IQueryable<T> query) where T : notnull {
     //var converted  = Expression.Lambda<Func<T, int?>>(Expression.Convert(le.Body,  le.Body.Type), le.Parameters);
 
     //var valueType = le.Body.Type;

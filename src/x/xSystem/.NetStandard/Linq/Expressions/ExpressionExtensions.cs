@@ -40,9 +40,8 @@ public static class ExpressionExtensions {
     };
 
   public static bool IsExpressionBodyConstant<T>(this Expression<Func<T, bool>> expr) => expr.Body.NodeType == ExpressionType.Constant;
-
+  public static bool IsPropertyNullable(this Expression expression) => expression.GetMemberInfo().IsPropertyNullable();
   public static bool IsOrderingMethod(this Expression expression) => queryableOrderMethods.Any(method => IsQueryableMethod(expression, method));
-
   public static bool IsQueryableMethod(this Expression expression, string method) => methods.Where(m => m.Name == method).Contains(GetQueryableMethod(expression));
 
   private static MethodInfo? GetQueryableMethod(this Expression expression) {

@@ -2,6 +2,9 @@
 
 namespace System.Reflection {
   public static class PropertyInfoExtensions {
+    /// <summary> https://stackoverflow.com/questions/6026824/detecting-a-nullable-type-via-reflection </summary>
+    public static bool IsNullable(this PropertyInfo property) => property.GetMethod is null ? false : new NullabilityInfoContext().Create(property.GetMethod.ReturnParameter).ReadState == NullabilityState.Nullable;
+
     public static string GetPropertyName(this PropertyInfo property) => property.GetCustomAttribute<DisplayNameAttribute>()?.DisplayName ?? property.Name;
     public static object GetPropertyValue(this PropertyInfo property, object instance) => property.GetValue(instance);
     public static bool IsComputedProperty(this PropertyInfo property) => property.SetMethod == null && property.GetMethod.GetCustomAttribute<CompilerGeneratedAttribute>() == null;

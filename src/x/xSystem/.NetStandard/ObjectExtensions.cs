@@ -83,7 +83,7 @@ public static class ObjectExtensions {
 
   #endregion
 
-  public static T ThrowIfNull<T>(this T? value, string message) => value is null ? throw new ArgumentNullException(message) : value;
-  public static T? ThrowIfNotNull<T>(this T? value, string message) => value != null ? throw new ArgumentNullException(message) : value;
+  public static T ThrowIfNull<T>(this T? value, string? message = null) => value is null ? throw new ArgumentNullException(message ?? "Value cannot be null.") : value;
+  public static T? ThrowIfNotNull<T>(this T? value, string? message = null) => value != null ? throw new ArgumentNullException(message ?? "Value must be null.") : value;
 
 }

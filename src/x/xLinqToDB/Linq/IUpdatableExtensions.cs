@@ -31,6 +31,6 @@ public static class IUpdatableExtensions {
     source = source.Set(Expression.Lambda<Func<T, TV>>(le.Body, le.Parameters), value);
     //source = source.Set(le.AsTypedExpressionNullable<T, TV>(value), value);
     return source;
-  } 
+  }
 
 }
