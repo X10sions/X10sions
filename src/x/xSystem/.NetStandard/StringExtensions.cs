@@ -256,8 +256,8 @@ namespace System {
       return result;
     }
 
-    public static string WrapIfNotNullOrEmpty(this string s, string prefix = "", string suffix = "", string defaultIfNullOrEmpty = "") => string.IsNullOrEmpty(s) ? defaultIfNullOrEmpty : prefix + s + suffix;
-    public static string WrapIfNotNullOrWhiteSpace(this string s, string prefix = "", string suffix = "", string defaultIfNullOrWhiteSpace = "") => string.IsNullOrWhiteSpace(s) ? defaultIfNullOrWhiteSpace : prefix + s + suffix;
+    public static string WrapIfNotNullOrEmpty(this string? s, string prefix = "", string suffix = "", string defaultIfNullOrEmpty = "") => string.IsNullOrEmpty(s) ? defaultIfNullOrEmpty : prefix + s + suffix;
+    public static string WrapIfNotNullOrWhiteSpace(this string? s, string prefix = "", string suffix = "", string defaultIfNullOrWhiteSpace = "") => string.IsNullOrWhiteSpace(s) ? defaultIfNullOrWhiteSpace : prefix + s + suffix;
 
     public static T ToEnum<T>(this string s, T defaultValue, bool ignoreCase = true) where T : struct => Enum.IsDefined(typeof(T), s) ? (T)Enum.Parse(typeof(T), s, ignoreCase) : defaultValue;
     //public static T? ToEnum<T>(this string value) where T : struct {
