@@ -11,7 +11,7 @@ namespace Common.Models.MinMaxRange {
     public T? Max { get; set; }
 
     public override string ToString() => $"[{Min} - {Max}]";
-    public bool IsValid => Min.Value.CompareTo(Max.Value) <= 0;
+    public bool IsValid => Min?.CompareTo(Max.Value) <= 0;
     public bool ContainsValue(T? value) => value.Value.IsBetween(Min.Value, Max.Value);
     public bool IsInsideRange(RangeBase<T> range) => IsValid && range.IsValid && range.ContainsValue(Min.Value) && range.ContainsValue(Max.Value);
     public bool ContainsRange(RangeBase<T> range) => IsValid && range.IsValid && ContainsValue(range.Min.Value) && ContainsValue(range.Max.Value);

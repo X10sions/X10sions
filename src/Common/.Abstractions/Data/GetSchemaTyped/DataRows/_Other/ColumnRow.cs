@@ -1,34 +1,5 @@
-﻿using System.Data;
-using System.Data.Common;
-
-namespace Common.Data.GetSchemaTyped.DataRows;
+﻿namespace Common.Data.GetSchemaTyped.DataRows;
 public class ColumnRow : ITypedDataRow {
-  public ColumnRow() { }
-  public ColumnRow(DataRow dataRow) {
-    SetValues(dataRow);
-  }
-
-  public void SetValues(DataRow dataRow) {
-    TABLE_CAT = dataRow.Field<string?>(nameof(TABLE_CAT));
-    TABLE_SCHEM = dataRow.Field<string?>(nameof(TABLE_SCHEM));
-    TABLE_NAME = dataRow.Field<string?>(nameof(TABLE_NAME));
-    COLUMN_NAME = dataRow.Field<string>(nameof(COLUMN_NAME));
-    DATA_TYPE = dataRow.Field<short?>(nameof(DATA_TYPE));
-    TYPE_NAME = dataRow.Field<string>(nameof(TYPE_NAME));
-    COLUMN_SIZE = dataRow.Field<int?>(nameof(COLUMN_SIZE));
-    BUFFER_LENGTH = dataRow.Field<int?>(nameof(BUFFER_LENGTH));
-    DECIMAL_DIGITS = dataRow.Field<short?>(nameof(DECIMAL_DIGITS));
-    NUM_PREC_RADIX = dataRow.Field<short?>(nameof(NUM_PREC_RADIX));
-    NULLABLE = dataRow.Field<short?>(nameof(NULLABLE));
-    REMARKS = dataRow.Field<string>(nameof(REMARKS));
-    COLUMN_DEF = dataRow.Field<string>(nameof(COLUMN_DEF));
-    SQL_DATA_TYPE = dataRow.Field<short?>(nameof(SQL_DATA_TYPE));
-    SQL_DATETIME_SUB = dataRow.Field<short?>(nameof(SQL_DATETIME_SUB));
-    CHAR_OCTET_LENGTH = dataRow.Field<int?>(nameof(CHAR_OCTET_LENGTH));
-    ORDINAL_POSITION = dataRow.Field<int?>(nameof(ORDINAL_POSITION));
-    IS_NULLABLE = dataRow.Field<string>(nameof(IS_NULLABLE));
-  }
-
   public class Query {
     public string? Catalog { get; set; }
     public string? Schema { get; set; }
@@ -43,7 +14,6 @@ public class ColumnRow : ITypedDataRow {
     //} => new[] { Schema, Table, Name };
     //public string[] RestrictionValues4 => new[] { Catalog, Schema, Table, Name };
   }
-
   public string? TABLE_CAT { get; set; }
   public string? TABLE_SCHEM { get; set; }
   public string? TABLE_NAME { get; set; }

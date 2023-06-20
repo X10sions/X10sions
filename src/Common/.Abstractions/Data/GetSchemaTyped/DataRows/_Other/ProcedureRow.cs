@@ -1,22 +1,5 @@
-﻿using System.Data;
-
-namespace Common.Data.GetSchemaTyped.DataRows;
+﻿namespace Common.Data.GetSchemaTyped.DataRows;
 public class ProcedureRow : ITypedDataRow {
-  public ProcedureRow(DataRow dataRow) {
-    SetValues(dataRow);
-  }
-
-  public void SetValues(DataRow dataRow) {
-    PROCEDURE_CAT = dataRow.Field<string>(nameof(PROCEDURE_CAT));
-    PROCEDURE_SCHEM = dataRow.Field<string>(nameof(PROCEDURE_SCHEM));
-    PROCEDURE_NAME = dataRow.Field<string>(nameof(PROCEDURE_NAME));
-    NUM_INPUT_PARAMS = dataRow.Field<short?>(nameof(NUM_INPUT_PARAMS));
-    NUM_OUTPUT_PARAMS = dataRow.Field<short?>(nameof(NUM_OUTPUT_PARAMS));
-    NUM_RESULT_SETS = dataRow.Field<short?>(nameof(NUM_RESULT_SETS));
-    REMARKS = dataRow.Field<string>(nameof(REMARKS));
-    PROCEDURE_TYPE = dataRow.Field<short?>(nameof(PROCEDURE_TYPE));
-  }
-
   public class Query {
     public string? Catalog { get; set; }
     public string? Schema { get; set; }

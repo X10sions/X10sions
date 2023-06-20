@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Text;
 
 namespace Common.Helpers {
   public class UserAgentHelper {
@@ -69,7 +66,7 @@ namespace Common.Helpers {
       return new KeyValuePair<string, string>(key, value);
     }
 
-    Version ParseSectionBetweenVersion(string key, string separator, string end, bool doReplace = true, Action trueAction = null) {
+    Version ParseSectionBetweenVersion(string key, string separator, string end, bool doReplace = true, Action? trueAction = null) {
       var kvp = ParseSectionBetween(key, separator, end, doReplace);
       if (string.IsNullOrWhiteSpace(kvp.Value)) {
         return new Version();
@@ -84,27 +81,27 @@ namespace Common.Helpers {
     public string UserAgentStringNotParsed => ua.ToString();
     public string UserAgentString { get; }
     public string BrowserName => GetUserAgentLoopup?.BrowserName ?? UserAgentName;
-    public Version BrowserVersion => GetUserAgentVersionLoopup?.BrowserVersion ?? UserAgentVersion;
+    public Version? BrowserVersion => GetUserAgentVersionLoopup?.BrowserVersion ?? UserAgentVersion;
     public string UserAgentName { get; protected set; } = "Unknown";
-    public Version UserAgentVersion { get; protected set; }
+    public Version? UserAgentVersion { get; protected set; }
 
-    public Version AppleWebKitVersion { get; protected set; }
-    public Version ChromeVersion { get; protected set; }
-    public Version CriOSVersion { get; protected set; }
-    public Version EdgeVersion { get; protected set; }
-    public Version MozillaVersion { get; protected set; }
-    public Version OPRVersion { get; protected set; }
-    public Version SafariVersion { get; protected set; }
-    public Version VivaldiVersion { get; protected set; }
-    public Version GeckoVersion { get; protected set; }
-    public Version FirefoxVersion { get; protected set; }
-    public Version ThunderbirdVersion { get; protected set; }
-    public Version SeaMonkeyVersion { get; protected set; }
-    public Version TridentVersion { get; protected set; }
-    public string MobileVersion { get; protected set; }
+    public Version? AppleWebKitVersion { get; protected set; }
+    public Version? ChromeVersion { get; protected set; }
+    public Version? CriOSVersion { get; protected set; }
+    public Version? EdgeVersion { get; protected set; }
+    public Version? MozillaVersion { get; protected set; }
+    public Version? OPRVersion { get; protected set; }
+    public Version? SafariVersion { get; protected set; }
+    public Version? VivaldiVersion { get; protected set; }
+    public Version? GeckoVersion { get; protected set; }
+    public Version? FirefoxVersion { get; protected set; }
+    public Version? ThunderbirdVersion { get; protected set; }
+    public Version? SeaMonkeyVersion { get; protected set; }
+    public Version? TridentVersion { get; protected set; }
+    public string? MobileVersion { get; protected set; }
 
     public class UserAgentLoopup {
-      public UserAgentLoopup(string uaName, string bName, List<UserAgentVersionLoopup> versions = null) {
+      public UserAgentLoopup(string uaName, string bName, List<UserAgentVersionLoopup>? versions = null) {
         UserAgentName = uaName;
         BrowserName = bName;
         Versions = versions;
@@ -112,7 +109,7 @@ namespace Common.Helpers {
       public string UserAgentName { get; set; }
       public string BrowserName { get; set; }
 
-      public List<UserAgentVersionLoopup> Versions { get; set; }
+      public List<UserAgentVersionLoopup>? Versions { get; set; }
     }
 
     public class UserAgentVersionLoopup {
@@ -214,10 +211,6 @@ namespace Common.Helpers {
     };
 
     UserAgentLoopup GetUserAgentLoopup => UserAgentLoopups.FirstOrDefault(x => x.UserAgentName == UserAgentName);
-
-    UserAgentVersionLoopup GetUserAgentVersionLoopup => GetUserAgentLoopup?.Versions?.FirstOrDefault(x => x.UserAgentVersion == UserAgentVersion);
-
-
-
+    UserAgentVersionLoopup? GetUserAgentVersionLoopup => GetUserAgentLoopup?.Versions?.FirstOrDefault(x => x.UserAgentVersion == UserAgentVersion);
   }
 }
