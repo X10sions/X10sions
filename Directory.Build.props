@@ -2,11 +2,5 @@
   <Import Project="../Directory.Build.props" />
   <PropertyGroup>
     <RepositoryType>git</RepositoryType>
-    <!--
-    <RepoDir_X10sions>$(MSBuildThisFileDirectory)</RepoDir_X10sions>
-    <RepoSrcDir_X10sions>$(RepoDir_X10sions)src\</RepoSrcDir_X10sions>
-    <RepoTestDir_X10sions>$(RepoDir_X10sions)tests\</RepoTestDir_X10sions>
-    <RepositoryUrl>https://github.com/X10sions/xLinqToDB</RepositoryUrl>
-    -->
   </PropertyGroup>
 </Project>

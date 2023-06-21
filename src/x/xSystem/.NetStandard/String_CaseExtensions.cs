@@ -1,4 +1,4 @@
-﻿namespace  System {
+﻿namespace System {
   public static class String_CaseExtensions {
     #region https://github.com/JamesNK/Newtonsoft.Json/blob/master/Src/Newtonsoft.Json/Utilities/StringUtils.cs
 
@@ -17,9 +17,9 @@
       if (string.IsNullOrEmpty(s)) {
         return s;
       }
-      StringBuilder sb = new StringBuilder();
-      SeparatedCaseState state = SeparatedCaseState.Start;
-      for (int i = 0; i < s.Length; i++) {
+      var sb = new StringBuilder();
+      var state = SeparatedCaseState.Start;
+      for (var i = 0; i < s.Length; i++) {
         if (s[i] == ' ') {
           if (state != SeparatedCaseState.Start) {
             state = SeparatedCaseState.NewWord;
@@ -27,9 +27,9 @@
         } else if (char.IsUpper(s[i])) {
           switch (state) {
             case SeparatedCaseState.Upper:
-              bool hasNext = (i + 1 < s.Length);
+              var hasNext = (i + 1 < s.Length);
               if (i > 0 && hasNext) {
-                char nextChar = s[i + 1];
+                var nextChar = s[i + 1];
                 if (!char.IsUpper(nextChar) && nextChar != separator) {
                   sb.Append(separator);
                 }
