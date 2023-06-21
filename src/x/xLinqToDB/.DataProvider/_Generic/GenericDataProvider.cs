@@ -54,7 +54,7 @@ public class GenericDataProvider<TConnection> : DataProviderBase<TConnection>, I
     if (dataProvider != null) {
       return (GenericDataProvider<TConnection>)dataProvider;
     }
-    var dataSourceInformationRow = DataSourceInformationRow.GetInstance(connection);
+    var dataSourceInformationRow = connection.GetDataSourceInformationRow();
     if (dataSourceInformationRow != null) {
       var genericDataProvider = new GenericDataProvider<TConnection>(dataSourceInformationRow, dataReaderType);
       Instances[connectionStringWithoutPasswordOrUser] = genericDataProvider;
