@@ -8,19 +8,19 @@ namespace Common.Data.GetSchemaTyped {
     }
     DbConnection dbConnection;
 
-    public GetSchemaTypedCollection<DataSourceInformationRow> DataSourceInformation() => new GetSchemaTypedCollection<DataSourceInformationRow>(dbConnection, DbMetaDataCollectionNames.DataSourceInformation, x => new DataSourceInformationRow(x), null);
-    public GetSchemaTypedCollection<DataTypeRow> DataTypes() => new GetSchemaTypedCollection<DataTypeRow>(dbConnection, DbMetaDataCollectionNames.DataTypes, x => new DataTypeRow(x), null);
-    public GetSchemaTypedCollection<MetaDataCollectionRow> MetaDataCollections() => new GetSchemaTypedCollection<MetaDataCollectionRow>(dbConnection, DbMetaDataCollectionNames.MetaDataCollections, x => new MetaDataCollectionRow(x), null);
-    public GetSchemaTypedCollection<ReservedWordRow> ReservedWords() => new GetSchemaTypedCollection<ReservedWordRow>(dbConnection, DbMetaDataCollectionNames.ReservedWords, x => new ReservedWordRow(x), null);
-    public GetSchemaTypedCollection<RestrictionRow> Restrictions() => new GetSchemaTypedCollection<RestrictionRow>(dbConnection, DbMetaDataCollectionNames.Restrictions, x => new RestrictionRow(x), null);
+    public GetSchemaTypedCollection<DataSourceInformationRow> DataSourceInformation() => new GetSchemaTypedCollection<DataSourceInformationRow>(dbConnection, DbMetaDataCollectionNames.DataSourceInformation, x => new DataSourceInformationRow().SetValues(x), null);
+    public GetSchemaTypedCollection<DataTypeRow> DataTypes() => new GetSchemaTypedCollection<DataTypeRow>(dbConnection, DbMetaDataCollectionNames.DataTypes, x => new DataTypeRow().SetValues(x), null);
+    public GetSchemaTypedCollection<MetaDataCollectionRow> MetaDataCollections() => new GetSchemaTypedCollection<MetaDataCollectionRow>(dbConnection, DbMetaDataCollectionNames.MetaDataCollections, x => new MetaDataCollectionRow().SetValues(x), null);
+    public GetSchemaTypedCollection<ReservedWordRow> ReservedWords() => new GetSchemaTypedCollection<ReservedWordRow>(dbConnection, DbMetaDataCollectionNames.ReservedWords, x => new ReservedWordRow().SetValues(x), null);
+    public GetSchemaTypedCollection<RestrictionRow> Restrictions() => new GetSchemaTypedCollection<RestrictionRow>(dbConnection, DbMetaDataCollectionNames.Restrictions, x => new RestrictionRow().SetValues(x), null);
 
-    public GetSchemaTypedCollection<ColumnRow> Columns(string[] restrictionValues) => new GetSchemaTypedCollection<ColumnRow>(dbConnection, nameof(Columns), x => new ColumnRow(x), restrictionValues);
-    public GetSchemaTypedCollection<IndexRow> Indexes(string[] restrictionValues) => new GetSchemaTypedCollection<IndexRow>(dbConnection, nameof(Indexes), x => new IndexRow(x), restrictionValues);
-    public GetSchemaTypedCollection<ProcedureRow> Procedures(string[] restrictionValues) => new GetSchemaTypedCollection<ProcedureRow>(dbConnection, nameof(Procedures), x => new ProcedureRow(x), restrictionValues);
-    public GetSchemaTypedCollection<ProcedureColumnRow> ProcedureColumns(string[] restrictionValues) => new GetSchemaTypedCollection<ProcedureColumnRow>(dbConnection, nameof(ProcedureColumns), x => new ProcedureColumnRow(x), restrictionValues);
-    public GetSchemaTypedCollection<ProcedureParameterRow> ProcedureParameters(string[] restrictionValues) => new GetSchemaTypedCollection<ProcedureParameterRow>(dbConnection, nameof(ProcedureParameters), x => new ProcedureParameterRow(x), restrictionValues);
-    public GetSchemaTypedCollection<TableRow> Tables(string[] restrictionValues) => new GetSchemaTypedCollection<TableRow>(dbConnection, nameof(Tables), x => new TableRow(x), restrictionValues);
-    public GetSchemaTypedCollection<ViewRow> Views(string[] restrictionValues) => new GetSchemaTypedCollection<ViewRow>(dbConnection, nameof(Views), x => new ViewRow(x), restrictionValues);
+    public GetSchemaTypedCollection<ColumnRow> Columns(string[] restrictionValues) => new GetSchemaTypedCollection<ColumnRow>(dbConnection, nameof(Columns), x => new ColumnRow().SetValues(x), restrictionValues);
+    public GetSchemaTypedCollection<IndexRow> Indexes(string[] restrictionValues) => new GetSchemaTypedCollection<IndexRow>(dbConnection, nameof(Indexes), x => new IndexRow().SetValues(x), restrictionValues);
+    public GetSchemaTypedCollection<ProcedureRow> Procedures(string[] restrictionValues) => new GetSchemaTypedCollection<ProcedureRow>(dbConnection, nameof(Procedures), x => new ProcedureRow().SetValues(x), restrictionValues);
+    public GetSchemaTypedCollection<ProcedureColumnRow> ProcedureColumns(string[] restrictionValues) => new GetSchemaTypedCollection<ProcedureColumnRow>(dbConnection, nameof(ProcedureColumns), x => new ProcedureColumnRow().SetValues(x), restrictionValues);
+    public GetSchemaTypedCollection<ProcedureParameterRow> ProcedureParameters(string[] restrictionValues) => new GetSchemaTypedCollection<ProcedureParameterRow>(dbConnection, nameof(ProcedureParameters), x => new ProcedureParameterRow().SetValues(x), restrictionValues);
+    public GetSchemaTypedCollection<TableRow> Tables(string[] restrictionValues) => new GetSchemaTypedCollection<TableRow>(dbConnection, nameof(Tables), x => new TableRow().SetValues(x), restrictionValues);
+    public GetSchemaTypedCollection<ViewRow> Views(string[] restrictionValues) => new GetSchemaTypedCollection<ViewRow>(dbConnection, nameof(Views), x => new ViewRow().SetValues(x), restrictionValues);
 
     #region GetSchemaHelperExtensions {
 
