@@ -62,7 +62,7 @@
     <PackageReference Include="System.Data.OleDb" Version="7.0.0" />        
   </ItemGroup>    
   <ItemGroup Label="ProjectReferences">
-    <ProjectReference Include="..\..\..\..\..\x10sions\EntityFrameworkCore.Jet\src\EFCore.Jet\EFCore.Jet.csproj" />
+    <ProjectReference Include="..\..\..\EntityFrameworkCore.Jet.git\src\EFCore.Jet\EFCore.Jet.csproj" />
     <ProjectReference Include="..\x\xLinqToDB\.DataProvider\.DB2iSeries\xLinqToDB.DataProvider.DB2iSeries.csproj" />
   </ItemGroup>  
 </Project>

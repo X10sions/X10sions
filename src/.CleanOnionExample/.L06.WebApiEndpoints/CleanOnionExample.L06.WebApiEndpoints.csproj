@@ -19,6 +19,6 @@
     -->
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\lib\X10sions.git\src\.CleanOnionExample\.L01.Abstractions\CleanOnionExample.L01.Abstractions.csproj" />
+    <ProjectReference Include="..\.L01.Abstractions\CleanOnionExample.L01.Abstractions.csproj" />
   </ItemGroup>
 </Project>
