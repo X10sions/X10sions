@@ -19,10 +19,50 @@ public class AssociationDictionary : Dictionary<string, IAssociation> {
     Add(key, ass);
     return ass;
   }
+  string GetAssociationKey(string propertyName1, string propertyName2) => propertyName2.CompareTo(propertyName1) > 0 ? $"{propertyName1}:{propertyName2}" : $"{propertyName2}:{propertyName1}";
+  string GetAssociationKey(Expression selector1, Expression selector2) => GetAssociationKey(GetPropertyName(selector1), GetPropertyName(selector2));
+  string GetPropertyName(Expression selector) => selector.GetMemberInfo().GetReflectedTypeFullName();
+  //string GetPropertyName(MemberInfo member1) => member1.GetReflectedTypeFullName();
 
-  string GetAssociationKey(Expression selector1, Expression selector2) {
-    var property1 = selector1.GetMemberInfo().GetReflectedTypeFullName();
-    var property2 = selector2.GetMemberInfo().GetReflectedTypeFullName();
-    return property2.CompareTo(property1) > 0 ? $"{property1}:{property2}" : $"{property2}:{property1}";
+  public IAssociation Get<T1, T2>(Expression<Func<T1, T2?>> selector1, Expression<Func<T2, T1?>> selector2) where T1 : class? where T2 : class? {
+    var property1 = GetPropertyName(selector1);
+    var property2 = GetPropertyName(selector2);
+    var key = GetAssociationKey(property1, property2);
+    return this[key];
   }
+
+  public IAssociationJoin GetAssociationJoin<T1, T2>(Expression<Func<T1, T2?>> selector1, Expression<Func<T2, T1?>> selector2) where T1 : class? where T2 : class? {
+    var property1 = GetPropertyName(selector1);
+    var property2 = GetPropertyName(selector2);
+    var key = GetAssociationKey(property1, property2);
+    var ass = this[key];
+    return property2.CompareTo(property1) > 0 ? ass.Join2 : ass.Join1;
+  }
+
+  public LambdaExpression GetPredicate<T1, T2>(Expression<Func<T1, T2?>> selector1, Expression<Func<T2, T1?>> selector2) where T1 : class? where T2 : class? {
+    var property1 = GetPropertyName(selector1);
+    var property2 = GetPropertyName(selector2);
+    var key = GetAssociationKey(property1, property2);
+    var ass = this[key];
+    return (property2.CompareTo(property1) > 0 ? ass.Join2 : ass.Join1).Predicate;
+  }
+
+  //public Expression<Func<T1, T2, bool>> GetPredicate<T1, T2>() where T1 : class? where T2 : class? {
+  //  var property1 = typeof(T1).GetReflectedTypeFullName();
+  //  var property2 = typeof(T2).GetReflectedTypeFullName();
+
+
+  //  var key = GetAssociationKey(selector1, selector2);
+
+
+  //  return property2.CompareTo(property1) > 0 ? $"{property1}:{property2}" : $"{property2}:{property1}";
+
+
+
+  //  var ass = this[key];
+
+  //  Add(key, ass);
+  //  return ass;
+  //}
+
 }

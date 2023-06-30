@@ -24,7 +24,7 @@ public static class IServiceCollectionExtensions {
   public static IServiceCollection AddOptions<T>(this IServiceCollection services, ServiceLifetime lifetime) where T : class {
     return lifetime switch {
       ServiceLifetime.Singleton => services.AddSingletonOptions<T>(),
-      ServiceLifetime.Scoped => services.AddScopedOptions<T>(),
+      ServiceLifetime.Scoped => services.AddScoped<T>(),
       ServiceLifetime.Transient => services.AddTransientOptions<T>(),
       _ => services
     };
