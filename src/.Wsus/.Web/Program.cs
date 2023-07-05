@@ -1,10 +1,10 @@
-using Microsoft.Extensions.Options;
 using X10sions.Wsus.Web;
 
-WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+var builder = WebApplication.CreateBuilder(args);
+var appSettings = AppSettings.Configure(builder);
 
-ILoggerFactory programLoggerFactory = LoggerFactory.Create(loggingBuilder => loggingBuilder.SetMinimumLevel(LogLevel.Trace).AddConsole());
-ILogger<Program> programLogger = programLoggerFactory.CreateLogger<Program>();
+var programLoggerFactory = LoggerFactory.Create(loggingBuilder => loggingBuilder.SetMinimumLevel(LogLevel.Trace).AddConsole());
+var programLogger = programLoggerFactory.CreateLogger<Program>();
 
 // Add services to the container.
 
@@ -13,13 +13,9 @@ builder.Services.AddSingleton(x => new X10sions.Wsus.Pages.Shared._LayoutSetting
 //builder.Services.AddEFCore_Wsus(builder.Configuration, programLoggerFactory);
 //builder.Services.AddLinqToDb_Wsus(builder.Configuration, programLoggerFactory);
 
-builder.Services.Configure<AppSettings>(builder.Configuration);
-builder.Services.AddScoped(sp => sp.GetService<IOptionsSnapshot<AppSettings>>().Value);
-
 builder.Services.AddRazorPages();
 
-
-WebApplication app = builder.Build();
+var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment()) {
