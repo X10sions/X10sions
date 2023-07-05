@@ -1,4 +1,6 @@
-﻿using CleanOnionExample.Settings;
+﻿using Common.App.Settings;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 
@@ -19,19 +21,13 @@ public class AppSettings : Data.AppSettings, IAppSettings {
   public string AppContentPath { get; set; } = "_content/unknown/";
   public ApplicationDetailAppSettings AppDetail { get; set; }
 
+  public static AppSettings Configure(WebApplicationBuilder builder) {
+    builder.Services.Configure<AppSettings>(builder.Configuration);
+    builder.Services.AddScoped(sp => sp.GetRequiredService<IOptionsMonitor<AppSettings>>().CurrentValue);
+    return builder.Configuration.Get<AppSettings>() ?? throw new ArgumentNullException();
+  }
+
 }
 
 public static class AppSettingsExtensions {
-  //public static IServiceCollection AddAppSettings(this IServiceCollection services, IConfiguration configuration) {
-  //  services.Configure<AppSettings>(configuration);
-  //  services.AddScoped(sp => sp.GetRequiredService<IOptionsMonitor<AppSettings>>().CurrentValue);
-  //  return services;
-  //}
-
-  public static IServiceCollection AddAppSettings(this IServiceCollection services) {
-    services.Configure<AppSettings>(options => { });
-    services.AddScoped(sp => sp.GetRequiredService<IOptionsMonitor<AppSettings>>().CurrentValue);
-    return services;
-  }
-
 }

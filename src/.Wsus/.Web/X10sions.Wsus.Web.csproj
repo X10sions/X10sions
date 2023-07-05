@@ -17,6 +17,7 @@
     <ProjectReference Include="..\..\x\xSwashbuckle\.AspNetCore\xSwashbuckle.AspNetCore.csproj" />
     <ProjectReference Include="..\.Razor\X10sions.Wsus.Razor.csproj" />
   </ItemGroup>
+  <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
   <!--
   <ItemGroup>
     <Reference Include="Microsoft.UpdateServices.Administration">

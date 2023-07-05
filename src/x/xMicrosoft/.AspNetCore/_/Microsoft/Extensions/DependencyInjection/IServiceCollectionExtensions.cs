@@ -13,7 +13,6 @@ public static class IServiceCollectionExtensions {
     }
   });
 
-
   public static IServiceCollection AddSingletonOptions<T>(this IServiceCollection services) where T : class => services.AddSingleton(sp => sp.GetRequiredService<IOptionsMonitor<T>>().CurrentValue);
   public static IServiceCollection AddSingletonOptions<TInterface, T>(this IServiceCollection services) where TInterface : class where T : class, TInterface => services.AddSingleton<TInterface, T>(sp => sp.GetRequiredService<IOptionsMonitor<T>>().CurrentValue);
   public static IServiceCollection AddScopedOptions<T>(this IServiceCollection services) where T : class => services.AddScoped(sp => sp.GetRequiredService<IOptionsSnapshot<T>>().Value);
@@ -24,7 +23,7 @@ public static class IServiceCollectionExtensions {
   public static IServiceCollection AddOptions<T>(this IServiceCollection services, ServiceLifetime lifetime) where T : class {
     return lifetime switch {
       ServiceLifetime.Singleton => services.AddSingletonOptions<T>(),
-      ServiceLifetime.Scoped => services.AddScoped<T>(),
+      ServiceLifetime.Scoped => services.AddScopedOptions<T>(),
       ServiceLifetime.Transient => services.AddTransientOptions<T>(),
       _ => services
     };
