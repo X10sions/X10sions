@@ -11,6 +11,7 @@ namespace Microsoft.AspNetCore.Http {
 
     public static T? Get<T>(this ISession session) => session.Get<T>(typeof(T).FullName ?? typeof(T).Name);
     public static T? Get<T>(this ISession session, string key, T? defaultValue = default) => session.GetUsingSystemTextJson(key, defaultValue);
+    public static T? Get<T>(this ISession session, string key, Func<T> defaultFunc) => session.GetUsingSystemTextJson(key, defaultFunc());
 
     public static bool? GetBoolean(this ISession session, string key) {
       var data = session.Get(key);
@@ -27,6 +28,14 @@ namespace Microsoft.AspNetCore.Http {
         await session.LoadAsync();
       }
       return session.GetUsingSystemTextJson(key, defaultValue);
+    }
+
+    public static T GetOrSet<T>(this ISession session, string key, Func<T> valueFunction) {
+      var value = session.Get<T>(key);
+      if (value is not T) {
+        value = session.Set(key, valueFunction());
+      }
+      return value;
     }
 
     private static JsonSerializerOptions settings { get; } = new JsonSerializerOptions {
