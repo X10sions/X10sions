@@ -1,5 +1,4 @@
 ﻿using System.Linq.Expressions;
-using System.Text;
 
 namespace System.Linq;
 public static class IQueryableExtensions {
@@ -25,6 +24,11 @@ public static class IQueryableExtensions {
   public static IQueryable<T> Skip<T>(this IQueryable<T> query, int? skip) => skip.HasValue ? query.Skip(skip.Value) : query;
   public static IQueryable<T> Take<T>(this IQueryable<T> query, int? take) => take.HasValue ? query.Take(take.Value) : query;
 
+  public static TSource? FirstOrDefaultDebug<TSource>(this IQueryable<TSource> source, StringBuilder? debugInfo = null) {
+    debugInfo?.AppendLine($"{source}");
+    return source.FirstOrDefault();
+  }
+
   public static TSource? TryFirstOrDefault<TSource>(this IQueryable<TSource> source, StringBuilder? debugInfo = null) {
     try {
       debugInfo?.AppendLine($"{source}");
@@ -32,6 +36,11 @@ public static class IQueryableExtensions {
     } catch (Exception ex) {
       throw new Exception($"{ex.Message}\n\n{source}");
     }
+  }
+
+  public static List<TSource> ToListDebug<TSource>(this IQueryable<TSource> source, StringBuilder? debugInfo = null) {
+    debugInfo?.AppendLine($"{source}");
+    return source.ToList();
   }
 
   public static List<TSource> TryToList<TSource>(this IQueryable<TSource> source, StringBuilder? debugInfo = null) {
