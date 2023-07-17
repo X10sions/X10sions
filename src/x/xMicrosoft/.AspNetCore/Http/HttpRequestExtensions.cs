@@ -3,12 +3,12 @@ using Microsoft.AspNetCore.Http.Features;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Primitives;
 using Microsoft.Net.Http.Headers;
+using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
 
 namespace Microsoft.AspNetCore.Http;
 public static class HttpRequestExtensions {
-
   public static IFileInfo GetPathFileInfo(this HttpRequest request, IWebHostEnvironment webHostEnvironment) => webHostEnvironment.WebRootFileProvider.GetFileInfo(request.Path);
 
   public static StringValues Item(this HttpRequest httpRequest, string key, StringValues defaultValue = default) => httpRequest.Item(key, new HttpRequestItemOptions { DefaultValue = defaultValue });
@@ -25,6 +25,19 @@ public static class HttpRequestExtensions {
     .Concat(httpRequest.Form)
     .Concat(httpRequest.Cookies.Select(x => new KeyValuePair<string, StringValues>(x.Key, x.Value)))
     .Concat(httpRequest.Headers);
+
+  public static bool IsLocal(this HttpRequest request) => request.Host.Host == "localhost";
+
+  public static bool IsLocalConnection(this HttpRequest req) {
+    var connection = req.HttpContext.Connection;
+    if (connection.RemoteIpAddress != null) {
+      return connection.LocalIpAddress != null
+        ? connection.RemoteIpAddress.Equals(connection.LocalIpAddress)
+        : IPAddress.IsLoopback(connection.RemoteIpAddress);
+    }
+    // for in memory TestServer or when dealing with default connection info  
+    return connection.RemoteIpAddress == null && connection.LocalIpAddress == null;
+  }
 
   public class HttpRequestItemOptions {
     public StringValues DefaultValue { get; set; }
