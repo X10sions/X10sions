@@ -82,7 +82,7 @@ namespace Common.Html.Tags {
     /// </summary>
     public ISO_639_1_LanguageCode Lang { get => GetAttribute<ISO_639_1_LanguageCode>(nameof(Lang)); set => attributes[nameof(Lang)] = value; }
 
-    public HashSet<CssSelctor> Style { get => GetAttribute<HashSet<CssSelctor>>(nameof(Style)); set => attributes[nameof(Style)] = value; }
+    public HashSet<CssSelector> Style { get => GetAttribute<HashSet<CssSelector>>(nameof(Style)); set => attributes[nameof(Style)] = value; }
     //public string Style {
     //  get => string.Join(StyleDelimeter, from x in StyleList select x.Key + StyleKeyValueDelimeter + x.Value);
     //  set => StyleList = new HashSet<StyleDefinition>((from x in value.Split(StyleDelimeter) orderby x select new StyleDefinition(x)).Distinct());

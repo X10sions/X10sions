@@ -1,6 +1,11 @@
 ﻿namespace Common.Html.Tags;
 
 public class Option : HtmlTag5Base<Option>, IInnerText {
+  public Option(string? value = null, string? innerText = null) {
+    Value = value;
+    InnerText = innerText;
+  }
+
   //public Option(Select select) {
   //  Select = select;
   //}

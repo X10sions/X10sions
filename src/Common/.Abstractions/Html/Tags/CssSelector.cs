@@ -2,21 +2,21 @@
 
 namespace Common.Html.Tags;
 
-public class CssSelctor {
+public class CssSelector {
   //const string StyleDelimeter = ";";
   public const string Delimeter = ";";
 
-  CssSelctor(string selector) {
+  CssSelector(string selector) {
     Selector = selector;
   }
 
-  public CssSelctor(string selector, HashSet<Declaration> declarations) : this(selector) {
+  public CssSelector(string selector, HashSet<Declaration> declarations) : this(selector) {
     foreach (var d in declarations) {
       Declarations.Add(d);
     }
   }
 
-  public CssSelctor(string selector, string declaration) : this(selector) {
+  public CssSelector(string selector, string declaration) : this(selector) {
     foreach (var d in declaration.Split(';')) {
       var kvp = d.Split(':');
       Declarations.Add(new Declaration(kvp[0], kvp[1]));
@@ -54,7 +54,7 @@ public class CssSelctor {
     public string Property { get; set; }
     public string Value { get; set; }
 
-    public string ToHtml() => $"{Property}{Delimeter}{Value}{CssSelctor.Delimeter}";
+    public string ToHtml() => $"{Property}{Delimeter}{Value}{CssSelector.Delimeter}";
 
     //public static string DeclarationsToHtml(IEnumerable<StyleDeclaration> declarations) {
     //  var sb = new StringBuilder();

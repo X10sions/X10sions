@@ -12,7 +12,7 @@ public class Style : HtmlTag5Base<Style> {
   #region Attributes
 
   /// <summary>
-  /// Media type 
+  /// Media type
   /// </summary>
   public bool? Media { get => GetAttribute<bool?>(nameof(Media)); set => attributes[nameof(Media)] = value; }
 
@@ -26,7 +26,7 @@ public class Style : HtmlTag5Base<Style> {
   public override string ToHtml() => this.ToHtml(CssSelctorHtml());
 
 
-  public HashSet<CssSelctor> Selctors { get; set; } = new HashSet<CssSelctor>();
+  public HashSet<CssSelector> Selctors { get; set; } = new HashSet<CssSelector>();
   public string CssSelctorHtml() {
     var sb = new StringBuilder();
     foreach (var s in Selctors) {
