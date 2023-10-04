@@ -64,6 +64,7 @@ namespace Common.Structures {
     }
 
     public string YYYY_MM_DD(string separator = "-") => $"{YYYY:0000}{separator}{MM:00}{separator}{DD:00}";
+    public string DD_MM_YYYY(string separator = "-") => $"{DD:00}{separator}{MM:00}{separator}{YYYY:0000}";
 
     public static int GetCYYMM(int cyymmdd) => cyymmdd / 100;
     public static int GetDD(int cyymmdd) => cyymmdd % 100;
