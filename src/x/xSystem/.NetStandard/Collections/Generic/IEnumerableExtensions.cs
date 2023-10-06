@@ -55,6 +55,8 @@ namespace System.Collections.Generic {
     public static bool IsNullOrEmpty<T>(this IEnumerable<T>? source) => !source.HasAnyItems();
     public static bool IsNullOrWhiteSpace<T>(this IEnumerable<T>? source) => source == null || !source.Any(x => !string.IsNullOrWhiteSpace(x?.ToString()));
 
+    public static string Join<T>(this IEnumerable<T> values, string separator) => string.Join(separator, values);
+
     public static string JoinToCsv<T>(this IEnumerable<T> source, string separator = ",", string prefix = "", string? suffix = null) {
       suffix ??= prefix;
       return source.IsNullOrEmpty() ? string.Empty : prefix + string.Join(suffix + separator + prefix, source.Select(x => x?.ToString()).ToArray()) + suffix;
