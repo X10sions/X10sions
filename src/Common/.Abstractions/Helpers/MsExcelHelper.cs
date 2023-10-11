@@ -79,7 +79,6 @@ namespace Common.Helpers {
       public string ToCsvString => Version.ToVersionString() + ";" + (HasHeader ? "HDR=Yes;" : string.Empty) + (IMEX.HasValue ? $"IMEX={IMEX.Value};" : string.Empty);
 
     }
-
   }
 
   public static class MsExcelHelper_FileExtensionExtensions {

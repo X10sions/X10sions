@@ -1,11 +1,4 @@
-﻿//using AutoFixture;
-//using AutoFixture.AutoMoq;
-//using AutoFixture.Xunit2;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using Xunit;
-//using Xunit.Abstractions;
+﻿using Xunit;
 using Xunit.Extensions;
 
 namespace Common.Structures {
@@ -137,7 +130,7 @@ namespace Common.Structures {
   //  public void Constructor_AutoData(int c, int yy, int cyy, DateTime d) {
   //    // Arrange
   //    IntCYY actual = null;
-  //    // Act 
+  //    // Act
   //    var exceptionEmpty = Record.Exception(() => actual = new IntCYY());
   //    var exceptionCandYY = Record.Exception(() => actual = new IntCYY(c, yy));
   //    var exceptionCYY = Record.Exception(() => actual = new IntCYY(cyy));

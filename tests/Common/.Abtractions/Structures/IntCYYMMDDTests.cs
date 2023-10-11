@@ -1,44 +1,45 @@
-﻿using System;
+﻿using Common.Structures;
 using Xunit;
 
-namespace Common.Structures {
-  public class IntCYYMMDDTests {
+namespace Common.Abtractions.Structures;
+public class IntCYYMMDDTests {
 
-    [Fact]
-    public void ConstructorEmpty_DoesNotThrowAndHasDefaultValue() {
-      // Arrange & Act
-      IntCYYMMDD actual = null;
-      var exception = Record.Exception(() => actual = new IntCYYMMDD());
-      // Assert
-      Assert.Null(exception);
-      Assert.Equal(0, actual.CYYMMDD);
+  [Fact]
+  public void ConstructorEmpty_DoesNotThrowAndHasDefaultValue() {
+    // Arrange & Act
+    IntCYYMMDD actual = null;
+    var exception = Record.Exception(() => actual = new IntCYYMMDD());
+    // Assert
+    Assert.Null(exception);
+    Assert.Equal(0, actual.CYYMMDD);
+  }
+
+  [Theory, MemberData(nameof(TheoryDataItem.Instance), MemberType = typeof(TheoryDataItem))]
+  public void Constructor(TheoryDataItem data) {
+    Assert.Equal(data.ExpectedCYYMMDD, data.Actual.CYYMMDD);
+    Assert.Equal(data.ExpectedDay, data.Actual.Day);
+    Assert.Equal(data.ExpectedMonth, data.Actual.Month);
+    Assert.Equal(data.ExpectedYear, data.Actual.Year);
+  }
+
+
+  public class TheoryDataItem {
+    public TheoryDataItem(int expectedCYYMMDD, int expectedYear, int expectedMonth, int expectedDay, IntCYYMMDD actual, string testDescription) {
+      Actual = actual;
+      ExpectedCYYMMDD = expectedCYYMMDD;
+      ExpectedYear = expectedYear;
+      ExpectedMonth = expectedMonth;
+      ExpectedDay = expectedDay;
+      TestDescription = testDescription;
     }
+    public IntCYYMMDD Actual { get; set; }
+    public int ExpectedCYYMMDD { get; set; }
+    public int ExpectedDay { get; set; }
+    public int ExpectedMonth { get; set; }
+    public int ExpectedYear { get; set; }
+    public string TestDescription { get; set; }
 
-    [Theory, MemberData(nameof(TheoryDataItem.Instance), MemberType = typeof(TheoryDataItem))]
-    public void Constructor(TheoryDataItem data) {
-      Assert.Equal(data.ExpectedCYYMMDD, data.Actual.CYYMMDD);
-      Assert.Equal(data.ExpectedDay, data.Actual.Day);
-      Assert.Equal(data.ExpectedMonth, data.Actual.Month);
-      Assert.Equal(data.ExpectedYear, data.Actual.Year);
-    }
-
-    public class TheoryDataItem {
-      public TheoryDataItem(int expectedCYYMMDD, int expectedYear, int expectedMonth, int expectedDay, IntCYYMMDD actual, string testDescription) {
-        Actual = actual;
-        ExpectedCYYMMDD = expectedCYYMMDD;
-        ExpectedYear = expectedYear;
-        ExpectedMonth = expectedMonth;
-        ExpectedDay = expectedDay;
-        TestDescription = testDescription;
-      }
-      public IntCYYMMDD Actual { get; set; }
-      public int ExpectedCYYMMDD { get; set; }
-      public int ExpectedDay { get; set; }
-      public int ExpectedMonth { get; set; }
-      public int ExpectedYear { get; set; }
-      public string TestDescription { get; set; }
-
-      public static TheoryData<TheoryDataItem> Instance = new TheoryData<TheoryDataItem>{
+    public static TheoryData<TheoryDataItem> Instance = new TheoryData<TheoryDataItem>{
         new TheoryDataItem (      0, 1900,  1,  1, new IntCYYMMDD()                          , "Default"),
         new TheoryDataItem (1000000, 1900,  1,  1, new IntCYYMMDD{ C = 1 }                   , "Default: Set C"),
         new TheoryDataItem (1010000, 2001,  1,  1, new IntCYYMMDD{ CYY = 101 }               , "Default: Set CYY"),
@@ -69,7 +70,7 @@ namespace Common.Structures {
 
       new IntCYYMMDDTheoryDataItem(IntCYYMMDD._MinCYYMMDD, new DateTime(1900,  1,  1), null        , DateTime.MinValue.Date),
       new IntCYYMMDDTheoryDataItem(IntCYYMMDD._MaxCYYMMDD, new DateTime(8099, 12, 31), null        , DateTime.MaxValue.Date    ),
-        
+
          */
 
 
@@ -136,7 +137,7 @@ namespace Common.Structures {
         //new TheoryDataItem (999, 2899, new IntCYYMMDD(10, 100)                   , "C: max + 1, yy: Max"),
 
         /*
-  
+
       new IntCYYMMDDTheoryDataItem(IntCYYMMDD._MinCYYMMDD, new DateTime(1900,  1,  1), int.MinValue),
       new IntCYYMMDDTheoryDataItem(IntCYYMMDD._MinCYYMMDD, new DateTime(1900,  1,  1), -1),
       new IntCYYMMDDTheoryDataItem(IntCYYMMDD._MinCYYMMDD, new DateTime(1900,  1,  1), 0),
@@ -148,71 +149,72 @@ namespace Common.Structures {
 
 
       };
-    }
-
-
-    [Theory, MemberData(nameof(IntCYYMMDDTheoryDataItem.Instance), MemberType = typeof(IntCYYMMDDTheoryDataItem))]
-    public void ConstructorCYYMMDD(IntCYYMMDDTheoryDataItem data) {
-      // Arrange & Act
-      var actual = new IntCYYMMDD(data.Test.CYYMMDD);
-      // Assert 
-      Assert.Equal(data.Expected.DD, actual.DD);
-      Assert.Equal(data.Expected.Date.Day, actual.Day);
-      Assert.Equal(data.Expected.Date, actual.Date);
-      Assert.Equal(data.Expected.CYYMMDD, actual.CYYMMDD);
-    }
-
-    [Theory, MemberData(nameof(IntCYYMMDDTheoryDataItem.Instance), MemberType = typeof(IntCYYMMDDTheoryDataItem))]
-    public void ConstructorDate(IntCYYMMDDTheoryDataItem data) {
-      // Arrange & Act
-      var actual = new IntCYYMMDD(data.Test.Date);
-      // Assert 
-      Assert.Equal(data.Expected.DD, actual.DD);
-      Assert.Equal(data.Expected.Date.Day, actual.Day);
-      Assert.Equal(data.Expected.Date, actual.Date);
-      Assert.Equal(data.Expected.CYYMMDD, actual.CYYMMDD);
-    }
-
-    [Theory, MemberData(nameof(IntCYYMMDDTheoryDataItem.Instance), MemberType = typeof(IntCYYMMDDTheoryDataItem))]
-    public void ConstructorYearAndMonthAndDay(IntCYYMMDDTheoryDataItem data) {
-      // Arrange & Act
-      var actual = new IntCYYMMDD(data.Test.Date.Year, data.Test.Date.Month, data.Test.Date.Day);
-      // Assert 
-      Assert.Equal(data.Expected.DD, actual.DD);
-      Assert.Equal(data.Expected.Date.Day, actual.Day);
-      Assert.Equal(data.Expected.Date, actual.Date);
-      Assert.Equal(data.Expected.CYYMMDD, actual.CYYMMDD);
-    }
-
-    [Theory, MemberData(nameof(IntCYYMMDDTheoryDataItem.Instance), MemberType = typeof(IntCYYMMDDTheoryDataItem))]
-    public void ConstructorCandYYandMMandDD(IntCYYMMDDTheoryDataItem data) {
-      // Arrange & Act
-      var actual = new IntCYYMMDD(data.Test.C, data.Test.YY, data.Test.MM, data.Test.DD);
-      // Assert 
-      Assert.Equal(data.Expected.DD, actual.DD);
-      Assert.Equal(data.Expected.Date.Day, actual.Day);
-      Assert.Equal(data.Expected.Date, actual.Date);
-      Assert.Equal(data.Expected.CYYMMDD, actual.CYYMMDD);
-    }
-
-    [Theory, MemberData(nameof(IntCYYMMDDTheoryDataItem.Instance), MemberType = typeof(IntCYYMMDDTheoryDataItem))] public void SetDD(IntCYYMMDDTheoryDataItem data) => Assert.Equal(data.Expected.DD, new IntCYYMMDD { DD = data.Test.DD }.DD);
-    [Theory, MemberData(nameof(IntCYYMMDDTheoryDataItem.Instance), MemberType = typeof(IntCYYMMDDTheoryDataItem))] public void SetDay(IntCYYMMDDTheoryDataItem data) => Assert.Equal(data.Expected.Date.Day, new IntCYYMMDD { Day = data.Test.Date.Day }.Day);
-    [Theory, MemberData(nameof(IntCYYMMDDTheoryDataItem.Instance), MemberType = typeof(IntCYYMMDDTheoryDataItem))] public void SetDate(IntCYYMMDDTheoryDataItem data) => Assert.Equal(data.Expected.Date, new IntCYYMMDD() { Date = data.Test.Date }.Date);
-    [Theory, MemberData(nameof(IntCYYMMDDTheoryDataItem.Instance), MemberType = typeof(IntCYYMMDDTheoryDataItem))] public void SetCYYMMDD(IntCYYMMDDTheoryDataItem data) => Assert.Equal(data.Expected.CYYMMDD, new IntCYYMMDD { CYYMMDD = data.Test.CYYMMDD }.CYYMMDD);
-
-
   }
 
-  public class IntCYYMMDDTheoryDataItem {
-    public IntCYYMMDDTheoryDataItem(int expectedCYYMMDD, DateTime expectedDate, int? testCyymmdd = null, DateTime? testDate = null) {
-      Expected = new TheoryDataItem(expectedCYYMMDD, expectedDate);
-      Test = new TheoryDataItem(testCyymmdd ?? expectedCYYMMDD, testDate ?? expectedDate);
-    }
 
-    public TheoryDataItem Test { get; set; }
-    public TheoryDataItem Expected { get; set; }
+  [Theory, MemberData(nameof(IntCYYMMDDTheoryDataItem.Instance), MemberType = typeof(IntCYYMMDDTheoryDataItem))]
+  public void ConstructorCYYMMDD(IntCYYMMDDTheoryDataItem data) {
+    // Arrange & Act
+    var actual = new IntCYYMMDD(data.Test.CYYMMDD);
+    // Assert
+    Assert.Equal(data.Expected.DD, actual.DD);
+    Assert.Equal(data.Expected.Date.Day, actual.Day);
+    Assert.Equal(data.Expected.Date, actual.Date);
+    Assert.Equal(data.Expected.CYYMMDD, actual.CYYMMDD);
+  }
 
-    public static TheoryData<IntCYYMMDDTheoryDataItem> Instance => new TheoryData<IntCYYMMDDTheoryDataItem> {
+  [Theory, MemberData(nameof(IntCYYMMDDTheoryDataItem.Instance), MemberType = typeof(IntCYYMMDDTheoryDataItem))]
+  public void ConstructorDate(IntCYYMMDDTheoryDataItem data) {
+    // Arrange & Act
+    var actual = new IntCYYMMDD(data.Test.Date);
+    // Assert
+    Assert.Equal(data.Expected.DD, actual.DD);
+    Assert.Equal(data.Expected.Date.Day, actual.Day);
+    Assert.Equal(data.Expected.Date, actual.Date);
+    Assert.Equal(data.Expected.CYYMMDD, actual.CYYMMDD);
+  }
+
+  [Theory, MemberData(nameof(IntCYYMMDDTheoryDataItem.Instance), MemberType = typeof(IntCYYMMDDTheoryDataItem))]
+  public void ConstructorYearAndMonthAndDay(IntCYYMMDDTheoryDataItem data) {
+    // Arrange & Act
+    var actual = new IntCYYMMDD(data.Test.Date.Year, data.Test.Date.Month, data.Test.Date.Day);
+    // Assert
+    Assert.Equal(data.Expected.DD, actual.DD);
+    Assert.Equal(data.Expected.Date.Day, actual.Day);
+    Assert.Equal(data.Expected.Date, actual.Date);
+    Assert.Equal(data.Expected.CYYMMDD, actual.CYYMMDD);
+  }
+
+  [Theory, MemberData(nameof(IntCYYMMDDTheoryDataItem.Instance), MemberType = typeof(IntCYYMMDDTheoryDataItem))]
+  public void ConstructorCandYYandMMandDD(IntCYYMMDDTheoryDataItem data) {
+    // Arrange & Act
+    var actual = new IntCYYMMDD(data.Test.C, data.Test.YY, data.Test.MM, data.Test.DD);
+    // Assert
+    Assert.Equal(data.Expected.DD, actual.DD);
+    Assert.Equal(data.Expected.Date.Day, actual.Day);
+    Assert.Equal(data.Expected.Date, actual.Date);
+    Assert.Equal(data.Expected.CYYMMDD, actual.CYYMMDD);
+  }
+
+  [Theory, MemberData(nameof(IntCYYMMDDTheoryDataItem.Instance), MemberType = typeof(IntCYYMMDDTheoryDataItem))] public void SetDD(IntCYYMMDDTheoryDataItem data) => Assert.Equal(data.Expected.DD, new IntCYYMMDD { DD = data.Test.DD }.DD);
+  [Theory, MemberData(nameof(IntCYYMMDDTheoryDataItem.Instance), MemberType = typeof(IntCYYMMDDTheoryDataItem))] public void SetDay(IntCYYMMDDTheoryDataItem data) => Assert.Equal(data.Expected.Date.Day, new IntCYYMMDD { Day = data.Test.Date.Day }.Day);
+  [Theory, MemberData(nameof(IntCYYMMDDTheoryDataItem.Instance), MemberType = typeof(IntCYYMMDDTheoryDataItem))] public void SetDate(IntCYYMMDDTheoryDataItem data) => Assert.Equal(data.Expected.Date, new IntCYYMMDD() { Date = data.Test.Date }.Date);
+  [Theory, MemberData(nameof(IntCYYMMDDTheoryDataItem.Instance), MemberType = typeof(IntCYYMMDDTheoryDataItem))] public void SetCYYMMDD(IntCYYMMDDTheoryDataItem data) => Assert.Equal(data.Expected.CYYMMDD, new IntCYYMMDD { CYYMMDD = data.Test.CYYMMDD }.CYYMMDD);
+
+
+
+}
+
+public class IntCYYMMDDTheoryDataItem {
+  public IntCYYMMDDTheoryDataItem(int expectedCYYMMDD, DateTime expectedDate, int? testCyymmdd = null, DateTime? testDate = null) {
+    Expected = new TheoryDataItem(expectedCYYMMDD, expectedDate);
+    Test = new TheoryDataItem(testCyymmdd ?? expectedCYYMMDD, testDate ?? expectedDate);
+  }
+
+  public TheoryDataItem Test { get; set; }
+  public TheoryDataItem Expected { get; set; }
+
+  public static TheoryData<IntCYYMMDDTheoryDataItem> Instance => new TheoryData<IntCYYMMDDTheoryDataItem> {
       new IntCYYMMDDTheoryDataItem(    101               , new DateTime(1900,  1,  1)),
       new IntCYYMMDDTheoryDataItem(  10101               , new DateTime(1901,  1,  1)),
       new IntCYYMMDDTheoryDataItem( 990799               , new DateTime(1999,  7, 31)),
@@ -235,27 +237,22 @@ namespace Common.Structures {
                                                                     //new IntCYYMMDDTheoryDataItem(IntCYYMMDD._MaxCYYMMDD, new DateTime(9999, 12, 31),null  , DateTime.MaxValue.Date    )
     };
 
-    public class TheoryDataItem {
-      public TheoryDataItem(int cyymmdd, DateTime date) {
-        CYYMMDD = cyymmdd;
-        Date = date;
-      }
-      public int CYYMMDD { get; set; }
-      public DateTime Date { get; set; }
-
-      public int C => CYY / 100;
-      public int CYY => CYYMM / 100;
-      public int CYYMM => CYYMMDD / 100;
-
-      public int YY => CYY % 100;
-      public int MM => CYYMM % 100;
-      public int DD => CYYMMDD % 100;
-
-      public int CYYMM00 => CYYMM * 100;
-      public int CYYMM01 => CYYMM00 + 1;
-      public int CYYMM99 => CYYMM00 + 99;
-
+  public class TheoryDataItem {
+    public TheoryDataItem(int cyymmdd, DateTime date) {
+      CYYMMDD = cyymmdd;
+      Date = date;
     }
-
+    public int CYYMMDD { get; set; }
+    public DateTime Date { get; set; }
+    public int C => CYY / 100;
+    public int CYY => CYYMM / 100;
+    public int CYYMM => CYYMMDD / 100;
+    public int YY => CYY % 100;
+    public int MM => CYYMM % 100;
+    public int DD => CYYMMDD % 100;
+    public int CYYMM00 => CYYMM * 100;
+    public int CYYMM01 => CYYMM00 + 1;
+    public int CYYMM99 => CYYMM00 + 99;
   }
+
 }

@@ -1,5 +1,4 @@
-﻿using System;
-using Xunit;
+﻿using Xunit;
 
 namespace Common.Structures {
   public class IntCYYMMTests {
@@ -18,7 +17,7 @@ namespace Common.Structures {
     //public void ConstructorDate(IntCYYMMDDTheoryDataItem data) {
     //  // Arrange & Act
     //  var actual = new IntCYYMM(data.Test.Date);
-    //  // Assert 
+    //  // Assert
     //  Assert.Equal(data.Expected.CYYMM, actual.CYYMM);
     //  Assert.Equal(data.Expected.CYYMM00, actual.CYYMM00);
     //  Assert.Equal(data.Expected.CYYMM01, actual.CYYMM01);
@@ -31,7 +30,7 @@ namespace Common.Structures {
     //public void ConstructorCYYMM(IntCYYMMDDTheoryDataItem data) {
     //  // Arrange & Act
     //  var actual = new IntCYYMM(data.Test.CYYMM);
-    //  // Assert 
+    //  // Assert
     //  Assert.Equal(data.Expected.CYYMM, actual.CYYMM);
     //  Assert.Equal(data.Expected.CYYMM00, actual.CYYMM00);
     //  Assert.Equal(data.Expected.CYYMM01, actual.CYYMM01);
@@ -44,7 +43,7 @@ namespace Common.Structures {
     //public void ConstructorYearAndMonth(IntCYYMMDDTheoryDataItem data) {
     //  // Arrange & Act
     //  var actual = new IntCYYMM(data.Test.Date.Year, data.Test.Date.Month);
-    //  // Assert 
+    //  // Assert
     //  Assert.Equal(data.Expected.CYYMM, actual.CYYMM);
     //  Assert.Equal(data.Expected.CYYMM00, actual.CYYMM00);
     //  Assert.Equal(data.Expected.CYYMM01, actual.CYYMM01);
@@ -57,7 +56,7 @@ namespace Common.Structures {
     //public void ConstructorCandYYandMM(IntCYYMMDDTheoryDataItem data) {
     //  // Arrange & Act
     //  var actual = new IntCYYMM(data.Test.C, data.Test.YY, data.Test.MM);
-    //  // Assert 
+    //  // Assert
     //  Assert.Equal(data.Expected.CYYMM, actual.CYYMM);
     //  Assert.Equal(data.Expected.CYYMM00, actual.CYYMM00);
     //  Assert.Equal(data.Expected.CYYMM01, actual.CYYMM01);
@@ -161,7 +160,7 @@ namespace Common.Structures {
         //new TheoryDataItem (999, 2899, new IntCYYMM(10, 100)                   , "C: max + 1, yy: Max"),
 
         /*
-  
+
       new IntCYYMMDDTheoryDataItem(IntCYYMMDD._MinCYYMMDD, new DateTime(1900,  1,  1), int.MinValue),
       new IntCYYMMDDTheoryDataItem(IntCYYMMDD._MinCYYMMDD, new DateTime(1900,  1,  1), -1),
       new IntCYYMMDDTheoryDataItem(IntCYYMMDD._MinCYYMMDD, new DateTime(1900,  1,  1), 0),
