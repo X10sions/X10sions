@@ -6,6 +6,9 @@ using System.Xml.Serialization;
 namespace System;
 public static class ObjectExtensions {
 
+  public static bool IsNull(this object value) => value is null;
+  //public static bool IsTrue(this bool value) => value;
+
   ///public static string IfNullToString(this object value, string valueIfNull) => value == null ? valueIfNull : value.ToString();
 
   //public static T? ToEnum<T>(this object? value) where T : struct {

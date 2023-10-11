@@ -11,6 +11,18 @@ public static class IDictionaryExtensions {
     return value is not T ? defaultValue : (T)value;
   }
 
+  public static TResult GetOrAdd<TKey, TResult>(this IDictionary dictionary, TKey key, Func<TResult> valueFunction) {
+    var value = dictionary[key];
+    TResult tValue;
+    if (value is not TResult) {
+      tValue = valueFunction();
+      dictionary[key] = valueFunction();
+    } else {
+      tValue = (TResult)value;
+    }
+    return tValue;
+  }
+
   public static T? GetOrCreate<T>(this IDictionary dictionary, Func<T> setFunc) => dictionary.GetOrCreate(typeof(T).FullName ?? typeof(T).Name, setFunc);
 
   public static T? GetOrCreate<T>(this IDictionary dictionary, string key, Func<T> setFunc) {
