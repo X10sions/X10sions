@@ -1,5 +1,6 @@
 ﻿namespace Common.Structures {
   public class IntCYY : IFormattable {
+    public IntCYY() : this(DateTime.Now) { }
     public IntCYY(int c, int yy) {
       C = c;
       YY = yy;
@@ -12,7 +13,7 @@
     public static readonly int MaxC = 9;
 
     public static readonly int MinYY = 0;
-    public static readonly int  MaxYY = 99;
+    public static readonly int MaxYY = 99;
 
     public static readonly int MinCYY = 0;
     public static readonly int MaxCYY = 999;
@@ -22,13 +23,13 @@
 
     //public const IntCYY MinValue = new IntCYY(0);
     //public const IntCYY MaxValue = new IntCYY(999);
-   
+
     public static readonly IntCYY? MinValue = new IntCYY(0);
     public static readonly IntCYY? MaxValue = new IntCYY(999);
     #endregion
 
-    int c ;
-    int yy ;
+    int c;
+    int yy;
 
     /// <summary>
     /// Centuries after 1900

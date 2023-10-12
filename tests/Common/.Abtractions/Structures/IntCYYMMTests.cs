@@ -72,8 +72,8 @@ namespace Common.Structures {
     [Theory, MemberData(nameof(TheoryDataItem.Instance), MemberType = typeof(TheoryDataItem))]
     public void Constructor(TheoryDataItem data) {
       Assert.Equal(data.ExpectedCYYMM, data.Actual.CYYMM);
-      Assert.Equal(data.ExpectedYear, data.Actual.Year);
-      Assert.Equal(data.ExpectedMonth, data.Actual.Month);
+      Assert.Equal(data.ExpectedYear, data.Actual.YYYY);
+      Assert.Equal(data.ExpectedMonth, data.Actual.MM);
     }
 
     public class TheoryDataItem {
@@ -95,8 +95,8 @@ namespace Common.Structures {
         new TheoryDataItem (10000, 2000,  1, new IntCYYMM{ C = 1 }                   , "Default: Set C"),
         new TheoryDataItem (10100, 2001,  1, new IntCYYMM{ CYY = 101 }               , "Default: Set CYY"),
         new TheoryDataItem (10799, 2007, 12, new IntCYYMM{ CYYMM = 10799 }           , "Default: Set CYYMM"),
-        new TheoryDataItem ( 9900, 1999,  1, new IntCYYMM{ Year = 1999 }             , "Default: Set Year"),
-        new TheoryDataItem (    5, 1999,  5, new IntCYYMM{ Month = 5 }               , "Default: Set Month"),
+        new TheoryDataItem ( 9900, 1999,  1, new IntCYYMM{ YYYY = 1999 }             , "Default: Set Year"),
+        new TheoryDataItem (    5, 1999,  5, new IntCYYMM{ MM = 5 }               , "Default: Set Month"),
         new TheoryDataItem ( 9900, 1999,  1, new IntCYYMM{ YY   = 99 }               , "Default: Set YY"),
 
 
@@ -140,12 +140,11 @@ namespace Common.Structures {
         new TheoryDataItem (99912, 2899, 12, new IntCYYMM(99912)                       , "Int: Max IntCYYMM" ),
         new TheoryDataItem (99912, 2899, 12, new IntCYYMM(100012)                      , "Int: Max IntCYYMM + 1" ),
 
-
-        new TheoryDataItem (  0, 1900,  1, new IntCYYMM(-1,  -1)                   , "C: min - 1, yy: min - 1"),
-        new TheoryDataItem (  0, 1900,  1, new IntCYYMM(-1,   0)                   , "C: min - 1, yy: min    "),
-        new TheoryDataItem (  1, 1901,  1, new IntCYYMM(-1,   1)                   , "C: min - 1, yy: min + 1"),
-        new TheoryDataItem (  0, 1900,  1, new IntCYYMM( 0,  -1)                   , "C: min    , yy: min - 1"),
-        new TheoryDataItem (  0, 1900,  1, new IntCYYMM( 0,   0)                   , "C: min    , yy: min    "),
+        new TheoryDataItem (  0, 1900,  1, new IntCYYMM(0,-1,  -1)                   , "C: min - 1, yy: min - 1"),
+        new TheoryDataItem (  0, 1900,  1, new IntCYYMM(0,-1,   0)                   , "C: min - 1, yy: min    "),
+        new TheoryDataItem (  1, 1901,  1, new IntCYYMM(0,-1,   1)                   , "C: min - 1, yy: min + 1"),
+        new TheoryDataItem (  0, 1900,  1, new IntCYYMM(0, 0,  -1)                   , "C: min    , yy: min - 1"),
+        new TheoryDataItem (  0, 1900,  1, new IntCYYMM(0, 0,   0)                   , "C: min    , yy: min    "),
         //new TheoryDataItem (  1, 1901, new IntCYYMM( 0,   1)                   , "C: min    , yy: min + 1"),
         //new TheoryDataItem ( 98, 1998, new IntCYYMM( 0,  98)                   , "C: min    , yy: max - 1"),
         //new TheoryDataItem ( 99, 1999, new IntCYYMM( 0,  99)                   , "C: min    , yy: max    "),

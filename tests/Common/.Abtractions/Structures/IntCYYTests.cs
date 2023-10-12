@@ -17,15 +17,15 @@ namespace Common.Structures {
     [Theory, MemberData(nameof(TheoryItem.MemberData), MemberType = typeof(TheoryItem))]
     public void Constructor(TheoryItem data) {
       Assert.Equal(data.ExpectedCYY, data.Actual.CYY);
-      Assert.Equal(data.ExpectedYear, data.Actual.Year);
+      Assert.Equal(data.ExpectedYear, data.Actual.YYYY);
     }
 
     public static (int ExpectedCYY, int ExpectedYear, IntCYY Actual, string TestDescription)[] TheoryData = {
         (  0, 1900, new IntCYY()                          , "Default"),
-        (100, 2000, new IntCYY{ C = 1 }                   , "Default: Set C"),
-        (101, 2001, new IntCYY{ CYY = 101 }               , "Default: Set CYY"),
-        ( 99, 1999, new IntCYY{ Year = 1999 }             , "Default: Set Year"),
-        ( 99, 1999, new IntCYY{ YY   = 99 }               , "Default: Set YY"),
+        (100, 2000, new IntCYY( 1, 0)                     , "Default: Set C"),
+        (101, 2001, new IntCYY(  101 )                    , "Default: Set CYY"),
+        ( 99, 1999, new IntCYY{ YYYY = 1999 }             , "Default: Set Year"),
+        ( 99, 1999, new IntCYY(0, 99 )                    , "Default: Set YY"),
 
         (  0, 1900, new IntCYY(DateTime.MinValue)         , "DateTime: Min"),
         (999, 2899, new IntCYY(DateTime.MaxValue)         , "DateTime: Max"),

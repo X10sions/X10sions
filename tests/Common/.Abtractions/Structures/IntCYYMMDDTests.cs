@@ -17,9 +17,9 @@ public class IntCYYMMDDTests {
   [Theory, MemberData(nameof(TheoryDataItem.Instance), MemberType = typeof(TheoryDataItem))]
   public void Constructor(TheoryDataItem data) {
     Assert.Equal(data.ExpectedCYYMMDD, data.Actual.CYYMMDD);
-    Assert.Equal(data.ExpectedDay, data.Actual.Day);
-    Assert.Equal(data.ExpectedMonth, data.Actual.Month);
-    Assert.Equal(data.ExpectedYear, data.Actual.Year);
+    Assert.Equal(data.ExpectedDay, data.Actual.DD);
+    Assert.Equal(data.ExpectedMonth, data.Actual.MM);
+    Assert.Equal(data.ExpectedYear, data.Actual.YYYY);
   }
 
 
@@ -45,9 +45,9 @@ public class IntCYYMMDDTests {
         new TheoryDataItem (1010000, 2001,  1,  1, new IntCYYMMDD{ CYY = 101 }               , "Default: Set CYY"),
         new TheoryDataItem (1079900, 2007, 12,  1, new IntCYYMMDD{ CYYMM = 10799 }           , "Default: Set CYYMM"),
         new TheoryDataItem (1079999, 2007, 12, 31, new IntCYYMMDD{ CYYMM = 1079999 }         , "Default: Set CYYMMDD"),
-        new TheoryDataItem ( 990000, 1999,  1,  1, new IntCYYMMDD{ Year = 1999 }             , "Default: Set Year"),
-        new TheoryDataItem (    500, 1900,  5,  1, new IntCYYMMDD{ Month = 5 }               , "Default: Set Month"),
-        new TheoryDataItem (      5, 1900,  5, 25, new IntCYYMMDD{ Day = 25 }                , "Default: Set Month"),
+        new TheoryDataItem ( 990000, 1999,  1,  1, new IntCYYMMDD{ YYYY = 1999 }             , "Default: Set Year"),
+        new TheoryDataItem (    500, 1900,  5,  1, new IntCYYMMDD{ MM = 5 }               , "Default: Set Month"),
+        new TheoryDataItem (      5, 1900,  5, 25, new IntCYYMMDD{ DD = 25 }                , "Default: Set Month"),
         new TheoryDataItem ( 990000, 1999,  1,  1, new IntCYYMMDD{ YY   = 99 }               , "Default: Set YY"),
 
 
@@ -158,7 +158,7 @@ public class IntCYYMMDDTests {
     var actual = new IntCYYMMDD(data.Test.CYYMMDD);
     // Assert
     Assert.Equal(data.Expected.DD, actual.DD);
-    Assert.Equal(data.Expected.Date.Day, actual.Day);
+    Assert.Equal(data.Expected.Date.Day, actual.DD);
     Assert.Equal(data.Expected.Date, actual.Date);
     Assert.Equal(data.Expected.CYYMMDD, actual.CYYMMDD);
   }
@@ -169,7 +169,7 @@ public class IntCYYMMDDTests {
     var actual = new IntCYYMMDD(data.Test.Date);
     // Assert
     Assert.Equal(data.Expected.DD, actual.DD);
-    Assert.Equal(data.Expected.Date.Day, actual.Day);
+    Assert.Equal(data.Expected.Date.Day, actual.DD);
     Assert.Equal(data.Expected.Date, actual.Date);
     Assert.Equal(data.Expected.CYYMMDD, actual.CYYMMDD);
   }
@@ -180,7 +180,7 @@ public class IntCYYMMDDTests {
     var actual = new IntCYYMMDD(data.Test.Date.Year, data.Test.Date.Month, data.Test.Date.Day);
     // Assert
     Assert.Equal(data.Expected.DD, actual.DD);
-    Assert.Equal(data.Expected.Date.Day, actual.Day);
+    Assert.Equal(data.Expected.Date.Day, actual.DD);
     Assert.Equal(data.Expected.Date, actual.Date);
     Assert.Equal(data.Expected.CYYMMDD, actual.CYYMMDD);
   }
@@ -191,13 +191,13 @@ public class IntCYYMMDDTests {
     var actual = new IntCYYMMDD(data.Test.C, data.Test.YY, data.Test.MM, data.Test.DD);
     // Assert
     Assert.Equal(data.Expected.DD, actual.DD);
-    Assert.Equal(data.Expected.Date.Day, actual.Day);
+    Assert.Equal(data.Expected.Date.Day, actual.DD);
     Assert.Equal(data.Expected.Date, actual.Date);
     Assert.Equal(data.Expected.CYYMMDD, actual.CYYMMDD);
   }
 
   [Theory, MemberData(nameof(IntCYYMMDDTheoryDataItem.Instance), MemberType = typeof(IntCYYMMDDTheoryDataItem))] public void SetDD(IntCYYMMDDTheoryDataItem data) => Assert.Equal(data.Expected.DD, new IntCYYMMDD { DD = data.Test.DD }.DD);
-  [Theory, MemberData(nameof(IntCYYMMDDTheoryDataItem.Instance), MemberType = typeof(IntCYYMMDDTheoryDataItem))] public void SetDay(IntCYYMMDDTheoryDataItem data) => Assert.Equal(data.Expected.Date.Day, new IntCYYMMDD { Day = data.Test.Date.Day }.Day);
+  [Theory, MemberData(nameof(IntCYYMMDDTheoryDataItem.Instance), MemberType = typeof(IntCYYMMDDTheoryDataItem))] public void SetDay(IntCYYMMDDTheoryDataItem data) => Assert.Equal(data.Expected.Date.Day, new IntCYYMMDD { DD = data.Test.Date.Day }.DD);
   [Theory, MemberData(nameof(IntCYYMMDDTheoryDataItem.Instance), MemberType = typeof(IntCYYMMDDTheoryDataItem))] public void SetDate(IntCYYMMDDTheoryDataItem data) => Assert.Equal(data.Expected.Date, new IntCYYMMDD() { Date = data.Test.Date }.Date);
   [Theory, MemberData(nameof(IntCYYMMDDTheoryDataItem.Instance), MemberType = typeof(IntCYYMMDDTheoryDataItem))] public void SetCYYMMDD(IntCYYMMDDTheoryDataItem data) => Assert.Equal(data.Expected.CYYMMDD, new IntCYYMMDD { CYYMMDD = data.Test.CYYMMDD }.CYYMMDD);
 
@@ -224,16 +224,16 @@ public class IntCYYMMDDTheoryDataItem {
       new IntCYYMMDDTheoryDataItem(1200520               , new DateTime(2020,  5, 20)),
       new IntCYYMMDDTheoryDataItem(1210229               , new DateTime(2021,  2, 28)),
 
-      new IntCYYMMDDTheoryDataItem(IntCYYMMDD._MinCYYMMDD, new DateTime(1900,  1,  1), int.MinValue),
-      new IntCYYMMDDTheoryDataItem(IntCYYMMDD._MinCYYMMDD, new DateTime(1900,  1,  1), -1),
-      new IntCYYMMDDTheoryDataItem(IntCYYMMDD._MinCYYMMDD, new DateTime(1900,  1,  1), 0),
+      new IntCYYMMDDTheoryDataItem(IntCYYMMDD.MinCYYMMDD, new DateTime(1900,  1,  1), int.MinValue),
+      new IntCYYMMDDTheoryDataItem(IntCYYMMDD.MinCYYMMDD, new DateTime(1900,  1,  1), -1),
+      new IntCYYMMDDTheoryDataItem(IntCYYMMDD.MinCYYMMDD, new DateTime(1900,  1,  1), 0),
       new IntCYYMMDDTheoryDataItem(      1               , new DateTime(1900,  1,  1), 1),
       new IntCYYMMDDTheoryDataItem(9991231               , new DateTime(2899, 12, 31), int.MaxValue),
       new IntCYYMMDDTheoryDataItem(9991231               , new DateTime(2899, 12, 31)),
-      new IntCYYMMDDTheoryDataItem(IntCYYMMDD._MaxCYYMMDD, new DateTime(2899, 12, 31)),
+      new IntCYYMMDDTheoryDataItem(IntCYYMMDD.MaxCYYMMDD, new DateTime(2899, 12, 31)),
 
-      new IntCYYMMDDTheoryDataItem(IntCYYMMDD._MinCYYMMDD, new DateTime(1900,  1,  1), null        , DateTime.MinValue.Date),
-      new IntCYYMMDDTheoryDataItem(IntCYYMMDD._MaxCYYMMDD, new DateTime(8099, 12, 31), null        , DateTime.MaxValue.Date    ),
+      new IntCYYMMDDTheoryDataItem(IntCYYMMDD.MinCYYMMDD, new DateTime(1900,  1,  1), null        , DateTime.MinValue.Date),
+      new IntCYYMMDDTheoryDataItem(IntCYYMMDD.MaxCYYMMDD, new DateTime(8099, 12, 31), null        , DateTime.MaxValue.Date    ),
                                                                     //new IntCYYMMDDTheoryDataItem(IntCYYMMDD._MaxCYYMMDD, new DateTime(9999, 12, 31),null  , DateTime.MaxValue.Date    )
     };
 
