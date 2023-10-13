@@ -63,7 +63,7 @@ namespace Common.Structures {
 
     public DateTime? Date {
       get {
-        var isDate = DateTime.TryParse($"YYYY-MM-DD", out var dt);
+        var isDate = DateTime.TryParse(YYYY_MM_DD(), out var dt);
         return isDate ? dt.Date : null;
       }
       set {
