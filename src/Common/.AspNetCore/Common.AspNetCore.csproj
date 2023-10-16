@@ -6,6 +6,11 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="Features\DummyFakeExamples\ToDo\List\**" />
+    <EmbeddedResource Remove="Features\DummyFakeExamples\ToDo\List\**" />
+    <None Remove="Features\DummyFakeExamples\ToDo\List\**" />
+  </ItemGroup>
   <ItemGroup Label="FrameworkReferences">
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>

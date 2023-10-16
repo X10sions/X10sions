@@ -10,13 +10,12 @@
     <VersionPart1>6</VersionPart1>
     <Nullable>enable</Nullable>
   </PropertyGroup>
-  <ItemGroup Label="ProjectReferences">
-    <ProjectReference Include="..\..\Common\.Abstractions\Common.Abstractions.csproj" />
-  </ItemGroup>
   <ItemGroup>
-    <Folder Include="Data\Entities\Services\ToDo\List\" />
     <Folder Include="_\Common\Data\Entities\" />
     <Folder Include="_\Common\Data\Repositories\" />
     <Folder Include="_\Common\Data\Specification\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\.AspNetCore\Common.AspNetCore.csproj" />
   </ItemGroup>
 </Project>

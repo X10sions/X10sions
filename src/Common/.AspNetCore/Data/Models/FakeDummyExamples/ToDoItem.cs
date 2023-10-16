@@ -1,0 +1,2 @@
+﻿namespace CleanOnionExample.Data.Entities;
+
