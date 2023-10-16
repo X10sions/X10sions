@@ -1,11 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup Label="Application">
     <TargetFramework>netstandard2.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
     <Product>Common Abstractions NetStandard</Product>
     <VersionPart1>1</VersionPart1>
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup Label="ProjectReferences">
     <ProjectReference Include="..\..\x\xSystem\.NetStandard\xSystem.NetStandard.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Features\DummyFakeExamples\WeatherForecast\" />
   </ItemGroup>
 </Project>

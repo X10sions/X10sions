@@ -11,9 +11,15 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
-    <Folder Include="_\Common\Data\Entities\" />
-    <Folder Include="_\Common\Data\Repositories\" />
-    <Folder Include="_\Common\Data\Specification\" />
+    <Compile Remove="_\Common\Data\Entities\**" />
+    <Compile Remove="_\Common\Data\Repositories\**" />
+    <Compile Remove="_\Common\Data\Specification\**" />
+    <EmbeddedResource Remove="_\Common\Data\Entities\**" />
+    <EmbeddedResource Remove="_\Common\Data\Repositories\**" />
+    <EmbeddedResource Remove="_\Common\Data\Specification\**" />
+    <None Remove="_\Common\Data\Entities\**" />
+    <None Remove="_\Common\Data\Repositories\**" />
+    <None Remove="_\Common\Data\Specification\**" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Common\.AspNetCore\Common.AspNetCore.csproj" />
