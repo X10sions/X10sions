@@ -1,4 +1,4 @@
-﻿namespace Common.Data.ValueObjects;
+﻿namespace Common.Domain.ValueObjects;
 public class Colour : BaseValueObject {
   static Colour() { }
   private Colour() { }

@@ -39,7 +39,6 @@
     -->
     <ProjectReference Include="..\..\..\..\EntityFrameworkCore.Jet.git\src\EFCore.Jet\EFCore.Jet.csproj" />
     <ProjectReference Include="..\..\x\xLinqToDB\.AspNet\xLinqToDB.AspNet.csproj" />
-    <ProjectReference Include="..\.L01.Abstractions\CleanOnionExample.L01.Abstractions.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Data\Models\" />

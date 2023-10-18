@@ -6,9 +6,6 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
-    <Folder Include="Data\" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\..\x\xSystem\.Net\xSystem.Net.csproj" />
     <ProjectReference Include="..\.Abstractions\Common.Abstractions.csproj" />
   </ItemGroup>

@@ -5,6 +5,7 @@
     <Product>Common Abtractions Unit Tests</Product>
   </PropertyGroup>
   <ItemGroup Label="PackageReferences">
+    <PackageReference Include="AutoFixture.Xunit2" Version="4.18.0" />
     <PackageReference Include="coverlet.collector" Version="3.2.0">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>

@@ -1,4 +1,4 @@
-﻿namespace Common.Data.ValueObjects;
+﻿namespace Common.Domain.ValueObjects;
 /// <summary>
 /// Learn more: https://docs.microsoft.com/en-us/dotnet/standard/microservices-architecture/microservice-ddd-cqrs-patterns/implement-value-objects
 /// </summary>

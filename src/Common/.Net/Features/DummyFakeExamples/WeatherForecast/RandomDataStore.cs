@@ -1,6 +1,6 @@
-﻿using CleanOnionExample.Data.Entities;
+﻿using Common.Data;
 
-namespace CleanOnionExample.Data;
+namespace Common.Features.DummyFakeExamples.WeatherForecast;
 
 public class RandomDataStore {
   public RandomDataStore(int randomRecordsToGet = 5) {

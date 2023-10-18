@@ -2,6 +2,7 @@
 
 public static class IQueryableAsyncExensions {
 
+  [Obsolete("Not Used")]
   public static IAsyncEnumerable<T> AsAsyncEnumerable<T>(this IQueryable<T> source) {
     if (source is IAsyncEnumerable<T> asyncEnumerable) {
       return asyncEnumerable;
@@ -9,6 +10,7 @@ public static class IQueryableAsyncExensions {
     throw new InvalidOperationException($"IQueryableNotAsync: {typeof(T)}");
   }
 
+  [Obsolete("Not Used")]
   public static async Task<List<T>> xToListAsync<T>(this IQueryable<T> source, CancellationToken cancellationToken = default) {
     var list = new List<T>();
     await foreach (var element in source.AsAsyncEnumerable().WithCancellation(cancellationToken)) {
