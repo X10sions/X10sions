@@ -53,6 +53,8 @@ public static class StringBuilderExtensions {
     return sb;
   }
 
+  public static StringBuilder AppendLineIfNotNullOrWhiteSpace(this StringBuilder sb, string? value, string? prefix = null, string? suffix = null) => sb.AppendLineIfTrue(!string.IsNullOrWhiteSpace(value), $"{prefix}{value}{suffix}");
+
   public static StringBuilder AppendJoin(this StringBuilder stringBuilder,
     IEnumerable<string> values, string separator = ", ")
     => stringBuilder.AppendJoin(values, (sb, value) => sb.Append(value), separator);

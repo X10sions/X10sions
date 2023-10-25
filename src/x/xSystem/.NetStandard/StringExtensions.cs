@@ -210,8 +210,13 @@ namespace System {
 
     public static string PadRightMax(this string @this, int maxWidth, char paddingChar) => @this.PadRight(maxWidth, paddingChar).Substring(0, maxWidth);
     public static string PadRightMaxWidth(this string @this, int maxWidth, char paddingChar) => @this.PadRight(maxWidth, paddingChar).Substring(0, maxWidth);
-    public static string ReplaceFromEnd(this string s, string fromSuffix, string toSuffix, StringComparison comparisonType = StringComparison.CurrentCulture) => s.EndsWith(fromSuffix, comparisonType) ? s.Substring(0, s.Length - fromSuffix.Length) + toSuffix : s;
 
+    public static string ReplaceFirst(this string str, string oldValue, string newValue) {
+      var position = str.IndexOf(oldValue);
+      return position < 0 ? str : str.Substring(0, position) + newValue + str.Substring(position + oldValue.Length);
+    }
+
+    public static string ReplaceFromEnd(this string s, string fromSuffix, string toSuffix, StringComparison comparisonType = StringComparison.CurrentCulture) => s.EndsWith(fromSuffix, comparisonType) ? s.Substring(0, s.Length - fromSuffix.Length) + toSuffix : s;
     public static string ReplaceFromStart(this string s, string fromPrefix, string toPrefix, StringComparison comparisonType = StringComparison.CurrentCulture) => s.StartsWith(fromPrefix, comparisonType) ? toPrefix + s.Substring(fromPrefix.Length) : s;
     public static string ReplaceInvalidChars(this string value, string repalceWith) => string.Join(repalceWith, value.Split(Path.GetInvalidFileNameChars()));
 
