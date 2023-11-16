@@ -9,6 +9,10 @@ public readonly record struct FileName(string Value) {
   //public string UserTempFilePath(IPathToAppSettings pathTo, IIdentity identity) => pathTo.UserTempFilePath(identity, Value);
 };
 
+public interface IFileName {
+  FileName FileName { get; }
+}
+
 public readonly record struct FileExtension(string Value) {
   public string WithDot => ("." + Value).TrimStart("..");
   public string FileName(FileName file) => Path.Combine(file.Value, WithDot);
