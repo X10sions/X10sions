@@ -211,6 +211,16 @@ namespace System {
     public static string PadRightMax(this string @this, int maxWidth, char paddingChar) => @this.PadRight(maxWidth, paddingChar).Substring(0, maxWidth);
     public static string PadRightMaxWidth(this string @this, int maxWidth, char paddingChar) => @this.PadRight(maxWidth, paddingChar).Substring(0, maxWidth);
 
+    public static string PathCombine(this string path, params string[] paths) {
+      foreach (var p in paths) {
+        path = Path.Combine(path, p);
+      }
+      return path;
+    }
+    public static string PathCombine(this string path1, string path2, params string[] paths) => Path.Combine(path1, path2).PathCombine(paths);
+    public static string PathCombine(this string path1, string path2, string path3, params string[] paths) => Path.Combine(path1, path2, path3).PathCombine(paths);
+    public static string PathCombine(this string path1, string path2, string path3, string path4, params string[] paths) => Path.Combine(path1, path2, path3, path4).PathCombine(paths);
+
     public static string ReplaceFirst(this string str, string oldValue, string newValue) {
       var position = str.IndexOf(oldValue);
       return position < 0 ? str : str.Substring(0, position) + newValue + str.Substring(position + oldValue.Length);
