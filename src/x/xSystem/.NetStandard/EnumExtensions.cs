@@ -11,15 +11,15 @@ public static class EnumExtensions {
   public static TEnum AsEnum<TEnum>(this int value) where TEnum : struct => value.ToString().AsEnum<TEnum>(true);
   public static TEnum? AsEnum<TEnum>(this int? value) where TEnum : struct => value?.ToString().AsEnum<TEnum>(true);
 
-  [Obsolete("Use AttributeExtensions.GetCustomAttribute")]
-  public static T GetEnumCustomAttribute<T>(this Enum enumValue, bool inherit = false) where T : Attribute {
+  //[Obsolete("Use AttributeExtensions.GetCustomAttribute")]
+  public static T GetCustomAttribute<T>(this Enum enumValue, bool inherit = false) where T : Attribute {
     var type = enumValue.GetType();
     var name = Enum.GetName(type, enumValue);
     return type.GetField(name).GetCustomAttribute<T>(inherit);
   }
 
-  [Obsolete("Use AttributeExtensions.GetCustomAttributes")]
-  public static IEnumerable<T> GetEnumCustomAttributes<T>(this Enum enumValue, bool inherit = false) where T : Attribute {
+  //[Obsolete("Use AttributeExtensions.GetCustomAttributes")]
+  public static IEnumerable<T> GetCustomAttributes<T>(this Enum enumValue, bool inherit = false) where T : Attribute {
     var type = enumValue.GetType();
     var name = Enum.GetName(type, enumValue);
     return type.GetField(name).GetCustomAttributes<T>(inherit);
