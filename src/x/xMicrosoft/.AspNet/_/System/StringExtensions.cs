@@ -66,8 +66,6 @@ namespace System {
 
     public static bool IsValidUrl(this string text) => new Regex("http(s)?://([\\w-]+\\.)+[\\w-]+(/[\\w- ./?%&=]*)?").IsMatch(text);
 
-
-
     public static IEnumerable<int> SplitAsInt(this string @this, string separator = ",") => (@this ?? string.Empty).Split(Convert.ToChar(separator))
       .Where(x => x.IsNumeric()).Select(x => Convert.ToInt32(x));
 
