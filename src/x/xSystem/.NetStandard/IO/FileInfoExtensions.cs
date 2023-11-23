@@ -1,5 +1,11 @@
 ﻿namespace System.IO;
 public static class FileInfoExtensions {
+  public static void CopyTo(this FileInfo f, FileInfo target, bool overwrite = false, bool doRefreshTarget = true) {
+    f.CopyTo(target.FullName, overwrite);
+    if (doRefreshTarget) {
+      target.Refresh();
+    }
+  }
   public static void CopyToDirectory(this FileInfo f, DirectoryInfo dir, bool overwrite = false) => f.CopyTo(Path.Combine(dir.FullName, f.Name), overwrite);
   public static string FullNameWithEnvironment(this FileInfo fi, string environmentName) => fi.FullName.Replace(fi.Extension, $".{environmentName}{fi.Extension}");
   public static string NameWithoutExtension(this FileInfo f) => Path.GetFileNameWithoutExtension(f.Name);
