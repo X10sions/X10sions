@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup Label="Application">
-    <TargetFramework>net7.0</TargetFramework>
-    <Product>Common DotNet 7 Extensions</Product>
-    <VersionPart1>7</VersionPart1>
+    <TargetFramework>net8.0</TargetFramework>
+    <Product>Common DotNet 8 Extensions</Product>
+    <VersionPart1>8</VersionPart1>
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
