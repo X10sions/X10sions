@@ -116,7 +116,7 @@ public static class MimeMessageExtensions {
     alternateViews.Add(htmlView);
     var plainView = new MultipartAlternative {
       new TextPart(TextFormat.Plain) {
-        Text = htmlBody.TextBody
+        Text = htmlBody.TextBody ?? string.Empty
       }
     };
     alternateViews.Add(plainView);
