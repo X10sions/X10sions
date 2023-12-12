@@ -3,6 +3,7 @@ using System.Reflection;
 
 namespace System.Collections.Generic {
   public static class IEnumerableExtensions {
+    public static List<TResult> AsList<TSource, TResult>(this IEnumerable<TSource> source, Func<TSource, TResult> selector) => source.Select(selector).ToList();
 
     public static string DebugString<T>(this IEnumerable<T> source, Func<T, string> debugStringAction)
       => $"[ {string.Join(",", source.Select(_ => debugStringAction))} ]";
@@ -157,7 +158,6 @@ namespace System.Collections.Generic {
 
     public static IEnumerable<TSource> OrderByDescendingIf<TSource, TKey>(this IEnumerable<TSource> source, bool condition, Func<TSource, TKey> keySelector, IComparer<TKey> comparer) => condition ? source.OrderByDescending(keySelector, comparer) : source;
     public static IEnumerable<TSource> OrderByDescendingIf<TSource, TKey>(this IEnumerable<TSource> source, bool condition, Func<TSource, TKey> keySelector) => condition ? source.OrderByDescending(keySelector) : source;
-
     public static IEnumerable<TSource> WhereIf<TSource>(this IEnumerable<TSource> source, bool condition, Func<TSource, bool> predicate) => condition ? source.Where(predicate) : source;
     public static IEnumerable<TSource> WhereIf<TSource>(this IEnumerable<TSource> source, bool condition, Func<TSource, int, bool> predicate) => condition ? source.Where(predicate) : source;
 
