@@ -17,6 +17,8 @@ public static class TExtensions {
     }
   }
 
+  //public static IEnumerable<TTo> As<TFrom, TTo>(this IEnumerable<TFrom> source, TTo defaultValue) => source.Select(x => x.As(defaultValue) ?? defaultValue);
+
   public static Task<T> Async<T>(this Func<T> func, CancellationToken cancellationToken = default) {
     if (cancellationToken.IsCancellationRequested) {
       return Task.FromCanceled<T>(cancellationToken);
