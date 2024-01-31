@@ -31,4 +31,12 @@ public static class IHostApplicationBuilderExtensions {
     return builder.Configuration.Get<T>();
   }
 
+  //static T ConfigureAppSettings<TInterface, T>(this IServiceCollection services, IConfiguration configuration, ServiceLifetime? lifetime, bool doValidate)
+  // where TInterface : class where T : class, TInterface {
+  //  services.Configure<T>(configuration);
+  //  if (doValidate) services.PostConfigureValidate<T>();
+  //  if (lifetime is not null) services.AddOptions<TInterface, T>(lifetime.Value);
+  //  return configuration.Get<T>();
+  //}
+
 }
