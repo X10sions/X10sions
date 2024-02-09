@@ -10,7 +10,7 @@ using System.Text.RegularExpressions;
 namespace Microsoft.AspNetCore.Http;
 public static class HttpRequestExtensions {
   public static IFileInfo GetPathFileInfo(this HttpRequest request, IWebHostEnvironment webHostEnvironment) => webHostEnvironment.WebRootFileProvider.GetFileInfo(request.Path);
-
+  public static bool HasKey(this HttpRequest httpRequest, string key) => httpRequest.Items().Any(x => x.Key == key);
   public static StringValues Item(this HttpRequest httpRequest, string key, StringValues defaultValue = default) => httpRequest.Item(key, new HttpRequestItemOptions { DefaultValue = defaultValue });
 
   public static StringValues Item(this HttpRequest httpRequest, string key, HttpRequestItemOptions options)
