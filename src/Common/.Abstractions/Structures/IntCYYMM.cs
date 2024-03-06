@@ -1,5 +1,6 @@
 ﻿namespace Common.Structures {
   public class IntCYYMM : IntCYY {
+    public IntCYYMM() : this(DateTime.Now) { }
     public IntCYYMM(int c, int yy, int mm) : base(c, yy) { MM = mm; }
     public IntCYYMM(DateTime d) : base(d) { MM = d.Month; }
     public IntCYYMM(int cyymm) : base(GetCYY(cyymm)) { MM = GetMM(cyymm); }
@@ -28,7 +29,7 @@
       }
     }
 
-    public static new int GetC(int cyymm) => GetCYY(cyymm)/ 100;
+    public static new int GetC(int cyymm) => GetCYY(cyymm) / 100;
     public static new int GetCYY(int cyymm) => cyymm / 100;
     public static int GetCYYMM(int cyy, int mm) => cyy * 100 + mm;
     public static int GetMM(int cyymm) => cyymm % 100;

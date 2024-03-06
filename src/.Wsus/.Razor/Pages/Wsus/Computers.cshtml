@@ -1,0 +1,69 @@
+﻿@page
+@model ComputersModel
+@using System.Data;
+@using X10sions.Wsus;
+@using Microsoft.Data.SqlClient;
+@using Microsoft.Extensions.Logging;
+@functions{
+  public class ComputersModel : PageModel {
+    public ComputersModel(ILogger<ComputersModel> logger) {
+      _logger = logger;
+    }
+
+    private readonly ILogger<ComputersModel> _logger;
+
+    public void OnGet() {    }
+
+  }
+
+  void HtmlTable(DataTable dt) {
+    <table>
+      <thead>
+        <tr>
+          @foreach (DataColumn c in dt.Columns) {
+            <th>@c.ColumnName</th>
+          }
+        </tr>
+      </thead>
+      <tbody>
+        @foreach (DataRow r in dt.Rows) {
+          <tr>
+            @foreach (DataColumn c in dt.Columns) {
+              <td>@(r[c.ColumnName])</td>
+            }
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+
+}
+inject AppSettings appSettings
+@{
+  ViewData["Title"] = "Wsus Computers";
+
+  var connectionString = "appSettings.ConnectionStrings.SUSDB";
+  var dt1 = new DataTable();
+  var dt2 = new DataTable();
+  var dt3 = new DataTable();
+
+  @using (var conn = new SqlConnection(connectionString)) {
+    conn.Open();
+    dt1 = conn.GetDataTableComputerTarget();
+    dt2 = conn.GetDataTableComputerTarget2();
+    dt3 = conn.GetDataTableComputerTarget3();
+    conn.Close();
+  }
+
+}
+
+<div class="text -center">
+  <h1 class="display-4">Welcome</h1>
+  <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+
+@{
+  //HtmlTable(dt1);
+  //HtmlTable(dt2);
+  //HtmlTable(dt3);
+}

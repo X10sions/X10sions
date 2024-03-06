@@ -3,9 +3,9 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <Product>MiniProfiler Shared NetStandard Extensions</Product>
     <VersionPart1>4</VersionPart1>
-    <VersionPart2>2</VersionPart2>
+    <VersionPart2>3</VersionPart2>
   </PropertyGroup> 
   <ItemGroup Label="PackageReferences">
-    <PackageReference Include="MiniProfiler.Shared" Version="4.2.22" />
+    <PackageReference Include="MiniProfiler.Shared" Version="4.3.8" />
   </ItemGroup>
 </Project>

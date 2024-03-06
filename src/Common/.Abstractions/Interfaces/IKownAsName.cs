@@ -2,7 +2,7 @@
   public interface IKnownAsName {
     string FirstName { get; set; }
     string LastName { get; set; }
-    string PreferedFirstName { get; set; }
+    string? PreferedFirstName { get; set; }
   }
 
   public static class IKnownAsNameExtensions {

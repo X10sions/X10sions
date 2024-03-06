@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup Label="Application">
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>net48</TargetFramework>
     <Product>System .Configuration.ConfigurationManager NetStandard Extensions</Product>
     <VersionPart1>5</VersionPart1>
     <VersionPart2>0</VersionPart2>
@@ -9,9 +9,6 @@
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="5.0.0" />
   </ItemGroup>
   <ItemGroup Label="ProjectReferences">
-    <ProjectReference Include="..\..\xSystem.csproj" />
-    <!--
-    <ProjectReference Include="$(RepoSrcDir_X10sions)x\xSystem\xSystem.csproj" />
-    -->
+    <ProjectReference Include="..\..\.NetStandard\xSystem.NetStandard.csproj" />
   </ItemGroup>
 </Project>

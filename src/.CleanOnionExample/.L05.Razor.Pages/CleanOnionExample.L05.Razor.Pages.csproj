@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
+    <RootNamespace>CleanOnionExample.Razor</RootNamespace>
+    <!--
+        <PreserveCompilationContext>false</PreserveCompilationContext>
+        <CopyRefAssembliesToPublishDirectory>true</CopyRefAssembliesToPublishDirectory>
+        <RootNamespace>CleanOnionExample.AspNetCore.Pages</RootNamespace>
+     -->
+  </PropertyGroup>
+  <ItemGroup Label="FrameworkReferences">
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+  <ItemGroup Label="ProjectReferences">
+    <ProjectReference Include="..\.L04.Razor.Components\CleanOnionExample.L04.Razor.Components.csproj" />
+  </ItemGroup>
+</Project>

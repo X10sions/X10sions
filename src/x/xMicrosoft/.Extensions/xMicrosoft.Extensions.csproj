@@ -2,22 +2,17 @@
   <PropertyGroup Label="Application">
     <TargetFramework>netstandard2.0</TargetFramework>
     <Product>Microsoft Extensions</Product>
-    <VersionPart1>6</VersionPart1>
-    <VersionPart2>0</VersionPart2>
+    <VersionPart1>7</VersionPart1>
   </PropertyGroup> 
   <ItemGroup Label="PackageReferences">
-    <PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="6.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0" />
-    <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="6.0.9" />
-    <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.1" />
-    <PackageReference Include="Microsoft.Extensions.Logging.EventLog" Version="6.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Options" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.EventLog" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="8.0.0" />
   </ItemGroup>
   <ItemGroup Label="ProjectReferences">
-    <ProjectReference Include="..\..\xSystem\xSystem.csproj" />
-    <!-- 
-    <ProjectReference Include="..\..\..\Common\.NetStandard\Common.NetStandard.csproj" />
-    <ProjectReference Include="..\.Abstractions\xMicrosoft.Abstractions.csproj" />
-    -->
+    <ProjectReference Include="..\..\xSystem\.NetStandard\xSystem.NetStandard.csproj" />
   </ItemGroup>
 </Project>

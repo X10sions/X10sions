@@ -1,4 +1,4 @@
-﻿using Common.Models.Html.Tags;
+﻿using Common.Html.Tags;
 
 namespace System.Data {
   public static class DataRowExtensions {
@@ -6,7 +6,7 @@ namespace System.Data {
     public static string ToHtmlSelectOption(this DataRow row, string valueField, string textField, string selectedValue)
       => new Option {
         Value = (string)row[valueField],
-        Text = (string)row[textField],
+        InnerText = (string)row[textField],
         Selected = selectedValue == (string)row[valueField]
       }.ToHtml();
 

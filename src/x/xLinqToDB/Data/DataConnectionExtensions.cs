@@ -1,7 +1,4 @@
-﻿using LinqToDB.Data;
-using LinqToDB.Mapping;
-using System;
-using System.Collections.Generic;
+﻿using LinqToDB.Mapping;
 using System.Linq.Expressions;
 
 namespace LinqToDB.Data {
@@ -47,73 +44,55 @@ namespace LinqToDB.Data {
     //}
 
     /// <summary>NotNull to NotNull </summary>
-    public static DataConnection AddAssociation00<T, TMany>(this DataConnection dataConnection
+    public static FluentMappingBuilder AddAssociation00<T, TMany>(this FluentMappingBuilder fluentMappingBuilder
       , Expression<Func<T, TMany>> prop1
       , Expression<Func<TMany, IEnumerable<T>>> prop2
       , Expression<Func<T, TMany, bool>> predicate
-      ) where T : class where TMany : class {
-      dataConnection.MappingSchema.GetFluentMappingBuilder().AddAssociationNotNullToNotNull(prop1, prop2, predicate);
-      return dataConnection;
-    }
+      ) where T : class where TMany : class => fluentMappingBuilder.AddAssociationNotNullToNotNull(prop1, prop2, predicate);
 
     /// <summary>NotNull to NotNull </summary>
-    public static DataConnection AddAssociation00<T1, T2>(this DataConnection dataConnection
+    public static FluentMappingBuilder AddAssociation00<T1, T2>(this FluentMappingBuilder fluentMappingBuilder
       , Expression<Func<T1, T2>> prop1
       , Expression<Func<T2, T1>> prop2
       , Expression<Func<T1, T2, bool>> predicate
-      ) where T1 : class where T2 : class {
-      dataConnection.MappingSchema.GetFluentMappingBuilder().AddAssociationNotNullToNotNull(prop1, prop2, predicate);
-      return dataConnection;
-    }
+      ) where T1 : class where T2 : class => fluentMappingBuilder.AddAssociationNotNullToNotNull(prop1, prop2, predicate);
 
     /// <summary>NotNull to Nullable</summary>
-    public static DataConnection AddAssociation01<T1, T2>(this DataConnection dataConnection
+    public static FluentMappingBuilder AddAssociation01<T1, T2>(this FluentMappingBuilder fluentMappingBuilder
      , Expression<Func<T1, T2>> prop1
      , Expression<Func<T2, T1>> prop2
      , Expression<Func<T1, T2, bool>> predicate
-     ) where T1 : class where T2 : class? {
-      dataConnection.MappingSchema.GetFluentMappingBuilder().AddAssociationNotNullToNullable(prop1, prop2, predicate);
-      return dataConnection;
-    }
+     ) where T1 : class where T2 : class? => fluentMappingBuilder.AddAssociationNotNullToNullable(prop1, prop2, predicate);
 
     /// <summary>NotNull to Nullable</summary>
-    public static DataConnection AddAssociation01<T, TMany>(this DataConnection dataConnection
+    public static FluentMappingBuilder AddAssociation01<T, TMany>(this FluentMappingBuilder fluentMappingBuilder
      , Expression<Func<T, TMany>> prop1
      , Expression<Func<TMany, IEnumerable<T>>> prop2
      , Expression<Func<T, TMany, bool>> predicate
-     ) where T  : class where TMany : class? {
-      dataConnection.MappingSchema.GetFluentMappingBuilder().AddAssociationNotNullToNullable(prop1, prop2, predicate);
-      return dataConnection;
-    }
+     ) where T : class where TMany : class? => fluentMappingBuilder.AddAssociationNotNullToNullable(prop1, prop2, predicate);
 
     /// <summary>NUllable to NotNull </summary>
-    public static DataConnection AddAssociation10<T1, T2>(this DataConnection dataConnection
+    public static FluentMappingBuilder AddAssociation10<T1, T2>(this FluentMappingBuilder fluentMappingBuilder
       , Expression<Func<T1, T2>> prop1
       , Expression<Func<T2, T1>> prop2
       , Expression<Func<T1, T2, bool>> predicate
-      ) where T1 : class? where T2 : class {
-      dataConnection.MappingSchema.GetFluentMappingBuilder().AddAssociationNullableToNotNull(prop1, prop2, predicate);
-      return dataConnection;
-    }
+      ) where T1 : class? where T2 : class => fluentMappingBuilder.AddAssociationNullableToNotNull(prop1, prop2, predicate);
 
     /// <summary>NUllable to NotNull </summary>
-    public static DataConnection AddAssociation10<T, TMany>(this DataConnection dataConnection
+    public static FluentMappingBuilder AddAssociation10<T, TMany>(this FluentMappingBuilder fluentMappingBuilder
       , Expression<Func<T, TMany>> prop1
       , Expression<Func<TMany, IEnumerable<T>>> prop2
       , Expression<Func<T, TMany, bool>> predicate
-      ) where T : class? where TMany : class {
-      dataConnection.MappingSchema.GetFluentMappingBuilder().AddAssociationNullableToNotNull(prop1, prop2, predicate);
-      return dataConnection;
-    }
+      ) where T : class? where TMany : class => fluentMappingBuilder.AddAssociationNullableToNotNull(prop1, prop2, predicate);
 
-
-    public static ITable<T> GetTableWithPrimaryKey<T>(this DataConnection dc, Expression<Func<T, object>> primaryKey, bool isPrimaryKeyIdentity)
+    public static ITable<T> GetTableWithPrimaryKey<T>(this DataConnection dataConnection, Expression<Func<T, object>> primaryKey, bool isPrimaryKeyIdentity)
       where T : class {
-      var emb = dc.MappingSchema.GetFluentMappingBuilder().Entity<T>().HasPrimaryKey(primaryKey);
+      var fmb = new FluentMappingBuilder(dataConnection.MappingSchema).Entity<T>().HasPrimaryKey(primaryKey);
       if (isPrimaryKeyIdentity) {
-        emb.HasIdentity(primaryKey);
+        fmb.HasIdentity(primaryKey);
       }
-      return dc.GetTable<T>();
+      fmb.Build();
+      return dataConnection.GetTable<T>();
     }
 
   }

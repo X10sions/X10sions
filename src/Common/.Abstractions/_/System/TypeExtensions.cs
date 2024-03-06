@@ -73,7 +73,7 @@ namespace System {
       return helper.GetDefaultValue();
     }
 
-    public static Type[] GetTypeCast(this Type type) => TypeCastDictionary.Instance.TryGetValue(type, out var result) ? result : null;
+    public static Type[]? GetTypeCast(this Type type) => TypeCastDictionary.Instance.TryGetValue(type, out var result) ? result : null;
 
     public static bool IsFloatTypeCode(this Type type) => TypeCodeConstants.Float.Contains(Type.GetTypeCode(type.IsNullable() ? type.GetGenericArguments()[0] : type));
 

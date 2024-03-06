@@ -1,0 +1,36 @@
+{
+  "version": "1.0",
+  "defaultProvider": "jsdelivr",
+  "defaultDestination": "wwwroot/",
+  "libraries": [
+    {
+      "library": "bootstrap@5.2.0",
+      "destination": "wwwroot/lib/bootstrap/",
+      "files": [ "dist/**", "LICENSE" ]
+    },
+    {
+      "library": "jquery@3.6.1",
+      "destination": "wwwroot/lib/jquery/",
+      "files": [ "dist/**", "LICENSE.txt" ]
+    },
+    {
+      "library": "jquery-extendext@1.0.0",
+      "destination": "wwwroot/lib/jquery-extendext/"
+    },
+    {
+      "library": "jQuery-QueryBuilder@2.6.2",
+      "destination": "wwwroot/lib/jQuery-QueryBuilder/",
+      "files": [ "dist/css/**", "dist/js/**", "LICENSE" ]
+    },
+    {
+      "library": "jquery-validation@1.19.5",
+      "destination": "wwwroot/lib/jquery-validation/", 
+      "files": [ "dist/**" , "LICENSE.md", "!dist/localization/*"]
+    },
+    {
+      "library": "jquery-validation-unobtrusive@4.0.0",
+      "destination": "wwwroot/lib/jquery-validation-unobtrusive/",
+      "files": [ "dist/**", "LICENSE.txt" ]
+    }
+  ]
+}

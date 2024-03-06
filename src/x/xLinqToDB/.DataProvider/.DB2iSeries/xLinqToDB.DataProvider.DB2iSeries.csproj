@@ -1,13 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup Label="Application">
-    <TargetFrameworks>netstandard2.0;net6.0</TargetFrameworks>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <Product>LinqToDB.DataProvider Extensions</Product>
     <VersionPart1>4</VersionPart1>
     <VersionPart2>2</VersionPart2>
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup Label="PackageReferences">
-    <PackageReference Include="linq2db4iSeries" Version="4.2.0" />
+    <PackageReference Include="linq2db4iSeries" Version="5.1.1" />
   </ItemGroup>
   <ItemGroup Label="ProjectReferences">
     <ProjectReference Include="..\..\xLinqToDB.csproj" />

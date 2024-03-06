@@ -1,11 +1,14 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup Label="Application">
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <!-- 
     <TargetFramework>net48</TargetFramework>
+    -->
     <Product>NetOfficeFw Outlook Extensions</Product>
     <VersionPart1>1</VersionPart1>
-    <VersionPart2>7</VersionPart2>
+    <VersionPart2>9</VersionPart2>
   </PropertyGroup>
   <ItemGroup Label="PackageReferences">
-    <PackageReference Include="NetOfficeFw.Outlook" Version="1.8.1" />
+    <PackageReference Include="NetOfficeFw.Outlook" Version="1.9.1" />
   </ItemGroup>
 </Project>

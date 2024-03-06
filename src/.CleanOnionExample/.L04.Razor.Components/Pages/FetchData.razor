@@ -1,0 +1,87 @@
+﻿@page "/fetchdata"
+@implements IDisposable
+@using Common.Data
+@using CleanOnionExample.Data.Entities
+@using CleanOnionExample.Data.Services
+@using CleanOnionExample.Razor.Components.WeatherForecasts
+<PageTitle>Weather forecast</PageTitle>
+<h1>Weather forecast</h1>
+<p>This component demonstrates fetching data from a service.</p>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Temp. (C)</th>
+      <th>Temp. (F)</th>
+      <th>Summary</th>
+    </tr>
+  </thead>
+  @if (forecasts1 == null) {
+    <p><em>Loading1...</em></p>
+  } else {
+    <tbody>
+      @foreach (var forecast in forecasts1) {
+        <tr>
+          <td>@forecast.Date.ToShortDateString()</td>
+          <td>@forecast.TemperatureC</td>
+          <td>@forecast.TemperatureF</td>
+          <td>@forecast.Summary</td>
+        </tr>
+      }
+    </tbody>
+  }
+  @if (forecasts2 == null) {
+    <p><em>Loading2...</em></p>
+  } else {
+    <tbody>
+      @foreach (var forecast in forecasts2) {
+        <tr>
+          <td>@forecast.Date.ToShortDateString()</td>
+          <td>@forecast.TemperatureC</td>
+          <td>@forecast.TemperatureF</td>
+          <td>@forecast.Summary</td>
+        </tr>
+      }
+    </tbody>
+  }
+</table>
+
+<WeatherForecastListHeader />
+<div class="col-12 text-end">
+  <button class="btn btn-success" @onclick="AddRecord">Add Record</button>
+</div>
+<WeatherForecastList />
+
+@using Mapster;
+@inject IRepository<WeatherForecast> repository
+@inject HttpClient Http
+@code {
+  private List<WeatherForecast> forecasts1;
+
+  protected override async Task OnInitializedAsync() {
+    forecasts1 = await repository.Query.ToListAsync();
+    forecasts2 = await Http.GetFromJsonAsync<List<WeatherForecast>>("sample-data/weather.json");
+  }
+
+  private List<WeatherForecast> forecasts2;
+
+  protected async override void OnInitialized() {
+    await repository.Query.ToListAsync();
+    //weatherForecastService.RecordSetChanged += this.OnListChanged;
+  }
+
+  private async Task LoadRecords(int page) => await repository.Query.ToListAsync();
+
+  private async Task AddRecord() {
+    var dto = new WeatherForecast.Update.Command(Guid.NewGuid(), DateTime.Now, 14, WeatherForecastSummary.Balmy);
+    var row = dto.Adapt<WeatherForecast>();
+    await repository.InsertAsync(row);
+  }
+
+  private void OnListChanged(object? sender, EventArgs e) => this.InvokeAsync(this.StateHasChanged);
+
+  public void Dispose() {
+  //  weatherForecastService.RecordSetChanged -= this.OnListChanged;
+   }
+
+}

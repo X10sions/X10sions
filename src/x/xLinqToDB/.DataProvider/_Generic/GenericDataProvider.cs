@@ -1,17 +1,16 @@
-﻿using LinqToDB.Linq;
-using static LinqToDB.Linq.Expressions;
-using Common.Data;
+﻿using Common.Data;
 using Common.Data.GetSchemaTyped.DataRows;
+using LinqToDB.Common;
+using LinqToDB.Data;
+using LinqToDB.Expressions;
+using LinqToDB.Linq;
 using LinqToDB.Mapping;
+using LinqToDB.SchemaProvider;
 using LinqToDB.SqlProvider;
 using System.Data;
 using System.Data.Common;
-using LinqToDB.Data;
 using System.Diagnostics;
-using LinqToDB.Common;
-using LinqToDB.Expressions;
-using LinqToDB.Configuration;
-using LinqToDB.SchemaProvider;
+using static LinqToDB.Linq.Expressions;
 
 namespace LinqToDB.DataProvider;
 
@@ -55,9 +54,9 @@ public class GenericDataProvider<TConnection> : DataProviderBase<TConnection>, I
     if (dataProvider != null) {
       return (GenericDataProvider<TConnection>)dataProvider;
     }
-    var dataSourceInformationRow = DataSourceInformationRow.GetInstance(connection);
+    var dataSourceInformationRow = connection.GetDataSourceInformationRow();
     if (dataSourceInformationRow != null) {
-      GenericDataProvider<TConnection> genericDataProvider = new GenericDataProvider<TConnection>(dataSourceInformationRow, dataReaderType);
+      var genericDataProvider = new GenericDataProvider<TConnection>(dataSourceInformationRow, dataReaderType);
       Instances[connectionStringWithoutPasswordOrUser] = genericDataProvider;
       Console.WriteLine($"{nameof(GenericDataProvider<TConnection>)}: {connectionStringWithoutPasswordOrUser}");
       return genericDataProvider;
@@ -74,12 +73,12 @@ public class GenericDataProvider<TConnection> : DataProviderBase<TConnection>, I
 
   #region Contexts
 
-  public static TContext GetDataContext<TContext, TDataReader>(string connectionString, Func<LinqToDBConnectionOptions<TContext>, TContext> newContext)
+  public static TContext GetDataContext<TContext, TDataReader>(string connectionString, DataOptions dataOptions, Func<DataOptions, TContext> newContext)
     where TContext : IDataContext
     //where TConnection : DbConnection, new()
     where TDataReader : IDataReader {
     using (var connection = new TConnection { ConnectionString = connectionString }) {
-      return GetDataContext<TContext, TDataReader>(connection, newContext);
+      return GetDataContext<TContext, TDataReader>(connection, dataOptions, newContext);
     }
   }
 
@@ -102,7 +101,7 @@ public class GenericDataProvider<TConnection> : DataProviderBase<TConnection>, I
     throw new Exception("Not Implementation");
   }
 
-  public static TContext GetDataContext<TContext, TDataReader>(TConnection connection, Func<LinqToDBConnectionOptions<TContext>, TContext> newContext)
+  public static TContext GetDataContext<TContext, TDataReader>(TConnection connection, DataOptions dataOptions, Func<DataOptions, TContext> newContext)
     where TContext : IDataContext
     //where TConnection : DbConnection, new()
     where TDataReader : IDataReader {
@@ -111,9 +110,9 @@ public class GenericDataProvider<TConnection> : DataProviderBase<TConnection>, I
       var genericDataProvider = GenericDataProvider<TConnection>.GetInstance<TDataReader>(connection);
       if (genericDataProvider != null) {
         Console.WriteLine($"{nameof(GetDataContext)}<{typeof(TConnection)},{typeof(TContext)}>CS:{{connectionString}}");
-        var builder = new LinqToDBConnectionOptionsBuilder();
-        builder.UseConnectionString(genericDataProvider, connection.ConnectionString);
-        var options = builder.Build<TContext>();
+        //var builder = new LinqToDBConnectionOptionsBuilder();
+        var options = dataOptions.UseConnectionString(genericDataProvider, connection.ConnectionString);
+        //var options = builder.Build<TContext>();
         return newContext(options);
       }
       if (connection.State == ConnectionState.Open) { connection.Close(); }
@@ -314,34 +313,34 @@ public class GenericDataProvider<TConnection> : DataProviderBase<TConnection>, I
 
   [UrlAsAt.AccessOdbcDataProviderDataProvider_2021_03_14]
   [UrlAsAt.AccessOleDbDataProviderDataProvider_2021_03_14]
-  public override BulkCopyRowsCopied BulkCopy<T>(ITable<T> table, BulkCopyOptions options, IEnumerable<T> source) {
+  public override BulkCopyRowsCopied BulkCopy<T>(DataOptions dataOptions, ITable<T> table, IEnumerable<T> source) {
     switch (DbSystem) {
-      case var _ when DbSystem == DbSystem.Access: return new Access.AccessBulkCopy().BulkCopy(options.BulkCopyType == BulkCopyType.Default ? Access.AccessTools.DefaultBulkCopyType : options.BulkCopyType, table, options, source);
-      default: return base.BulkCopy(table, options, source);
+      case var _ when DbSystem == DbSystem.Access: return new Access.AccessBulkCopy().BulkCopy(dataOptions.BulkCopyOptions.BulkCopyType == BulkCopyType.Default ? Access.AccessTools.DefaultBulkCopyType : dataOptions.BulkCopyOptions.BulkCopyType, table, dataOptions, source);
+      default: return base.BulkCopy(dataOptions, table, source);
     };
   }
 
   [UrlAsAt.AccessOdbcDataProviderDataProvider_2021_03_14]
   [UrlAsAt.AccessOleDbDataProviderDataProvider_2021_03_14]
-  public override Task<BulkCopyRowsCopied> BulkCopyAsync<T>(ITable<T> table, BulkCopyOptions options, IAsyncEnumerable<T> source, CancellationToken cancellationToken) {
+  public override Task<BulkCopyRowsCopied> BulkCopyAsync<T>(DataOptions dataOptions, ITable<T> table, IAsyncEnumerable<T> source, CancellationToken cancellationToken) {
     switch (DbSystem) {
-      case var _ when DbSystem == DbSystem.Access: return new Access.AccessBulkCopy().BulkCopyAsync(options.BulkCopyType == BulkCopyType.Default ? Access.AccessTools.DefaultBulkCopyType : options.BulkCopyType, table, options, source, cancellationToken);
-      default: return base.BulkCopyAsync(table, options, source, cancellationToken);
+      case var _ when DbSystem == DbSystem.Access: return new Access.AccessBulkCopy().BulkCopyAsync(dataOptions.BulkCopyOptions.BulkCopyType == BulkCopyType.Default ? Access.AccessTools.DefaultBulkCopyType : dataOptions.BulkCopyOptions.BulkCopyType, table, dataOptions, source, cancellationToken);
+      default: return base.BulkCopyAsync(dataOptions, table, source, cancellationToken);
     };
   }
 
   [UrlAsAt.AccessOdbcDataProviderDataProvider_2021_03_14]
   [UrlAsAt.AccessOleDbDataProviderDataProvider_2021_03_14]
-  public override Task<BulkCopyRowsCopied> BulkCopyAsync<T>(ITable<T> table, BulkCopyOptions options, IEnumerable<T> source, CancellationToken cancellationToken) {
+  public override Task<BulkCopyRowsCopied> BulkCopyAsync<T>(DataOptions dataOptions, ITable<T> table, IEnumerable<T> source, CancellationToken cancellationToken) {
     switch (DbSystem) {
-      case var _ when DbSystem == DbSystem.Access: return new Access.AccessBulkCopy().BulkCopyAsync(options.BulkCopyType == BulkCopyType.Default ? Access.AccessTools.DefaultBulkCopyType : options.BulkCopyType, table, options, source, cancellationToken);
-      default: return base.BulkCopyAsync(table, options, source, cancellationToken);
+      case var _ when DbSystem == DbSystem.Access: return new Access.AccessBulkCopy().BulkCopyAsync(dataOptions.BulkCopyOptions.BulkCopyType == BulkCopyType.Default ? Access.AccessTools.DefaultBulkCopyType : dataOptions.BulkCopyOptions.BulkCopyType, table, dataOptions, source, cancellationToken);
+      default: return base.BulkCopyAsync(dataOptions, table, source, cancellationToken);
     };
   }
 
-  public override ISqlBuilder CreateSqlBuilder(MappingSchema mappingSchema) => new GenericSqlBuilder(this, DataSourceInformationRow, mappingSchema, GetSqlOptimizer(), SqlProviderFlags);
+  public override ISqlBuilder CreateSqlBuilder(MappingSchema mappingSchema, DataOptions dataOptions) => new GenericSqlBuilder(this, DataSourceInformationRow, mappingSchema, dataOptions, GetSqlOptimizer(dataOptions), SqlProviderFlags);
 
-  public override ISqlOptimizer GetSqlOptimizer() => new GenericSqlOptimizer(DataSourceInformationRow, SqlProviderFlags);
+  public override ISqlOptimizer GetSqlOptimizer(DataOptions dataOptions) => new GenericSqlOptimizer(DataSourceInformationRow, dataOptions, SqlProviderFlags);
   //protected override ISqlOptimizer SqlOptimizer { get; }
 
   public override void SetParameter(DataConnection dataConnection, DbParameter parameter, string name, DbDataType dataType, object? value) {

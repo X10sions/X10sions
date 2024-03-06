@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup Label="Application">
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Product>Microsoft.Office.Interop.Excel</Product>
+    <VersionPart1>0</VersionPart1>
+    <VersionPart1>9</VersionPart1>
+    <Nullable>enable</Nullable>
+    <!--  see https://github.com/dotnet/samples/blob/main/core/extensions/ExcelDemo/ExcelDemo.csproj  -->
+  </PropertyGroup>
+  <ItemGroup Label="PackageReferences">
+    <PackageReference Include="Microsoft.Office.Interop.Excel" Version="15.0.4795.1001" />
+  </ItemGroup>
+</Project>

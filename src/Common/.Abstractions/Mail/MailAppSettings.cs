@@ -7,7 +7,7 @@ public interface IMailAppSettings {
 }
 
 public class MailAppSettings : IMailAppSettings {
-  public MailAddress DefaultFrom { get; set; }
-  public MailAddress DefaultTo { get; set; }
-  public MailHost Host { get; set; }
+  public MailAddress DefaultFrom { get; set; } = new();
+  public MailAddress DefaultTo { get; set; } = new();
+  public MailHost Host { get; set; } = new();
 }

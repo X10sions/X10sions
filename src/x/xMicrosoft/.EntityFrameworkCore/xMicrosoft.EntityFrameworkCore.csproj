@@ -1,20 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup Label="Application">
-    <TargetFramework>net6.0</TargetFramework>
-    <!-- 
-    <TargetFramework>netstandard2.1</TargetFramework>
-    -->
-    <Product>Microsoft .EntityFrameworkCore Extensions</Product>
-    <VersionPart1>6</VersionPart1>
-    <VersionPart2>0</VersionPart2>
+    <TargetFramework>net7.0</TargetFramework>
+    <Product>Microsoft.EntityFrameworkCore Extensions</Product>
+    <VersionPart1>7</VersionPart1>
   </PropertyGroup>
   <ItemGroup Label="PackageReferences">
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.7" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\xSystem\xSystem.csproj" />
-    <!-- 
-    <ProjectReference Include="$(RepoSrcDir_X10sions)x\xSystem\xSystem.csproj" />
-    -->
+    <PackageReference Include="EFCore.NamingConventions" Version="7.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.0" />
   </ItemGroup>
 </Project>

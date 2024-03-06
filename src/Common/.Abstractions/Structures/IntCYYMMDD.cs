@@ -27,14 +27,19 @@ namespace Common.Structures {
     public IntCYYMMDD(string c, string yymmdd) : this((c + yymmdd).As(0)) { }
 
     #region Min & Max Values
-    public static readonly int MinDD = 0; // 9999-12-31
-    public static readonly int MaxDD = 99; // 1901-01-01
+    public static readonly int MinDD = 0; // 1901-01-01
+    public static readonly int MaxDD = 99; // 9999-12-31
 
-    public static readonly int MinYYMMDD = 0; // 9999-12-31
-    public static readonly int MaxYYMMDD = 999999; // 1901-01-01
+    public static readonly int MinYYMMDD = 0; // 1901-01-01
+    public static readonly int MaxYYMMDD = 999999; // 9999-12-31
 
-    public static readonly int MinCYYMMDD = 0; // 9999-12-31
-    public static readonly int MaxCYYMMDD = 9999999; // 1901-01-01
+    /// <summary>1901-01-01</summary>
+    public static readonly int MinCYYMMDD = 0;
+    /// <summary>9999-12-31</summary>
+    public static readonly int MaxCYYMMDD = 9999999;
+
+    public static readonly int MinValidCYYMMDD = 101; // 1901-01-01
+    public static readonly int MaxValidCYYMMDD = 9991231; // 9999-01-31
 
     public static new readonly IntCYYMMDD MinValue = new IntCYYMMDD(0); // 9999-12-31
     public static new readonly IntCYYMMDD MaxValue = new IntCYYMMDD(9999999); // 1901-01-01
@@ -54,14 +59,28 @@ namespace Common.Structures {
 
     public int YYMMDD { get => GetYYMMDD(YY, MM, DD); set => CYYMMDD = C_YYMMDD_GetCYYMMDD(C, value.GetValueBetween(MinYYMMDD, MaxYYMMDD)); }
 
-    public DateTime Date {
-      get => new DateTime(YYYY, MM, DD).Date;
+    public bool IsValid => CYYMMDD.IsBetween(MinValidCYYMMDD, MaxValidCYYMMDD);
+
+    public DateTime? Date {
+      get {
+        var isDate = DateTime.TryParse(YYYY_MM_DD(), out var dt);
+        return isDate ? dt.Date : null;
+      }
       set {
-        YYYY = value.Year;
-        MM = value.Month;
-        DD = value.Day;
+        if (value.HasValue) {
+          YYYY = value.Value.Year;
+          MM = value.Value.Month;
+          DD = value.Value.Day;
+        } else {
+          YYYY = 0;
+          MM = 0;
+          DD = 0;
+        }
       }
     }
+
+    public string YYYY_MM_DD(string separator = "-") => $"{YYYY:0000}{separator}{MM:00}{separator}{DD:00}";
+    public string DD_MM_YYYY(string separator = "-") => $"{DD:00}{separator}{MM:00}{separator}{YYYY:0000}";
 
     public static int GetCYYMM(int cyymmdd) => cyymmdd / 100;
     public static int GetDD(int cyymmdd) => cyymmdd % 100;
@@ -77,7 +96,7 @@ namespace Common.Structures {
     public static implicit operator IntCYYMMDD(int value) => new IntCYYMMDD(value);
     public static implicit operator IntCYYMMDD(string value) => new IntCYYMMDD(Convert.ToInt32(value));
 
-    public static implicit operator DateTime(IntCYYMMDD value) => value.Date;
+    public static implicit operator DateTime?(IntCYYMMDD value) => value.Date;
     public static implicit operator decimal(IntCYYMMDD value) => value.CYYMMDD;
     public static implicit operator double(IntCYYMMDD value) => value.CYYMMDD;
     public static implicit operator int(IntCYYMMDD value) => value.CYYMMDD;

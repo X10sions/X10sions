@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup Label="Application">
+    <TargetFramework>net7.0</TargetFramework>
+    <Product>Microsoft.EntityFrameworkCore DB2iSeries Extensions</Product>
+    <VersionPart1>7</VersionPart1>
+  </PropertyGroup>
+  <ItemGroup Label="PackageReferences">
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Infrastructure\Internal\" />
+    <Folder Include="_\System\Data\Common\" />
+  </ItemGroup>
+</Project>

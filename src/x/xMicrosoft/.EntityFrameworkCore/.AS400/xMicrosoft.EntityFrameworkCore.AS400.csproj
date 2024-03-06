@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup Label="Application">
+    <TargetFramework>net7.0</TargetFramework>
+    <Product>AS400 EntityFrameworkCore NetStandard Extensions</Product>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="xEFCore\xAS400\Scaffolding\**" />
+    <EmbeddedResource Remove="xEFCore\xAS400\Scaffolding\**" />
+    <None Remove="xEFCore\xAS400\Scaffolding\**" />
+  </ItemGroup>
+  <ItemGroup Label="PackageReferences">
+    <PackageReference Include="JetBrains.Annotations" Version="2022.3.1" />
+  </ItemGroup>  
+  <ItemGroup Label="ProjectReferences">
+    <ProjectReference Include="..\..\..\..\..\..\..\IBM.git\src\xIBM.Data.DB2.iSeries\xIBM.Data.DB2.iSeries.csproj" />
+    <ProjectReference Include="..\xMicrosoft.EntityFrameworkCore.csproj" />
+    <!--
+    <ProjectReference Include="..\..\..\xJetBrains.Annotations\xJetBrains.Annotations.csproj" />
+    -->
+  </ItemGroup>
+</Project>

@@ -1,5 +1,4 @@
-﻿using Common.Constants;
-using Microsoft.AspNetCore.Html;
+﻿using Microsoft.AspNetCore.Html;
 
 namespace Microsoft.AspNetCore.Mvc {
   public static class IUrlHelperExtensions {
@@ -11,8 +10,8 @@ namespace Microsoft.AspNetCore.Mvc {
     public static string FileHtmlTagString(this IUrlHelper urlHelper, string path) {
       var applicationPath = urlHelper.Content(path);
       switch (Path.GetExtension(path)) {
-        case ".css": return HtmlConstants.StylesheetHtmlTagString(applicationPath);
-        case ".js": return HtmlConstants.ScriptHtmlTag(applicationPath);
+        case ".css": return Common.Html.Tags.Style.StylesheetHtmlTagString(applicationPath);
+        case ".js": return Common.Html.Tags.Script.ScriptHtmlTagString(applicationPath);
         default: return string.Empty;
       }
     }

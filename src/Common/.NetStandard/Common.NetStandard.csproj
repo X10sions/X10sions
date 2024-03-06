@@ -7,18 +7,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup Label="PackageReferences">
-    <!-- 
-    <PackageReference Include="FastExpressionCompiler" Version="3.3.3" />
-    <PackageReference Include="FastExpressionCompiler.LightExpression " Version="3.2.2" />
-    -->
+    <PackageReference Update="FastExpressionCompiler.LightExpression" Version="3.3.3" />
   </ItemGroup>
   <ItemGroup Label="ProjectReferences">
     <ProjectReference Include="..\.Abstractions\Common.Abstractions.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Update="FastExpressionCompiler.LightExpression" Version="3.3.3" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Data\" />
   </ItemGroup>
 </Project>

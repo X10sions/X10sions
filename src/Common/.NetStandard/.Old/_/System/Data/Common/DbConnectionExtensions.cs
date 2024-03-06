@@ -11,7 +11,7 @@ public static class DbConnectionExtensions {
       if (isNotOpen) { conn.Open(); }
       Version.TryParse(conn.ServerVersion?.Split(' ')[0], out version);
       if (version == null) {
-        version = new DataSourceInformationRow(conn.GetSchema(DbMetaDataCollectionNames.DataSourceInformation).Rows[0]).Version;
+        version = new DataSourceInformationRow().SetValues(conn.GetSchema(DbMetaDataCollectionNames.DataSourceInformation).Rows[0]).Version;
       }
       if (isNotOpen) { conn.Close(); }
     } catch {

@@ -1,0 +1,24 @@
+﻿@using Common.Data
+@using CleanOnionExample.Data.Entities
+@implements IDisposable
+
+@if (RecordCount != null) {
+  <h1>Weather Forecast Records</h1>
+  <h3>Count: @RecordCount</h3>
+}
+@code {
+  [Inject] Common.Data.IRepository<WeatherForecast> repository { get; set; }
+
+  public int RecordCount { get; set; }
+
+  protected override async void OnInitialized() {
+    //service!.RecordSetChanged += this.OnListChanged;
+    RecordCount = await repository.Query.CountAsync();
+   }
+
+  private void OnListChanged(object? sender, EventArgs e) => this.StateHasChanged();
+
+  public void Dispose() {
+    //service!.RecordSetChanged -= this.OnListChanged;
+  }
+}

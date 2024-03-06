@@ -1,6 +1,5 @@
 ﻿using LinqToDB.Mapping;
 using Microsoft.AspNetCore.Identity;
-using System;
 using static Common.AspNetCore.Identity.IdentityConstants;
 namespace Common.AspNetCore.Identity.Providers.LinqToDB {
   public static class FluentMappingBuilderExtensions {

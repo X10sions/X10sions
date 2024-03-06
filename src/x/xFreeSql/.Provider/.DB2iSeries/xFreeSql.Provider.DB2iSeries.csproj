@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup Label="Application">
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Product>FreeSql.Provider.DB2iSeries</Product>
+    <VersionPart1>3</VersionPart1>
+    <VersionPart2>2</VersionPart2>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="IBM\**" />
+    <EmbeddedResource Remove="IBM\**" />
+    <None Remove="IBM\**" />
+  </ItemGroup>
+  <ItemGroup Label="PackageReferences">
+    <PackageReference Include="FreeSql " Version="3.2.684" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Odbc\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Update="FreeSql" Version="3.2.686" />
+  </ItemGroup>
+</Project>

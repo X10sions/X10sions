@@ -1,7 +1,3 @@
-﻿using System.Data;
+﻿namespace Common.Data;
 
-namespace Common.Data;
-
-public interface ITypedDataRow {
-  public void SetValues(DataRow dataRow);
-}
+public interface ITypedDataRow { }

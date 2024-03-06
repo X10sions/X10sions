@@ -1,12 +1,37 @@
-﻿using Common.Mail;
-using MailKit.Net.Smtp;
+﻿using MailKit.Net.Smtp;
 using MimeKit;
 
 namespace MailKit;
 
+public interface IMailKitAppSettings {
+  MailboxAddressAppSettings DefaultFrom { get; set; }
+  MailboxAddressAppSettings DefaultTo { get; set; }
+  //[Required]
+  string Host { get; set; }
+  int Port { get; set; }
+  bool UseSsl { get; set; }
+  string? UserName { get; set; }
+  string? Password { get; set; }
+}
+
+public class MailboxAddressAppSettings : MailboxAddress {
+  public MailboxAddressAppSettings() : base(string.Empty, string.Empty) { }
+}
+
+public class MailKitAppSettings : IMailKitAppSettings {
+  public MailboxAddressAppSettings DefaultFrom { get; set; } = default!;
+  public MailboxAddressAppSettings DefaultTo { get; set; } = default!;
+  public string Host { get; set; } = default!;
+  public int Port { get; set; }
+  public bool UseSsl { get; set; }
+  public string? UserName { get; set; }
+  public string? Password { get; set; }
+
+}
+
 public static class IMailKitAppSettingsExtensions {
 
-  public static MimeMessage GetMimeMessage(this IMailAppSettings settings
+  public static MimeMessage GetMimeMessage(this IMailKitAppSettings settings
     , string subject
     , string body
     , List<MailboxAddress>? to = null
@@ -25,11 +50,11 @@ public static class IMailKitAppSettingsExtensions {
     return message;
   }
 
-  public static void SmtpClientConnectionInfo(this IMailAppSettings settings) {
+  public static void SmtpClientConnectionInfo(this IMailKitAppSettings settings) {
     using (var client = new SmtpClient()) {
-      client.Connect(settings.Host.NameOrIpAddress, settings.Host.Port, settings.Host.UseSsl);
+      client.Connect(settings.Host, settings.Port, settings.UseSsl);
 
-      Console.WriteLine($"Negotiated the following SSL options with {settings.Host.NameOrIpAddress}:");
+      Console.WriteLine($"Negotiated the following SSL options with {settings.Host}:");
       Console.WriteLine($"        Protocol Version: {client.SslProtocol}");
       Console.WriteLine($"        Cipher Algorithm: {client.SslCipherAlgorithm}");
       Console.WriteLine($"         Cipher Strength: {client.SslCipherStrength}");
@@ -53,14 +78,14 @@ public static class IMailKitAppSettingsExtensions {
     }
   }
 
-  public static void SendSmptClient(this IMailAppSettings settings, params MimeMessage[] messages) {
+  public static void SendUsingSmptClient(this IMailKitAppSettings settings, params MimeMessage[] messages) {
     //using (var client = new SmtpClient(new ProtocolLogger("smtp.log"))) {
     using (var client = new SmtpClient()) {
       try {
-        client.Connect(settings.Host.NameOrIpAddress, settings.Host.Port, settings.Host.UseSsl);
+        client.Connect(settings.Host, settings.Port, settings.UseSsl);
         //client.AuthenticationMechanisms.Remove("XOAUTH2");
-        if (settings.Host.UserName != null) {
-          client.Authenticate(settings.Host.UserName, settings.Host.Password);
+        if (settings.UserName is not null) {
+          client.Authenticate(settings.UserName, settings.Password);
         }
         foreach (var message in messages) {
           message.ApplySettings(settings);
@@ -68,7 +93,7 @@ public static class IMailKitAppSettingsExtensions {
         }
       } catch (Exception ex) {
         System.Diagnostics.Debug.WriteLine(ex.Message);
-        throw ex;
+        throw;
       } finally {
         client.Disconnect(true);
         client.Dispose();
@@ -76,13 +101,13 @@ public static class IMailKitAppSettingsExtensions {
     }
   }
 
-  public async static Task SendSmptClientAsync(this IMailAppSettings settings, params MimeMessage[] messages) {
+  public async static Task SendUsingSmptClientAsync(this IMailKitAppSettings settings, params MimeMessage[] messages) {
     using (var client = new SmtpClient()) {
       try {
-        await client.ConnectAsync(settings.Host.NameOrIpAddress, settings.Host.Port, settings.Host.UseSsl);
-        if (settings.Host.UserName != null) {
+        await client.ConnectAsync(settings.Host, settings.Port, settings.UseSsl);
+        if (settings.UserName is not null) {
           //client.AuthenticationMechanisms.Remove("XOAUTH2");
-          await client.AuthenticateAsync(settings.Host.UserName, settings.Host.Password);
+          await client.AuthenticateAsync(settings.UserName, settings.Password);
         }
         foreach (var message in messages) {
           message.ApplySettings(settings);

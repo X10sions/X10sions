@@ -1,16 +1,16 @@
 ﻿namespace Common.Collections.Paged;
 
 public interface IPagedListOptions {
-  int TotalItemCount { get; }
+  long TotalItemCount { get; }
   int PageNumber { get; }
   int? PageSize { get; }
 }
 
 public static class IPagedListOptionsExtensions {
   public static int PageCount(this IPagedListOptions options) => options.TotalItemCount > 0 ? options.PageSize.HasValue ? (int)Math.Ceiling(decimal.Divide(options.TotalItemCount, options.PageSize.Value)) : 1 : 0;
-  public static int NumberOfLastItemOnPage(this IPagedListOptions options) => options.PageSize.HasValue ? options.FirstItemOnPage() + options.PageSize.Value - 1 : options.TotalItemCount;
+  public static long NumberOfLastItemOnPage(this IPagedListOptions options) => options.PageSize.HasValue ? options.FirstItemOnPage() + options.PageSize.Value - 1 : options.TotalItemCount;
   public static int FirstItemOnPage(this IPagedListOptions options) => options.PageSize.HasValue ? (options.PageNumber - 1) * options.PageSize.Value + 1 : 1;
-  public static int LastItemOnPage(this IPagedListOptions options) => options.NumberOfLastItemOnPage() > options.TotalItemCount ? options.TotalItemCount : options.NumberOfLastItemOnPage();
+  public static long LastItemOnPage(this IPagedListOptions options) => options.NumberOfLastItemOnPage() > options.TotalItemCount ? options.TotalItemCount : options.NumberOfLastItemOnPage();
   public static bool HasPreviousPage(this IPagedListOptions options) => options.PageNumber > 1;
   public static bool HasNextPage(this IPagedListOptions options) => options.PageNumber < options.PageCount();
   public static bool IsFirstPage(this IPagedListOptions options) => options.PageNumber <= 1;

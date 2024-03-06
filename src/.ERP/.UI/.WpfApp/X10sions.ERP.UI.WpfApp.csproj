@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <OutputType>WinExe</OutputType>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <IsShippingPackage>false</IsShippingPackage>
+  </PropertyGroup>
+  <ItemGroup Label="PackageReferences">
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebView.Wpf" Version="8.0.6" />
+    <!--
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebView.Wpf" Version="6.0.100-rc.1.1608" />
+    -->
+  </ItemGroup>
+  <ItemGroup Label="ProjectReferences">
+    <ProjectReference Include="..\..\.Razor\X10sions.ERP.Razor.csproj" />
+  </ItemGroup>
+</Project>

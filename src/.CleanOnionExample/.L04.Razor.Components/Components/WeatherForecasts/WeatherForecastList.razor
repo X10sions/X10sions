@@ -1,0 +1,51 @@
+﻿@implements IDisposable
+@if (this.isLoading) {
+  <div class="m-2 p-2">Loading...</div>
+} else {
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Temp. (C)</th>
+        <th>Temp. (F)</th>
+        <th>Summary</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      @foreach (var forecast in Records) {
+        <tr>
+          <td>@forecast.Date.ToShortDateString()</td>
+          <td>@forecast.TemperatureC</td>
+          <td>@forecast.TemperatureF</td>
+          <td>@forecast.Summary</td>
+          <td><button class="btn btn-danger" @onclick="() => DeleteRecord(forecast.Id)">Delete</button></td>
+        </tr>
+      }
+    </tbody>
+  </table>
+}
+
+@code {
+  @using Common.Data;
+  @using CleanOnionExample.Data.Entities;
+  [Inject] private IRepository<WeatherForecast> service { get; set; }
+
+  private IList<WeatherForecast>? Records { get; set; } //= new List<WeatherForecast>();
+
+  private bool isLoading => Records is null;
+
+  //protected override void OnInitialized() => service!.RecordSetChanged += this.OnListChanged;
+
+  private async Task DeleteRecord(Guid Id) {
+    var row = await service.GetByIdAsync(Id);
+    if (row != null) await service.DeleteAsync(row);
+  }
+
+  private void OnListChanged(object? sender, EventArgs e) => this.InvokeAsync(this.StateHasChanged);
+
+  public void Dispose() {
+  // service!.RecordSetChanged -= this.OnListChanged;
+  }
+
+}

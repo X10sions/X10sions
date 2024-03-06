@@ -1,7 +1,4 @@
-﻿using LinqToDB.DataProvider;
-using Microsoft.Extensions.Logging;
-
-namespace LinqToDB.Configuration {
+﻿namespace LinqToDB.Configuration {
   public static class LinqToDbConnectionOptionsBuilderExtensions {
 
     //public static LinqToDbConnectionOptionsBuilder UseConnectionString<TConnection>(LinqToDbConnectionOptionsBuilder options, string connectionString) {
@@ -9,10 +6,10 @@ namespace LinqToDB.Configuration {
     //  return   options.UseConnectionString(dataProvider, connectionString);
     //}
 
-    public static LinqToDBConnectionOptionsBuilder UseConnectionStringSettings(this LinqToDBConnectionOptionsBuilder options, IDataProvider dataProvider, ConnectionStringSettings connectionStringSettings, ILogger logger) {
-      logger.LogInformation($"{nameof(UseConnectionStringSettings)};Name:{connectionStringSettings.Name};Provider:{connectionStringSettings.ProviderName},{dataProvider.GetType().Name};CS:{connectionStringSettings.ConnectionString}");
-      return options.UseConnectionString(dataProvider, connectionStringSettings.ConnectionString);
-    }
+    //public static LinqToDBConnectionOptionsBuilder UseConnectionStringSettings(this LinqToDBConnectionOptionsBuilder options, IDataProvider dataProvider, ConnectionStringSettings connectionStringSettings, ILogger logger) {
+    //  logger.LogInformation($"{nameof(UseConnectionStringSettings)};Name:{connectionStringSettings.Name};Provider:{connectionStringSettings.ProviderName},{dataProvider.GetType().Name};CS:{connectionStringSettings.ConnectionString}");
+    //  return options.UseConnectionString(dataProvider, connectionStringSettings.ConnectionString);
+    //}
 
     //public static LinqToDbConnectionOptionsBuilder UseConnectionString<TConnection, TDataReader>(this LinqToDbConnectionOptionsBuilder options, string connectionString, ILogger logger)
     //  where TConnection : DbConnection, new()

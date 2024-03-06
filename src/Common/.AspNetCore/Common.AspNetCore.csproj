@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup Label="Application">
+    <TargetFramework>net7.0</TargetFramework>
+    <Product>Common.AspNetCore</Product>
+    <VersionPart1>7</VersionPart1>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+  <ItemGroup Label="FrameworkReferences">
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+  <ItemGroup Label="ProjectReferences">
+    <ProjectReference Include="..\.Abstractions\Common.Abstractions.csproj" />
+    <!--
+    <ProjectReference Include="$(RepoSrcDir_X10sions)x\xMicrosoft\.Extensions\xMicrosoft.Extensions.csproj" />
+    -->
+  </ItemGroup>
+</Project>

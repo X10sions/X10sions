@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
-using System;
-using System.Linq;
 
 namespace Microsoft.EntityFrameworkCore.Infrastructure {
   public static class IInfrastructureExtensions {

@@ -1,5 +1,4 @@
-﻿using System;
-namespace Common.Enums {
+﻿namespace Common.Enums {
   [Flags]
   public enum LogLevel {
     All = 0x0,

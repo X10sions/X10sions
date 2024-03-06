@@ -1,7 +1,6 @@
-﻿using Common.Mail;
-using MailKit;
-using MailKit.Net.Smtp;
+﻿using MailKit;
 using MimeKit;
+using MimeKit.Text;
 using System.Text;
 
 namespace MimeKit;
@@ -51,7 +50,7 @@ public static class MimeMessageExtensions {
     return message;
   }
 
-  public static MimeMessage Body(this MimeMessage message, string body, Text.TextFormat textFormat) {
+  public static MimeMessage Body(this MimeMessage message, string body, TextFormat textFormat = TextFormat.Plain) {
     message.Body = new TextPart(textFormat) { Text = body };
     return message;
   }
@@ -61,20 +60,94 @@ public static class MimeMessageExtensions {
     return message;
   }
 
-  public static MimeMessage HtmlBody(this MimeMessage message, string body) => message.Body(body, Text.TextFormat.Html);
-  public static MimeMessage PlainBody(this MimeMessage message, string body) => message.Body(body, Text.TextFormat.Plain);
+  public static MimeMessage BodyFromFile(this MimeMessage message, string fileName, TextFormat textFormat = TextFormat.Plain, Func<string, string>? fileContentsFormatter = null) {
+    var body = File.ReadAllText(fileName);
+    //var body = "";
+    // using (var reader = new StreamReader(File.OpenRead(fileName))) {
+    //   body = reader.ReadToEnd();
+    // }
+    return message.Body(fileContentsFormatter is not null ? fileContentsFormatter(body) : body, textFormat);
+  }
 
-  public static void SendSmptClient(this MimeMessage message, IMailAppSettings settings) => settings.SendSmptClient(message);
-  public static void SendSmptClient(this IEnumerable<MimeMessage> messages, IMailAppSettings settings) => settings.SendSmptClient(messages.ToArray());
-  public async static Task SendSmptClientAsync(this MimeMessage message, IMailAppSettings settings) => await settings.SendSmptClientAsync(message);
-  public async static Task SendSmptClientAsync(this IEnumerable<MimeMessage> messages, IMailAppSettings settings) => await settings.SendSmptClientAsync(messages.ToArray());
-    
-  public static MimeMessage ApplySettings(this MimeMessage message, IMailAppSettings settings) {
+  //public static ITemplateRenderer DefaultRenderer = new ReplaceRenderer();
+
+  //public static MimeMessage UsingTemplateFromFile<T>(this MimeMessage message, string filename, T model, bool isHtml = true) {
+  //  var template = "";
+  //  using (var reader = new StreamReader(File.OpenRead(filename))) {
+  //    template = reader.ReadToEnd();
+  //  }
+  //  var result = Renderer.Parse(template, model, isHtml);
+  //  message.Body( result, isHtml? TextFormat.Html : TextFormat.Plain);
+  //  return message;
+  //}
+
+
+  public static MimeMessage HtmlBody(this MimeMessage message, string body) => message.Body(body, TextFormat.Html);
+  public static MimeMessage HtmlBody(this MimeMessage message, StringBuilder sb) => message.HtmlBody(sb.ToString());
+  public static MimeMessage HtmlBodyFromFile(this MimeMessage message, string fileName, Func<string, string>? fileContentsFormatter = null) => message.BodyFromFile(fileName, TextFormat.Html, fileContentsFormatter);
+
+  public static void SendUsingSmptClient(this MimeMessage message, IMailKitAppSettings settings) => settings.SendUsingSmptClient(message);
+  public static void SendUsingSmptClient(this IEnumerable<MimeMessage> messages, IMailKitAppSettings settings) => settings.SendUsingSmptClient(messages.ToArray());
+  public async static Task SendUsingSmptClientAsync(this MimeMessage message, IMailKitAppSettings settings) => await settings.SendUsingSmptClientAsync(message);
+  public async static Task SendUsingSmptClientAsync(this IEnumerable<MimeMessage> messages, IMailKitAppSettings settings) => await settings.SendUsingSmptClientAsync(messages.ToArray());
+
+  #region Send
+
+
+
+  //public static void Send(this MimeMessage msg, BodyBuilder body) {
+  //  msg.Body = body.ToMessageBody();
+  //  msg.Send();
+  //}
+
+  //public static void Send<T>(this MimeMessage msg, string subjectSufix, string htmlBody) => msg.Send(typeof(T), subjectSufix, htmlBody);
+  //public static void Send(this MimeMessage msg, Type debugType, string subjectSufix, string htmlBody) => msg.Send(debugType.FullName + ": " + subjectSufix, htmlBody);
+  ////public static void Send(this MimeMessage msg, object debugObject, string subjectSufix, string htmlBody) => msg.Send(debugObject.GetType(), subjectSufix, htmlBody);
+
+  public static void SetMailMessageAlternateViews(this MimeMessage msg, BodyBuilder htmlBody, MimeEntity[] linkedResources) {
+    var alternateViews = new MultipartAlternative();
+    var htmlView = new MultipartAlternative {
+      new TextPart(TextFormat.Html) {
+        Text = htmlBody.HtmlBody
+      }
+    };
+    foreach (var lr in linkedResources)
+      htmlView.Add(lr);
+    alternateViews.Add(htmlView);
+    var plainView = new MultipartAlternative {
+      new TextPart(TextFormat.Plain) {
+        Text = htmlBody.TextBody ?? string.Empty
+      }
+    };
+    alternateViews.Add(plainView);
+    msg.Body = alternateViews;
+  }
+
+  //public static void SetMailMessageAlternateViews(MimeMessage msg, string htmlbody) {
+  //  var alternative = new MultipartAlternative();
+  //  if (msg.Body != null)
+  //    alternative.Add(msg.Body);
+  //  foreach (var le in msg.Attachments) {
+  //    alternative.Add(le);
+  //  }
+  //}
+  //public static void SetMailMessageAlternateViews(MimeMessage msg, string htmlbody) {
+  //  var htmlView = AlternateView.CreateAlternateViewFromString(htmlBody, null/* TODO Change to default(_) if this is not a reference type */, System.Net.Mime.MediaTypeNames.Text.Html);
+  //  foreach (var lr in LinkedResources)
+  //    htmlView.LinkedResources.Add(lr);
+  //  msg.AlternateViews.Add(htmlView);
+  //  var plainView = AlternateView.CreateAlternateViewFromString(HtmlToText.ConvertHtml(htmlBody), null/* TODO Change to default(_) if this is not a reference type */, System.Net.Mime.MediaTypeNames.Text.Plain);
+  //  msg.AlternateViews.Add(plainView);
+  //}
+
+  #endregion
+
+  public static MimeMessage ApplySettings(this MimeMessage message, IMailKitAppSettings settings) {
     if (message.From.Count < 1) {
-      message.From.Add(settings.DefaultFrom.AsMailboxAddress());
+      message.From.Add(settings.DefaultFrom);
     }
     if ((message.To.Count + message.Cc.Count + message.Bcc.Count) < 1) {
-      message.To.Add(settings.DefaultTo.AsMailboxAddress());
+      message.To.Add(settings.DefaultTo);
     }
     return message;
   }
@@ -122,5 +195,6 @@ public static class MimeMessageExtensions {
   //    throw;
   //  }
   //}
+
 
 }

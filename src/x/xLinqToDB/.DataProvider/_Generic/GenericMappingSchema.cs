@@ -1,16 +1,16 @@
-﻿using LinqToDB.Mapping;
-using LinqToDB.SqlQuery;
-using System.Text;
-using Common.Data;
+﻿using Common.Data;
 using Common.Data.GetSchemaTyped.DataRows;
-using System.Data.Linq;
 using LinqToDB.Common;
-using System.Xml;
+using LinqToDB.DataProvider;
+using LinqToDB.Expressions;
+using LinqToDB.Mapping;
+using LinqToDB.Metadata;
+using LinqToDB.SqlQuery;
+using System.Data.Linq;
 using System.Data.SqlTypes;
 using System.Linq.Expressions;
-using LinqToDB.Expressions;
-using LinqToDB.Metadata;
-using LinqToDB.DataProvider;
+using System.Text;
+using System.Xml;
 
 namespace LinqToDB.DataProvider {
   public class GenericMappingSchema : LockedMappingSchema {
@@ -40,7 +40,7 @@ namespace LinqToDB.DataProvider {
       //DbSystemVersion = version;
       var initDone = DbSystem switch {
         //{ DataSourceProduct?.DbSystem?.Name:   DbSystem.Names.Access } => GenericMappingSchema_InitAccess(),
-        var _ when DbSystem  == DbSystem.DB2iSeries => this.GenericMappingSchema_InitDB2iSeries(DataSourceInformationRow.Version),
+        var _ when DbSystem == DbSystem.DB2iSeries => this.GenericMappingSchema_InitDB2iSeries(DataSourceInformationRow.Version),
         //  DbSystem.Names.SapHana => GenericMappingSchema_InitSapHana(),
         // DbSystem.Names.SqlServer => GenericMappingSchema_InitSqlServer(dataSourceInformationRow.Version),
         _ => throw new NotImplementedException($"{DbSystem}: v{DataSourceInformationRow.Version}")
@@ -55,7 +55,7 @@ namespace LinqToDB.DataProvider {
     DbSystem? DbSystem { get; }
 
     public override LambdaExpression? TryGetConvertExpression(Type from, Type to) {
-      return DbSystem  switch {
+      return DbSystem switch {
         var _ when DbSystem == DbSystem.SqlServer => this.TryGetConvertExpression_SqlServer((from, to) => base.TryGetConvertExpression(from, to), from, to, DataSourceInformationRow.Version),
         _ => base.TryGetConvertExpression(from, to)
       };
@@ -101,7 +101,7 @@ namespace LinqToDB.Mapping {
       mappingSchema.SetValueToSqlConverter(typeof(string), (sb, dt, v) => sb.ConvertStringToSql_DB2(v.ToString()!));
       mappingSchema.SetValueToSqlConverter(typeof(TimeSpan), (sb, dt, v) => sb.ConvertTimeToSql_DB2((TimeSpan)v));
 
-      mappingSchema.SetConverter<string, DateTime>(  GenericExtensions.ParseDateTime_DB2);
+      mappingSchema.SetConverter<string, DateTime>(GenericExtensions.ParseDateTime_DB2);
       return true;
     }
 
@@ -196,7 +196,14 @@ namespace LinqToDB.Mapping {
 
       mappingSchema.SetDataType(typeof(string), new SqlDataType(DataType.NVarChar, typeof(string)));
 
-      mappingSchema.AddMetadataReader(new SystemDataSqlServerAttributeReader());
+      if (SystemDataSqlServerAttributeReader.SystemDataSqlClientProvider != null)
+        mappingSchema.AddMetadataReader(SystemDataSqlServerAttributeReader.SystemDataSqlClientProvider);
+      if (SystemDataSqlServerAttributeReader.MicrosoftDataSqlClientProvider != null)
+        mappingSchema.AddMetadataReader(SystemDataSqlServerAttributeReader.MicrosoftDataSqlClientProvider);
+      if (SystemDataSqlServerAttributeReader.MicrosoftSqlServerServerProvider != null)
+        mappingSchema.AddMetadataReader(SystemDataSqlServerAttributeReader.MicrosoftSqlServerServerProvider);
+
+      //mappingSchema.AddMetadataReader(new SystemDataSqlServerAttributeReader());
 
       return true;
     }

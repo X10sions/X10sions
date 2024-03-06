@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-
-namespace Microsoft.Extensions.Hosting {
+﻿namespace Microsoft.Extensions.Hosting {
   public static class IHostEnvironmentExtensions {
     public const string AppSettingsFileName = "AppSettings";
     public const string AppSettingsFileExtension = "json";
@@ -24,6 +19,11 @@ namespace Microsoft.Extensions.Hosting {
 
     public static T GetByEnvironment<T>(this IHostEnvironment hostEnvironment, Func<T> production, Func<T> dev) => hostEnvironment.IsProduction() ? production() : dev();
     public static T GetByEnvironment<T>(this IHostEnvironment hostEnvironment, Func<T> production, Func<T> staging, Func<T> dev) => hostEnvironment.IsStaging() ? staging() : hostEnvironment.GetByEnvironment(production, dev);
+
+    /// <summary>Equivalent of Server.MapPath in ASP.NET Framework</summary>
+    public static string MapPath(this IHostEnvironment env, string virtualPath) => Path.Combine(env.ContentRootPath, virtualPath);
+    public static string MapPaths(this IHostEnvironment env, string[] paths) => Path.Combine(new[] { env.ContentRootPath }.Concat(paths).ToArray());
+    public static string MapWebRootPath(this IHostEnvironment env, string virtualPath, string wwwroot = "wwwroot") => Path.Combine(env.ContentRootPath, wwwroot, virtualPath);
 
     public static string MapContentRootPath(this IHostEnvironment hostEnvironment, params string[] paths) => Path.Combine(new[] { hostEnvironment.ContentRootPath }.Concat(paths).ToArray());
     public static FileInfo MapContentRootPathFileInfo(this IHostEnvironment hostEnvironment, params string[] paths) => new FileInfo(hostEnvironment.MapContentRootPath(paths));
