@@ -6,7 +6,7 @@ namespace X10sions.Wsus.Data.Models.Susdb;
 [Table("tbComputerTarget")]
 public class ComputerTarget {
   [Key] public int TargetID { get; set; }
-  [MaxLength(256)] public required string ComputerID { get; set; }//UK
+  [MaxLength(256)] public string ComputerID { get; set; } = string.Empty;//UK
   [MaxLength(85)] public string? SID { get; set; }// [varbinary]
   public DateTime? LastSyncTime { get; set; }
   public DateTime? LastReportedStatusTime { get; set; }

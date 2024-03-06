@@ -1,0 +1,34 @@
+﻿@page "/computertargets"
+@using Microsoft.AspNetCore.Components.QuickGrid
+@inject X10sions.Wsus.Data.SusdbDbContext DB
+@using X10sions.Wsus.Data.Models.Susdb
+
+<PageTitle>Index</PageTitle>
+
+<h1>Index</h1>
+
+<p>
+    <a href="computertargets/create">Create New</a>
+</p>
+
+<QuickGrid Class="table" Items="DB.ComputerTarget">
+    <PropertyColumn Property="computertarget => computertarget.ComputerID" />
+    <PropertyColumn Property="computertarget => computertarget.SID" />
+    <PropertyColumn Property="computertarget => computertarget.LastSyncTime" />
+    <PropertyColumn Property="computertarget => computertarget.LastReportedStatusTime" />
+    <PropertyColumn Property="computertarget => computertarget.LastReportedRebootTime" />
+    <PropertyColumn Property="computertarget => computertarget.IPAddress" />
+    <PropertyColumn Property="computertarget => computertarget.FullDomainName" />
+    <PropertyColumn Property="computertarget => computertarget.IsRegistered" />
+    <PropertyColumn Property="computertarget => computertarget.LastInventoryTime" />
+    <PropertyColumn Property="computertarget => computertarget.LastNameChangeTime" />
+    <PropertyColumn Property="computertarget => computertarget.EffectiveLastDetectionTime" />
+    <PropertyColumn Property="computertarget => computertarget.ParentServerTargetID" />
+    <PropertyColumn Property="computertarget => computertarget.LastSyncResult" />
+
+    <TemplateColumn Context="computertarget">
+        <a href="@($"computertargets/edit?targetid={computertarget.TargetID}")">Edit</a> |
+        <a href="@($"computertargets/details?targetid={computertarget.TargetID}")">Details</a> |
+        <a href="@($"computertargets/delete?targetid={computertarget.TargetID}")">Delete</a>
+    </TemplateColumn>
+</QuickGrid>

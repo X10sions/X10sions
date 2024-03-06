@@ -6,7 +6,6 @@ using X10sions.Wsus.Data;
 var builder = WebApplication.CreateBuilder(args);
 var appSettings = AppSettings.Configure(builder);
 
-//builder.Services.AddDbContext<SusdbDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("X10sionsWsusContext") ?? throw new InvalidOperationException("Connection string 'X10sionsWsusContext' not found.")));
 builder.Services.AddDbContext<SusdbDbContext>(options => options.UseSqlServer(appSettings.ConnectionStrings.SUSDB ?? throw new InvalidOperationException("Connection string 'X10sionsWsusContext' not found.")));
 
 // Add services to the container.

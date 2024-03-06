@@ -1,0 +1,101 @@
+﻿@page "/computertargets/delete"
+@inject X10sions.Wsus.Data.SusdbDbContext DB
+@using X10sions.Wsus.Data.Models.Susdb
+@inject NavigationManager NavigationManager
+@using Microsoft.EntityFrameworkCore
+
+<PageTitle>Delete</PageTitle>
+
+<h1>Delete</h1>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>ComputerTarget</h4>
+    <hr />
+    @if (computertarget is null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else {
+        <dl class="row">
+            <dt class="col-sm-2">ComputerID</dt>
+            <dd class="col-sm-10">@computertarget.ComputerID</dd>
+        </dl>
+        <dl class="row">
+            <dt class="col-sm-2">SID</dt>
+            <dd class="col-sm-10">@computertarget.SID</dd>
+        </dl>
+        <dl class="row">
+            <dt class="col-sm-2">LastSyncTime</dt>
+            <dd class="col-sm-10">@computertarget.LastSyncTime</dd>
+        </dl>
+        <dl class="row">
+            <dt class="col-sm-2">LastReportedStatusTime</dt>
+            <dd class="col-sm-10">@computertarget.LastReportedStatusTime</dd>
+        </dl>
+        <dl class="row">
+            <dt class="col-sm-2">LastReportedRebootTime</dt>
+            <dd class="col-sm-10">@computertarget.LastReportedRebootTime</dd>
+        </dl>
+        <dl class="row">
+            <dt class="col-sm-2">IPAddress</dt>
+            <dd class="col-sm-10">@computertarget.IPAddress</dd>
+        </dl>
+        <dl class="row">
+            <dt class="col-sm-2">FullDomainName</dt>
+            <dd class="col-sm-10">@computertarget.FullDomainName</dd>
+        </dl>
+        <dl class="row">
+            <dt class="col-sm-2">IsRegistered</dt>
+            <dd class="col-sm-10">@computertarget.IsRegistered</dd>
+        </dl>
+        <dl class="row">
+            <dt class="col-sm-2">LastInventoryTime</dt>
+            <dd class="col-sm-10">@computertarget.LastInventoryTime</dd>
+        </dl>
+        <dl class="row">
+            <dt class="col-sm-2">LastNameChangeTime</dt>
+            <dd class="col-sm-10">@computertarget.LastNameChangeTime</dd>
+        </dl>
+        <dl class="row">
+            <dt class="col-sm-2">EffectiveLastDetectionTime</dt>
+            <dd class="col-sm-10">@computertarget.EffectiveLastDetectionTime</dd>
+        </dl>
+        <dl class="row">
+            <dt class="col-sm-2">ParentServerTargetID</dt>
+            <dd class="col-sm-10">@computertarget.ParentServerTargetID</dd>
+        </dl>
+        <dl class="row">
+            <dt class="col-sm-2">LastSyncResult</dt>
+            <dd class="col-sm-10">@computertarget.LastSyncResult</dd>
+        </dl>
+        <EditForm method="post" Model="computertarget" OnValidSubmit="DeleteComputerTarget" FormName="delete" Enhance>
+            <button type="submit" class="btn btn-danger" disabled="@(computertarget is null)">Delete</button> |
+            <a href="/computertargets">Back to List</a>
+        </EditForm>
+    }
+</div>
+
+@code {
+    ComputerTarget? computertarget;
+
+    [SupplyParameterFromQuery]
+    public int TargetID { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        computertarget = await DB.ComputerTarget.FirstOrDefaultAsync(m => m.TargetID == TargetID);
+
+        if (computertarget is null)
+        {
+            NavigationManager.NavigateTo("notfound");
+        }
+    }
+
+    public async Task DeleteComputerTarget()
+    {
+        DB.ComputerTarget.Remove(computertarget!);
+        await DB.SaveChangesAsync();
+        NavigationManager.NavigateTo("/computertargets");
+    }
+}
