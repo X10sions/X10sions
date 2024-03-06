@@ -7,6 +7,7 @@ public class AppSettings {
 
   public class _ConnectionStrings : Dictionary<string, string> {
     public string SUSDB { get => this[nameof(SUSDB)]; set => this[nameof(SUSDB)] = value; }
+    public string WID { get => this[nameof(WID)]; set => this[nameof(WID)] = value; }
   }
 
   public static AppSettings Configure(WebApplicationBuilder builder) {

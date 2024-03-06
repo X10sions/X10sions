@@ -1,0 +1,6 @@
+@X10sions.Wsus.Api_HostAddress = http://localhost:5169
+
+GET {{X10sions.Wsus.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
