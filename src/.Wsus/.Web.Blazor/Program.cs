@@ -1,10 +1,16 @@
+using Microsoft.EntityFrameworkCore;
 using X10sions.Wsus.Components;
+using X10sions.Wsus.Data;
+using X10sions.Wsus.Web.Blazor;
 
 var builder = WebApplication.CreateBuilder(args);
+var appSettings = AppSettings.Configure(builder);
 
-// Add services to the container.
-builder.Services.AddRazorComponents()
-    .AddInteractiveServerComponents();
+builder.Services.AddDbContext<SusdbDbContext>(options => options.UseSqlServer(appSettings.ConnectionStrings.SUSDB ?? throw new InvalidOperationException("Connection string 'X10sionsWsusContext' not found.")));
+
+builder.Services.AddQuickGridEntityFrameworkAdapter();
+
+builder.Services.AddRazorComponents().AddInteractiveServerComponents();
 
 var app = builder.Build();
 

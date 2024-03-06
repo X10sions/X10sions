@@ -1,0 +1,103 @@
+﻿@page "/computertargets/create"
+@using X10sions.Wsus.Data.Models.Susdb
+@inject X10sions.Wsus.Data.SusdbDbContext DB
+@inject NavigationManager NavigationManager
+
+<PageTitle>Create</PageTitle>
+
+<h1>Create</h1>
+
+<h4>ComputerTarget</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <EditForm method="post" Model="ComputerTarget" OnValidSubmit="AddComputerTarget" FormName="create" Enhance>
+            <DataAnnotationsValidator />
+            <ValidationSummary class="text-danger" />
+            <div class="mb-3">
+                <label for="computerid" class="form-label">ComputerID:</label>
+                <InputText id="computerid" @bind-Value="ComputerTarget.ComputerID" class="form-control" />
+                <ValidationMessage For="() => ComputerTarget.ComputerID" class="text-danger" />
+            </div>
+            <div class="mb-3">
+                <label for="sid" class="form-label">SID:</label>
+                <InputText id="sid" @bind-Value="ComputerTarget.SID" class="form-control" />
+                <ValidationMessage For="() => ComputerTarget.SID" class="text-danger" />
+            </div>
+            <div class="mb-3">
+                <label for="lastsynctime" class="form-label">LastSyncTime:</label>
+                <InputDate id="lastsynctime" @bind-Value="ComputerTarget.LastSyncTime" class="form-control" />
+                <ValidationMessage For="() => ComputerTarget.LastSyncTime" class="text-danger" />
+            </div>
+            <div class="mb-3">
+                <label for="lastreportedstatustime" class="form-label">LastReportedStatusTime:</label>
+                <InputDate id="lastreportedstatustime" @bind-Value="ComputerTarget.LastReportedStatusTime" class="form-control" />
+                <ValidationMessage For="() => ComputerTarget.LastReportedStatusTime" class="text-danger" />
+            </div>
+            <div class="mb-3">
+                <label for="lastreportedreboottime" class="form-label">LastReportedRebootTime:</label>
+                <InputDate id="lastreportedreboottime" @bind-Value="ComputerTarget.LastReportedRebootTime" class="form-control" />
+                <ValidationMessage For="() => ComputerTarget.LastReportedRebootTime" class="text-danger" />
+            </div>
+            <div class="mb-3">
+                <label for="ipaddress" class="form-label">IPAddress:</label>
+                <InputText id="ipaddress" @bind-Value="ComputerTarget.IPAddress" class="form-control" />
+                <ValidationMessage For="() => ComputerTarget.IPAddress" class="text-danger" />
+            </div>
+            <div class="mb-3">
+                <label for="fulldomainname" class="form-label">FullDomainName:</label>
+                <InputText id="fulldomainname" @bind-Value="ComputerTarget.FullDomainName" class="form-control" />
+                <ValidationMessage For="() => ComputerTarget.FullDomainName" class="text-danger" />
+            </div>
+            <div class="mb-3">
+                <label for="isregistered" class="form-label">IsRegistered:</label>
+                <InputCheckbox id="isregistered" @bind-Value="ComputerTarget.IsRegistered" class="form-check-input" />
+                <ValidationMessage For="() => ComputerTarget.IsRegistered" class="text-danger" />
+            </div>
+            <div class="mb-3">
+                <label for="lastinventorytime" class="form-label">LastInventoryTime:</label>
+                <InputDate id="lastinventorytime" @bind-Value="ComputerTarget.LastInventoryTime" class="form-control" />
+                <ValidationMessage For="() => ComputerTarget.LastInventoryTime" class="text-danger" />
+            </div>
+            <div class="mb-3">
+                <label for="lastnamechangetime" class="form-label">LastNameChangeTime:</label>
+                <InputDate id="lastnamechangetime" @bind-Value="ComputerTarget.LastNameChangeTime" class="form-control" />
+                <ValidationMessage For="() => ComputerTarget.LastNameChangeTime" class="text-danger" />
+            </div>
+            <div class="mb-3">
+                <label for="effectivelastdetectiontime" class="form-label">EffectiveLastDetectionTime:</label>
+                <InputDate id="effectivelastdetectiontime" @bind-Value="ComputerTarget.EffectiveLastDetectionTime" class="form-control" />
+                <ValidationMessage For="() => ComputerTarget.EffectiveLastDetectionTime" class="text-danger" />
+            </div>
+            <div class="mb-3">
+                <label for="parentservertargetid" class="form-label">ParentServerTargetID:</label>
+                <InputNumber id="parentservertargetid" @bind-Value="ComputerTarget.ParentServerTargetID" class="form-control" />
+                <ValidationMessage For="() => ComputerTarget.ParentServerTargetID" class="text-danger" />
+            </div>
+            <div class="mb-3">
+                <label for="lastsyncresult" class="form-label">LastSyncResult:</label>
+                <InputNumber id="lastsyncresult" @bind-Value="ComputerTarget.LastSyncResult" class="form-control" />
+                <ValidationMessage For="() => ComputerTarget.LastSyncResult" class="text-danger" />
+            </div>
+            <button type="submit" class="btn btn-primary">Create</button>
+        </EditForm>
+    </div>
+</div>
+
+<div>
+    <a href="/computertargets">Back to List</a>
+</div>
+
+@code {
+
+    [SupplyParameterFromForm]
+    public ComputerTarget ComputerTarget { get; set; } = new();
+
+    // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
+    public async Task AddComputerTarget()
+    {
+        DB.ComputerTarget.Add(ComputerTarget);
+        await DB.SaveChangesAsync();
+        NavigationManager.NavigateTo("/computertargets");
+    }
+}

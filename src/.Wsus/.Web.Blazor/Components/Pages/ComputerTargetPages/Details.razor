@@ -1,0 +1,69 @@
+﻿@page "/computertargets/details"
+@inject X10sions.Wsus.Data.SusdbDbContext DB
+@using X10sions.Wsus.Data.Models.Susdb
+@inject NavigationManager NavigationManager
+@using Microsoft.EntityFrameworkCore
+
+<PageTitle>Details</PageTitle>
+
+<h1>Details</h1>
+
+<div>
+    <h4>ComputerTarget</h4>
+    <hr />
+    @if (computertarget is null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else {
+        <dl class="row">
+            <dt class="col-sm-2">ComputerID</dt>
+            <dd class="col-sm-10">@computertarget.ComputerID</dd>
+            <dt class="col-sm-2">SID</dt>
+            <dd class="col-sm-10">@computertarget.SID</dd>
+            <dt class="col-sm-2">LastSyncTime</dt>
+            <dd class="col-sm-10">@computertarget.LastSyncTime</dd>
+            <dt class="col-sm-2">LastReportedStatusTime</dt>
+            <dd class="col-sm-10">@computertarget.LastReportedStatusTime</dd>
+            <dt class="col-sm-2">LastReportedRebootTime</dt>
+            <dd class="col-sm-10">@computertarget.LastReportedRebootTime</dd>
+            <dt class="col-sm-2">IPAddress</dt>
+            <dd class="col-sm-10">@computertarget.IPAddress</dd>
+            <dt class="col-sm-2">FullDomainName</dt>
+            <dd class="col-sm-10">@computertarget.FullDomainName</dd>
+            <dt class="col-sm-2">IsRegistered</dt>
+            <dd class="col-sm-10">@computertarget.IsRegistered</dd>
+            <dt class="col-sm-2">LastInventoryTime</dt>
+            <dd class="col-sm-10">@computertarget.LastInventoryTime</dd>
+            <dt class="col-sm-2">LastNameChangeTime</dt>
+            <dd class="col-sm-10">@computertarget.LastNameChangeTime</dd>
+            <dt class="col-sm-2">EffectiveLastDetectionTime</dt>
+            <dd class="col-sm-10">@computertarget.EffectiveLastDetectionTime</dd>
+            <dt class="col-sm-2">ParentServerTargetID</dt>
+            <dd class="col-sm-10">@computertarget.ParentServerTargetID</dd>
+            <dt class="col-sm-2">LastSyncResult</dt>
+            <dd class="col-sm-10">@computertarget.LastSyncResult</dd>
+        </dl>
+        <div>
+            <a href="@($"/computertargets/edit?targetid={computertarget.TargetID}")">Edit</a> |
+            <a href="@($"/computertargets")">Back to List</a>
+        </div>
+    }
+</div>
+
+@code {
+    ComputerTarget? computertarget;
+
+    [SupplyParameterFromQuery]
+    public int TargetID { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        computertarget = await DB.ComputerTarget.FirstOrDefaultAsync(m => m.TargetID == TargetID);
+
+        if (computertarget is null)
+        {
+            NavigationManager.NavigateTo("notfound");
+        }
+    }
+}
