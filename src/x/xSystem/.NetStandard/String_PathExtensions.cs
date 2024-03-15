@@ -1,23 +1,17 @@
 ﻿namespace System {
-  public static class String_PathExtensions {
-    public static String_PathHelper PathHelper(this string value) => new String_PathHelper(value);
-    public static String_PathsHelper PathsHelper(this string[] values) => new String_PathsHelper(values);
+  public static class StringPathExtensions {
+    public static StringPathHelper PathHelper(this string value) => new StringPathHelper(value);
+    public static StringPathsHelper PathsHelper(this string[] values) => new StringPathsHelper(values);
   }
 
-  public class String_PathHelper {
-
-    public String_PathHelper(string path) {
-      this.path = path;
-    }
-    string path;
-
+  public class StringPathHelper(string path) {
     public string Extension => Path.GetExtension(path);
     public bool IsPhysicalPath => !string.IsNullOrWhiteSpace(path) && path.Contains(":");
 
     public string FileName(bool includeExtension = true) => includeExtension ? Path.GetFileName(path) : Path.GetFileNameWithoutExtension(path);
 
     public bool HasFileExtension(string fileExtension) => string.Equals(Extension, fileExtension.TrimStart('.') + ".", StringComparison.OrdinalIgnoreCase);
-    public bool HasFileExtensions(params string[] fileExtension) => fileExtension.Any(HasFileExtension);
+    public bool HasFileExtensions(params string[] fileExtension) => fileExtension.Exists(HasFileExtension);
 
     public static readonly char VirtualPathSeparatorChar = Path.AltDirectorySeparatorChar;
     public static readonly string VirtualPathSeparatorString = VirtualPathSeparatorChar.ToString();
@@ -36,13 +30,7 @@
 
   }
 
-  public class String_PathsHelper {
-
-    public String_PathsHelper(string[] paths) {
-      this.paths = paths;
-    }
-    string[] paths;
-
+  public class StringPathsHelper(string[] paths) {
     public string VirtualPathCombine => Path.AltDirectorySeparatorChar + string.Join(Path.AltDirectorySeparatorChar.ToString(), paths.Where(x => !string.IsNullOrWhiteSpace(x)));
 
     public IEnumerable<string> WithFileExtension(string fileExtension) => from path in paths where path.PathHelper().HasFileExtension(fileExtension) select path;

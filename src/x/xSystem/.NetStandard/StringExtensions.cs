@@ -68,6 +68,7 @@ namespace System {
             return true;
           }
         } catch {
+          // continue
         }
       }
       return false;
@@ -182,32 +183,18 @@ namespace System {
       }
     }
 
+    public static bool IsBool(this string value) => bool.TryParse(value, out _);
+    public static bool IsDateTime(this string value, IFormatProvider? formatProvider = null, DateTimeStyles styles = DateTimeStyles.None) => DateTime.TryParse(value, formatProvider ?? DateTimeFormatInfo.CurrentInfo, styles, out _);
+    public static bool IsDecimal(this string value) => decimal.TryParse(value, out _);
+    public static bool IsInt(this string value) => int.TryParse(value, out _);
+    public static bool IsFloat(this string value) => float.TryParse(value, out _);
+
     public static bool IsNull(this string? value) => value is null;
     public static bool IsNullOrEmpty(this string? value) => string.IsNullOrEmpty(value);
     public static bool IsNullOrWhiteSpace(this string? value) => string.IsNullOrWhiteSpace(value);
 
-    //public static bool IsBool(this string value) => bool.TryParse(value, out var result);
-    //public static bool IsDateTime(this string value) => DateTime.TryParse(value, out var result);
-    //public static bool IsDecimal(this string value) => decimal.TryParse(value, out var result);
-    //public static bool IsInt(this string value) => int.TryParse(value, out var result);
-    //public static bool IsFloat(this string value) => float.TryParse(value, out var result);
-
-    public static bool EndsWithAny(this string s, string[] values, StringComparison comparisonType = StringComparison.OrdinalIgnoreCase) {
-      foreach (var value in values) {
-        if (s.EndsWith(value, comparisonType))
-          return true;
-      }
-      return false;
-    }
-
-    public static bool StartsWithAny(this string s, string[] values, StringComparison comparisonType = StringComparison.OrdinalIgnoreCase) {
-      foreach (var value in values) {
-        if (s.StartsWith(value, comparisonType))
-          return true;
-      }
-      return false;
-    }
-
+    public static bool EndsWithAny(this string s, string[] values, StringComparison comparisonType = StringComparison.OrdinalIgnoreCase) => values.Exists(value => s.EndsWith(value, comparisonType));
+    public static bool StartsWithAny(this string s, string[] values, StringComparison comparisonType = StringComparison.OrdinalIgnoreCase) => values.Exists(value => s.StartsWith(value, comparisonType));
     public static string PadRightMax(this string @this, int maxWidth, char paddingChar) => @this.PadRight(maxWidth, paddingChar).Substring(0, maxWidth);
     public static string PadRightMaxWidth(this string @this, int maxWidth, char paddingChar) => @this.PadRight(maxWidth, paddingChar).Substring(0, maxWidth);
 
@@ -233,7 +220,7 @@ namespace System {
     public static string[] Split(this string s, string separator, StringSplitOptions splitOptions = StringSplitOptions.None) => s.Split(new[] { separator }, splitOptions);
     public static string[] Split(this string s, string separator, RegexOptions regexOptions) => Regex.Split(s, separator, regexOptions);
 
-    public static IEnumerable<T> SplitIsNumeric<T>(this string s, string separator) => string.IsNullOrWhiteSpace(s) ? Enumerable.Empty<T>() : from x in s.Split(separator) where x.IsNumeric() select x.As<string, T>();
+    public static IEnumerable<T> SplitIsNumeric<T>(this string s, string separator) => string.IsNullOrWhiteSpace(s) ? [] : from x in s.Split(separator) where x.IsNumeric() select x.As<string, T>();
     public static IEnumerable<string> SplitNotNull(this string s, string separator) => from x in s.Split(separator) where x != null select x;
     public static IEnumerable<string> SplitNotNullOrEmpty(this string s, string separator) => from x in s.Split(separator) where !string.IsNullOrEmpty(x) select x;
     public static IEnumerable<string> SplitNotNullOrWhiteSpace(this string s, string separator = "'") => from x in s.Split(separator) where !string.IsNullOrWhiteSpace(x) select x;
@@ -274,10 +261,6 @@ namespace System {
     public static string WrapIfNotNullOrWhiteSpace(this string? s, string prefix = "", string suffix = "", string defaultIfNullOrWhiteSpace = "") => string.IsNullOrWhiteSpace(s) ? defaultIfNullOrWhiteSpace : prefix + s + suffix;
 
     public static T ToEnum<T>(this string s, T defaultValue, bool ignoreCase = true) where T : struct => Enum.IsDefined(typeof(T), s) ? (T)Enum.Parse(typeof(T), s, ignoreCase) : defaultValue;
-    //public static T? ToEnum<T>(this string value) where T : struct {
-    //  var isParsed = Enum.TryParse(value, true, out T parsedValue);
-    //  return isParsed ? parsedValue : null;
-    //}
 
     #region "BinaryFormatterExtensions"
 

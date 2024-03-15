@@ -28,9 +28,9 @@ public static class FileInfoExtensions {
     var path = fileInfo.DirectoryName.Replace(removeBasePath, "");
     var partPaths = path.Split(@"\");
     var s = new StringBuilder();
-    var href = "";
+    var href = new StringBuilder();
     foreach (var partPath in partPaths) {
-      href += partPath + "/";
+      href.Append(partPath + "/");
       s.Append($"<a href='{href}'>{partPath}</a> : ");
     }
     s.Append($"<a href='{href}{nameWithExtension}'>{nameWithExtension}</a>");

@@ -3,8 +3,8 @@
 namespace System {
   public static class DateTimeExtensions {
 
-    public static string InvariantSortableDateTimePattern = DateTimeFormatInfo.InvariantInfo.SortableDateTimePattern;
-    public static string CurrentSortableDateTimePattern = DateTimeFormatInfo.CurrentInfo.SortableDateTimePattern;
+    public static readonly string InvariantSortableDateTimePattern = DateTimeFormatInfo.InvariantInfo.SortableDateTimePattern;
+    public static readonly string CurrentSortableDateTimePattern = DateTimeFormatInfo.CurrentInfo.SortableDateTimePattern;
 
     public static DateTime AddWeekdays(this DateTime d, int days) {
       var sign = days < 0 ? -1 : 1;
@@ -69,8 +69,8 @@ namespace System {
     public static string SqlLiteralDate(this DateTime? d, SqlDateOptions options) => d.HasValue ? d.Value.SqlLiteralDate(options) : SqlOptions.SqlNullString;
 
     public static string SqlLiteralTime(this DateTime d, int milliSecondsPrecision = 0, string prefix = SqlTimeOptions.DefaultLiteralPrefix, string suffix = SqlTimeOptions.DefaultLiteralSuffix) => prefix + d.ToSqlTime(milliSecondsPrecision) + suffix;
-    public static string SqlLiteralTime(this DateTime d) => d.SqlLiteralTime(new SqlTimeOptions());
-    public static string SqlLiteralTime(this DateTime? d) => d.SqlLiteralTime(new SqlTimeOptions());
+    //public static string SqlLiteralTime(this DateTime d) => d.SqlLiteralTime(SqlTimeOptions.Default);
+    public static string SqlLiteralTime(this DateTime? d) => d.SqlLiteralTime(SqlTimeOptions.Default);
     public static string SqlLiteralTime(this DateTime d, SqlTimeOptions options) => d.SqlLiteralTime(options.MilliSecondsPrecision, options.LiteralPrefix, options.LiteralSuffix);
     public static string SqlLiteralTime(this DateTime? d, SqlTimeOptions options) => d.HasValue ? d.Value.SqlLiteralTime(options) : SqlOptions.SqlNullString;
 
