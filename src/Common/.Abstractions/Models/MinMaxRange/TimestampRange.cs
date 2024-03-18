@@ -2,8 +2,7 @@
 
 namespace Common.Models.MinMaxRange;
 public class TimestampRange : RangeBase<DateTime> {
-  public TimestampRange(DateTime? min, DateTime? max, int milliSecondsPrecision)
-    : base(min, max) {
+  public TimestampRange(DateTime? min, DateTime? max, int milliSecondsPrecision) : base(min, max) {
     MilliSecondsPrecision = milliSecondsPrecision;
   }
 

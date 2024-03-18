@@ -70,7 +70,7 @@
     public static readonly SqlTimeOptions Default = new();
 
     //public string LiteralValueformat = DateTimeConstants.SqlTimeFormat;
-    public int MilliSecondsPrecision { get; }
+    public int MilliSecondsPrecision { get; set; }
 
     public override Formats Format => Formats.Time;
   }

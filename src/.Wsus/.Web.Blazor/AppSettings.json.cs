@@ -6,6 +6,7 @@ public class AppSettings {
 
   public ConnectionStringsAppSettings ConnectionStrings { get; set; } = new();
 
+
   public class ConnectionStringsAppSettings : Dictionary<string, string> {
     public ConnectionStringsAppSettings() : base(StringComparer.OrdinalIgnoreCase) { }
     public string SUSDB { get => this[nameof(SUSDB)]; set => this[nameof(SUSDB)] = value; }

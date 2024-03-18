@@ -1,0 +1,109 @@
+﻿@page "/updates/delete"
+@using Microsoft.AspNetCore.Components.QuickGrid
+@using Microsoft.EntityFrameworkCore
+@inject X10sions.Wsus.Data.SusdbDbContext DB
+@using X10sions.Wsus.Data.Models.Susdb
+@code{
+  PaginationState pagination = new PaginationState { ItemsPerPage = 100 };
+
+  string? titleFilter;
+  string? classFilter;
+}
+@{
+  var pageTitle = "Decline Updates";
+
+  var query = from urs in X10sions.Wsus.Data.UpdateRevisionSummary.Queryable(DB)
+              where urs.ApprovedInstallCount == 0 && urs.Installed == 0 && ((urs.IsOlderThanCount > 0 && !urs.CanUnInstall) || (urs.NoStatus == 0 && urs.Needed == 0 && urs.Failed == 0))
+              // && !urs.UpdateRevision.IsHidden
+              // && urs.UpdateRevision.IsHidden
+              // && urs.IsOlderThanCount > 0 && !urs.CanUnInstall
+              //&& urs.UpdateRevision.LastUndeclinedTime is not null
+              //&& urs.Needed == 0 && urs.Failed == 0 && !urs.UpdateRevision.IsHidden
+              //|| urs.IsOlderThanCount > 0
+              //|| EF.Functions.Like(urs.UpdateRevision.UpdateId.ToString(), "dd8f7b9e%")
+              //|| EF.Functions.Like(urs.UpdateRevision.UpdateId.ToString(), "%40c0a180%")
+              //|| EF.Functions.Like(urs.Title, "Dell - System %")
+
+              && (string.IsNullOrWhiteSpace(titleFilter) || EF.Functions.Like(urs.Title, $"%{titleFilter}%"))
+              && (string.IsNullOrWhiteSpace(classFilter) || EF.Functions.Like(urs.Title, $"%{classFilter}%"))
+              || EF.Functions.Like(urs.Title, "%Language Pack%")
+              || EF.Functions.Like(urs.Title, "%Language Pack%")
+              || EF.Functions.Like(urs.Title, "%Skype%")
+              && EF.Functions.Like(urs.Title, "%XP%")
+
+              // && urs.ReleaseDateUtc < new DateTime(2024, 1, 1)
+              // && urs.ApprovedInstallCount == 0
+              // && urs.Installed == 0
+              // && urs.Needed == 0
+              // && urs.Failed == 0
+              // && urs.ClassificationTitle == "Drivers"
+
+              orderby urs.UpdateRevision.IsHidden, urs.Installed, urs.Failed, urs.Needed, urs.NoStatus, urs.ReleaseDateUtc
+              select new {
+                urs.UpdateRevision.LocalUpdateId,
+                urs.UpdateRevision.UpdateId,
+                urs.UpdateRevision.RevisionID,
+                urs.UpdateRevision.RevisionNumber,
+                urs.UpdateRevision.IsHidden,
+                urs.UpdateRevision.ArrivalDateUtc,
+                urs.UpdateRevision.LastUndeclinedTime,
+
+                urs.ApprovedInstallCount,
+                urs.ApprovedRemovalCount,
+                urs.CanUnInstall,
+                urs.ClassificationTitle,
+                urs.DeleteSql,
+                urs.Failed,
+                urs.Installed,
+                urs.IsNewerThanCount,
+                urs.IsOlderThanCount,
+                urs.Needed,
+                urs.NoStatus,
+                urs.NotApplicable,
+                urs.ReleaseDateUtc,
+                urs.Title,
+              };
+}
+
+
+<PageTitle>@pageTitle</PageTitle>
+<h1>@pageTitle </h1>
+
+
+<QuickGrid Class="table" Items="query.Take(10000)">
+  <PropertyColumn Property="x => x.LocalUpdateId" />
+  <PropertyColumn Property="x => x.UpdateId" />
+  <PropertyColumn Property="x => x.RevisionID" />
+  <PropertyColumn Property="x => x.RevisionNumber" />
+  <PropertyColumn Property="x => x.IsHidden" />
+
+  <PropertyColumn Property="x=> x.ArrivalDateUtc" Format="yyyy-MM-dd HH:mm:ss" />
+  <PropertyColumn Property="x=> x.ReleaseDateUtc" Format="yyyy-MM-dd HH:mm:ss" />
+  <PropertyColumn Property="x=> x.LastUndeclinedTime" Format="yyyy-MM-dd HH:mm:ss" />
+
+  <PropertyColumn Property="x => x.ApprovedInstallCount" />
+  <PropertyColumn Property="x => x.ApprovedRemovalCount" />
+
+  <PropertyColumn Property="x => x.IsNewerThanCount" />
+  <PropertyColumn Property="x => x.IsOlderThanCount" />
+  <PropertyColumn Property="x => x.CanUnInstall" />
+
+  <PropertyColumn Property="x => x.NoStatus" />
+  <PropertyColumn Property="x => x.NotApplicable" />
+  <PropertyColumn Property="x => x.Needed" />
+  <PropertyColumn Property="x => x.Failed" />
+  <PropertyColumn Property="x => x.Installed" />
+
+  <PropertyColumn Property="x=> x.ClassificationTitle" >
+    <div class="search-box">
+      <input type="search" autofocus @bind="classFilter" @bind:event="oninput" placeholder="Update Class..." />
+    </div>
+  </PropertyColumn>
+  <PropertyColumn Property="x=> x.Title" >
+    <div class="search-box">
+      <input type="search" autofocus @bind="titleFilter" @bind:event="oninput" placeholder="Update Title..." />
+    </div>
+  </PropertyColumn>
+  <PropertyColumn Property="x=> x.DeleteSql" />
+</QuickGrid>
+<Paginator State="@pagination" />

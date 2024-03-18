@@ -12,6 +12,8 @@ builder.Services.AddQuickGridEntityFrameworkAdapter();
 
 builder.Services.AddRazorComponents().AddInteractiveServerComponents();
 
+builder.Services.AddScoped(_ => new SusdbSqlSugarClient(appSettings.ConnectionStrings.SUSDB));
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
