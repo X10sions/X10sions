@@ -1,4 +1,6 @@
-﻿using MailKit;
+﻿#nullable enable
+
+using MailKit;
 using MimeKit;
 using MimeKit.Text;
 using System.Text;
