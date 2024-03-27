@@ -9,6 +9,6 @@
     <VersionPart2>9</VersionPart2>
   </PropertyGroup>
   <ItemGroup Label="PackageReferences">
-    <PackageReference Include="NetOfficeFw.Outlook" Version="1.9.1" />
+    <PackageReference Include="NetOfficeFw.Outlook" Version="1.9.5" />
   </ItemGroup>
 </Project>
