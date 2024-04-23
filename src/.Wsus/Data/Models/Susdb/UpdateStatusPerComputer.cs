@@ -15,3 +15,25 @@ public class UpdateStatusPerComputer {
   // ALTER TABLE[dbo].[tbUpdateStatusPerComputer] WITH CHECK ADD FOREIGN KEY([LocalUpdateID]) REFERENCES[dbo].[tbUpdate]  ([LocalUpdateID]) ON DELETE CASCADE
   // ALTER TABLE[dbo].[tbUpdateStatusPerComputer] WITH CHECK ADD FOREIGN KEY([TargetID]) REFERENCES[dbo].[tbComputerTarget]   ([TargetID]) ON DELETE CASCADE
 }
+
+
+public record vUpdateStatusPerComputer(Guid UpdateId, string ComputerDomainName, int SummarizationState, DateTime LastChangeTime, DateTime LastRefreshTime, DateTime LastChangeTimeOnServer) {
+  public static List<vUpdateStatusPerComputer> GetList(IQueryable<UpdateStatusPerComputer> uscQuery, IQueryable<Update> uQuery, IQueryable<ComputerTarget> ctQuery) {
+    var qry = from usc in uscQuery
+              from u in uQuery
+              from ct in ctQuery
+              where ct.FullDomainName != string.Empty
+              select new vUpdateStatusPerComputer(u.UpdateID, ct.FullDomainName ?? string.Empty, usc.SummarizationState, usc.LastChangeTime, usc.LastRefreshTime, usc.LastChangeTimeOnServer);
+    return qry.ToList();
+  }
+  /*
+select top 100 u.UpdateID, ct.FullDomainName, usc.SummarizationState, usc.LastChangeTime, usc.LastRefreshTime, usc.LastChangeTimeOnServer
+From tbUpdateStatusPerComputer usc
+Join tbComputerTarget ct on ct.TargetID = usc.TargetID
+Join dbo.tbUpdate u ON u.LocalUpdateID = usc.LocalUpdateID 
+   */
+}
+
+public static class UpdateStatusPerComputerExtensions { 
+
+}
