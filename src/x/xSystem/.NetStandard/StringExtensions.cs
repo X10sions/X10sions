@@ -53,9 +53,6 @@ namespace System {
     public static bool EqualsCurrentCultureIgnoreCase(this string s1, string s2) => s1.Equals(s2, StringComparison.CurrentCultureIgnoreCase);
     public static bool EqualsInvariantCultureIgnoreCase(this string s1, string s2) => s1.Equals(s2, StringComparison.InvariantCultureIgnoreCase);
     public static bool EqualsOrdinalIgnoreCase(this string s1, string s2) => s1.Equals(s2, StringComparison.OrdinalIgnoreCase);
-    public static string FixedLengthCenter(this string s, int length, char paddingChar = ' ') => FixedLengthLeft(FixedLengthRight(s, (s.Length + length) / 2, paddingChar), length, paddingChar);
-    public static string FixedLengthLeft(this string s, int length, char paddingChar = ' ') => s.Length > length ? s.Substring(0, length) : s.PadRight(length, paddingChar);
-    public static string FixedLengthRight(this string s, int length, char paddingChar = ' ') => s.Length > length ? s.Substring(s.Length - length, length) : s.PadLeft(length, paddingChar);
     public static string IfNullOrEmpty(this string s, string defaultValue) => string.IsNullOrEmpty(s) ? defaultValue : s;
     public static string IfNullOrWhiteSpace(this string s, string defaultValue) => string.IsNullOrWhiteSpace(s) ? defaultValue : s;
 
@@ -195,8 +192,16 @@ namespace System {
 
     public static bool EndsWithAny(this string s, string[] values, StringComparison comparisonType = StringComparison.OrdinalIgnoreCase) => values.Exists(value => s.EndsWith(value, comparisonType));
     public static bool StartsWithAny(this string s, string[] values, StringComparison comparisonType = StringComparison.OrdinalIgnoreCase) => values.Exists(value => s.StartsWith(value, comparisonType));
-    public static string PadRightMax(this string @this, int maxWidth, char paddingChar) => @this.PadRight(maxWidth, paddingChar).Substring(0, maxWidth);
-    public static string PadRightMaxWidth(this string @this, int maxWidth, char paddingChar) => @this.PadRight(maxWidth, paddingChar).Substring(0, maxWidth);
+
+    /// <summary>Returns a new right-aligned fixed length string by padding characters to the left.</summary>
+    public static string PadLeftMaxWidth(this string s, int maxWidth, char paddingChar = ' ') => s.Length > maxWidth ? s.Substring(s.Length - maxWidth, maxWidth) : s.PadLeft(maxWidth, paddingChar);
+    /// <summary>Returns a new left-aligned fixed length string by padding characters to the right.</summary>    
+    public static string PadRightMaxWidth(this string s, int maxWidth, char paddingChar = ' ') => s.Length > maxWidth ? s.Substring(0, maxWidth) : s.PadRight(maxWidth, paddingChar);
+    /// <summary>Returns a new right-aligned fixed length string by padding characters to the left and then right.</summary>
+    public static string PadLeftRightMaxWidth(this string s, int maxWidth, char paddingChar = ' ') => s.PadLeftMaxWidth((s.Length + maxWidth) / 2, paddingChar).PadRightMaxWidth(maxWidth, paddingChar);
+
+    /// <summary>Returns a new left-aligned fixed length string by padding characters to the right and then left.</summary>    
+    public static string PadRightLeftMaxWidth(this string s, int maxWidth, char paddingChar = ' ') => s.PadRightMaxWidth((s.Length + maxWidth) / 2, paddingChar).PadLeftMaxWidth( maxWidth, paddingChar);
 
     public static string PathCombine(this string path, params string[] paths) {
       foreach (var p in paths) {

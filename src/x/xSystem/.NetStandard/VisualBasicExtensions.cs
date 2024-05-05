@@ -11,11 +11,9 @@
     [Obsolete("Use: .GetLowerBound(0)")] public static int LBound(this Array a) => a.GetLowerBound(0);
     [Obsolete("Use: .ToLower()")] public static string LCase(this string s) => s.ToLower();
 
-    [Obsolete("Use: .Substring(0, length)")]
+    //[Obsolete("Use: .Substring(0, length)")]
     public static string Left(this string s, int length) {
-      if (length < 0) {
-        throw new ArgumentException(nameof(length));
-      }
+      if (length < 0) throw new ArgumentException(nameof(length));
       return length == 0 || s == null ? string.Empty : s.Substring(0, Math.Min(s.Length, length));
     }
 
@@ -24,7 +22,7 @@
 
     [Obsolete("Use: .Substring(start - 1)")] public static string Mid(this string s, int start) => s.Mid(start, s.Length);
 
-    [Obsolete("Use: .Substring(start - 1, length);")]
+    //[Obsolete("Use: .Substring(start - 1, length);")]
     public static string Mid(this string str, int start, int length) {
       if (start <= 0) {
         throw new ArgumentException(nameof(start));
@@ -38,7 +36,7 @@
       return start > strLength ? string.Empty : start + length > strLength ? str.Substring(start - 1) : str.Substring(start - 1, length);
     }
 
-    [Obsolete("Use: .Substring(s.Length - length, length)")]
+    //[Obsolete("Use: .Substring(s.Length - length, length)")]
     public static string Right(this string str, int length) {
       if (length < 0) {
         throw new ArgumentException(nameof(length));

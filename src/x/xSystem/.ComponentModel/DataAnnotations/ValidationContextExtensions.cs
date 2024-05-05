@@ -12,11 +12,11 @@ namespace System.ComponentModel.DataAnnotations {
       return currentValue.CompareTo(comparisonValue);
     }
 
-    public static bool IsCompareToType(this ValidationContext validationContext, object value, string compareToPropertyName, IComparableExtensions.CompareToType compareToType) {
-      var thisValue = value.As<object, IComparable>();
-      var otherValue = validationContext.GetPropertyValue(compareToPropertyName).As<object, IComparable>();
-      return thisValue.IsCompareToType(otherValue, compareToType);
-    }
+    //public static bool IsCompareToType(this ValidationContext validationContext, object value, string compareToPropertyName, IComparableExtensions.CompareToType compareToType) {
+    //  var thisValue = value.As<object, IComparable>();
+    //  var otherValue = validationContext.GetPropertyValue(compareToPropertyName).As<object, IComparable>();
+    //  return thisValue.IsCompareToType(otherValue, compareToType);
+    //}
 
     public static PropertyInfo GetPropertyInfo(this ValidationContext validationContext, string propertyName) => validationContext.ObjectType.GetProperty(propertyName);
 
