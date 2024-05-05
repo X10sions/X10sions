@@ -2,8 +2,8 @@
   <PropertyGroup Label="Application">
     <TargetFramework>netstandard2.0</TargetFramework>
     <Product>LinqToDB.DataProvider Extensions</Product>
-    <VersionPart1>4</VersionPart1>
-    <VersionPart2>2</VersionPart2>
+    <VersionPart1>5</VersionPart1>
+    <VersionPart2>4</VersionPart2>
     <Nullable>enable</Nullable>
   </PropertyGroup> 
   <ItemGroup Label="ProjectReferences">
