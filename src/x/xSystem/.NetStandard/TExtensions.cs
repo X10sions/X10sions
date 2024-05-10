@@ -19,6 +19,21 @@ public static class TExtensions {
 
   //public static IEnumerable<TTo> As<TFrom, TTo>(this IEnumerable<TFrom> source, TTo defaultValue) => source.Select(x => x.As(defaultValue) ?? defaultValue);
 
+  private static readonly TaskFactory _taskFactory = new TaskFactory(CancellationToken.None, TaskCreationOptions.None, TaskContinuationOptions.None, TaskScheduler.Default);
+  public static T RunSync<T>(this Func<Task<T>> func, CancellationToken cancellationToken = default) => _taskFactory.StartNew(func, cancellationToken).Unwrap().GetAwaiter().GetResult();
+  public static void RunSync(this Func<Task> func, CancellationToken cancellationToken = default) => _taskFactory.StartNew(func, cancellationToken).Unwrap().GetAwaiter().GetResult();
+
+  public static Task<T> WithCancellation<T>(this Task<T> task, CancellationToken cancellationToken) => task.IsCompleted
+    ? task
+    : task.ContinueWith(completedTask => completedTask.GetAwaiter().GetResult(), cancellationToken, TaskContinuationOptions.ExecuteSynchronously, TaskScheduler.Default);
+
+  public async static Task<T> WithCancellationAsync<T>(this Task<T> task, CancellationToken cancellationToken) {
+    if (!cancellationToken.IsCancellationRequested) {
+      return await task;
+    }
+    throw new TaskCanceledException(task);
+  }
+
   public static Task<T> Async<T>(this Func<T> func, CancellationToken cancellationToken = default) {
     if (cancellationToken.IsCancellationRequested) {
       return Task.FromCanceled<T>(cancellationToken);

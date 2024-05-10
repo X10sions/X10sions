@@ -29,6 +29,6 @@ public static class IDbTransactionExtensions {
     }
   }
 
-  public static Task<Exception?> TryCommitAsync(this IDbTransaction transaction, CancellationToken cancellationToken = default) => ((Func<Exception?>)(() => transaction.TryCommit())).Async(cancellationToken);
+  //public static async Task<Exception?> TryCommitAsync(this IDbTransaction transaction, CancellationToken cancellationToken = default) => ((Func<Exception?>)(() => transaction.TryCommit())).Async(cancellationToken);
 
 }
