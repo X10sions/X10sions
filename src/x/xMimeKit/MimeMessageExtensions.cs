@@ -1,42 +1,10 @@
-﻿#nullable enable
-
-using MailKit;
-using MimeKit;
-using MimeKit.Text;
+﻿using MimeKit.Text;
 using System.Text;
 
 namespace MimeKit;
 public static class MimeMessageExtensions {
 
-  public static MimeMessage From(this MimeMessage message, string address) {
-    message.From.Add(MailboxAddress.Parse(address));
-    return message;
-  }
-
-  public static MimeMessage From(this MimeMessage message, string name, string address) {
-    message.From.Add(new MailboxAddress(name, address));
-    return message;
-  }
-
-  public static MimeMessage To(this MimeMessage message, string address) {
-    message.To.Add(MailboxAddress.Parse(address));
-    return message;
-  }
-
-  public static MimeMessage To(this MimeMessage message, string name, string address) {
-    message.To.Add(new MailboxAddress(name, address));
-    return message;
-  }
-
-  public static MimeMessage Cc(this MimeMessage message, string address) {
-    message.Cc.Add(MailboxAddress.Parse(address));
-    return message;
-  }
-
-  public static MimeMessage Cc(this MimeMessage message, string name, string address) {
-    message.Cc.Add(new MailboxAddress(name, address));
-    return message;
-  }
+  //public static MimeMessage AsMimeMessage(this Exception ex, string? heading = null, string? message = null) => new MimeMessage().HtmlBody(ex.AsHtmlString(heading, message));
 
   public static MimeMessage Bcc(this MimeMessage message, string address) {
     message.Bcc.Add(MailboxAddress.Parse(address));
@@ -45,10 +13,6 @@ public static class MimeMessageExtensions {
 
   public static MimeMessage Bcc(this MimeMessage message, string name, string address) {
     message.Bcc.Add(new MailboxAddress(name, address));
-    return message;
-  }
-  public static MimeMessage Subject(this MimeMessage message, string subject) {
-    message.Subject = subject;
     return message;
   }
 
@@ -71,31 +35,70 @@ public static class MimeMessageExtensions {
     return message.Body(fileContentsFormatter is not null ? fileContentsFormatter(body) : body, textFormat);
   }
 
-  //public static ITemplateRenderer DefaultRenderer = new ReplaceRenderer();
+  public static MimeMessage Cc(this MimeMessage message, string address) {
+    message.Cc.Add(MailboxAddress.Parse(address));
+    return message;
+  }
 
-  //public static MimeMessage UsingTemplateFromFile<T>(this MimeMessage message, string filename, T model, bool isHtml = true) {
-  //  var template = "";
-  //  using (var reader = new StreamReader(File.OpenRead(filename))) {
-  //    template = reader.ReadToEnd();
-  //  }
-  //  var result = Renderer.Parse(template, model, isHtml);
-  //  message.Body( result, isHtml? TextFormat.Html : TextFormat.Plain);
-  //  return message;
-  //}
+  public static MimeMessage Cc(this MimeMessage message, string name, string address) {
+    message.Cc.Add(new MailboxAddress(name, address));
+    return message;
+  }
 
+  public static string Content(this MimeMessage message) => !string.IsNullOrEmpty(message.HtmlBody) ? message.HtmlBody : message.TextBody;
+
+  public static MimeMessage From(this MimeMessage message, string address) {
+    message.From.Add(MailboxAddress.Parse(address));
+    return message;
+  }
+
+  public static MimeMessage From(this MimeMessage message, string name, string address) {
+    message.From.Add(new MailboxAddress(name, address));
+    return message;
+  }
+
+  public static long GetMessageSize(this MimeMessage message, bool doIncludeAttachments = false) {
+    long size = 0;
+    message.Prepare(EncodingConstraint.SevenBit);
+    using (var stream = new IO.MeasuringStream()) {
+      message.WriteTo(stream);
+      size = stream.Length;
+    }
+    if (doIncludeAttachments) {
+      foreach (var a in message.Attachments) {
+        size += a.ContentDisposition.Size ?? 0;
+        //a.Prepare(EncodingConstraint.SevenBit);
+        //using (var stream = new MimeKit.IO.MeasuringStream()) {
+        //  a.WriteTo(stream);
+        //  size += stream.Length;
+        //}
+      }
+    }
+    return size;
+  }
 
   public static MimeMessage HtmlBody(this MimeMessage message, string body) => message.Body(body, TextFormat.Html);
   public static MimeMessage HtmlBody(this MimeMessage message, StringBuilder sb) => message.HtmlBody(sb.ToString());
   public static MimeMessage HtmlBodyFromFile(this MimeMessage message, string fileName, Func<string, string>? fileContentsFormatter = null) => message.BodyFromFile(fileName, TextFormat.Html, fileContentsFormatter);
 
-  public static void SendUsingSmptClient(this MimeMessage message, IMailKitAppSettings settings) => settings.SendUsingSmptClient(message);
-  public static void SendUsingSmptClient(this IEnumerable<MimeMessage> messages, IMailKitAppSettings settings) => settings.SendUsingSmptClient(messages.ToArray());
-  public async static Task SendUsingSmptClientAsync(this MimeMessage message, IMailKitAppSettings settings) => await settings.SendUsingSmptClientAsync(message);
-  public async static Task SendUsingSmptClientAsync(this IEnumerable<MimeMessage> messages, IMailKitAppSettings settings) => await settings.SendUsingSmptClientAsync(messages.ToArray());
-
-  #region Send
-
-
+  public static void SaveAllAttachments(this MimeMessage message, string toFolder) {
+    foreach (var attachment in message.Attachments) {
+      var fileName = toFolder + (attachment.ContentDisposition?.FileName ?? attachment.ContentType.Name);
+      try {
+        using (var stream = File.Create(fileName)) {
+          if (attachment is MessagePart) {
+            var rfc822 = (MessagePart)attachment;
+            rfc822.Message.WriteTo(stream);
+          } else {
+            var part = (MimePart)attachment;
+            part.Content.DecodeTo(stream);
+          }
+        }
+      } catch (Exception ex) {
+        throw new Exception(message.Subject + ": \n\n" + fileName + ": \n\n" + ex.Message);
+      }
+    }
+  }
 
   //public static void Send(this MimeMessage msg, BodyBuilder body) {
   //  msg.Body = body.ToMessageBody();
@@ -105,6 +108,7 @@ public static class MimeMessageExtensions {
   //public static void Send<T>(this MimeMessage msg, string subjectSufix, string htmlBody) => msg.Send(typeof(T), subjectSufix, htmlBody);
   //public static void Send(this MimeMessage msg, Type debugType, string subjectSufix, string htmlBody) => msg.Send(debugType.FullName + ": " + subjectSufix, htmlBody);
   ////public static void Send(this MimeMessage msg, object debugObject, string subjectSufix, string htmlBody) => msg.Send(debugObject.GetType(), subjectSufix, htmlBody);
+
 
   public static void SetMailMessageAlternateViews(this MimeMessage msg, BodyBuilder htmlBody, MimeEntity[] linkedResources) {
     var alternateViews = new MultipartAlternative();
@@ -142,17 +146,39 @@ public static class MimeMessageExtensions {
   //  msg.AlternateViews.Add(plainView);
   //}
 
-  #endregion
+  public static string SharedMailboxName(string userName, string sharedMailboxAlias) => $@"{userName}\{sharedMailboxAlias}";
 
-  public static MimeMessage ApplySettings(this MimeMessage message, IMailKitAppSettings settings) {
-    if (message.From.Count < 1) {
-      message.From.Add(settings.DefaultFrom);
-    }
-    if ((message.To.Count + message.Cc.Count + message.Bcc.Count) < 1) {
-      message.To.Add(settings.DefaultTo);
-    }
+  public static MimeMessage Subject(this MimeMessage message, string subject) {
+    message.Subject = subject;
     return message;
   }
+
+  public static MimeMessage To(this MimeMessage message, string address) {
+    message.To.Add(MailboxAddress.Parse(address));
+    return message;
+  }
+
+  public static MimeMessage To(this MimeMessage message, string name, string address) {
+    message.To.Add(new MailboxAddress(name, address));
+    return message;
+  }
+
+
+  //public static ITemplateRenderer DefaultRenderer = new ReplaceRenderer();
+
+  //public static MimeMessage UsingTemplateFromFile<T>(this MimeMessage message, string filename, T model, bool isHtml = true) {
+  //  var template = "";
+  //  using (var reader = new StreamReader(File.OpenRead(filename))) {
+  //    template = reader.ReadToEnd();
+  //  }
+  //  var result = Renderer.Parse(template, model, isHtml);
+  //  message.Body( result, isHtml? TextFormat.Html : TextFormat.Plain);
+  //  return message;
+  //}
+
+
+
+
 
   //public string FilePath { get; } = "\\Logs\\emails.log";
 
@@ -197,6 +223,5 @@ public static class MimeMessageExtensions {
   //    throw;
   //  }
   //}
-
 
 }
