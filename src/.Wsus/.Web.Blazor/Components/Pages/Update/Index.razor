@@ -1,0 +1,37 @@
+﻿@page "/updates"
+@using Microsoft.AspNetCore.Components.QuickGrid
+@inject X10sions.Wsus.Data.SusdbDbContext DB
+@inject X10sions.Wsus.Data.SusdbSqlSugarClient sqlSugar
+@using X10sions.Wsus.Data
+@using X10sions.Wsus.Data.Models.Susdb
+@{
+  var pageTitle = "Updates";
+  var query = from urs in UpdateRevisionSummary.Queryable(DB)
+              where urs.UpdateRevision.IsHidden && urs.NotApplicable > 0 //--LastUndeclinedTime Is not null
+              orderby urs.Title, urs.ReleaseDateUtc
+              select new {
+                urs.UpdateRevision.UpdateId,
+                urs.Title,
+                urs.ClassificationTitle,
+                urs.ReleaseDateUtc
+              };
+
+  // var query1 = SusdbSqlSugarClient.UpdateRevisionSummary.Queryable(sqlSugar)
+  //             .Where(urs => urs.UpdateRevision.IsHidden && urs.NotApplicable > 0) //--LastUndeclinedTime Is not null
+  //             .OrderBy(urs => urs.Title).OrderBy(urs => urs.ReleaseDateUtc)
+  //             .Select(urs => new {
+  //               urs.UpdateRevision.UpdateId,
+  //               urs.Title,
+  //               urs.ClassificationTitle,
+  //               urs.ReleaseDateUtc
+  //             });
+
+}
+<PageTitle>@pageTitle</PageTitle>
+<h1>@pageTitle</h1>
+<QuickGrid Class="table" Items="query" >
+  <PropertyColumn Property="x => x.UpdateId" />
+  <PropertyColumn Property="x => x.Title" />
+  <PropertyColumn Property="x => x.ClassificationTitle" />
+  <PropertyColumn Property="x => x.ReleaseDateUtc" />
+</QuickGrid>

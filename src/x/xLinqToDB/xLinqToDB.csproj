@@ -1,13 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup Label="Application">
-    <TargetFrameworks>netstandard2.0;net7.0</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0</TargetFrameworks>
     <Product>LinqToDB Extensions</Product>
-    <VersionPart1>4</VersionPart1>
-    <VersionPart2>2</VersionPart2>
+    <VersionPart1>5</VersionPart1>
+    <VersionPart2>4</VersionPart2>
     <Nullable>enable</Nullable>
   </PropertyGroup> 
   <ItemGroup Label="PackageReferences">
-    <PackageReference Include="linq2db" Version="5.2.0" />
+    <PackageReference Include="linq2db" Version="5.4.1" />
     <!-- 
     <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="6.0.0" />
     <PackageReference Include="Microsoft.Bcl.HashCode" Version="1.1.1" />

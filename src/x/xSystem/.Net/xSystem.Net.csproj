@@ -9,4 +9,7 @@
   <ItemGroup>
     <ProjectReference Include="..\.NetStandard\xSystem.NetStandard.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ComponentModel\" />
+  </ItemGroup>
 </Project>

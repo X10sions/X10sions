@@ -1,17 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup Label="Application">
     <TargetFramework>netstandard2.0</TargetFramework>
-    <!-- 
-    <TargetFrameworks>netstandard2.0;net6.0</TargetFrameworks>
-    -->
     <Product>LinqToDB.AspNet Extensions</Product>
-    <VersionPart1>4</VersionPart1>
-    <VersionPart2>2</VersionPart2>
+    <VersionPart1>5</VersionPart1>
+    <VersionPart2>4</VersionPart2>
     <Nullable>enable</Nullable>
   </PropertyGroup> 
   <ItemGroup Label="PackageReferences">
-    <PackageReference Include="linq2db.AspNet" Version="5.2.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="7.0.0" />
+    <PackageReference Include="linq2db.AspNet" Version="5.4.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="8.0.0" />
   </ItemGroup> 
   <ItemGroup>
     <ProjectReference Include="..\.DataProvider\xLinqToDB.DataProvider.csproj" />

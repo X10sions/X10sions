@@ -72,28 +72,32 @@ public static class IDbConnectionExtensions {
     return connection;
   }
 
-  public static T EnsureOpenCall<T>(this IDbConnection connection, Func<T> action) {
+  public static T EnsureOpenCall<T>(this IDbConnection connection, Func<T> action, Action<Exception>? exceptionAction = null) {
     var isConnectionNotOpen = connection.State != ConnectionState.Open;
     if (isConnectionNotOpen) { connection.Open(); }
     T returValue;
     try {
       returValue = action();
     } catch (Exception ex) {
-      //LogException("Failed to ExecuteNonQuery for " + procedureName, ex, parameters);
+      if (exceptionAction is not null) {
+        exceptionAction(ex);
+      }
       throw;
     }
     if (isConnectionNotOpen) { connection.Close(); }
     return returValue;
   }
 
-  public static async Task<T> EnsureOpenCallAsync<T>(this IDbConnection connection, Func<Task<T>> action) {
+  public static async Task<T> EnsureOpenCallAsync<T>(this IDbConnection connection, Func<Task<T>> action, Action<Exception>? exceptionAction = null) {
     var isConnectionNotOpen = connection.State != ConnectionState.Open;
     if (isConnectionNotOpen) { await connection.OpenAsync(); }
     T returValue;
     try {
       returValue = await action();
     } catch (Exception ex) {
-      //LogException("Failed to ExecuteNonQuery for " + procedureName, ex, parameters);
+      if (exceptionAction is not null) {
+        exceptionAction(ex);
+      }
       throw;
     }
     if (isConnectionNotOpen) { await connection.CloseAsync(); }
@@ -184,7 +188,7 @@ public static class IDbConnectionExtensions {
       try {
         dt.Load(cmd.ExecuteReader());
       } catch (Exception ex) {
-        throw new Exception($"{ex.Message}{Environment.NewLine}{commandText}", ex);
+        throw new InvalidOperationException($"{ex.Message}{Environment.NewLine}{commandText}", ex);
       }
     }
     if (isConnectionNotOpen) { connection.Close(); }

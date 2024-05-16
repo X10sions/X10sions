@@ -6,11 +6,13 @@
     <RootNamespace>X10sions.Wsus</RootNamespace>
   </PropertyGroup>
   <ItemGroup Label="PackageReferences">
+    <PackageReference Include="FreeSql.Provider.SqlServer" Version="3.2.815" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.2">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="SqlSugarCore" Version="5.1.4.146" />
     <!--
     <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.0" />
     -->

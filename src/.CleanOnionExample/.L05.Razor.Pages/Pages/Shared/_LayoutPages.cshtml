@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="@(razorComponentsContentPath)/lib/bootstrap/v5.1.0/css/bootstrap.min.css" />
   <link rel="stylesheet" href="@(razorComponentsContentPath)/css/site.css" asp-append-version="true" />
   <link rel="stylesheet" href="@(razorComponentsContentPath)/css/app-site.css" />
-  <link rel="stylesheet" href="~/@(Assembly.GetEntryAssembly().Name()).styles.css" asp-append-version="true" />
+  <link rel="stylesheet" href="~/@(Assembly.GetEntryAssembly()?.GetName().Name).styles.css" asp-append-version="true" />
 
   <!-- for water demo page -->
   <script src="@(razorComponentsContentPath)/water/OES_texture_float_linear-polyfill.js"></script>

@@ -1,0 +1,32 @@
+﻿@page "/updates/decline"
+@using Microsoft.AspNetCore.Components.QuickGrid
+@inject X10sions.Wsus.Data.SusdbDbContext DB
+@using X10sions.Wsus.Data.Models.Susdb
+@{
+  var pageTitle = "Decline Updates";
+  var query = from urs in X10sions.Wsus.Data.UpdateRevisionSummary.Queryable(DB)
+              where !urs.UpdateRevision. IsHidden
+              && urs.ApprovedInstallCount==  0
+              && urs.Installed == 0
+              && urs.Needed == 0
+              && urs.Failed == 0
+              && urs.ClassificationTitle == "Drivers"
+              && urs.ReleaseDateUtc < new DateTime( 2024,1,1)
+              orderby urs.ReleaseDateUtc
+              select new {
+                urs.UpdateRevision.UpdateId,
+                urs.Title,
+                urs.ReleaseDateUtc,
+                urs.ClassificationTitle,
+                urs.DeclineSql
+              };
+}
+<PageTitle>@pageTitle</PageTitle>
+<h1>@pageTitle </h1>
+<QuickGrid Class="table" Items="query.Take(10000)" >
+  <PropertyColumn Property="x => x.UpdateId" />
+  <PropertyColumn Property="x=> x.Title" />
+  <PropertyColumn Property="x=> x.ReleaseDateUtc" Format="yyyy-MM-dd HH:mm:ss" />
+  <PropertyColumn Property="x=> x.ClassificationTitle" />
+  <PropertyColumn Property="x=> x.DeclineSql" />
+</QuickGrid>

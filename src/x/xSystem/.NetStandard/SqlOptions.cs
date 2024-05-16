@@ -43,6 +43,7 @@
   }
 
   public class SqlDecimalOptions : SqlOptions {
+    public static readonly SqlDecimalOptions Default = new();
   }
 
   public class SqlOptions {
@@ -66,10 +67,11 @@
   }
 
   public class SqlTimeOptions : SqlDateOptions {
+    public static readonly SqlTimeOptions Default = new();
 
     //public string LiteralValueformat = DateTimeConstants.SqlTimeFormat;
-    public int MilliSecondsPrecision;
-     
+    public int MilliSecondsPrecision { get; set; }
+
     public override Formats Format => Formats.Time;
   }
 

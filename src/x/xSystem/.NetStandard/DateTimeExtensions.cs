@@ -3,8 +3,8 @@
 namespace System {
   public static class DateTimeExtensions {
 
-    public static string InvariantSortableDateTimePattern = DateTimeFormatInfo.InvariantInfo.SortableDateTimePattern;
-    public static string CurrentSortableDateTimePattern = DateTimeFormatInfo.CurrentInfo.SortableDateTimePattern;
+    public static readonly string InvariantSortableDateTimePattern = DateTimeFormatInfo.InvariantInfo.SortableDateTimePattern;
+    public static readonly string CurrentSortableDateTimePattern = DateTimeFormatInfo.CurrentInfo.SortableDateTimePattern;
 
     public static DateTime AddWeekdays(this DateTime d, int days) {
       var sign = days < 0 ? -1 : 1;
@@ -52,6 +52,19 @@ namespace System {
       var ticks = date.Ticks;
       return ticks >= startDate.Ticks && ticks <= endDate.Ticks;
     }
+    public static string ToFullShortDateTimeString(this DateTime d) => d.ToString("f");
+    public static string ToFullLongDateTimeString(this DateTime d) => d.ToString("F");
+    public static string ToGeneralShortDateTimeString(this DateTime d) => d.ToString("g");
+    public static string ToGeneralLongDateTimeString(this DateTime d) => d.ToString("G");
+    public static string ToMonthDayString(this DateTime d) => d.ToString("m");
+    public static string ToRoundTripDateTimeString(this DateTime d) => d.ToString("o");
+    public static string ToRFC1123String(this DateTime d) => d.ToString("r");
+    public static string ToSortableDateTimeString(this DateTime d) => d.ToString("s");
+    public static string ToUniversalSortableDateTimeString(this DateTime d) => d.ToString("u");
+    public static string ToYearMonthString(this DateTime d) => d.ToString("y");
+    public static string ToIso8601DateString(this DateTime d) => d.ToString("yyyy-MM-dd");
+    public static string ToIso8601DateTimeString(this DateTime d) => d.ToString("yyyy-MM-ddTHH:mm:ssZ");
+    public static string ToIso8601TimeString(this DateTime d) => d.ToString("THH:mm:ss");
 
     public static bool IsWeekend(this DateTime dt) => dt.DayOfWeek.IsWeekend();
     public static bool IsWeekDay(this DateTime dt) => !dt.IsWeekend();
@@ -69,8 +82,8 @@ namespace System {
     public static string SqlLiteralDate(this DateTime? d, SqlDateOptions options) => d.HasValue ? d.Value.SqlLiteralDate(options) : SqlOptions.SqlNullString;
 
     public static string SqlLiteralTime(this DateTime d, int milliSecondsPrecision = 0, string prefix = SqlTimeOptions.DefaultLiteralPrefix, string suffix = SqlTimeOptions.DefaultLiteralSuffix) => prefix + d.ToSqlTime(milliSecondsPrecision) + suffix;
-    public static string SqlLiteralTime(this DateTime d) => d.SqlLiteralTime(new SqlTimeOptions());
-    public static string SqlLiteralTime(this DateTime? d) => d.SqlLiteralTime(new SqlTimeOptions());
+    //public static string SqlLiteralTime(this DateTime d) => d.SqlLiteralTime(SqlTimeOptions.Default);
+    public static string SqlLiteralTime(this DateTime? d) => d.SqlLiteralTime(SqlTimeOptions.Default);
     public static string SqlLiteralTime(this DateTime d, SqlTimeOptions options) => d.SqlLiteralTime(options.MilliSecondsPrecision, options.LiteralPrefix, options.LiteralSuffix);
     public static string SqlLiteralTime(this DateTime? d, SqlTimeOptions options) => d.HasValue ? d.Value.SqlLiteralTime(options) : SqlOptions.SqlNullString;
 

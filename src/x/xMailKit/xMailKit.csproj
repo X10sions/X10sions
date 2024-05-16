@@ -3,10 +3,13 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <Product>MailKit .Net Extensions</Product>
     <VersionPart1>4</VersionPart1>
-    <VersionPart2>1</VersionPart2>
+    <VersionPart2>5</VersionPart2>
     <Description>https://getbootstrap.com</Description>
   </PropertyGroup>
   <ItemGroup Label="PackageReferences">
-    <PackageReference Include="MailKit" Version="4.3.0" />
+    <PackageReference Include="MailKit" Version="4.5.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\xMimeKit\xMimeKit.csproj" />
   </ItemGroup>
 </Project>

@@ -1,0 +1,34 @@
+﻿@page "/updates/undecline"
+@using Microsoft.AspNetCore.Components.QuickGrid
+@inject X10sions.Wsus.Data.SusdbDbContext DB
+@using X10sions.Wsus.Data.Models.Susdb
+@{
+  var pageTitle = "Undecline Updates";
+  var query = from urs in X10sions.Wsus.Data.UpdateRevisionSummary.Queryable(DB)
+              where urs.UpdateRevision.IsHidden
+              //--And Title Like '%Lenovo%'
+              // And Not Title Like '%Intel%'--652497
+              // And Not Title Like '%Realtek%'--278369
+              // --And Title Like '%Dell%'
+              // --And Title Like '%Gigabyte%'
+              // --And Title Like '%HP%'
+              // --And Title Like '%Nutanix%'
+              orderby urs.Title, urs.ReleaseDateUtc descending
+              select new {
+                urs.UpdateRevision.UpdateId,
+                urs.Title,
+                urs.ReleaseDateUtc,
+                urs.ClassificationTitle,
+                urs.UndeclineSql
+              };
+}
+
+<PageTitle>@pageTitle</PageTitle>
+<h1>@pageTitle </h1>
+<QuickGrid Class="table" Items="query.Take(10000)">
+  <PropertyColumn Property="x => x.UpdateId" />
+  <PropertyColumn Property="x=> x.Title" />
+  <PropertyColumn Property="x=> x.ReleaseDateUtc" Format="yyyy-MM-dd HH:mm:ss" />
+  <PropertyColumn Property="x=> x.ClassificationTitle" />
+  <PropertyColumn Property="x=> x.UndeclineSql" />
+</QuickGrid>

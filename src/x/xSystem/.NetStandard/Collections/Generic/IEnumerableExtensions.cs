@@ -27,7 +27,7 @@ namespace System.Collections.Generic {
       if (list is Array)
         return list.GetType().GetElementType();
       var type = list.GetType();
-      if (list is IList || list is ITypedList || list is IListSource) {
+      if (list is IList or ITypedList or IListSource) {
         PropertyInfo? last = null;
         foreach (var pi in type.GetProperties()) {
           if (pi.GetIndexParameters().Length > 0 && pi.PropertyType != typeOfObject) {
@@ -64,7 +64,7 @@ namespace System.Collections.Generic {
     }
 
     public static string JoinToCsv<T>(this IEnumerable<T> objectlist, List<string>? excludedPropertyNames = null, bool quoteEveryField = false, bool includeFieldNamesAsFirstRow = true) {
-      if (excludedPropertyNames == null) { excludedPropertyNames = new List<string>(); }
+      excludedPropertyNames ??= [];
       var separator = ",";
       var t = typeof(T);
       var props = t.GetProperties();
@@ -74,9 +74,9 @@ namespace System.Collections.Generic {
         if (quoteEveryField) {
           for (var i = 0; i <= arrPropNames.Length - 1; i++) {
             if (i > 0) { csvBuilder.Append(separator); }
-            csvBuilder.Append("\"");
+            csvBuilder.Append('"');
             csvBuilder.Append(arrPropNames[i]);
-            csvBuilder.Append("\"");
+            csvBuilder.Append('"');
           }
           csvBuilder.Append(Environment.NewLine);
 
@@ -128,7 +128,7 @@ namespace System.Collections.Generic {
 
     public static IEnumerable<T> Traverse<T>(this IEnumerable<T> items, Func<T, IEnumerable<T>> childSelector) {
       var stack = new Stack<T>(items);
-      while (stack.Any()) {
+      while (stack.Count > 0) {
         var next = stack.Pop();
         yield return next;
         foreach (var child in childSelector(next)) {
@@ -139,15 +139,8 @@ namespace System.Collections.Generic {
 
     public static string WrapIfNotNullOrWhiteSpace<T>(this IEnumerable<T> source, string prefix, string suffix, string joinSeparator = ",", string defaultIfNullOrWhiteSpace = "") => source.IsNullOrWhiteSpace() ? defaultIfNullOrWhiteSpace : prefix + string.Join(joinSeparator, source) + suffix;
 
-    public class DynamicEqualityComparer<T> : IEqualityComparer<T> where T : class {
-
-      public DynamicEqualityComparer(Func<T, T, bool> func) {
-        _func = func;
-      }
-
-      private readonly Func<T, T, bool> _func;
-
-      public bool Equals(T x, T y) => _func(x, y);
+    public class DynamicEqualityComparer<T>(Func<T, T, bool> func) : IEqualityComparer<T> where T : class {
+      public bool Equals(T x, T y) => func(x, y);
 
       public int GetHashCode(T obj) => 0; // force Equals
     }

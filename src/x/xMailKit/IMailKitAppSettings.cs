@@ -14,22 +14,17 @@ public interface IMailKitAppSettings {
   string? Password { get; set; }
 }
 
-public class MailboxAddressAppSettings : MailboxAddress {
-  public MailboxAddressAppSettings() : base(string.Empty, string.Empty) { }
-}
-
-public class MailKitAppSettings : IMailKitAppSettings {
-  public MailboxAddressAppSettings DefaultFrom { get; set; } = default!;
-  public MailboxAddressAppSettings DefaultTo { get; set; } = default!;
-  public string Host { get; set; } = default!;
-  public int Port { get; set; }
-  public bool UseSsl { get; set; }
-  public string? UserName { get; set; }
-  public string? Password { get; set; }
-
-}
-
 public static class IMailKitAppSettingsExtensions {
+
+  public static MimeMessage ApplySettings(this IMailKitAppSettings settings, MimeMessage message ) {
+    if (message.From.Count < 1) {
+      message.From.Add(settings.DefaultFrom);
+    }
+    if ((message.To.Count + message.Cc.Count + message.Bcc.Count) < 1) {
+      message.To.Add(settings.DefaultTo);
+    }
+    return message;
+  }
 
   public static MimeMessage GetMimeMessage(this IMailKitAppSettings settings
     , string subject
@@ -37,14 +32,14 @@ public static class IMailKitAppSettingsExtensions {
     , List<MailboxAddress>? to = null
     , MailboxAddress? from = null
     , MimeKit.Text.TextFormat textFormat = MimeKit.Text.TextFormat.Html) {
-    var message = new MimeMessage().ApplySettings(settings);
+    var message = settings.ApplySettings(new MimeMessage());
     if (from != null) {
       message.From.Add(from);
     }
     if (to?.Count > 0) {
       message.To.AddRange(to);
     }
-    message.ApplySettings(settings);
+    settings.ApplySettings(message);
     message.Subject = subject;
     message.Body = new TextPart(textFormat) { Text = body };
     return message;
@@ -88,7 +83,7 @@ public static class IMailKitAppSettingsExtensions {
           client.Authenticate(settings.UserName, settings.Password);
         }
         foreach (var message in messages) {
-          message.ApplySettings(settings);
+          settings.ApplySettings(message);
           client.Send(message);
         }
       } catch (Exception ex) {
@@ -110,7 +105,7 @@ public static class IMailKitAppSettingsExtensions {
           await client.AuthenticateAsync(settings.UserName, settings.Password);
         }
         foreach (var message in messages) {
-          message.ApplySettings(settings);
+          settings.ApplySettings(message);
           await client.SendAsync(message);
         }
       } catch (Exception ex) {
@@ -122,5 +117,11 @@ public static class IMailKitAppSettingsExtensions {
       }
     }
   }
+
+  public static void SendUsingSmptClient(this IMailKitAppSettings settings , MimeMessage message ) => settings.SendUsingSmptClient(message);
+  public static void SendUsingSmptClient(this IMailKitAppSettings settings, IEnumerable<MimeMessage> messages ) => settings.SendUsingSmptClient(messages.ToArray());
+  public async static Task SendUsingSmptClientAsync(this IMailKitAppSettings settings, MimeMessage message) => await settings.SendUsingSmptClientAsync(message);
+  public async static Task SendUsingSmptClientAsync(this IMailKitAppSettings settings, IEnumerable<MimeMessage> messages) => await settings.SendUsingSmptClientAsync(messages.ToArray());
+
 
 }
