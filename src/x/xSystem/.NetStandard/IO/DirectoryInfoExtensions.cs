@@ -10,29 +10,28 @@ public static class DirectoryInfoExtensions {
     return path + separator;
   }
 
-  public static void CopyDirectory(DirectoryInfo di, string targetPath, bool deleteFirst = false, bool deepCopy = true) {
-    if (deleteFirst && Directory.Exists(targetPath))
-      Directory.Delete(targetPath, true);
+  public static void CopyDirectory(DirectoryInfo source, DirectoryInfo target, bool deleteFirst = false, bool deepCopy = true) {
+    if (deleteFirst && target.Exists) {
+      target.Delete(true);
+    }
     var searchOption = deepCopy ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly;
-    foreach (var dirPath in di.GetDirectories("*", searchOption)) {
-      Directory.CreateDirectory(dirPath.FullName.Replace(di.FullName, targetPath));
+    foreach (var dirPath in source.GetDirectories("*", searchOption)) {
+      Directory.CreateDirectory(dirPath.FullName.Replace(source.FullName, target.FullName));
     }
-    foreach (var newPath in di.GetFiles("*.*", searchOption)) {
-      File.Copy(newPath.FullName, newPath.FullName.Replace(di.FullName, targetPath), true);
+    foreach (var newPath in source.GetFiles("*.*", searchOption)) {
+      File.Copy(newPath.FullName, newPath.FullName.Replace(source.FullName, target.FullName), true);
     }
   }
 
-  public static DirectoryInfo DirectoryInfo(this DirectoryInfo directoryInfo, string childDirectoryName) => new DirectoryInfo(Path.Combine(directoryInfo.FullName, childDirectoryName));
+  public static FileInfo CreateFile(this DirectoryInfo directory, string fileName, byte[] contentBytes) => directory.GetFileInfo(fileName).WriteAllBytes(contentBytes);
 
-  public static void EnsureExists(this DirectoryInfo di) {
-    if (!di.Exists) Directory.CreateDirectory(di.FullName);
+  public static void EnsureExists(this DirectoryInfo directoryInfo) {
+    if (!directoryInfo.Exists) Directory.CreateDirectory(directoryInfo.FullName);
   }
 
-  public static FileInfo FileInfo(this DirectoryInfo directoryInfo, string fileName) => new FileInfo(Path.Combine(directoryInfo.FullName, fileName));
+  public static FileInfo GetFileInfo(this DirectoryInfo directoryInfo, string childFilePath) => new FileInfo(Path.Combine(directoryInfo.FullName, childFilePath));
 
-  public static DirectoryInfo GetChildDirectoryInfo(this DirectoryInfo di, string childDirectoryName) => new DirectoryInfo(Path.Combine(di.FullName, childDirectoryName));
-
-  public static FileInfo GetChildFileInfo(this DirectoryInfo di, string childFileName) => new FileInfo(Path.Combine(di.FullName, childFileName));
+  public static DirectoryInfo GetDirectoryInfo(this DirectoryInfo directoryInfo, string childDirectoryName) => new DirectoryInfo(Path.Combine(directoryInfo.FullName, childDirectoryName));
 
   public static string NormalizeDirectory(this DirectoryInfo di) {
     var path = di.NormalizePath();
