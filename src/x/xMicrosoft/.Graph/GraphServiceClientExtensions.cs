@@ -8,12 +8,6 @@ public static class GraphServiceClientExtensions {
   public async static Task DeleteUserMessageAsync(this GraphServiceClient graphServiceClient, User user, Message message, CancellationToken cancellationToken)
     => await graphServiceClient.Users[user.Id].Messages[message.Id].DeleteAsync(cancellationToken: cancellationToken);
 
-  //public static async Task<MessageCollectionResponse?> GetInboxMessages(this GraphServiceClient graphServiceClient, EmailAddress emailAddress)
-  //  => await graphServiceClient.Users[emailAddress.Address].MailFolders[Constants.Url.Inbox].Messages
-  //                          //.Expand("attachments")
-  //                          //   .Top(20)
-  //                          .GetAsync();
-
   /// <summary> https://learn.microsoft.com/en-us/graph/api/message-move?view=graph-rest-1.0</summary>
   public async static Task<Message> MoveUserMessageAsync(this GraphServiceClient graphServiceClient, User user, Message message, string destinationFolderId, CancellationToken cancellationToken)
       => await graphServiceClient.Users[user.Id].Messages[message.Id].Move.PostAsync(new MovePostRequestBody {
