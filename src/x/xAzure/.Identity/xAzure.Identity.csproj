@@ -1,0 +1,11 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup Label="Application">
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Product>Azure.Identity Extensions</Product>
+    <VersionPart1>1</VersionPart1>
+    <VersionPart2>11</VersionPart2>
+  </PropertyGroup> 
+  <ItemGroup Label="PackageReferences">
+    <PackageReference Include="Azure.Identity" Version="1.11.3" />
+  </ItemGroup>
+</Project>
