@@ -43,6 +43,7 @@ public static class FileInfoExtensions {
 
   public static FileInfo WriteAllBytes(this FileInfo file, byte[] contents) {
     File.WriteAllBytes(file.FullName, contents);
+    Console.WriteLine(file.FullName);
     return file.Refresh(true);
   }
 

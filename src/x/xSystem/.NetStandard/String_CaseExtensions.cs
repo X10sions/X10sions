@@ -1,4 +1,6 @@
-﻿namespace System {
+﻿using System.Text.RegularExpressions;
+
+namespace System {
   public static class String_CaseExtensions {
     #region https://github.com/JamesNK/Newtonsoft.Json/blob/master/Src/Newtonsoft.Json/Utilities/StringUtils.cs
 
