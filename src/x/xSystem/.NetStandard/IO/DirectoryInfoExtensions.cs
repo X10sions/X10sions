@@ -23,7 +23,9 @@ public static class DirectoryInfoExtensions {
     }
   }
 
-  public static FileInfo CreateFile(this DirectoryInfo directory, string fileName, byte[] contentBytes) => directory.GetFileInfo(fileName).WriteAllBytes(contentBytes);
+  public static FileInfo CreateFile(this DirectoryInfo directory, string fileName, byte[] contents) => directory.GetFileInfo(fileName).WriteAll(contents);
+  public static FileInfo CreateFile(this DirectoryInfo directory, string fileName, string contents) => directory.GetFileInfo(fileName).WriteAll(contents);
+  public static FileInfo CreateFile(this DirectoryInfo directory, string fileName, string[] contents) => directory.GetFileInfo(fileName).WriteAll(contents);
 
   public static void EnsureExists(this DirectoryInfo directoryInfo) {
     if (!directoryInfo.Exists) Directory.CreateDirectory(directoryInfo.FullName);

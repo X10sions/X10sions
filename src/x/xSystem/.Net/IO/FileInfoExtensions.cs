@@ -14,6 +14,6 @@ public static class xxFileInfoExtensions {
     return value;
   }
   public static async Task WriteAllTextAsync(this FileInfo fileInfo, string contents, CancellationToken token = default) => await File.WriteAllTextAsync(fileInfo.FullName, contents, token);
-  public static void WriteAllTextJson<T>(this FileInfo fileInfo, T result) => fileInfo.WriteAllText(JsonSerializer.Serialize(result));
+  public static void WriteAllTextJson<T>(this FileInfo fileInfo, T result) => fileInfo.WriteAll(JsonSerializer.Serialize(result));
   public static async Task WriteAllTextJsonAsync<T>(this FileInfo fileInfo, T result, CancellationToken token = default) => await fileInfo.WriteAllTextAsync(JsonSerializer.Serialize(result), token);
 }

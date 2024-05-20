@@ -18,7 +18,7 @@ public static class FileInfoExtensions {
     }
     return f;
   }
-
+  
   public static string SafeName(this FileInfo f, string replacementString = "", string? spaceReplacement = null) {
     var file = Path.GetInvalidFileNameChars().Aggregate(f.Name.Trim(), (current, c) => current.Replace(c.ToString(), replacementString));
     file = file.Replace("#", "");
@@ -41,18 +41,17 @@ public static class FileInfoExtensions {
     return s.ToString();
   }
 
-  public static FileInfo WriteAllBytes(this FileInfo file, byte[] contents) {
+  public static FileInfo WriteAll(this FileInfo file, byte[] contents) {
     File.WriteAllBytes(file.FullName, contents);
-    Console.WriteLine(file.FullName);
     return file.Refresh(true);
   }
 
-  public static FileInfo WriteAllLines(this FileInfo file, string[] contents) {
+  public static FileInfo WriteAll(this FileInfo file, string[] contents) {
     File.WriteAllLines(file.FullName, contents);
     return file.Refresh(true);
   }
 
-  public static FileInfo WriteAllText(this FileInfo file, string contents) {
+  public static FileInfo WriteAll(this FileInfo file, string contents) {
     File.WriteAllText(file.FullName, contents);
     return file.Refresh(true);
   }
