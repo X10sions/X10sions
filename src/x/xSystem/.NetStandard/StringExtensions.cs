@@ -199,7 +199,6 @@ namespace System {
     public static string PadRightMaxWidth(this string s, int maxWidth, char paddingChar = ' ') => s.Length > maxWidth ? s.Substring(0, maxWidth) : s.PadRight(maxWidth, paddingChar);
     /// <summary>Returns a new right-aligned fixed length string by padding characters to the left and then right.</summary>
     public static string PadLeftRightMaxWidth(this string s, int maxWidth, char paddingChar = ' ') => s.PadLeftMaxWidth((s.Length + maxWidth) / 2, paddingChar).PadRightMaxWidth(maxWidth, paddingChar);
-
     /// <summary>Returns a new left-aligned fixed length string by padding characters to the right and then left.</summary>    
     public static string PadRightLeftMaxWidth(this string s, int maxWidth, char paddingChar = ' ') => s.PadRightMaxWidth((s.Length + maxWidth) / 2, paddingChar).PadLeftMaxWidth( maxWidth, paddingChar);
 

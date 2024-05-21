@@ -49,6 +49,8 @@ public static class TExtensions {
   public static object GetTypeFieldValueAs<T>(this T obj, string fieldName) where T : notnull => obj.GetTypeFieldValueAs<T, object>(fieldName);
   public static object GetTypePropertyValueAs<T>(this T obj, string propertyName) where T : notnull => obj.GetTypePropertyValueAs<T, object>(propertyName);
   public static TProperty GetTypePropertyValueAs<T, TProperty>(this T obj, string propertyName) where T : notnull => obj.GetType().GetPropertyValueAs<T, TProperty>(propertyName, obj);
+  public static bool IsAny<T>(this T obj, params T[] values)  => values.Contains(obj);
+ 
 
   //public static bool IsNullable<T>(this T o) => typeof(T).IsNullable();
 
