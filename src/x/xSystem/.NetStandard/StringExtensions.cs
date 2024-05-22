@@ -53,6 +53,9 @@ namespace System {
     public static bool EqualsCurrentCultureIgnoreCase(this string s1, string s2) => s1.Equals(s2, StringComparison.CurrentCultureIgnoreCase);
     public static bool EqualsInvariantCultureIgnoreCase(this string s1, string s2) => s1.Equals(s2, StringComparison.InvariantCultureIgnoreCase);
     public static bool EqualsOrdinalIgnoreCase(this string s1, string s2) => s1.Equals(s2, StringComparison.OrdinalIgnoreCase);
+    public static string Format(this string format, object arg0) => string.Format(format, arg0);
+    public static string Format(this string format, object arg0, object arg1) => string.Format(format, arg0, arg1);
+    public static string Format(this string format, object arg0, object arg1, object arg2) => string.Format(format, arg0, arg1, arg2);
     public static string IfNullOrEmpty(this string s, string defaultValue) => string.IsNullOrEmpty(s) ? defaultValue : s;
     public static string IfNullOrWhiteSpace(this string s, string defaultValue) => string.IsNullOrWhiteSpace(s) ? defaultValue : s;
 
