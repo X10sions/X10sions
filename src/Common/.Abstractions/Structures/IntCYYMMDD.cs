@@ -27,22 +27,22 @@ namespace Common.Structures {
     public IntCYYMMDD(string c, string yymmdd) : this((c + yymmdd).As(0)) { }
 
     #region Min & Max Values
-    public static readonly int MinDD = 0; // 1901-01-01
-    public static readonly int MaxDD = 99; // 9999-12-31
+    public static  int MinDD { get; } = 0; // 1901-01-01
+    public static  int MaxDD { get; } = 99; // 9999-12-31
 
-    public static readonly int MinYYMMDD = 0; // 1901-01-01
-    public static readonly int MaxYYMMDD = 999999; // 9999-12-31
+    public static  int MinYYMMDD { get; } = 0; // 1901-01-01
+    public static  int MaxYYMMDD { get; } = 999999; // 9999-12-31
 
     /// <summary>1901-01-01</summary>
-    public static readonly int MinCYYMMDD = 0;
+    public static  int MinCYYMMDD { get; } = 0;
     /// <summary>9999-12-31</summary>
-    public static readonly int MaxCYYMMDD = 9999999;
+    public static  int MaxCYYMMDD { get; } = 9999999;
 
-    public static readonly int MinValidCYYMMDD = 101; // 1901-01-01
-    public static readonly int MaxValidCYYMMDD = 9991231; // 9999-01-31
+    public static  int MinValidCYYMMDD { get; } = 101; // 1901-01-01
+    public static  int MaxValidCYYMMDD { get; } = 9991231; // 9999-01-31
 
-    public static new readonly IntCYYMMDD MinValue = new IntCYYMMDD(0); // 9999-12-31
-    public static new readonly IntCYYMMDD MaxValue = new IntCYYMMDD(9999999); // 1901-01-01
+    public static new  IntCYYMMDD MinValue { get; } = new IntCYYMMDD(0); // 9999-12-31
+    public static new  IntCYYMMDD MaxValue { get; } = new IntCYYMMDD(9999999); // 1901-01-01
     #endregion
 
     int dd;
