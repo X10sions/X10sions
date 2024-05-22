@@ -1,11 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Concurrent;
+﻿using System.Collections.Concurrent;
 using System.Diagnostics;
 using System.Globalization;
+using System.Linq.Expressions;
 using System.Reflection;
-using xSystem.NetStandard;
 
-namespace System.Linq.Expressions;
+namespace xSystem.NetStandard;
 
 /// <summary> https://github.com/dotnet/aspnetcore/blob/main/src/Mvc/Mvc.ViewFeatures/src/ExpressionHelper.cs </summary>
 internal static class ExpressionHelper {
@@ -157,7 +156,7 @@ internal static class ExpressionHelper {
     if (indexExpression is null) throw new ArgumentNullException(nameof(indexExpression));
     if (parentExpression is null) throw new ArgumentNullException(nameof(parentExpression));
     if (parentExpression.Parameters == null) {
-      throw new ArgumentException(NetStandard.Resources.FormatPropertyOfTypeCannotBeNull(nameof(parentExpression.Parameters), nameof(parentExpression)));
+      throw new ArgumentException(Resources.FormatPropertyOfTypeCannotBeNull(nameof(parentExpression.Parameters), nameof(parentExpression)));
     }
     var converted = Expression.Convert(indexExpression, typeof(object));
     var fakeParameter = Expression.Parameter(typeof(object), null);
@@ -167,7 +166,7 @@ internal static class ExpressionHelper {
       func = CachedExpressionCompiler.Process(lambda) ?? lambda.Compile();
     } catch (InvalidOperationException ex) {
       var parameters = parentExpression.Parameters.ToArray();
-      throw new InvalidOperationException(NetStandard.Resources.FormatExpressionHelper_InvalidIndexerExpression(indexExpression, parameters[0].Name), ex);
+      throw new InvalidOperationException(Resources.FormatExpressionHelper_InvalidIndexerExpression(indexExpression, parameters[0].Name), ex);
     }
     builder.Insert(0, ']');
     builder.Insert(0, Convert.ToString(func(null), CultureInfo.InvariantCulture));
@@ -294,15 +293,5 @@ internal static class ExpressionHelper {
   }
 
   #endregion
-
-}
-
-public static class ExpressionHelperExtensions {
-
-  private static readonly ConcurrentDictionary<LambdaExpression, string> _expressionTextCache = new(LambdaExpressionComparer.Instance);
-
-  /// <summary> https://github.com/dotnet/aspnetcore/blob/main/src/Mvc/Mvc.ViewFeatures/src/ModelExpressionProvider.cs#L37 </summary>
-  public static string GetExpressionText<TModel, TValue>(this Expression<Func<TModel, TValue>> expression)
-    => expression is null ? throw new ArgumentNullException(nameof(expression)) : ExpressionHelper.GetExpressionText(expression, _expressionTextCache);
 
 }

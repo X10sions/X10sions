@@ -58,6 +58,8 @@ public static class IQueryableExtensions {
   public static IQueryable<T> WhereIf<T>(this IQueryable<T> source, bool condition, Expression<Func<T, bool>> predicate) => condition ? source.Where(predicate) : source;
   public static IQueryable<T> WhereIf<T>(this IQueryable<T> source, bool condition, Expression<Func<T, int, bool>> predicate) => condition ? source.Where(predicate) : source;
 
+  public static IQueryable<T> WhereIf<T>(this IQueryable<T> source, bool condition, Func<IQueryable<T>, IQueryable<T>> trueQuery) => condition ? trueQuery(source) : source;
+
   public static IQueryable<T> WhereIfNotNull<T>(this IQueryable<T> source, Expression<Func<T, bool>>? predicate) => predicate != null ? source.Where(predicate) : source;
   public static IQueryable<T> WhereIfNotNull<T>(this IQueryable<T> source, Expression<Func<T, int, bool>>? predicate) => predicate != null ? source.Where(predicate) : source;
 

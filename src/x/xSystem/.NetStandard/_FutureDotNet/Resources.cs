@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 
-namespace System.NetStandard;
+namespace xSystem.NetStandard;
 
 /// <summary>Microsoft.AspNetCore.Mvc.ViewFeatures.Resources.cs</summary>
 public static class Resources {

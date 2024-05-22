@@ -1,15 +1,12 @@
 ﻿using System.Security.Principal;
+using xSystem.NetStandard;
 
 namespace System.Security.Claims;
 public static class ClaimsPrincipalExtensions {
 
-  /// <summary> https://github.com/dotnet/aspnetcore/blob/main/src/Identity/Extensions.Core/src/PrincipalExtensions.cs </summary>
-  public static string? FindFirstValue(this ClaimsPrincipal principal, string claimType) 
-    => principal is null ? throw new ArgumentNullException(nameof(principal)) : principal.FindFirst(claimType)?.Value;
-
-  public static string GetClaimEmail(this ClaimsPrincipal principal) => principal.FindFirstValue(ClaimTypes.Email);
-  public static string GetClaimNameIdentifier(this ClaimsPrincipal principal) => principal.FindFirstValue(ClaimTypes.NameIdentifier);
-  public static string GetClaimName(this ClaimsPrincipal principal) => principal.FindFirstValue(ClaimTypes.Name);
+  public static string? GetClaimEmail(this ClaimsPrincipal principal) => principal.FindFirstValue(ClaimTypes.Email);
+  public static string? GetClaimNameIdentifier(this ClaimsPrincipal principal) => principal.FindFirstValue(ClaimTypes.NameIdentifier);
+  public static string? GetClaimName(this ClaimsPrincipal principal) => principal.FindFirstValue(ClaimTypes.Name);
 
   //public static bool IsCurrentUser(this ClaimsPrincipal principal, string id) => string.Equals(GetClaimUserId(principal), id, StringComparison.OrdinalIgnoreCase);
 
