@@ -1,8 +1,18 @@
-﻿namespace System.IO;
+﻿using System.Diagnostics;
+
+namespace System.IO;
 public static class FileInfoExtensions {
 
   public static void CopyTo(this FileInfo f, FileInfo target, bool overwrite = false) => f.CopyTo(target.FullName, overwrite).Refresh(true);
   public static void CopyTo(this FileInfo f, DirectoryInfo dir, bool overwrite = false) => f.CopyTo(Path.Combine(dir.FullName, f.Name), overwrite).Refresh(true);
+
+  public static bool StartProcessAsAdmin(this FileInfo f) {
+    var proc = new Process();
+    proc.StartInfo.FileName = f.FullName;
+    proc.StartInfo.UseShellExecute = true;
+    proc.StartInfo.Verb = "runas";
+    return proc.Start();
+  }
 
   public static string FullNameWithEnvironment(this FileInfo fi, string environmentName) => fi.FullName.Replace(fi.Extension, $".{environmentName}{fi.Extension}");
   public static string NameWithoutExtension(this FileInfo f) => Path.GetFileNameWithoutExtension(f.Name);
