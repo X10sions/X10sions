@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup Label="Application">
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Product>Common NetStandard</Product>
+    <RootNamespace>Common</RootNamespace>
+    <VersionPart1>2</VersionPart1>
+    <VersionPart2>0</VersionPart2>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  <ItemGroup Label="PackageReferences">
+    <PackageReference Update="FastExpressionCompiler.LightExpression" Version="3.3.3" />
+  </ItemGroup>
+  <ItemGroup Label="ProjectReferences">
+    <ProjectReference Include="..\..\x\xSystem\.DotNetStandard\xSystem.DotNetStandard.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Features\DummyFakeExamples\WeatherForecast\" />
+    <Folder Include="Models\Win32\" />
+  </ItemGroup>
+</Project>

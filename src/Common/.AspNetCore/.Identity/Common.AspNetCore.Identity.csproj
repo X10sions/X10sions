@@ -22,10 +22,4 @@
     <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="7.0.0" />
     <PackageReference Include="System.Data.Odbc" Version="7.0.0" />
   </ItemGroup>
-  <ItemGroup Label="ProjectReferences">
-    <!-- 
-    <ProjectReference Include="$(RepoSrcDir_X10sions)Common\.Abstractions\Common.Abstractions.csproj" />
-    -->
-    <ProjectReference Include="..\..\.Abstractions\Common.Abstractions.csproj" />
-  </ItemGroup>
 </Project>

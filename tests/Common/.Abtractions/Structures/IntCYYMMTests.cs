@@ -104,7 +104,7 @@ namespace Common.Structures {
         new TheoryDataItem (    1, 1900,  1, new IntCYYMM(DateTime.MinValue)         , "DateTime: Min"),
         new TheoryDataItem (99912, 2899, 12, new IntCYYMM(DateTime.MaxValue)         , "DateTime: Max"),
 
-        new TheoryDataItem (  0, 1900,  1, new IntCYYMM(new DateTime(1899,  1,  1)), "DateTime: Min IntCYYMM - 1 day"),
+        new TheoryDataItem (    0, 1900,  1, new IntCYYMM(new DateTime(1899,  1,  1)), "DateTime: Min IntCYYMM - 1 day"),
         new TheoryDataItem (  101, 1900,  1, new IntCYYMM(new DateTime(1900,  1,  1)), "DateTime: Min IntCYYMM"),
         new TheoryDataItem (10101, 1901,  1, new IntCYYMM(new DateTime(1901,  1,  1)), "DateTime: Min IntCYYMM + 1 day"),
 
