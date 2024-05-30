@@ -1,4 +1,5 @@
 ﻿using CleanOnionExample.Data.Entities;
+using Common.Features.DummyFakeExamples.Owner;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

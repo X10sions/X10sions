@@ -16,10 +16,10 @@ public static class PurgeTodoLists {
       _context = context;
     }
 
-    public async Task<Unit> Handle(Command request, CancellationToken cancellationToken) {
+    public async Task Handle(Command request, CancellationToken cancellationToken) {
       _context.TodoLists.RemoveRange(_context.TodoLists);
       await _context.SaveChangesAsync(cancellationToken);
-      return Unit.Value;
+      //return Unit.Value;
     }
   }
 

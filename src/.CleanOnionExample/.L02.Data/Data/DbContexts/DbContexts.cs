@@ -1,6 +1,10 @@
 ﻿using CleanOnionExample.Data.Entities;
 using Common.App.Settings;
 using Common.Data;
+using Common.Features.DummyFakeExamples.Project;
+using Common.Features.DummyFakeExamples.ToDo;
+using Common.Features.DummyFakeExamples.ToDo.Item;
+using Common.Features.DummyFakeExamples.WeatherForecast;
 using IBM.EntityFrameworkCore;
 using LinqToDB;
 using LinqToDB.AspNet;

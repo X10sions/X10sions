@@ -1,9 +1,10 @@
-﻿using CleanOnionExample.Enums;
-using CleanOnionExample.Services;
-using CleanOnionExample.Services.Auth;
-using CleanOnionExample.Services.JWT;
-using Common.Data;
+﻿using Common.Data;
+using Common.Enums;
 using Common.Exceptions;
+using Common.Features.DummyFakeExamples.Account;
+using Common.Features.DummyFakeExamples.Auth;
+using Common.Features.DummyFakeExamples.Clock;
+using Common.Features.DummyFakeExamples.User;
 using Common.Mail;
 using Common.Net;
 using Microsoft.AspNetCore.Identity;

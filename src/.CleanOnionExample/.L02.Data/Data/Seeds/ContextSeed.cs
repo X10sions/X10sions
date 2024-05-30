@@ -1,6 +1,8 @@
 ﻿using CleanOnionExample.Data.DbContexts;
 using CleanOnionExample.Data.Entities;
-using CleanOnionExample.Data.Entities.ValueObjects;
+using Common.Domain.ValueObjects;
+using Common.Features.DummyFakeExamples.ToDo;
+using Common.Features.DummyFakeExamples.ToDo.Item;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 

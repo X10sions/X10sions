@@ -1,4 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Common.Features.DummyFakeExamples.Account;
+using Common.Features.DummyFakeExamples.Owner;
+using Common.Features.DummyFakeExamples.Person;
+using Common.Features.DummyFakeExamples.WeatherForecast;
+using Microsoft.EntityFrameworkCore;
 
 namespace CleanOnionExample.Data.Entities.Services;
 public interface IRepositoryManager {

@@ -9,4 +9,7 @@
   <ItemGroup Label="FrameworkReferences">
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\.DotNetStandard\Common.DotNetStandard.csproj" />
+  </ItemGroup>
 </Project>

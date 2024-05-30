@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Common.Data;
+using Common.Features.DummyFakeExamples.Brand;
 using MediatR;
 
 namespace CleanOnionExample.Data.Entities.Services;

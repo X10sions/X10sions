@@ -1,6 +1,8 @@
 ﻿namespace CleanOnionExample.Data.Entities.Services;
 
 using Common.Exceptions;
+using Common.Features.DummyFakeExamples.Owner;
+using Mapster;
 using Task = System.Threading.Tasks.Task;
 
 internal sealed class OwnerService : IOwnerService {

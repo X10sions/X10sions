@@ -1,4 +1,5 @@
 ﻿using CleanOnionExample.Services;
+using Common.Features.DummyFakeExamples.Auth;
 using Common.Interfaces;
 using MediatR.Pipeline;
 using Microsoft.Extensions.Logging;

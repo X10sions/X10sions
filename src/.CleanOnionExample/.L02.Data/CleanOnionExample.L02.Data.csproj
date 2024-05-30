@@ -15,6 +15,7 @@
     <PackageReference Include="FluentValidation" Version="11.5.2" />
     <PackageReference Include="IBM.EntityFrameworkCore" Version="7.0.0.200" />
     <PackageReference Include="MailKit" Version="4.1.0" />
+    <PackageReference Include="Mapster" Version="7.4.0" />
     <PackageReference Include="MediatR" Version="12.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.7" />
@@ -38,6 +39,7 @@
     <ProjectReference Include="..\..\..\..\x10sions\EntityFrameworkCore.Jet\src\EFCore.Jet.OleDb\EFCore.Jet.OleDb.csproj" />
     -->
     <ProjectReference Include="..\..\..\..\EntityFrameworkCore.Jet.git\src\EFCore.Jet\EFCore.Jet.csproj" />
+    <ProjectReference Include="..\..\Common\.DotNet\Common.DotNet.csproj" />
     <ProjectReference Include="..\..\x\xLinqToDB\.AspNet\xLinqToDB.AspNet.csproj" />
   </ItemGroup>
   <ItemGroup>

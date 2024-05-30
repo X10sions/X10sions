@@ -9,10 +9,9 @@ namespace xSystem.NetStandard;
 
 /// <summary> https://github.com/dotnet/aspnetcore/blob/main/src/Mvc/Mvc.ViewFeatures/src/ExpressionHelper.cs </summary>
 internal static class ExpressionHelper {
-  public static string GetUncachedExpressionText(LambdaExpression expression)
-      => GetExpressionText(expression, expressionTextCache: null);
+  public static string GetUncachedExpressionText(this LambdaExpression expression) => GetExpressionText(expression, expressionTextCache: null);
 
-  public static string GetExpressionText(LambdaExpression expression, ConcurrentDictionary<LambdaExpression, string> expressionTextCache) {
+  public static string GetExpressionText(this LambdaExpression expression, ConcurrentDictionary<LambdaExpression, string>? expressionTextCache) {
     if (expression is null) throw new ArgumentNullException(nameof(expression));
     if (expressionTextCache != null && expressionTextCache.TryGetValue(expression, out var expressionText)) {
       return expressionText;

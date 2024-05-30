@@ -1,4 +1,4 @@
-﻿using CleanOnionExample.Services.Auth;
+﻿using Common.Features.DummyFakeExamples.Auth;
 using Microsoft.AspNetCore.Identity;
 
 namespace CleanOnionExample.Data.Entities;

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Common.Data;
 using Common.Exceptions;
+using Common.Features.DummyFakeExamples.Product;
 using MediatR;
 using System.Linq.Expressions;
 

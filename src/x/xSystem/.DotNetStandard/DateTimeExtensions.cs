@@ -1,7 +1,7 @@
 ﻿using System.Globalization;
 
 namespace System {
-  public static class DateTimeExtensions {
+  public static class DateTimeExtensions_DotNetStandard {
 
     public static readonly string InvariantSortableDateTimePattern = DateTimeFormatInfo.InvariantInfo.SortableDateTimePattern;
     public static readonly string CurrentSortableDateTimePattern = DateTimeFormatInfo.CurrentInfo.SortableDateTimePattern;

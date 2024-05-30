@@ -1,5 +1,8 @@
 ﻿using CleanOnionExample.Data.DbContexts;
 using CleanOnionExample.Data.Entities.Services;
+using Common.Features.DummyFakeExamples.Account;
+using Common.Features.DummyFakeExamples.Owner;
+using Common.Features.DummyFakeExamples.WeatherForecast;
 using Microsoft.EntityFrameworkCore;
 
 namespace CleanOnionExample.Data.Entities;

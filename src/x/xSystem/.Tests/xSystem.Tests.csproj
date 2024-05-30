@@ -5,7 +5,7 @@
     <Product>System Extensions Tests</Product>
   </PropertyGroup>
   <ItemGroup Label="ProjectReferences">
-    <ProjectReference Include="..\xSystem.csproj" />
+    <ProjectReference Include="..\.DotNetStandard\xSystem.DotNetStandard.csproj" />
   </ItemGroup>
   <ItemGroup>
   </ItemGroup>

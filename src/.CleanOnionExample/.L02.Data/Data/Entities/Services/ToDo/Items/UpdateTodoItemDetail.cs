@@ -1,6 +1,7 @@
 ﻿using CleanOnionExample.Data.DbContexts;
-using CleanOnionExample.Enums;
+using Common.Enums;
 using Common.Exceptions;
+using Common.Features.DummyFakeExamples.ToDo.Item;
 using MediatR;
 
 namespace CleanOnionExample.Data.Entities.Services;
@@ -16,7 +17,7 @@ public static class UpdateTodoItemDetail {
     }
 
     public async Task<Unit> Handle(Command request, CancellationToken cancellationToken) {
-      var entity = await _context.TodoItems.FindAsync(new object[] { request.Id }, cancellationToken);
+      var entity = await _context.TodoItems.FindAsync([request.Id], cancellationToken);
       if (entity == null) {
         throw new NotFoundException(nameof(ToDoItem), request.Id);
       }

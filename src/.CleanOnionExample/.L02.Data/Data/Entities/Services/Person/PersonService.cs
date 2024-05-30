@@ -1,4 +1,6 @@
-﻿namespace CleanOnionExample.Data.Entities.Services;
+﻿using Common.Features.DummyFakeExamples.Person;
+
+namespace CleanOnionExample.Data.Entities.Services;
 public class PersonService : IPersonService {
   public PersonService(IRepositoryManager repositoryManager) => _repositoryManager = repositoryManager;
 

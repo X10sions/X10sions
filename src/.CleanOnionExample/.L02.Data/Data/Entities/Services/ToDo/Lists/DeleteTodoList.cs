@@ -1,5 +1,6 @@
 ﻿using CleanOnionExample.Data.DbContexts;
 using Common.Exceptions;
+using Common.Features.DummyFakeExamples.ToDo;
 using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -17,7 +18,7 @@ public static class DeleteTodoList {
       _context = context;
     }
 
-    public async Task<Unit> Handle(Command request, CancellationToken cancellationToken) {
+    public async Task Handle(Command request, CancellationToken cancellationToken) {
       var entity = await _context.TodoLists
           .Where(l => l.Id == request.Id)
           .SingleOrDefaultAsync(cancellationToken);
@@ -26,7 +27,7 @@ public static class DeleteTodoList {
       }
       _context.TodoLists.Remove(entity);
       await _context.SaveChangesAsync(cancellationToken);
-      return Unit.Value;
+      //return Unit.Value;
     }
   }
 
