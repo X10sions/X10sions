@@ -13,7 +13,7 @@
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
   <ItemGroup Label="ProjectReferences">
-    <ProjectReference Include="..\..\..\Common\.Abstractions\Common.Abstractions.csproj" />
+    <ProjectReference Include="..\..\..\Common\.DotNetStandard\Common.DotNetStandard.csproj" />
     <ProjectReference Include="..\.Extensions\xMicrosoft.Extensions.csproj" />
     <!-- 
     <ProjectReference Include="$(RepoSrcDir_X10sions)x\xMicrosoft\.Extensions\xMicrosoft.Extensions.csproj" />  

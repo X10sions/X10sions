@@ -8,14 +8,18 @@
     <RootNamespace></RootNamespace>
   </PropertyGroup>
   <ItemGroup Label="PackageReferences">
-    <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.9" />
-    <PackageReference Include="Microsoft.AspNet.Identity.Core" Version="2.2.3" />
+    <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.3.0" />
+    <PackageReference Include="Microsoft.AspNet.Identity.Core" Version="2.2.4" />
     <PackageReference Include="Microsoft.AspNet.SignalR.Core" Version="2.4.3" />
-    <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.2.9" />
-    <PackageReference Include="Microsoft.AspNet.WebPages.Data" Version="3.2.9" />
+    <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.3.0" />
+    <PackageReference Include="Microsoft.AspNet.WebPages.Data" Version="3.3.0" />
+    <PackageReference Include="Microsoft.Owin" Version="4.2.2" />
   </ItemGroup>
   <ItemGroup Label="ProjectReferences">
-    <ProjectReference Include="..\..\xSystem\.NetStandard\xSystem.NetStandard.csproj" />
+    <ProjectReference Include="..\..\..\Common\.DotNetFramework\Common.DotNetFramework.csproj" />
+    <ProjectReference Include="..\..\..\Common\.DotNetStandard\Common.DotNetStandard.csproj" />
+    <ProjectReference Include="..\..\xSystem\.DotNetFramework\xSystem.DotNetFramework.csproj" />
+    <ProjectReference Include="..\..\xSystem\.DotNetStandard\xSystem.DotNetStandard.csproj" />
   </ItemGroup>
   <ItemGroup Label="References">
     <Reference Include="System.ComponentModel.DataAnnotations" />

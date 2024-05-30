@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 
 namespace System.Web.WebPages.Html;
 public static class SelectListItemExtensions {
@@ -40,7 +41,7 @@ public static class SelectListItemExtensions {
   public static IEnumerable<SelectListItem> EnumToSelectList<T>(this T[] selectedValues) where T : Enum
     => from T x in Enum.GetValues(typeof(T))//.Cast<T>()
        select new SelectListItem {
-         Text = x.ToString() + ": " + x.GetAttribute<T, DescriptionAttribute>()?.Description,
+         Text = x.ToString() + ": " + x.GetCustomAttribute<DescriptionAttribute, T>()?.Description,
          Value = x.ToString(),
          Selected = selectedValues.Contains(x)
        };
