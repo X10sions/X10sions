@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Security;
+using System.Security.Permissions;
 
 namespace System.Windows.Media.Imaging {
   /// <summary>Represents a single, constant set of pixels at a certain size and resolution.</summary>

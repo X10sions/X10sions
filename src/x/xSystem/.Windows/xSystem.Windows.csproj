@@ -1,16 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup Label="Application">
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Product>NetStandard Extensions</Product>
-    <AssemblyVersion>2019.0204.0038.0</AssemblyVersion>
-    <FileVersion>2019.0204.0038.0</FileVersion>
+    <Product>System.Windows NetStandard Extensions</Product>
+    <VersionPart1>5</VersionPart1>
+    <VersionPart2>0</VersionPart2>
   </PropertyGroup>
   <ItemGroup Label="PackageReferences">
-    <PackageReference Include="Microsoft.Win32.Registry" Version="4.5.0" />
+    <PackageReference Include="Microsoft.Win32.Registry" Version="5.0.0" />
   </ItemGroup>
   <ItemGroup Label="ProjectReferences">    
-    <ProjectReference Include="..\xSystem.csproj" />
-    <!-- 
+   
+    <!--  <ProjectReference Include="..\xSystem.csproj" />
     <ProjectReference Include="$(RepoSrcDir_X10sions)x\xSystem\xSystem.csproj" />
     -->
   </ItemGroup>

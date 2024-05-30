@@ -2,9 +2,11 @@
   <PropertyGroup Label="Application">
     <TargetFramework>netstandard2.0</TargetFramework>
     <Product>NetStandard Extensions</Product>
+    <VersionPart1>8</VersionPart1>
+    <VersionPart2>0</VersionPart2>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="System.Security.Permissions" Version="5.0.0" />
+    <PackageReference Include="System.Security.Permissions" Version="8.0.0" />
   </ItemGroup>
   <!-- 
   <ItemGroup>
