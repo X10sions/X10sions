@@ -10,6 +10,6 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
   <ItemGroup Label="ProjectReferences">
-    <ProjectReference Include="..\xSystem\.NetStandard\xSystem.NetStandard.csproj" />
+    <ProjectReference Include="..\xSystem\.DotNetStandard\xSystem.DotNetStandard.csproj" />
   </ItemGroup>
 </Project>
