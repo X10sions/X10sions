@@ -5,7 +5,6 @@ logs/
 node_modules/
 obj/
 publish/
-.dotnet/
 .nuget/
 .packages/
 .tools/
