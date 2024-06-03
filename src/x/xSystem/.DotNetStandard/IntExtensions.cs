@@ -28,11 +28,11 @@ namespace System {
         default: return num + "th";
       }
     }
-
-    public static string ToInvariant(this int value) => value.ToString(NumberFormatInfo.InvariantInfo);
-
     public static string SqlLiteral(this int value) => value.ToString();
     public static string SqlLiteral(this int? value) => value.HasValue ? value.Value.SqlLiteral() : SqlOptions.SqlNullString;
+
+    public static string ToInvariant(this int value) => value.ToString(NumberFormatInfo.InvariantInfo);
+    public static string ToStringInvariantCulture(this int value, string format) => value.ToString(format, CultureInfo.InvariantCulture);
 
   }
 }

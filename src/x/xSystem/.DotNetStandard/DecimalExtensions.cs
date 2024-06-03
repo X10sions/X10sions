@@ -18,6 +18,7 @@ namespace System {
     public static string SqlLiteral(this decimal value, SqlDecimalOptions options) => options.LiteralPrefix + value + options.LiteralSuffix;
     public static string SqlLiteral(this decimal? value, SqlDecimalOptions options) => value.HasValue ? value.Value.SqlLiteral(options) : SqlOptions.SqlNullString;
 
+    public static string ToStringInvariantCulture(this decimal value, string format) => value.ToString(format, CultureInfo.InvariantCulture);
 
   }
 }

@@ -48,11 +48,11 @@ namespace System {
     //public static long ConvertToInt64Round(this string value) => Convert.ToInt64(Math.Round(Convert.ToDecimal(value)));
     public static bool Contains(this string source, string toCheck, StringComparison comp) => source?.IndexOf(toCheck, comp) >= 0;
     public static string CsvEscapeQuotes(this string s) => string.IsNullOrEmpty(s) ? s : s.Replace("\"", "\"\"");
-    public static bool Equals(this string s1, string s2, bool useOrdinalIgnoreCase) => useOrdinalIgnoreCase ? s1.Equals(s2, StringComparison.OrdinalIgnoreCase) : s1.Equals(s2);
-    public static bool EqualsIgnoreCase(this string s1, string s2) => s1.Equals(s2, StringComparison.OrdinalIgnoreCase);
-    public static bool EqualsCurrentCultureIgnoreCase(this string s1, string s2) => s1.Equals(s2, StringComparison.CurrentCultureIgnoreCase);
-    public static bool EqualsInvariantCultureIgnoreCase(this string s1, string s2) => s1.Equals(s2, StringComparison.InvariantCultureIgnoreCase);
-    public static bool EqualsOrdinalIgnoreCase(this string s1, string s2) => s1.Equals(s2, StringComparison.OrdinalIgnoreCase);
+    public static bool Equals(this string? s1, string? s2, bool useOrdinalIgnoreCase) => useOrdinalIgnoreCase ? s1.Equals(s2, StringComparison.OrdinalIgnoreCase) : s1.Equals(s2);
+    public static bool EqualsIgnoreCase(this string? s1, string? s2) => string.Equals(s1, s2, StringComparison.OrdinalIgnoreCase);
+    public static bool EqualsCurrentCultureIgnoreCase(this string? s1, string? s2) => s1.Equals(s2, StringComparison.CurrentCultureIgnoreCase);
+    public static bool EqualsInvariantCultureIgnoreCase(this string? s1, string? s2) => s1.Equals(s2, StringComparison.InvariantCultureIgnoreCase);
+    public static bool EqualsOrdinalIgnoreCase(this string? s1, string? s2) => s1.Equals(s2, StringComparison.OrdinalIgnoreCase);
     public static string Format(this string format, object arg0) => string.Format(format, arg0);
     public static string Format(this string format, object arg0, object arg1) => string.Format(format, arg0, arg1);
     public static string Format(this string format, object arg0, object arg1, object arg2) => string.Format(format, arg0, arg1, arg2);
@@ -268,6 +268,8 @@ namespace System {
     public static string WrapIfNotNullOrWhiteSpace(this string? s, string prefix = "", string suffix = "", string defaultIfNullOrWhiteSpace = "") => string.IsNullOrWhiteSpace(s) ? defaultIfNullOrWhiteSpace : prefix + s + suffix;
 
     public static T ToEnum<T>(this string s, T defaultValue, bool ignoreCase = true) where T : struct => Enum.IsDefined(typeof(T), s) ? (T)Enum.Parse(typeof(T), s, ignoreCase) : defaultValue;
+
+    public static string ToUpperCurrentCulture(this string value) => value.ToUpper( CultureInfo.CurrentCulture);
 
     #region "BinaryFormatterExtensions"
 
