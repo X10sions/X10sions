@@ -11,20 +11,25 @@ public readonly record struct IntHHMM(int Value) : IValueObject<int>, IFormattab
 
   public const int MinValue = 0;
   public const int MaxValue = 2359;
-  public const string Format = "hhmm";
+  public const string Format = "HHmm";
 
   public static readonly IntHHMM Min = new(MinValue);
   public static readonly IntHHMM Max = new(MaxValue);
 
-  public Hour HH => new(this);
-  public Month MM => new(this);
+  public int HH => Value / 100;
+  public Hour Hour => new(this);
+  public int MM => Value % 100;
+  public Minute Minute => new(this);
+
+  public DateTime DateTime(int second = Second.MinValue, int millisecond = Millisecond.MinValue)
+    => new(Year.MinValue, Month.MinValue, 1, Hour.Value, Minute.Value, second, millisecond, DateTimeKind.Unspecified);
+  public TimeOnly TimeOnly(int seconds = Second.MinValue) => new(Hour.Value, Minute.Value, seconds);
 
   #region IFormattable
   public override string ToString() => Value.ToString("0000");
-  public string ToString(string format, IFormatProvider formatProvider) => ToString().ToString(formatProvider);
+  public string ToString(string? format, IFormatProvider? formatProvider) => ToString().ToString(formatProvider);
   #endregion
 
-  public DateTime GetDate(int ss, int millisecond = 0) => new DateTime(1, 1, 1, HH.Value, MM.Value, ss, millisecond, DateTimeKind.Unspecified);
 
   public static implicit operator IntHHMM(decimal value) => new IntHHMM((int)value);
   public static implicit operator IntHHMM(int value) => new IntHHMM(value);

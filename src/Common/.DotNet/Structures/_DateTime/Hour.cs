@@ -7,8 +7,8 @@ public readonly record struct Hour(int Value) : IValueObject<int>, IFormattable 
   //public Hour(TimeSpan   ts) : this(ts.Hours) { }
   public Hour(decimal value) : this((int)value) { }
   public Hour(IntHHMM hhmm) : this(hhmm.Value / 100) { }
-  public Hour(string value) : this(int.Parse(value)) { }
   public Hour(IntHHMMSS hhmmss) : this(hhmmss.Value / 10000) { }
+  public Hour(string value) : this(int.Parse(value)) { }
 
   public const int MinValue = 0;
   public const int MaxValue = 23;

@@ -6,8 +6,8 @@ public readonly record struct Year(int Value) : IValueObject<int>, IFormattable 
   public Year(DateOnly d) : this(d.Year) { }
   public Year(DateTime d) : this(d.Year) { }
   public Year(IntCYY cyy) : this(cyy.YYYY) { }
-  public Year(IntCYYMM cyymm) : this((cyymm.Value / 100) + 1900) { }
-  public Year(IntCYYMMDD cyymmdd) : this((cyymmdd.Value / 10000) + 1900) { }
+  public Year(IntCYYMM cyymm) : this(cyymm.YYYY) { }
+  public Year(IntCYYMMDD cyymmdd) : this(cyymmdd.YYYY) { }
 
   public const int MinValue = 1;
   public const int MinValidValue = 1;
@@ -19,8 +19,8 @@ public readonly record struct Year(int Value) : IValueObject<int>, IFormattable 
   public DateTime StartDate => new DateTime(Value, 1, 1, 0, 0, 0, DateTimeKind.Unspecified);
   public DateTime EndDate => new DateTime(Value, 12, 31, 0, 0, 0, DateTimeKind.Unspecified);
   public bool IsLeapYear => DateTime.IsLeapYear(Value);
-  public  int DaysInYear=>    IsLeapYear ?  366 : 365;
-          private static ReadOnlySpan<byte> DaysInMonth365 => new byte[] { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+  public int DaysInYear => IsLeapYear ? 366 : 365;
+  private static ReadOnlySpan<byte> DaysInMonth365 => new byte[] { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
   private static ReadOnlySpan<byte> DaysInMonth366 => new byte[] { 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 
 

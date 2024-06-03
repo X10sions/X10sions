@@ -22,15 +22,17 @@ public readonly record struct IntCYYMMDD_HHMMSS(decimal Value) : IValueObject<de
   public static readonly IntCYYMMDD_HHMMSS Max = new(MaxValue);
   public static readonly IntCYYMMDD_HHMMSS MaxValid = new(MaxValidValue); // 9999-12-31 23:59:59
 
-  public DateTime Date => new DateTime(IntCYYMMDD.YYYY.Value, IntCYYMMDD.MM.Value, IntCYYMMDD.DD.Value, IntHHMMSS.HH.Value, IntHHMMSS.MM.Value, IntHHMMSS.SS.Value, IntHHMMSS.Millisecond.Value, DateTimeKind.Unspecified);
+  public DateOnly DateOnly => IntCYYMMDD.DateOnly;
+  public DateTime DateTime => new(DateOnly, TimeOnly, DateTimeKind.Unspecified);
+  public TimeOnly TimeOnly => IntHHMMSS.TimeOnly;
 
   //public decimal CYYMMDD_HHMMSS {
   //  get => new decimal(IntCYYMMDD.CYYMMDD + (double)IntHHMMSS.HHMMSS / 1000000);
   //}
 
   public IntCYYMMDD IntCYYMMDD => new(this);
-  public IntC C => IntCYYMMDD.C;
-  public IntYYMMDD YYMMDD => IntCYYMMDD.YYMMDD;
+  //public IntC C => IntCYYMMDD.C;
+  //public IntYYMMDD YYMMDD => IntCYYMMDD.YYMMDD;
   public IntHHMMSS IntHHMMSS => new(this);
 
   public static implicit operator IntCYYMMDD_HHMMSS(decimal value) => new(value);
@@ -39,7 +41,7 @@ public readonly record struct IntCYYMMDD_HHMMSS(decimal Value) : IValueObject<de
 
   #region IFormattable
   public override string ToString() => Value.ToString("0000000.000000");
-  public string ToString(string format, IFormatProvider formatProvider) => ToString().ToString(formatProvider);
+  public string ToString(string? format, IFormatProvider? formatProvider) => ToString().ToString(formatProvider);
   #endregion
 
 }

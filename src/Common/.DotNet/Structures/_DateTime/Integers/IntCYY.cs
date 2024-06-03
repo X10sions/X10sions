@@ -34,7 +34,7 @@ public readonly record struct IntCYY(int Value) : IValueObject<int>, IFormattabl
 
   #region IFormattable
   public override string ToString() => Value.ToString("000");
-  public string ToString(string format, IFormatProvider formatProvider) => ToString().ToString(formatProvider);
+  public string ToString(string? format, IFormatProvider? formatProvider) => ToString().ToString(formatProvider);
   #endregion
 
   public static implicit operator IntCYY(decimal value) => new(value);

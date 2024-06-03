@@ -35,12 +35,12 @@ public readonly record struct IntCYYMM(int Value) : IValueObject<int>, IFormatta
   public static readonly IntCYYMM MaxValid = new(MaxValidValue);
   #endregion
 
-  public DateOnly DateOnly(int day) => new DateOnly(YYYY, Month.Value, day);
-  public DateTime DateTime(int day, int hour = Hour.MinValue, int minute = Minute.MinValue, int second = Second.MinValue, int millisecond = Millisecond.MinValue) => new DateTime(YYYY, MM, day, hour, minute, second, millisecond, DateTimeKind.Unspecified);
+  public DateOnly DateOnly(int day) => new (YYYY, Month.Value, day);
+  public DateTime DateTime(int day, int hour = Hour.MinValue, int minute = Minute.MinValue, int second = Second.MinValue, int millisecond = Millisecond.MinValue) => new  (YYYY, MM, day, hour, minute, second, millisecond, DateTimeKind.Unspecified);
 
   #region IFormattable
   public override string ToString() => Value.ToString("00000");
-  public string ToString(string format, IFormatProvider formatProvider) => ToString().ToString(formatProvider);
+  public string ToString(string? format, IFormatProvider? formatProvider) => ToString().ToString(formatProvider);
   #endregion
 
   public static implicit operator IntCYYMM(decimal value) => new IntCYYMM((int)value);
