@@ -17,7 +17,8 @@ namespace System {
       }
       return d;
     }
-
+    public static int DaysInYear(this DateTime dt) => dt.IsLeapYear() ? 366 : 365;
+    public static int DaysInMonth(this DateTime dt) => DateTime.DaysInMonth(dt.Year, dt.Month);
     public static DateTime EndOfDay(this DateTime date) => date.Date.AddDays(1).AddMilliseconds(-1);
     public static DateTime EndOfMonth(this DateTime d) => new DateTime(d.Year, d.Month, DateTime.DaysInMonth(d.Year, d.Month), 23, 59, 59, 999);
     public static DateTime FirstDayOfMonth(this DateTime d) => new DateTime(d.Year, d.Month, 1);
@@ -65,7 +66,7 @@ namespace System {
     public static string ToIso8601DateString(this DateTime d) => d.ToString("yyyy-MM-dd");
     public static string ToIso8601DateTimeString(this DateTime d) => d.ToString("yyyy-MM-ddTHH:mm:ssZ");
     public static string ToIso8601TimeString(this DateTime d) => d.ToString("THH:mm:ss");
-
+    public static bool IsLeapYear(this DateTime dt) => DateTime.IsLeapYear(dt.Year);
     public static bool IsWeekend(this DateTime dt) => dt.DayOfWeek.IsWeekend();
     public static bool IsWeekDay(this DateTime dt) => !dt.IsWeekend();
 
