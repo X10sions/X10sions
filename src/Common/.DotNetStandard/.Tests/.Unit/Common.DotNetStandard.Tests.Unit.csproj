@@ -22,7 +22,10 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup Label="ProjectReferences">
-    <ProjectReference Include="..\..\..\src\Common\.DotNetStandard\Common.DotNetStandard.csproj" />
-    <ProjectReference Include="..\..\..\src\Common\.DotNet\Common.DotNet.csproj" />
+    <ProjectReference Include="..\..\..\.TestPackages\Common.TestPackages.csproj" />
+    <ProjectReference Include="..\..\Common.DotNetStandard.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Structures\" />
   </ItemGroup>
 </Project>

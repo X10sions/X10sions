@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="$(SolutionDir)_shared\MsBuild\Testing.XUnit.props" />
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <Product>xDapper Tests</Product>
     <RootNamespace />
     <!--
@@ -51,11 +51,11 @@
   </ItemGroup>
 
   <ItemGroup Label="ProjectReferences">
-    <ProjectReference Include="$(RepoSrcDir_X10sions)x\xDapper\xDapper.csproj" />
-    <ProjectReference Include="$(RepoSrcDir_X10sions)x\xLinqToDB\xLinqToDB.csproj" />
     <ProjectReference Include="$(RepoSrcDir_X10sions)x\xMicrosoft\.EntityFrameworkCore\.SqlServer\xMicrosoft.EntityFrameworkCore.SqlServer.csproj" />
     <ProjectReference Include="$(RepoSrcDir_X10sions)x\xNHibernate\xNHibernate.csproj" />
-    <ProjectReference Include="$(RepoSrcDir_X10sions)x\xSystem\.Data\.Linq\xSystem.Data.Linq.csproj" />
+    <ProjectReference Include="..\..\..\xLinqToDB\xLinqToDB.csproj" />
+    <ProjectReference Include="..\..\..\xSystem\.Data\.Linq\xSystem.Data.Linq.csproj" />
+    <ProjectReference Include="..\..\xDapper.csproj" />
   </ItemGroup>
 
 </Project>
