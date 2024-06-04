@@ -18,4 +18,7 @@
     <ProjectReference Include="..\..\..\.TestPackages\Common.TestPackages.csproj" />
     <ProjectReference Include="..\..\Common.DotNet.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Features\" />
+  </ItemGroup>
 </Project>

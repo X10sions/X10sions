@@ -58,10 +58,10 @@ public class RandomDataStore {
   //public static WeatherForecastDto NewRandom(int index) => FromDto(WeatherForecast.NewRandom(index, DateTime.Now));
 
 
-  //public void OverrideWeatherForecastDataSet(List<WeatherForecast> list) {
-  //  _records.Clear();
-  //  list.ForEach(item => _records.Add(item));
-  //}
+  public void OverrideWeatherForecastDataSet(List<WeatherForecast> list) {
+    WeatherForecasts.Clear();
+    list.ForEach(WeatherForecasts.Add);
+  }
 
   //public List<WeatherForecast> CreateTestForecasts(int count) => Enumerable.Range(1, count).Select(index => WeatherForecast.GetRandom(index, DateTime.Now)).ToList();
 
