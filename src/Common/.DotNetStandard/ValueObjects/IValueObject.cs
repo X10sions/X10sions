@@ -3,7 +3,7 @@
 namespace Common.ValueObjects;
 
 public interface IValueObject<T> {
-  T Value { get; init; }
+  T Value { get; }
 
   public static class Expressions {
 

@@ -9,7 +9,7 @@ public readonly record struct IntCYY(int Value) : IValueObject<int>, IFormattabl
   public IntCYY(decimal value) : this((int)value) { }
   //public IntCYY(IntC c, IntYY yy) : this((c.Value * 100) + yy.Value) { }
   public IntCYY(IntCYYMM cyymm) : this(cyymm.CYY) { }
-  public IntCYY(IntCYYMMDD cyymmdd) : this(cyymmdd.CYYMM) { }
+  public IntCYY(IntCYYMMDD cyymmdd) : this(cyymmdd.CYY) { }
 
   public IntCYY(string value) : this(int.Parse(value)) { }
 
@@ -20,7 +20,7 @@ public readonly record struct IntCYY(int Value) : IValueObject<int>, IFormattabl
   public static readonly IntCYY Max = new(MaxValue);
 
   public int Value { get; init; } = Value.Clamp(MinValue, MaxValue);
-  public int C => Value / 100;
+  public int C =>  Value / 100;
   public IntC IntC => new(this);
   //public IntYY IntYY => new(this);
   public Year Year => new(this);
@@ -42,10 +42,9 @@ public readonly record struct IntCYY(int Value) : IValueObject<int>, IFormattabl
   public static implicit operator IntCYY(DateTime value) => new(value);
 }
 
-public static class Extensions {
+public static class IntCYYExtensions {
   public static IntCYY ToIntCYY(this decimal value) => new(value);
   public static IntCYY ToIntCYY(this int value) => new(value);
   public static IntCYY ToIntCYY(this DateTime value) => new(value);
-
-
+  public static IntCYY ToIntCYY(this Year year) => new(year);
 }

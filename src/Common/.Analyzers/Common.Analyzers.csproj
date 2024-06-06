@@ -1,11 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>    
     <IsPackable>false</IsPackable>
   </PropertyGroup>
   <ItemGroup Label="PackageReferences">
     <PackageReference Include="Meziantou.Analyzer" Version="2.0.155" ExcludeAssets="compile" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="8.0.6" />
     <PackageReference Include="Microsoft.VisualStudio.Threading.Analyzers" Version="17.10.48" ExcludeAssets="compile" />
     <PackageReference Include="Roslynator.Analyzers" Version="4.12.4" ExcludeAssets="compile" />
     <PackageReference Include="Roslynator.CodeAnalysis.Analyzers" Version="4.12.4" ExcludeAssets="compile" />

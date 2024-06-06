@@ -1,6 +1,5 @@
 ﻿using Common.ValueObjects;
 using System.Linq.Expressions;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Common.Structures;
 public readonly record struct IntCYYMMDD(int Value) : IValueObject<int>,
@@ -21,10 +20,10 @@ public readonly record struct IntCYYMMDD(int Value) : IValueObject<int>,
   IEquatable<int>,
   IEquatable<string> {
 
-  public IntCYYMMDD() : this(System.DateTime.Now) { }
+  public IntCYYMMDD() : this(DateTime.Now) { }
   //public IntCYYMMDD(Year yyyy, Month mm, Day dd) : this(new DateTime(yyyy.Value, mm.Value, dd.Value)) { }
   //public IntCYYMMDD(IntC c, IntYY yy, Month mm, Day dd) : this(c.Value * 1000000 + yy.Value * 10000 + mm.Value * 100 + dd.Value) { }
- //public IntCYYMMDD(DateTime d) : this(new IntCYYMM(d), new Day(d.Day)) { }
+  //public IntCYYMMDD(DateTime d) : this(new IntCYYMM(d), new Day(d.Day)) { }
   //public IntCYYMMDD(string c, string yy, string mm, string dd) : this(new IntC(c), new IntYY(yy), new Month(mm), new Day(dd)) { }
   public IntCYYMMDD(string cyymmdd) : this(cyymmdd.As(0)) { }
   public IntCYYMMDD(string c, string yymmdd) : this((c + yymmdd).As(0)) { }
@@ -34,8 +33,9 @@ public readonly record struct IntCYYMMDD(int Value) : IValueObject<int>,
   public IntCYYMMDD(decimal cyymmdd_hhmmss) : this((int)cyymmdd_hhmmss) { }
 
   public int Value { get; init; } = Value.Clamp(MinValue, MaxValue);
-  public DateOnly DateOnly => new DateOnly(Year.Value, Month.Value, DaysInMonth);
-  public DateTime DateTime(int hour = Hour.MinValue, int minute = Minute.MinValue, int second = Second.MinValue, int millisecond = Millisecond.MinValue) => new DateTime(Year.Value, Month.Value, DaysInMonth, hour, minute, second, millisecond, DateTimeKind.Unspecified);
+  public DateOnly DateOnly => new DateOnly(Year.Value, Month.Value, DD.Clamp(1, MaxDaysInMonth));
+  public DateTime DateTime => DateOnly.ToDateTime(TimeOnly.MinValue);
+  public int MaxDaysInMonth => Month.DaysInMonth(Year);
 
   public int C => CYY / 100;
   public int CYY => IntCYYMM.CYY;
@@ -44,17 +44,16 @@ public readonly record struct IntCYYMMDD(int Value) : IValueObject<int>,
   public int MM => IntCYYMM.MM;
   public int YY => IntCYYMM.CYY;
   public int YYYY => IntCYYMM.YYYY;
-  //public Day Day => new(DD.ClampMax(Day.) .cthis);
-  public Month Month => new(this);
   public IntC IntC => new(this);
   public IntCYY IntCYY => new(this);
   public IntCYYMM IntCYYMM => new(this);
   //public IntYYMMDD YYMMDD => new(this);
-  public Year Year => new(this);
+  //public Day Day => new(DD.ClampMax(Day.) .cthis);
+  public Month Month => IntCYYMM.Month;
+  public Year Year => IntCYYMM.Year;
   public bool IsValid => Value.IsBetween(MinValidCYYMMDD, MaxValidCYYMMDD);
-  public int DaysInMonth => System.DateTime.DaysInMonth(Year.Value, Month.Value);
 
-  public DateTime? DateWithTime(IntHHMMSS hhmmss) => DateTime() + hhmmss.ToTimeSpan();
+  public DateTime? DateWithTime(IntHHMMSS hhmmss) => DateOnly.ToDateTime(hhmmss.TimeOnly);
 
   public string YYYY_MM_DD(string separator = "-") => $"{YYYY:0000}{separator}{MM:00}{separator}{DD:00}";
   public string DD_MM_YYYY(string separator = "-") => $"{DD:00}{separator}{MM:00}{separator}{YYYY:0000}";
@@ -85,7 +84,7 @@ public readonly record struct IntCYYMMDD(int Value) : IValueObject<int>,
   public static implicit operator IntCYYMMDD(string value) => new IntCYYMMDD(Convert.ToInt32(value));
 
   public static implicit operator DateOnly(IntCYYMMDD value) => value.DateOnly;
-  public static implicit operator DateTime(IntCYYMMDD value) => value.DateTime();
+  public static implicit operator DateTime(IntCYYMMDD value) => value.DateTime;
   public static implicit operator decimal(IntCYYMMDD value) => value.Value;
   public static implicit operator double(IntCYYMMDD value) => value.Value;
   public static implicit operator int(IntCYYMMDD value) => value.Value;
@@ -114,7 +113,7 @@ public readonly record struct IntCYYMMDD(int Value) : IValueObject<int>,
   }
   public int CompareTo(IntCYYMMDD other) => other.Value.CompareTo(Value);
   public int CompareTo(DateOnly other) => other.CompareTo(DateOnly);
-  public int CompareTo(DateTime other) => other.CompareTo(DateTime());
+  public int CompareTo(DateTime other) => other.CompareTo(DateTime);
   public int CompareTo(decimal other) => other.CompareTo(Value);
   public int CompareTo(double other) => other.CompareTo(Value);
   public int CompareTo(int other) => other.CompareTo(Value);
@@ -126,7 +125,7 @@ public readonly record struct IntCYYMMDD(int Value) : IValueObject<int>,
   public byte ToByte(IFormatProvider provider) => Convert.ToByte(Value, provider);
   public char ToChar(IFormatProvider provider) => throw new NotImplementedException();
   //public DateOnly ToDateOnly(IFormatProvider provider) => Convert.ToDateOnly(DateOnly, provider);
-  public DateTime ToDateTime(IFormatProvider provider) => Convert.ToDateTime(DateTime() , provider);
+  public DateTime ToDateTime(IFormatProvider provider) => Convert.ToDateTime(DateTime, provider);
   public decimal ToDecimal(IFormatProvider provider) => Convert.ToDecimal(Value, provider);
   public double ToDouble(IFormatProvider provider) => Convert.ToDouble(Value, provider);
   public float ToSingle(IFormatProvider provider) => Convert.ToSingle(Value, provider);
@@ -135,10 +134,10 @@ public readonly record struct IntCYYMMDD(int Value) : IValueObject<int>,
   public object ToType(Type conversionType, IFormatProvider provider) {
     switch (conversionType) {
       case Type _ when conversionType == typeof(DateOnly):
-        return Convert.ChangeType(DateOnly , conversionType, provider);
+        return Convert.ChangeType(DateOnly, conversionType, provider);
       case Type _ when conversionType == typeof(DateTime):
       case Type _ when conversionType == typeof(TimeSpan):
-        return Convert.ChangeType(DateTime(), conversionType, provider);
+        return Convert.ChangeType(DateTime, conversionType, provider);
       default:
         return Convert.ChangeType(Value, conversionType, provider);
     }
@@ -154,7 +153,7 @@ public readonly record struct IntCYYMMDD(int Value) : IValueObject<int>,
 
   #region IEquatable
   public bool Equals(DateOnly other) => other.Equals(DateOnly);
-  public bool Equals(DateTime other) => other.Equals(DateTime());
+  public bool Equals(DateTime other) => other.Equals(DateTime);
   public bool Equals(decimal other) => other.Equals(Value);
   public bool Equals(double other) => other.Equals(Value);
   public bool Equals(int other) => other.Equals(Value);

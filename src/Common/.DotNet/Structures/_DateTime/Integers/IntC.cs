@@ -18,3 +18,10 @@ public readonly record struct IntC(int Value) : IValueObject<int> {
   public static readonly IntC Min = new(MinValue);
   public static readonly IntC Max = new(MaxValue);
 }
+
+public static class IntCExtensions {
+  //public static IntC ToIntC(this IntCYY cyy) => new(cyy.Value / 100);
+  //public static IntC ToIntC(this IntCYYMM cyymm) => new(cyymm.Value / 10000);
+  //public static IntC ToIntC(this IntCYYMMDD cyymmdd) => new(cyymmdd.Value / 1000000);
+  //public static IntC ToIntC(this IntCYYMMDD_HHMMSS cyymmdd_hhmmss) => new(cyymmdd_hhmmss.IntCYYMMDD.Value / 1000000);
+}

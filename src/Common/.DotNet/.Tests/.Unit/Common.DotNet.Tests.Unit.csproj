@@ -7,12 +7,7 @@
     <RootNamespace>Common</RootNamespace>
   </PropertyGroup> 
   <ItemGroup Label="PackageReferences">
-    <!-- 
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.10.0" />
-    <PackageReference Include="coverlet.collector" Version="6.0.2" />
-    <PackageReference Include="xunit" Version="2.8.1" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.8.1" />
-    -->
   </ItemGroup>
   <ItemGroup Label="ProjectReferences">
     <ProjectReference Include="..\..\Common.DotNet.csproj" />

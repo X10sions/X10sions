@@ -14,6 +14,9 @@
     <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.2.9" />
     <PackageReference Include="Microsoft.AspNet.WebPages.Data" Version="3.2.9" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\.DotNetStandard\Common.DotNetStandard.csproj" />
+  </ItemGroup>
   <ItemGroup Label="References">
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Web" />
