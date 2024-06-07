@@ -6,7 +6,7 @@ public readonly record struct Hour(int Value) : IValueObject<int>, IFormattable 
   public Hour(TimeOnly t) : this(t.Hour) { }
   //public Hour(TimeSpan   ts) : this(ts.Hours) { }
   public Hour(decimal value) : this((int)value) { }
-  public Hour(IntHHMM hhmm) : this(hhmm.Value / 100) { }
+  public Hour(IntHHMM hhmm) : this(hhmm.HH) { }
   public Hour(IntHHMMSS hhmmss) : this(hhmmss.Value / 10000) { }
   public Hour(string value) : this(int.Parse(value)) { }
 
@@ -24,4 +24,8 @@ public readonly record struct Hour(int Value) : IValueObject<int>, IFormattable 
   public static implicit operator Hour(decimal value) => new(value);
   public static implicit operator Hour(int value) => new(value);
   public static implicit operator Hour(DateTime value) => new(value);
+}
+
+public static class HourExtensions {
+  public static TimeOnly ToTimeOnly(this Hour hour, Minute minute, Second second) => new TimeOnly(hour.Value, minute.Value, second.Value);
 }
