@@ -4,11 +4,12 @@ namespace Common.Structures;
 public readonly record struct IntCYYMM(int Value) : IValueObject<int>, IFormattable {
   public IntCYYMM() : this(System.DateTime.Now) { }
   //public IntCYYMM(IntC c, IntYY yy, Month mm) : this(c.Value * 10000 + yy.Value * 100 + mm.Value) { }
+  public IntCYYMM(DateOnly d) : this(new IntCYY(d), new Month(d.Month)) { }
   public IntCYYMM(DateTime d) : this(new IntCYY(d), new Month(d.Month)) { }
   //public IntCYYMM(string c, string yy, string mm) : this(new IntC(c), new IntYY(yy), new Month(mm)) { }
-  public IntCYYMM(Year year, Month month) : this(year.ToIntCYY(), month) { }
-  public IntCYYMM(IntCYY cyy, Month mm) : this(cyy.Value * 100 + mm.Value) { }
-  public IntCYYMM(IntCYYMMDD cyymmdd) : this(cyymmdd.Value / 100) { }
+  //IntCYYMM(Year year, Month month) : this(year.ToIntCYY(), month) { }
+  IntCYYMM(IntCYY cyy, Month mm) : this(cyy.Value * 100 + mm.Value) { }
+  IntCYYMM(IntCYYMMDD cyymmdd) : this(cyymmdd.Value / 100) { }
 
   public int Value { get; init; } = Value.Clamp(MinValue, MaxValue);
   public int C => IntCYY.C;
@@ -18,7 +19,7 @@ public readonly record struct IntCYYMM(int Value) : IValueObject<int>, IFormatta
   public int YYYY => IntCYY.YYYY;
   public int DaysInMonth => System.DateTime.DaysInMonth(Year.Value, Month.Value);
   public IntC IntC => new(this);
-  public IntCYY IntCYY => new(this);
+  public IntCYY IntCYY => new(Value / 100);
   public IntCYYMMDD IntCYYMM00 => new(Value * 100);
   public IntCYYMMDD IntCYYMM01 => new(IntCYYMM00.Value + 1);
   public IntCYYMMDD IntCYYMM99 => new(IntCYYMM00.Value + 99);

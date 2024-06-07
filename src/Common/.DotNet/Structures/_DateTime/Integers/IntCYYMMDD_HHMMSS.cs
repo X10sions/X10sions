@@ -4,11 +4,13 @@ namespace Common.Structures;
 public readonly record struct IntCYYMMDD_HHMMSS(decimal Value) : IValueObject<decimal>, IFormattable {
   public IntCYYMMDD_HHMMSS() : this(new IntCYYMMDD(), new IntHHMMSS()) { }
   public IntCYYMMDD_HHMMSS(IntCYYMMDD cyymmdd, IntHHMMSS hhmmss) : this(cyymmdd.Value + (hhmmss.Value / 1000000)) { }
+  public IntCYYMMDD_HHMMSS(DateOnly d) : this(new IntCYYMMDD(d), IntHHMMSS.Min) { }
   public IntCYYMMDD_HHMMSS(DateTime d) : this(new IntCYYMMDD(d), new IntHHMMSS(d)) { }
+  //public IntCYYMMDD_HHMMSS(TimeOnly t) : this(new IntCYYMMDD(),  new IntHHMMSS(t)) { }
   public IntCYYMMDD_HHMMSS(int cyymmdd, int hhmmss) : this(new IntCYYMMDD(cyymmdd), new IntHHMMSS(hhmmss)) { }
   public IntCYYMMDD_HHMMSS(int year, int month, int day, int hour, int minute, int second, int millisecond) : this(new DateTime(year, month, day, hour, minute, second, millisecond)) { }
-  public IntCYYMMDD_HHMMSS(string cyymmdd, string hhmmss) : this(new IntCYYMMDD(cyymmdd), new IntHHMMSS(hhmmss)) { }
-  public IntCYYMMDD_HHMMSS(string c, string yymmdd, string hhmmss) : this(new IntCYYMMDD(c, yymmdd), new IntHHMMSS(hhmmss)) { }
+  //IntCYYMMDD_HHMMSS(string cyymmdd, string hhmmss) : this(new IntCYYMMDD(cyymmdd), new IntHHMMSS(hhmmss)) { }
+  //IntCYYMMDD_HHMMSS(string c, string yymmdd, string hhmmss) : this(new IntCYYMMDD(c, yymmdd), new IntHHMMSS(hhmmss)) { }
 
   public const decimal MinValue = 0;
   public const decimal MinValidValue = 10101;

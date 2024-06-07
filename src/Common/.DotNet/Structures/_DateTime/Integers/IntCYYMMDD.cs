@@ -21,16 +21,17 @@ public readonly record struct IntCYYMMDD(int Value) : IValueObject<int>,
   IEquatable<string> {
 
   public IntCYYMMDD() : this(DateTime.Now) { }
-  //public IntCYYMMDD(Year yyyy, Month mm, Day dd) : this(new DateTime(yyyy.Value, mm.Value, dd.Value)) { }
-  //public IntCYYMMDD(IntC c, IntYY yy, Month mm, Day dd) : this(c.Value * 1000000 + yy.Value * 10000 + mm.Value * 100 + dd.Value) { }
-  //public IntCYYMMDD(DateTime d) : this(new IntCYYMM(d), new Day(d.Day)) { }
-  //public IntCYYMMDD(string c, string yy, string mm, string dd) : this(new IntC(c), new IntYY(yy), new Month(mm), new Day(dd)) { }
-  public IntCYYMMDD(string cyymmdd) : this(cyymmdd.As(0)) { }
-  public IntCYYMMDD(string c, string yymmdd) : this((c + yymmdd).As(0)) { }
-  //public IntCYYMMDD(IntCYYMM cyymm, Day dd) : this(cyymm.Value * 100 + dd.Value) { }
-  //public IntCYYMMDD(IntC c, IntYYMMDD yymmdd) : this(c.Value * 1000000 + yymmdd.Value) { }
+  public IntCYYMMDD(DateOnly d) : this(new IntCYYMM(d), d.Day) { }
+  public IntCYYMMDD(DateTime d) : this(new IntCYYMM(d), d.Day) { }
+  //IntCYYMMDD(Year yyyy, Month mm, Day dd) : this(new DateTime(yyyy.Value, mm.Value, dd.Value)) { }
+  //IntCYYMMDD(IntC c, IntYY yy, Month mm, Day dd) : this(c.Value * 1000000 + yy.Value * 10000 + mm.Value * 100 + dd.Value) { }
+  //IntCYYMMDD(string c, string yy, string mm, string dd) : this(new IntC(c), new IntYY(yy), new Month(mm), new Day(dd)) { }
+  IntCYYMMDD(string cyymmdd) : this(cyymmdd.As(0)) { }
+  IntCYYMMDD(string c, string yymmdd) : this((c + yymmdd).As(0)) { }
+  IntCYYMMDD(IntCYYMM cyymm, int dd) : this(cyymm.Value * 100 + dd) { }
+  //IntCYYMMDD(IntC c, IntYYMMDD yymmdd) : this(c.Value * 1000000 + yymmdd.Value) { }
   public IntCYYMMDD(IntCYYMMDD_HHMMSS cyymmdd_hmmss) : this(cyymmdd_hmmss.Value) { }
-  public IntCYYMMDD(decimal cyymmdd_hhmmss) : this((int)cyymmdd_hhmmss) { }
+  IntCYYMMDD(decimal cyymmdd_hhmmss) : this((int)cyymmdd_hhmmss) { }
 
   public int Value { get; init; } = Value.Clamp(MinValue, MaxValue);
   public DateOnly DateOnly => new DateOnly(Year.Value, Month.Value, DD.Clamp(1, MaxDaysInMonth));
@@ -44,11 +45,9 @@ public readonly record struct IntCYYMMDD(int Value) : IValueObject<int>,
   public int MM => IntCYYMM.MM;
   public int YY => IntCYYMM.CYY;
   public int YYYY => IntCYYMM.YYYY;
-  public IntC IntC => new(this);
-  public IntCYY IntCYY => new(this);
-  public IntCYYMM IntCYYMM => new(this);
-  //public IntYYMMDD YYMMDD => new(this);
-  //public Day Day => new(DD.ClampMax(Day.) .cthis);
+  //public IntC IntC => new(this);
+  //public IntCYY IntCYY => new(this);
+  public IntCYYMM IntCYYMM => new(Value/100);
   public Month Month => IntCYYMM.Month;
   public Year Year => IntCYYMM.Year;
   public bool IsValid => Value.IsBetween(MinValidCYYMMDD, MaxValidCYYMMDD);

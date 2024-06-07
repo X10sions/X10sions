@@ -5,11 +5,15 @@
     <IsTestProject>true</IsTestProject>
     <Product>Common.DotNet Unit Tests</Product>
     <RootNamespace>Common</RootNamespace>
+    <!-- 
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>      
+    -->
   </PropertyGroup> 
   <ItemGroup Label="PackageReferences">
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.10.0" />
   </ItemGroup>
   <ItemGroup Label="ProjectReferences">
+    <ProjectReference Include="..\..\..\.Testing\.XUnit\Common.Testing.XUnit.csproj" />
     <ProjectReference Include="..\..\Common.DotNet.csproj" />
   </ItemGroup>
   <ItemGroup>

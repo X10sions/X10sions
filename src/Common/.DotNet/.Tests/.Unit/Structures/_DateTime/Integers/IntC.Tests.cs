@@ -4,9 +4,9 @@ using Xunit;
 namespace Common.Structures {
   public class IntCTests {
     public static TheoryData<int, int> ValueExpectedData => new() {
-      { -10, Day.MinValue },
-      { -1, Day.MinValue },
-      {  0, Day.MinValue},
+      { -10, IntC.MinValue },
+      { -1, IntC.MinValue },
+      {  0, IntC.MinValue},
       {  1, 01},
       {  2, 09},
       {  3, 09},

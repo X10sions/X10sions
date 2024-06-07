@@ -4,12 +4,13 @@ namespace Common.Structures;
 
 public readonly record struct IntCYY(int Value) : IValueObject<int>, IFormattable {
   public IntCYY() : this(System.DateTime.Now) { }
+  public IntCYY(DateOnly d) : this(new Year(d.Year)) { }
   public IntCYY(DateTime d) : this(new Year(d.Year)) { }
-  public IntCYY(Year yyyy) : this(yyyy.Value - 1900) { }
-  public IntCYY(decimal value) : this((int)value) { }
+  IntCYY(Year yyyy) : this(yyyy.Value - 1900) { }
+  IntCYY(decimal value) : this((int)value) { }
   //public IntCYY(IntC c, IntYY yy) : this((c.Value * 100) + yy.Value) { }
-  public IntCYY(IntCYYMM cyymm) : this(cyymm.CYY) { }
-  public IntCYY(IntCYYMMDD cyymmdd) : this(cyymmdd.CYY) { }
+  IntCYY(IntCYYMM cyymm) : this(cyymm.CYY) { }
+  IntCYY(IntCYYMMDD cyymmdd) : this(cyymmdd.CYY) { }
 
   public IntCYY(string value) : this(int.Parse(value)) { }
 
@@ -43,8 +44,8 @@ public readonly record struct IntCYY(int Value) : IValueObject<int>, IFormattabl
 }
 
 public static class IntCYYExtensions {
-  public static IntCYY ToIntCYY(this decimal value) => new(value);
-  public static IntCYY ToIntCYY(this int value) => new(value);
-  public static IntCYY ToIntCYY(this DateTime value) => new(value);
-  public static IntCYY ToIntCYY(this Year year) => new(year);
+  //public static IntCYY ToIntCYY(this decimal value) => new(value);
+  //public static IntCYY ToIntCYY(this int value) => new(value);
+  //public static IntCYY ToIntCYY(this DateTime value) => new(value);
+  //public static IntCYY ToIntCYY(this Year year) => new(year);
 }

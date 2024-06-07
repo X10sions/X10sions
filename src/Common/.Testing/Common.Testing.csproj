@@ -4,20 +4,15 @@
     <IsPackable>false</IsPackable>
   </PropertyGroup>
   <ItemGroup Label="PackageReferences">
-    <PackageReference Include="coverlet.collector" Version="6.0.2" ExcludeAssets="compile"/>
+    <PackageReference Include="coverlet.collector" Version="6.0.2" ExcludeAssets="compile" />
     <PackageReference Include="FluentAssertions" Version="6.12.0" />
     <PackageReference Include="Meziantou.FluentAssertionsAnalyzers" Version="1.0.21" ExcludeAssets="compile" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.10.0" />
     <PackageReference Include="Moq" Version="4.20.70" />
     <!-- 
     <ExcludeAssets>compile</ExcludeAssets>
-
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="8.0.6" />
     <PackageReference Include="NSubstitute" Version="5.1.0" />
-    <PackageReference Include="coverlet.collector" Version="6.0.2">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
     -->    
   </ItemGroup>
   <ItemGroup Label="ProjectReferences">
