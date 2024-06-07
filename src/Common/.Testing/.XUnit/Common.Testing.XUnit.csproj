@@ -5,8 +5,14 @@
   </PropertyGroup>
   <ItemGroup Label="PackageReferences">
     <PackageReference Include="Meziantou.Xunit.ParallelTestFramework" Version="2.2.0" />
+    <PackageReference Include="Reqnroll.xUnit" Version="2.0.2" />
+    <PackageReference Include="Verify.Xunit" Version="25.0.1" />
     <PackageReference Include="xunit" Version="2.8.1" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.8.1" ExcludeAssets="compile"/>
+    <PackageReference Include="xunit.analyzers" Version="1.14.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.8.1" ExcludeAssets="compile" />
   </ItemGroup>
   <ItemGroup Label="ProjectReferences">
     <ProjectReference Include="..\Common.Testing.csproj" />
