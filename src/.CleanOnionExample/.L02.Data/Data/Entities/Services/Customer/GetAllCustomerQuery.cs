@@ -1,5 +1,6 @@
 ﻿using CleanOnionExample.Data.DbContexts;
 using Common.Data;
+using Common.Features.DummyFakeExamples.Customer;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 

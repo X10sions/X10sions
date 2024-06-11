@@ -1,4 +1,5 @@
 ﻿using Common.Features.DummyFakeExamples.Person;
+using Mapster;
 
 namespace CleanOnionExample.Data.Entities.Services;
 public class PersonService : IPersonService {
@@ -15,7 +16,7 @@ public class PersonService : IPersonService {
 
   public async Task<Person.GetQuery> InsertAsync(Person.UpdateCommand personForCreationDto, CancellationToken cancellationToken = default) {
     var person = personForCreationDto.Adapt<Person>();
-    await _repositoryManager.PersonRepository.InsertAsync(person, cancellationToken);
+    await _repositoryManager.PersonRepository .InsertAsync(person, cancellationToken);
     await _repositoryManager.UnitOfWork.SaveChangesAsync(cancellationToken);
     return person.Adapt<Person.GetQuery>();
   }
