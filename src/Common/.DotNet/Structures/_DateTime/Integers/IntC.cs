@@ -7,7 +7,7 @@ public readonly record struct IntC(int Value) : IValueObject<int> {
   public IntC(IntCYY cyy) : this(cyy.Value / 100) { }
   public IntC(IntCYYMM cyymm) : this(cyymm.Value / 10000) { }
   public IntC (IntCYYMMDD cyymmdd) : this(cyymmdd.Value / 1000000) { }
-  public IntC (IntCYYMMDD_HHMMSS cyymmdd_hhmmss) : this(cyymmdd_hhmmss.IntCYYMMDD.Value / 1000000) { }
+  public IntC (DecimalCYYMMDD_HHMMSS cyymmdd_hhmmss) : this(cyymmdd_hhmmss.IntCYYMMDD.Value / 1000000) { }
 
   public IntC(string value) : this(int.Parse(value)) { }
 

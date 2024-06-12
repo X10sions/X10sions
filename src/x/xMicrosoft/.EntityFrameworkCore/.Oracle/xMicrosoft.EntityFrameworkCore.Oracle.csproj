@@ -1,6 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
+    <!-- 
+    <TargetFramework>net48</TargetFramework>
+    -->
     <Description>Microsoft sample Oracle database provider for Entity Framework Core.</Description>
     <AssemblyName>Microsoft.EntityFrameworkCore.Oracle</AssemblyName>
     <RootNamespace>Microsoft.EntityFrameworkCore.Oracle</RootNamespace>
@@ -9,30 +12,19 @@
     <IsPackable>false</IsPackable>
   </PropertyGroup>
   <ItemGroup Label="PackageReferences">
-    <PackageReference Include="JetBrains.Annotations" Version="2022.3.1" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.0" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
+    <PackageReference Include="JetBrains.Annotations" Version="2023.3.0" />
+    <!-- 
+    <PackageReference Include="Oracle.ManagedDataAccess" Version="23.4.0" />
+    -->
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.6" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.118" PrivateAssets="All" />
-    <PackageReference Include="Oracle.ManagedDataAccess" Version="21.12.0" />
   </ItemGroup>
   <ItemGroup Label="ProjectReferences">
-    <ProjectReference Include="..\..\..\xSystem\.NetStandard\xSystem.NetStandard.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Update="Properties\OracleStrings.Designer.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>OracleStrings.Designer.cs</LastGenOutput>
-    </None>
+    <ProjectReference Include="..\..\..\xSystem\.DotNetStandard\xSystem.DotNetStandard.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Update="Properties\OracleStrings.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>OracleStrings.Designer.tt</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="Properties\OracleStrings.resx">

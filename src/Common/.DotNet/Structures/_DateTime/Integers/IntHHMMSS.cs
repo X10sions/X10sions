@@ -16,7 +16,7 @@ public readonly record struct IntHHMMSS : IValueObject<int>, IFormattable {
   public IntHHMMSS(int hhmmss) : this(new IntHHMM(hhmmss / 10000), hhmmss % 100) { }
   public IntHHMMSS(IntHHMM hhmm, int ss) : this(hhmm.HH, hhmm.MM, ss) { }
   public IntHHMMSS(Hour hh, Minute mm, Second ss) : this((hh.Value * 10000) + (mm.Value * 100) + ss.Value) { }
-  public IntHHMMSS(IntCYYMMDD_HHMMSS cyymmdd_hmmss) : this(cyymmdd_hmmss.Value % 1 * 1000000) { }
+  public IntHHMMSS(DecimalCYYMMDD_HHMMSS cyymmdd_hmmss) : this(cyymmdd_hmmss.Value % 1 * 1000000) { }
   public IntHHMMSS(decimal cyymmdd_hhmmss) : this((int)(cyymmdd_hhmmss % 1 * 1000000)) { }
   public IntHHMMSS(DateTime d) : this(TimeOnly.FromDateTime(d)) { }
   public IntHHMMSS(TimeOnly t) : this(new Hour(t.Hour), new Minute(t.Minute), new Second(t.Second)) { }

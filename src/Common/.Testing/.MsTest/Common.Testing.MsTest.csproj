@@ -1,18 +1,19 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
+    <TargetFrameworks>net48;net8.0</TargetFrameworks>
+    <!--
+    <TargetFramework>net8.0</TargetFramework>
     <TargetFramework>netstandard2.0</TargetFramework>
+    -->
     <IsPackable>false</IsPackable>
   </PropertyGroup>
   <ItemGroup Label="PackageReferences">
     <PackageReference Include="Microsoft.Playwright.MSTest" Version="1.44.0" />
-    <PackageReference Include="MSTest.Analyzers" Version="3.4.3">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
+    <PackageReference Include="MSTest.Analyzers" Version="3.4.3" ExcludeAssets="compile" />
     <PackageReference Include="MSTest.TestAdapter" Version="3.4.3" />
     <PackageReference Include="MSTest.TestFramework" Version="3.4.3" />
-    <PackageReference Include="Reqnroll.MsTest" Version="2.0.2" />
-    <PackageReference Include="Verify.MSTest" Version="25.0.1" />
+    <PackageReference Include="Reqnroll.MsTest" Version="2.0.3" />
+    <PackageReference Include="Verify.MSTest" Version="25.0.2" />
   </ItemGroup>
   <ItemGroup Label="ProjectReferences">
     <ProjectReference Include="..\Common.Testing.csproj" />

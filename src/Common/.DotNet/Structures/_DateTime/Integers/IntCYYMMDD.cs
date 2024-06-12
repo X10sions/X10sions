@@ -30,7 +30,7 @@ public readonly record struct IntCYYMMDD(int Value) : IValueObject<int>,
   IntCYYMMDD(string c, string yymmdd) : this((c + yymmdd).As(0)) { }
   IntCYYMMDD(IntCYYMM cyymm, int dd) : this(cyymm.Value * 100 + dd) { }
   //IntCYYMMDD(IntC c, IntYYMMDD yymmdd) : this(c.Value * 1000000 + yymmdd.Value) { }
-  public IntCYYMMDD(IntCYYMMDD_HHMMSS cyymmdd_hmmss) : this(cyymmdd_hmmss.Value) { }
+  public IntCYYMMDD(DecimalCYYMMDD_HHMMSS cyymmdd_hmmss) : this(cyymmdd_hmmss.Value) { }
   IntCYYMMDD(decimal cyymmdd_hhmmss) : this((int)cyymmdd_hhmmss) { }
 
   public int Value { get; init; } = Value.Clamp(MinValue, MaxValue);
