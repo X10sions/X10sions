@@ -15,12 +15,12 @@ namespace X10sions.Fake.Data {
   public class LinqToDbDataConnections {
 
     public abstract class BaseDataConnection<TConnection> : BaseDataConnection where TConnection : DbConnection {
-      public BaseDataConnection(LinqToDBConnectionOptions options) : base(options) { }
+      public BaseDataConnection(DataOptions options) : base(options) { }
       public TConnection TypedConnection => (TConnection)Connection;
     }
 
     public class BaseDataConnection : DataConnection, IFakeDataConnection {
-      public BaseDataConnection(LinqToDBConnectionOptions options) : base(options) {
+      public BaseDataConnection(DataOptions options) : base(options) {
         //public _BaseDataConnection(IDataProvider dataProvider, DbConnection dbConnection, bool useMiniProfiler) : base(dataProvider, dbConnection, useMiniProfiler) {
         //MappingSchema.AddMetadataReader(new CommonAttributesMetadataReader());
         //AddMapMemberExpressions();

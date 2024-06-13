@@ -73,8 +73,14 @@ namespace X10sions.Fake.Data.Repositories {
 
     //public static IDataProvider GetLinqToDbDataProvider(this ConnectionStringName name) => name.GetDbProviderFactory().GetLinqToDbDataProvider();
 
-    public static LinqToDBConnectionOptions<T> GetLinqToDBConnectionOptions<T>(this ConnectionStringName name, IConfiguration configuration, ILoggerFactory loggerFactory) => name.GetLinqToDBConnectionOptionsBuilder(configuration, loggerFactory).Build<T>();
-    public static LinqToDBConnectionOptions GetLinqToDBConnectionOptions(this ConnectionStringName name, IConfiguration configuration, ILoggerFactory loggerFactory) => name.GetLinqToDBConnectionOptionsBuilder(configuration, loggerFactory).Build();
+    //public static DataOptions<T> GetLinqToDBConnectionOptions<T>(this ConnectionStringName name, IConfiguration configuration, ILoggerFactory loggerFactory) where T : IDataContext
+    //  => new DataOptions<T>(name.GetLinqToDBConnectionOptionsBuilder(configuration, loggerFactory));
+
+    public static DataOptions GetLinqToDBConnectionOptions<T>(this ConnectionStringName name, IConfiguration configuration, ILoggerFactory loggerFactory) where T : IDataContext
+      => name.GetLinqToDBConnectionOptionsBuilder(configuration, loggerFactory);
+
+    public static DataOptions GetLinqToDBConnectionOptions(this ConnectionStringName name, IConfiguration configuration, ILoggerFactory loggerFactory)
+      => name.GetLinqToDBConnectionOptionsBuilder(configuration, loggerFactory);
 
     static readonly IDataProvider xDB2DataProviderzOdbc = new DB2WrappedDataProvider<OdbcConnection, OdbcDataReader>(801);
     static readonly IDataProvider xDB2DataProviderzOleDb = new DB2WrappedDataProvider<OleDbConnection, OleDbDataReader>(802);
@@ -82,12 +88,12 @@ namespace X10sions.Fake.Data.Repositories {
     static readonly IDataProvider xDB2ISeriesDataProviderzOdbc = new DB2iSeriesWrappedDataProvider<OdbcConnection, OdbcDataReader>(901, DB2iSeriesProviderType.Odbc);
     static readonly IDataProvider xDB2ISeriesDataProviderzOleDb = new DB2iSeriesWrappedDataProvider<OleDbConnection, OleDbDataReader>(902, DB2iSeriesProviderType.OleDb);
 
-    static LinqToDBConnectionOptionsBuilder GetLinqToDBConnectionOptionsBuilder(this ConnectionStringName name, IConfiguration configuration, ILoggerFactory loggerFactory) {
+    static DataOptions GetLinqToDBConnectionOptionsBuilder(this ConnectionStringName name, IConfiguration configuration, ILoggerFactory loggerFactory) {
       var connectionString = name.GetConnectionString(configuration);
-      var builder = new LinqToDBConnectionOptionsBuilder();
+      var builder = new DataOptions();
       builder.UseLoggerFactory(loggerFactory);
       switch (name) {
-        case ConnectionStringName.Access_Odbc: builder.UseAccessODBC(connectionString); break;
+        case ConnectionStringName.Access_Odbc: builder.UseAccessOdbc(connectionString); break;
         case ConnectionStringName.Access_OleDb: builder.UseAccessOleDb(connectionString); break;
         case ConnectionStringName.DB2_IBM: builder.UseDB2(connectionString, DB2Version.LUW); break;
         case ConnectionStringName.DB2_Odbc: builder.UseDB2(connectionString, DB2Version.LUW); break;
@@ -112,8 +118,8 @@ namespace X10sions.Fake.Data.Repositories {
         case ConnectionStringName.Sqlite_Microsoft: builder.UseSQLiteMicrosoft(connectionString); break;
         case ConnectionStringName.Sqlite_System: builder.UseSQLiteOfficial(connectionString); break;
         //case ConnectionStringName.Sqlite_System: builder.UseConnection(SQLiteTools.GetDataProvider(ProviderName.SQLiteClassic), new System.Data.SQLite.SQLiteConnection(connectionString, false),true); break;
-        case ConnectionStringName.SqlServer_Microsoft: builder.UseSqlServer(connectionString, SqlServerProvider.MicrosoftDataSqlClient, SqlServerVersion.v2012); break;
-        case ConnectionStringName.SqlServer_System: builder.UseSqlServer(connectionString, SqlServerProvider.SystemDataSqlClient, SqlServerVersion.v2012); break;
+        case ConnectionStringName.SqlServer_Microsoft: builder.UseSqlServer(connectionString, SqlServerVersion.v2012, SqlServerProvider.MicrosoftDataSqlClient); break;
+        case ConnectionStringName.SqlServer_System: builder.UseSqlServer(connectionString, SqlServerVersion.v2012, SqlServerProvider.SystemDataSqlClient); break;
         case ConnectionStringName.SqlServer_Odbc: builder.UseSqlServer(connectionString); break;
         case ConnectionStringName.SqlServer_OleDb: builder.UseSqlServer(connectionString); break;
         default: throw new NotImplementedException(name.ToString());

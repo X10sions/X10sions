@@ -1,4 +1,5 @@
-﻿using IBM.EntityFrameworkCore;
+﻿using EntityFrameworkCore.Jet.Data;
+using IBM.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -62,8 +63,10 @@ namespace X10sions.Fake.Data.Repositories {
       //var factory = name.GetDbProviderFactory();
       builder.UseLoggerFactory(loggerFactory);
       switch (name) {
-        case ConnectionStringName.Access_Odbc: builder.UseJet(connectionString, EntityFrameworkCore.Jet.Data.DataAccessProviderType.Odbc); break;
-        case ConnectionStringName.Access_OleDb: builder.UseJet(connectionString, EntityFrameworkCore.Jet.Data.DataAccessProviderType.OleDb); break;
+#if windows
+        case ConnectionStringName.Access_Odbc: builder.UseJet(connectionString, DataAccessProviderType.Odbc); break;
+        case ConnectionStringName.Access_OleDb: builder.UseJet(connectionString, DataAccessProviderType.OleDb); break;
+#endif
         case ConnectionStringName.DB2_IBM: builder.UseDb2(connectionString, x => { x.SetServerInfo(IBMDBServerType.LUW); }); break;
         case ConnectionStringName.DB2_Odbc: builder.UseDb2(connectionString, x => { x.SetServerInfo(IBMDBServerType.LUW); }); break;
         case ConnectionStringName.DB2_OleDb: builder.UseDb2(connectionString, x => { x.SetServerInfo(IBMDBServerType.LUW); }); break;

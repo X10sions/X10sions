@@ -6,13 +6,13 @@
     <RootNamespace>X10sions.Fake</RootNamespace>
   </PropertyGroup>
   <ItemGroup Label="PackageReferences">
-    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.9" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.9" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.9">
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.6" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.6">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
   <ItemGroup Label="ProjectReferences">
     <ProjectReference Include="..\.Razor\X10sions.Fake.Razor.csproj" />

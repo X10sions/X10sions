@@ -146,9 +146,7 @@ namespace X10sions.Fake {
       where TContext : IDataContext
       where TConnection : IDbConnection {
       logger.LogInformation($"{nameof(AddLinqToDBContext)}<{typeof(TConnection)},{typeof(TContext)}>CS:{{connectionString}}");
-      services.AddLinqToDBContext<TContext>((provider, options) => {
-        options.UseConnectionString(dataProvider, connectionString).UseDefaultLogging(provider);
-      });
+      services.AddLinqToDBContext<TContext>((provider, options) => options.UseConnectionString(dataProvider, connectionString).UseDefaultLogging(provider));
       return services;
     }
 

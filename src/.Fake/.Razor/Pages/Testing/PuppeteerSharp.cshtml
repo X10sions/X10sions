@@ -5,7 +5,7 @@ https://github.com/hardkoded/puppeteer-sharp
 
 @{
   async Task TakeScreenshot(string outputFile) {
-    using var browserFetcher = new BrowserFetcher();
+     var browserFetcher = new BrowserFetcher();
     await browserFetcher.DownloadAsync();
     await using var browser = await Puppeteer.LaunchAsync(
         new LaunchOptions { Headless = true });
@@ -20,7 +20,7 @@ https://github.com/hardkoded/puppeteer-sharp
   }
 
   async Task GeneratePdfFiles(string outputFile) {
-    using var browserFetcher = new BrowserFetcher();
+     var browserFetcher = new BrowserFetcher();
     await browserFetcher.DownloadAsync();
     await using var browser = await Puppeteer.LaunchAsync(new LaunchOptions { Headless = true });
     await using var page = await browser.NewPageAsync();

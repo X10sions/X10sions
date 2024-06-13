@@ -4,6 +4,8 @@ using System.Linq.Expressions;
 namespace LinqToDB.Mapping {
   public static class MappingSchemaExtensions {
 
+    public static FluentMappingBuilder GetFluentMappingBuilder(this MappingSchema mappingSchema) => new FluentMappingBuilder(mappingSchema);
+
     /// <summary>
     /// Sets converter for SystemToDatabaseType, DatabaseToSystemType & SystemTypeToDataParameter
     /// </summary>
