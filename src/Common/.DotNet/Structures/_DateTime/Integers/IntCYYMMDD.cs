@@ -25,9 +25,9 @@ public readonly record struct IntCYYMMDD(int Value) : IValueObject<int>,
   public IntCYYMMDD(DateTime d) : this(new IntCYYMM(d), d.Day) { }
   //IntCYYMMDD(Year yyyy, Month mm, Day dd) : this(new DateTime(yyyy.Value, mm.Value, dd.Value)) { }
   //IntCYYMMDD(IntC c, IntYY yy, Month mm, Day dd) : this(c.Value * 1000000 + yy.Value * 10000 + mm.Value * 100 + dd.Value) { }
-  //IntCYYMMDD(string c, string yy, string mm, string dd) : this(new IntC(c), new IntYY(yy), new Month(mm), new Day(dd)) { }
+  public IntCYYMMDD(string c, string yy, string mm, string dd) : this(int.Parse(c + yy + mm + dd)) { }
   IntCYYMMDD(string cyymmdd) : this(cyymmdd.As(0)) { }
-  IntCYYMMDD(string c, string yymmdd) : this((c + yymmdd).As(0)) { }
+  public IntCYYMMDD(string c, string yymmdd) : this((c + yymmdd).As(0)) { }
   IntCYYMMDD(IntCYYMM cyymm, int dd) : this(cyymm.Value * 100 + dd) { }
   //IntCYYMMDD(IntC c, IntYYMMDD yymmdd) : this(c.Value * 1000000 + yymmdd.Value) { }
   public IntCYYMMDD(DecimalCYYMMDD_HHMMSS cyymmdd_hmmss) : this(cyymmdd_hmmss.Value) { }
@@ -45,9 +45,10 @@ public readonly record struct IntCYYMMDD(int Value) : IValueObject<int>,
   public int MM => IntCYYMM.MM;
   public int YY => IntCYYMM.CYY;
   public int YYYY => IntCYYMM.YYYY;
+  public int YYMMDD => (YY * 10000) + (MM * 100) + DD;
   //public IntC IntC => new(this);
   //public IntCYY IntCYY => new(this);
-  public IntCYYMM IntCYYMM => new(Value/100);
+  public IntCYYMM IntCYYMM => new(Value / 100);
   public Month Month => IntCYYMM.Month;
   public Year Year => IntCYYMM.Year;
   public bool IsValid => Value.IsBetween(MinValidCYYMMDD, MaxValidCYYMMDD);

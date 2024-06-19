@@ -10,7 +10,7 @@ public readonly record struct DecimalCYYMMDD_HHMMSS(decimal Value) : IValueObjec
   public DecimalCYYMMDD_HHMMSS(int cyymmdd, int hhmmss) : this(new IntCYYMMDD(cyymmdd), new IntHHMMSS(hhmmss)) { }
   public DecimalCYYMMDD_HHMMSS(int year, int month, int day, int hour, int minute, int second, int millisecond) : this(new DateTime(year, month, day, hour, minute, second, millisecond)) { }
   //DecimalCYYMMDD_HHMMSS(string cyymmdd, string hhmmss) : this(new IntCYYMMDD(cyymmdd), new IntHHMMSS(hhmmss)) { }
-  //DecimalCYYMMDD_HHMMSS(string c, string yymmdd, string hhmmss) : this(new IntCYYMMDD(c, yymmdd), new IntHHMMSS(hhmmss)) { }
+  public DecimalCYYMMDD_HHMMSS(string c, string yymmdd, string hhmmss) : this(new IntCYYMMDD(c, yymmdd), new IntHHMMSS(hhmmss)) { }
 
   public const decimal MinValue = 0;
   public const decimal MinValidValue = 10101;

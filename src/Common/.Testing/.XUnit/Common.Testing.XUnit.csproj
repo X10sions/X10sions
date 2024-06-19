@@ -16,9 +16,11 @@
   <ItemGroup Label="ProjectReferences">
     <ProjectReference Include="..\Common.Testing.csproj" />
   </ItemGroup>
+  <!-- 
   <ItemGroup Label="Usings">
     <Using Include="Xunit" />
   </ItemGroup>
+  -->
   <PropertyGroup>
     <IncludeMeziantouXunitParallelTestFramework>false</IncludeMeziantouXunitParallelTestFramework>
   </PropertyGroup>
