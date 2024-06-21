@@ -9,36 +9,37 @@
   <ItemGroup Label="PackageReferences">
     <!--
     <PackageReference Include="EntityFrameworkCore.Jet" Version="5.0.0-alpha.1" />
+    <PackageReference Include="EntityFrameworkCore.Jet" Version="8.0.0-rc1" />
     -->
-    <PackageReference Include="AutoMapper" Version="12.0.1" />
-    <PackageReference Include="DelegateDecompiler" Version="0.32.0" />
-    <PackageReference Include="FluentValidation" Version="11.5.2" />
-    <PackageReference Include="IBM.EntityFrameworkCore" Version="7.0.0.200" />
-    <PackageReference Include="MailKit" Version="4.1.0" />
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
+    <PackageReference Include="DelegateDecompiler" Version="0.34.0" />
+    <PackageReference Include="EntityFrameworkCore.Jet" Version="8.0.0-alpha.1" />
+    <PackageReference Include="FluentValidation" Version="11.9.2" />
+    <PackageReference Include="IBM.EntityFrameworkCore" Version="8.0.0.200" />
+    <PackageReference Include="MailKit" Version="4.6.0" />
     <PackageReference Include="Mapster" Version="7.4.0" />
-    <PackageReference Include="MediatR" Version="12.0.1" />
+    <PackageReference Include="MediatR" Version="12.3.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.7" />
-    <PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="2.2.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.7" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.7" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite.Core" Version="7.0.7" />
-    <PackageReference Include="Microsoft.FeatureManagement" Version="2.5.1" />
-    <PackageReference Include="MySql.Data" Version="8.0.33" />
-    <PackageReference Include="Net.IBM.Data.Db2" Version="7.0.0.200" />
-    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.4" />
-    <PackageReference Include="Oracle.EntityFrameworkCore" Version="7.21.9" />
-    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="7.0.0" />
-    <PackageReference Include="NHibernate" Version="5.4.2" />
-    <PackageReference Include="System.Data.Odbc" Version="7.0.0" />
-    <PackageReference Include="System.Data.OleDb" Version="7.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.6" />
+    <PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="8.0.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite.Core" Version="8.0.6" />
+    <PackageReference Include="Microsoft.FeatureManagement" Version="3.3.1" />
+    <PackageReference Include="MySql.Data" Version="8.4.0" />
+    <PackageReference Include="Net.IBM.Data.Db2" Version="8.0.0.200" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.4" />
+    <PackageReference Include="Oracle.EntityFrameworkCore" Version="8.23.40" />
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="8.0.2" />
+    <PackageReference Include="NHibernate" Version="5.5.1" />
+    <PackageReference Include="System.Data.Odbc" Version="8.0.0" />
+    <PackageReference Include="System.Data.OleDb" Version="8.0.0" />
   </ItemGroup>
   <ItemGroup Label="ProjectReferences">
     <!--
     <ProjectReference Include="..\..\..\..\x10sions\EntityFrameworkCore.Jet\src\EFCore.Jet.Odbc\EFCore.Jet.Odbc.csproj" />
     <ProjectReference Include="..\..\..\..\x10sions\EntityFrameworkCore.Jet\src\EFCore.Jet.OleDb\EFCore.Jet.OleDb.csproj" />
     -->
-    <ProjectReference Include="..\..\..\..\EntityFrameworkCore.Jet.git\src\EFCore.Jet\EFCore.Jet.csproj" />
     <ProjectReference Include="..\..\Common\.DotNet\Common.DotNet.csproj" />
     <ProjectReference Include="..\..\x\xLinqToDB\.AspNet\xLinqToDB.AspNet.csproj" />
   </ItemGroup>

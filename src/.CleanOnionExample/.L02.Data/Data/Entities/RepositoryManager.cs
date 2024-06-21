@@ -27,11 +27,8 @@ public sealed class RepositoryManager : IRepositoryManager {
 
   public IOwnerRepository OwnerRepository => _lazyOwnerRepository.Value;
   public IAccountRepository AccountRepository => _lazyAccountRepository.Value;
-
   public IUnitOfWork UnitOfWork => _lazyUnitOfWork.Value;
-
   public PersonRepository PersonRepository => _lazyPersonRepository.Value;
-
   public IWeatherForecastRepository WeatherForecastApiRepository => _lazyWeatherForecastApiRepository.Value;
   public IWeatherForecastRepository WeatherForecastStoreRepository => _lazyWeatherForecastStoreRepository.Value;
 }

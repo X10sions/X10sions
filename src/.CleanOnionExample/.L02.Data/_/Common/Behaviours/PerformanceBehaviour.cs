@@ -1,6 +1,4 @@
-﻿using CleanOnionExample.Services;
-using Common.Features.DummyFakeExamples.Auth;
-using Common.Interfaces;
+﻿using Common.Features.DummyFakeExamples.Auth;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
@@ -10,16 +8,16 @@ public class PerformanceBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequ
   private readonly Stopwatch _timer;
   private readonly ILogger<TRequest> _logger;
   private readonly ICurrentUserService _currentUserService;
-  private readonly IIdentityService _identityService;
+  private readonly Interfaces.IIdentityService _identityService;
 
-  public PerformanceBehaviour(ILogger<TRequest> logger, ICurrentUserService currentUserService, IIdentityService identityService) {
+  public PerformanceBehaviour(ILogger<TRequest> logger, ICurrentUserService currentUserService, Interfaces.IIdentityService identityService) {
     _timer = new Stopwatch();
     _logger = logger;
     _currentUserService = currentUserService;
     _identityService = identityService;
   }
 
-  public async Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next) {
+  public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken) {
     _timer.Start();
     var response = await next();
     _timer.Stop();
@@ -37,4 +35,5 @@ requestName, elapsedMilliseconds, userId, userName, request);
 
     return response;
   }
+
 }

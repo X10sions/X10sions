@@ -17,7 +17,7 @@ public static class UpdateTodoItem {
     }
 
     public async Task<Unit> Handle(Command request, CancellationToken cancellationToken) {
-      var entity = await _context.TodoItems.FindAsync(new object[] { request.Id }, cancellationToken);
+      var entity = await _context.TodoItems.FindAsync([request.Id], cancellationToken);
       if (entity == null) {
         throw new NotFoundException(nameof(ToDoItem), request.Id);
       }
@@ -26,6 +26,7 @@ public static class UpdateTodoItem {
       await _context.SaveChangesAsync(cancellationToken);
       return Unit.Value;
     }
+
   }
 
   public class CommandValidator : AbstractValidator<Command> {

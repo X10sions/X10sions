@@ -1,5 +1,4 @@
-﻿using CleanOnionExample.Data.Services;
-using Common.Features.DummyFakeExamples.ToDo.Item;
+﻿using Common.Features.DummyFakeExamples.ToDo.Item;
 using Common.Models;
 //using Task = System.Threading.Tasks.Task;
 using MediatR;
@@ -19,4 +18,5 @@ public class ToDoItemCompletedEventHandler : INotificationHandler<DomainEventNot
     _logger.LogInformation("CleanArchitecture Domain Event: {DomainEvent}", domainEvent.GetType().Name);
     return Task.CompletedTask;
   }
+
 }
