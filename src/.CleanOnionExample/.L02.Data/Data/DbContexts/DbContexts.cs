@@ -88,19 +88,19 @@ public class EFCoreDbContexts {
 
 public class LinqToDbDataConnections {
   public abstract class BaseDataConnection : DataConnection {
-    public BaseDataConnection(LinqToDBConnectionOptions options) : base(options) { }
+    public BaseDataConnection(DataOptions options) : base(options) { }
   }
 
-  public class Access : BaseDataConnection { public Access(LinqToDBConnectionOptions<Access> options) : base(options) { } }
-  public class DB2 : BaseDataConnection { public DB2(LinqToDBConnectionOptions<DB2> options) : base(options) { } }
-  public class DB2iSeries_Odbc : BaseDataConnection { public DB2iSeries_Odbc(LinqToDBConnectionOptions<DB2iSeries_Odbc> options) : base(options) { } }
-  public class DB2iSeries_OleDb : BaseDataConnection { public DB2iSeries_OleDb(LinqToDBConnectionOptions<DB2iSeries_OleDb> options) : base(options) { } }
-  public class MariaDb : BaseDataConnection { public MariaDb(LinqToDBConnectionOptions<MariaDb> options) : base(options) { } }
-  public class MySql : BaseDataConnection { public MySql(LinqToDBConnectionOptions<MySql> options) : base(options) { } }
-  public class PostgreSql : BaseDataConnection { public PostgreSql(LinqToDBConnectionOptions<PostgreSql> options) : base(options) { } }
-  public class Oracle : BaseDataConnection { public Oracle(LinqToDBConnectionOptions<Oracle> options) : base(options) { } }
-  public class SqlServer : BaseDataConnection { public SqlServer(LinqToDBConnectionOptions<SqlServer> options) : base(options) { } }
-  public class Sqlite : BaseDataConnection { public Sqlite(LinqToDBConnectionOptions<Sqlite> options) : base(options) { } }
+  public class Access : BaseDataConnection { public Access(DataOptions<Access> options) : base(options) { } }
+  public class DB2 : BaseDataConnection { public DB2(DataOptions<DB2> options) : base(options) { } }
+  public class DB2iSeries_Odbc : BaseDataConnection { public DB2iSeries_Odbc(DataOptions<DB2iSeries_Odbc> options) : base(options) { } }
+  public class DB2iSeries_OleDb : BaseDataConnection { public DB2iSeries_OleDb(DataOptions<DB2iSeries_OleDb> options) : base(options) { } }
+  public class MariaDb : BaseDataConnection { public MariaDb(DataOptions<MariaDb> options) : base(options) { } }
+  public class MySql : BaseDataConnection { public MySql(DataOptions<MySql> options) : base(options) { } }
+  public class PostgreSql : BaseDataConnection { public PostgreSql(DataOptions<PostgreSql> options) : base(options) { } }
+  public class Oracle : BaseDataConnection { public Oracle(DataOptions<Oracle> options) : base(options) { } }
+  public class SqlServer : BaseDataConnection { public SqlServer(DataOptions<SqlServer> options) : base(options) { } }
+  public class Sqlite : BaseDataConnection { public Sqlite(DataOptions<Sqlite> options) : base(options) { } }
 
 }
 

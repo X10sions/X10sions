@@ -5,10 +5,11 @@
     <VersionPart1>5</VersionPart1>
     <VersionPart2>4</VersionPart2>
     <Nullable>enable</Nullable>
-  </PropertyGroup> 
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
   <ItemGroup Label="PackageReferences">
     <PackageReference Include="linq2db" Version="5.4.1" />
-    <!-- 
+    <!--
     <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="6.0.0" />
     <PackageReference Include="Microsoft.Bcl.HashCode" Version="1.1.1" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="6.0.0" />
@@ -30,10 +31,10 @@
     <PackageReference Include="linq2db.SqlServer" Version="3.1.3" />
     <PackageReference Include="linq2db.SqlServer.MS" Version="3.1.3" />
     -->
-  </ItemGroup> 
+  </ItemGroup>
   <ItemGroup Label="ProjectReferences">
     <ProjectReference Include="..\..\Common\.Data\Common.Data.csproj" />
-  </ItemGroup> 
+  </ItemGroup>
   <PropertyGroup Condition="'$(TargetFramework)' == 'netstandard2.1' OR '$(TargetFramework)' == 'netcoreapp3.1' OR '$(TargetFramework)' == 'net6.0' OR '$(TargetFramework)' == 'net8.0'">
     <DefineConstants>NETSTANDARD2_1PLUS;$(DefineConstants)</DefineConstants>
   </PropertyGroup>
