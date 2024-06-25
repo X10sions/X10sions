@@ -1,4 +1,6 @@
-﻿namespace System.Windows {
+﻿using System.Windows.Markup;
+
+namespace System.Windows {
   public class Int32RectValueSerializer : ValueSerializer {
     /// <summary>Determines whether the specified <see cref="T:System.String" /> can be converted to an instance of <see cref="T:System.Windows.Int32Rect" />.</summary>
     /// <returns>Always returns true.</returns>
