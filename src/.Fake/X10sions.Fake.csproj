@@ -68,6 +68,7 @@
     <PackageReference Include="System.Text.RegularExpressions" Version="4.3.1" />        
   </ItemGroup>    
   <ItemGroup Label="ProjectReferences">
+    <ProjectReference Include="..\Common\.DotNetStandard\Common.DotNetStandard.csproj" />
     <ProjectReference Include="..\x\xLinqToDB\.DataProvider\.DB2iSeries\xLinqToDB.DataProvider.DB2iSeries.csproj" />
   </ItemGroup>  
 </Project>

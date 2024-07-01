@@ -9,16 +9,17 @@ public class IntCYYMMDDTests {
   [Fact]
   public void DateOnly_ShouldBeToday_WhenConstructorIsEmpty() {
     var sut = new IntCYYMMDD();
+    var expected = DateTime.Today;
     using (new AssertionScope()) {
-      sut.DateOnly.Should().Be(DateTime.Today.ToDateOnly());
-      sut.DateTime.Should().Be(DateTime.Today);
+      sut.DateOnly.Should().Be(expected.ToDateOnly());
+      sut.DateTime.Should().Be(expected);
     }
   }
 
   public record GivenDateOnly(int Value, DateOnly DateOnly, int C, int YY, int MM, int DD) {
     public DateTime DateTime { get; } = DateOnly.ToDateTime(TimeOnly.MinValue);
     public static TheoryData<GivenDateOnly> TheoryData { get; } = new TheoryData<GivenDateOnly> {
-      new (  10101, new(   1,  1,  1), 0,  1,  1,  1),
+      new (  10101, new(1900,  1,  1), 0,  1,  1,  1),
       new (  10101, new(  10,  1,  1), 0,  1,  1,  1),
       new (  10101, new( 100,  1,  1), 0,  1,  1,  1),
       new (  10101, new(1000,  1,  1), 0,  1,  1,  1),
@@ -35,7 +36,7 @@ public class IntCYYMMDDTests {
       new (1241130, new(2024, 11, 30), 1, 24, 11, 30),
       new (1241201, new(2024, 12, 11), 1, 24, 12,  1),
       new (1241231, new(2024, 12, 31), 1, 24, 12, 31),
-      new (9999999, new(9999, 99, 29), 9, 99, 99, 99),
+      new (9999999, new(9999, 12, 31), 9, 99, 99, 99),
     };
   }
 
@@ -122,7 +123,7 @@ public class IntCYYMMDDTests {
       new (9991231, new(2899, 12, 31), 9, 99, 12, 31),
       new (9999931, new(2899, 12, 31), 9, 99, 99, 31),
       new (9999932, new(2899, 12, 31), 9, 99, 99, 32),
-      new (9999999, new(9999, 99, 29), 9, 99, 99, 99),
+      new (9999999, new(9999, 12, 31), 9, 99, 99, 99),
     };
   }
 

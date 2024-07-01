@@ -1,8 +1,9 @@
 ﻿using X10sions.Fake.Data.Enums;
 using System.ComponentModel.DataAnnotations.Schema;
+using Common.Domain;
 
-namespace X10sions.Fake.Data.Models {
-  [Table("FakeCustomer")]
+namespace X10sions.Fake.Data.Models;
+[Table("FakeCustomer")]
   public class FakeCustomer {
     [ServiceStack.DataAnnotations.AutoIncrement, LinqToDB.Mapping.Identity] // Creates Auto primary key
     public int Id { get; set; }
@@ -18,5 +19,3 @@ namespace X10sions.Fake.Data.Models {
     public DateTime CreatedAt { get; set; }
   }
 
-
-}
