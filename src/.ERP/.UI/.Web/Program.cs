@@ -1,9 +1,9 @@
+using Common.Features.DummyFakeExamples.WeatherForecast;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using X10sions.ERP.Data;
 using X10sions.ERP.Data.Models;
-using X10sions.ERP.Data.Services;
 using X10sions.ERP.Razor.Areas.Identity;
 
 var builder = WebApplication.CreateBuilder(args);

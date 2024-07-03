@@ -1,14 +1,15 @@
 ﻿using Common.Data;
 using Common.Data.Entities;
 using Common.Data.Events;
+using System.ComponentModel.DataAnnotations;
 using System.Linq.Expressions;
 
 namespace Common.Features.DummyFakeExamples.WeatherForecast;
 
 public partial class WeatherForecast : EntityBase<Guid> {
+  public const decimal CelsiusToFahrenheitScale = 5m / 9m;
   public DateOnly Date { get; set; }
   public int TemperatureC { get; set; }
-  public const decimal CelsiusToFahrenheitScale = 5m / 9m;
   public int TemperatureF => 32 + (int)(TemperatureC / CelsiusToFahrenheitScale);
   public WeatherForecastSummary Summary { get; init; }
   public string? FakeNeverUsed { get; init; }

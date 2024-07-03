@@ -1,10 +1,7 @@
 namespace Common.Features.DummyFakeExamples.WeatherForecast;
 public class WeatherForecastService {
-  private static readonly string[] Summaries = new[] {
-        "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-    };
+  private static readonly string[] Summaries = ["Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"];
 
-  public Task<WeatherForecast[]> GetForecastAsync(DateOnly startDate) {
-    return Task.FromResult(Enumerable.Range(1, 5).Select(index => WeatherForecast.GetRandom(index, startDate)).ToArray());
-  }
+  public Task<WeatherForecast[]> GetForecastAsync(DateOnly startDate) => Task.FromResult(Enumerable.Range(1, 5).Select(index => WeatherForecast.GetRandom(index, startDate)).ToArray());
+
 }

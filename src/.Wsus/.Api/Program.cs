@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Common.Features.DummyFakeExamples.WeatherForecast;
+using Microsoft.EntityFrameworkCore;
 using X10sions.Wsus.Api;
 using X10sions.Wsus.Api.Endpoints;
 using X10sions.Wsus.Data;
@@ -23,16 +24,8 @@ if (app.Environment.IsDevelopment()) {
 
 app.UseHttpsRedirection();
 
-var summaries = new[]{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
-
-app.MapGet("/weatherforecast", () => {
-  var forecast = Enumerable.Range(1, 5).Select(index => new WeatherForecast(
-    DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-    Random.Shared.Next(-20, 55),
-    summaries[Random.Shared.Next(summaries.Length)]
-    )).ToArray();
+app.MapGet("/weatherforecast", async () => {
+  var forecast = await WeatherForecast.GetRandomListAsync(5);
   return forecast;
 })
 .WithName("GetWeatherForecast")
@@ -42,6 +35,4 @@ app.MapComputerTargetEndpoints();
 
 app.Run();
 
-internal record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary) {
-  public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
+

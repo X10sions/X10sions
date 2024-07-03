@@ -1,7 +1,7 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Common.Features.DummyFakeExamples.WeatherForecast;
+using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
 using X10sions.ERP.Data.Models;
-using X10sions.ERP.Data.Services;
 
 namespace X10sions.ERP.WpfApp {
   /// <summary>

@@ -9,6 +9,7 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Common\.DotNet\Common.DotNet.csproj" />
     <ProjectReference Include="..\..\.Abstractions\X10sions.Playground.Abstractions.csproj" />
   </ItemGroup>
 </Project>
