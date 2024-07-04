@@ -8,6 +8,8 @@
     -->
   </PropertyGroup>
   <ItemGroup Label="PackageReferences">
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="NHibernate" Version="5.5.1" />
     <PackageReference Include="Remotion.Linq" Version="2.2.0" />
   </ItemGroup>
 

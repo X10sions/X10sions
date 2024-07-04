@@ -3,8 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Options;
-using System;
-namespace xUserAgentParser {
+namespace xUserAgentParser;
   internal class PostConfigureOptions : IPostConfigureOptions<StaticFileOptions> {
 
     private readonly IHostingEnvironment _environment;
@@ -22,7 +21,4 @@ namespace xUserAgentParser {
       options.FileProvider = new CompositeFileProvider(options.FileProvider, filesProvider);
     }
 
-  }
-
 }
-
