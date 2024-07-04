@@ -16,7 +16,4 @@
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="6.0.9" />
     -->
   </ItemGroup>
-  <ItemGroup Label="ProjectReferences">
-    <ProjectReference Include="..\X10sions.ERP.Razor.csproj" />
-  </ItemGroup>
 </Project>

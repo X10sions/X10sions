@@ -7,10 +7,4 @@
   <ItemGroup Label="PackageReferences">
     <PackageReference Include="RavenDB.Client" Version="5.1.8" />
   </ItemGroup>
-  <ItemGroup Label="ProjectReferences">
-    <ProjectReference Include="..\..\Common.AspNetCore.Identity.csproj" />
-    <!-- 
-    <ProjectReference Include="$(RepoSrcDir_X10sions)Common\.AspNetCore\.Identity\Common.AspNetCore.Identity.csproj" />
-    -->
-  </ItemGroup>
 </Project>

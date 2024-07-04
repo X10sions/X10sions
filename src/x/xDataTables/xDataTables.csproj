@@ -6,7 +6,4 @@
     <VersionPart2>9</VersionPart2>
     <Description>https://datatables.net/</Description>
   </PropertyGroup>
-  <ItemGroup Label="ProjectReferences">
-    <ProjectReference Include="..\xNewtonsoft\xNewtonsoft.csproj" />
-  </ItemGroup>
 </Project>

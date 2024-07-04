@@ -1,4 +1,4 @@
-﻿namespace System.Data.Linq.SqlClient {
+﻿namespace xSystem.Data.Linq.SqlClient {
   internal class SqlAlias : SqlSource {
     private SqlNode node;
 

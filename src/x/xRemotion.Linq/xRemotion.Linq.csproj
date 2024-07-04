@@ -11,8 +11,4 @@
     <PackageReference Include="Remotion.Linq" Version="2.2.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\xNewtonsoft\xNewtonsoft.csproj" />
-  </ItemGroup>
-
 </Project>

@@ -1,7 +1,9 @@
-﻿using System.Linq.Expressions;
+﻿using System.Data.Linq;
+using System.Data.Linq.SqlClient;
+using System.Linq.Expressions;
 using System.Reflection;
 
-namespace System.Data.Linq.SqlClient {
+namespace xSystem.Data.Linq.SqlClient {
   internal class SqlUnary : SqlSimpleTypeExpression {
     private SqlExpression operand;
 
@@ -58,11 +60,11 @@ namespace System.Data.Linq.SqlClient {
         goto IL_0084;
       }
       goto IL_0090;
-IL_0090:
+    IL_0090:
       Operand = expr;
       Method = method;
       return;
-IL_0084:
+    IL_0084:
       throw Error.UnexpectedNode(nt);
     }
   }

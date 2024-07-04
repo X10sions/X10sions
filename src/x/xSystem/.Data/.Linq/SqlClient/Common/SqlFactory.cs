@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Data.Linq.Mapping;
+using System.Data.Linq.SqlClient;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace System.Data.Linq.SqlClient {
-  internal class SqlFactory {
+namespace xSystem.Data.Linq.SqlClient.Common;
+internal class SqlFactory {
     private MetaModel model;
     internal TypeSystemProvider TypeProvider { get; }
 
@@ -412,5 +413,3 @@ namespace System.Data.Linq.SqlClient {
       return new SqlJoin(joinType, location, alias, condition, source);
     }
   }
-
-}

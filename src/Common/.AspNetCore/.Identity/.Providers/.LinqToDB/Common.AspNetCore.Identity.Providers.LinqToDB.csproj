@@ -7,12 +7,4 @@
   <ItemGroup Label="PackageReferences">
     <PackageReference Include="linq2db" Version="4.3.0" />
   </ItemGroup>
-
-  <ItemGroup Label="ProjectReferences">
-    <ProjectReference Include="..\..\Common.AspNetCore.Identity.csproj" />
-    <!-- 
-    <ProjectReference Include="$(RepoSrcDir_X10sions)Common\.AspNetCore\.Identity\Common.AspNetCore.Identity.csproj" />
-    <ProjectReference Include="$(RepoSrcDir_X10sions)x\xLinqToDB\xLinqToDB.csproj" />
-    -->
-  </ItemGroup>
 </Project>

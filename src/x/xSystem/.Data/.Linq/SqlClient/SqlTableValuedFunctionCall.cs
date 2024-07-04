@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Data.Linq.Mapping;
+using System.Data.Linq.SqlClient;
 using System.Linq.Expressions;
 
-namespace System.Data.Linq.SqlClient {
+namespace xSystem.Data.Linq.SqlClient {
   /// <summary>
   /// This class is used to represent a table value function.  It inherits normal function
   /// call functionality, and adds TVF specific members.

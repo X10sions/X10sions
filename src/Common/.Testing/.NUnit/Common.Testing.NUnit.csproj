@@ -10,9 +10,9 @@
     <PackageReference Include="NUnit3TestAdapter" Version="4.5.0" />
     <PackageReference Include="Reqnroll.NUnit" Version="2.0.3" />
     <PackageReference Include="Verify.NUnit" Version="25.0.2" />
-  </ItemGroup>
-  <ItemGroup Label="ProjectReferences">
-    <ProjectReference Include="..\Common.Testing.csproj" />
+    <!-- 
+    <PackageReference Include="AutoFixture.Xunit2" Version="4.17.0" />
+    -->
   </ItemGroup>
   <!-- 
   <ItemGroup Label="Usings">

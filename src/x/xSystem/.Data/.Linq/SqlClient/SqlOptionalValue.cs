@@ -1,4 +1,6 @@
-﻿namespace System.Data.Linq.SqlClient {
+﻿using xSystem.Data.Linq.SqlClient;
+
+namespace xSystem.Data.Linq.SqlClient {
   internal class SqlOptionalValue : SqlSimpleTypeExpression {
     private SqlExpression hasValue;
 

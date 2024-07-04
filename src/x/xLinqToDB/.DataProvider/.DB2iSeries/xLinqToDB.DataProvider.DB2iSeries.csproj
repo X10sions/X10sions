@@ -8,8 +8,5 @@
   </PropertyGroup>
   <ItemGroup Label="PackageReferences">
     <PackageReference Include="linq2db4iSeries" Version="5.4.0" />
-  </ItemGroup>
-  <ItemGroup Label="ProjectReferences">
-    <ProjectReference Include="..\..\xLinqToDB.csproj" />
   </ItemGroup> 
 </Project>

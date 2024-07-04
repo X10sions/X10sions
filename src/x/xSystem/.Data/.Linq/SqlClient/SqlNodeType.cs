@@ -1,4 +1,4 @@
-﻿namespace System.Data.Linq.SqlClient {
+﻿namespace xSystem.Data.Linq.SqlClient {
   public enum SqlNodeType {
     Add,
     Alias,

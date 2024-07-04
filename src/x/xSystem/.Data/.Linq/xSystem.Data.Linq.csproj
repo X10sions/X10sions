@@ -2,6 +2,7 @@
   <PropertyGroup Label="Application">
     <TargetFramework>netstandard2.0</TargetFramework>
     <Product>NetStandard Extensions</Product>
+    <RootNamespace>xSystem.Data.Linq</RootNamespace>
     <VersionPart1>8</VersionPart1>
     <VersionPart2>0</VersionPart2>
   </PropertyGroup>

@@ -1,6 +1,7 @@
-﻿using System.Linq.Expressions;
+﻿using System.Data.Linq.SqlClient;
+using System.Linq.Expressions;
 
-namespace System.Data.Linq.SqlClient {
+namespace xSystem.Data.Linq.SqlClient {
   internal class SqlValue : SqlSimpleTypeExpression {
     private object value;
     private bool isClient;

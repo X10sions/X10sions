@@ -5,10 +5,4 @@
     <VersionPart1>1</VersionPart1>
     <VersionPart2>0</VersionPart2>
   </PropertyGroup>
-  <ItemGroup Label="ProjectReferences">
-    <ProjectReference Include="..\xIQToolkit.Data.csproj" />
-    <!-- 
-    <ProjectReference Include="$(RepoSrcDir_X10sions)x\xIQToolkit\.Data\xIQToolkit.Data.csproj" />
-    -->
-  </ItemGroup>
 </Project>

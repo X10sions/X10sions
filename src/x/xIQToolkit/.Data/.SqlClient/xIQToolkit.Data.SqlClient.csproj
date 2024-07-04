@@ -8,10 +8,4 @@
   <ItemGroup Label="PackageReferences">
     <PackageReference Include="Microsoft.Data.SqlClient" Version="3.0.0" />
   </ItemGroup>
-  <ItemGroup Label="ProjectReferences">
-    <ProjectReference Include="..\.Ado\xIQToolkit.Data.Ado.csproj" />
-    <!-- 
-    <ProjectReference Include="$(RepoSrcDir_X10sions)x\xIQToolkit\.Data\.Ado\xIQToolkit.Data.Ado.csproj" />
-    -->
-  </ItemGroup>
 </Project>

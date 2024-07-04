@@ -13,7 +13,6 @@
   </ItemGroup>  
   <ItemGroup Label="ProjectReferences">
     <ProjectReference Include="..\..\..\..\..\..\..\IBM.git\src\xIBM.Data.DB2.iSeries\xIBM.Data.DB2.iSeries.csproj" />
-    <ProjectReference Include="..\xMicrosoft.EntityFrameworkCore.csproj" />
     <!--
     <ProjectReference Include="..\..\..\xJetBrains.Annotations\xJetBrains.Annotations.csproj" />
     -->

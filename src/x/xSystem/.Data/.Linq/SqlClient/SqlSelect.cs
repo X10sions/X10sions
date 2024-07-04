@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq.Expressions;
+using xSystem.Data.Linq.SqlClient;
 
-namespace System.Data.Linq.SqlClient {
+namespace xSystem.Data.Linq.SqlClient {
   internal class SqlSelect : SqlStatement {
     private SqlExpression selection;
     private SqlRow row;

@@ -4,7 +4,4 @@
     <TargetFramework>net5.0</TargetFramework>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\xHumanizer.csproj" />
-  </ItemGroup>
 </Project>

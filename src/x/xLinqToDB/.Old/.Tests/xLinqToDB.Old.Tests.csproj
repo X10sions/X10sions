@@ -47,8 +47,6 @@
     <ProjectReference Include="$(RepoSrcDir_X10sions)x\xSystem\.Data\.OleDb\xSystem.Data.OleDb.csproj" />
 -->
     <ProjectReference Include="..\..\..\..\Common\.NetStandard\Common.NetStandard.csproj" />
-    <ProjectReference Include="..\..\..\xSystem\.Data\.Odbc\xSystem.Data.Odbc.csproj" />
-    <ProjectReference Include="..\..\..\xSystem\.Data\.OleDb\xSystem.Data.OleDb.csproj" />
   </ItemGroup>
   <ItemGroup Label="Removes">
     <Compile Remove="DataProvider\**" />

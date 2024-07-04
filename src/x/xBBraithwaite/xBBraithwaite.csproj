@@ -6,7 +6,6 @@
     <VersionPart2>0</VersionPart2>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\xDapper\xDapper.csproj" />
     <ProjectReference Include="..\xSystem\xSystem.csproj" />
     <!-- 
     <ProjectReference Include="$(RepoSrcDir_X10sions)x\xDapper\xDapper.csproj" />

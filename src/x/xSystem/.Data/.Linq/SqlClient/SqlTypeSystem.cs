@@ -1,11 +1,14 @@
 ﻿using System.Collections.Generic;
+using System.Data;
 using System.Data.Common;
+using System.Data.Linq;
+using System.Data.Linq.SqlClient;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
 using System.Text;
 
-namespace System.Data.Linq.SqlClient {
+namespace xSystem.Data.Linq.SqlClient {
   internal static class SqlTypeSystem {
 
     internal static TypeSystemProvider Create2000Provider() => new Sql2000Provider();
@@ -275,7 +278,7 @@ namespace System.Data.Linq.SqlClient {
           if (IsLargeType) {
             return false;
           } else if (!IsChar && !IsString && IsFixedSize && Size > 0 /*&& this.Size != LargeTypeSizeIndicator*/) { // commented out because LargeTypeSizeIndicator == -1
-            return (Size < defaultSize);
+            return Size < defaultSize;
           } else {
 
             switch (SqlDbType) {
@@ -386,7 +389,7 @@ namespace System.Data.Linq.SqlClient {
             case SqlDbType.NVarChar:
             case SqlDbType.VarChar:
             case SqlDbType.VarBinary:
-              return (size == LargeTypeSizeIndicator);
+              return size == LargeTypeSizeIndicator;
             default:
               return false;
           }
@@ -468,7 +471,7 @@ namespace System.Data.Linq.SqlClient {
           case SqlDbType.VarBinary:
           case SqlDbType.VarChar:
             sb.Append(sqlDbType);
-            if ((size.HasValue && size != 0) && (formatFlags & QueryFormatOptions.SuppressSize) == 0) {
+            if (size.HasValue && size != 0 && (formatFlags & QueryFormatOptions.SuppressSize) == 0) {
               sb.Append("(");
               if (size == LargeTypeSizeIndicator) {
                 sb.Append("MAX");
@@ -648,7 +651,7 @@ namespace System.Data.Linq.SqlClient {
         } else if (applicationTypeIndex != null) {
           hash = applicationTypeIndex.Value;
         }
-        return hash ^ sqlDbType.GetHashCode() ^ (size ?? 0) ^ (precision) ^ (scale << 8);
+        return hash ^ sqlDbType.GetHashCode() ^ (size ?? 0) ^ precision ^ scale << 8;
       }
       #endregion
 
@@ -779,9 +782,9 @@ namespace System.Data.Linq.SqlClient {
         string param2 = null;
         var paren = stype.IndexOf('(');
         var space = stype.IndexOf(' ');
-        var end = (paren != -1 && space != -1) ? Math.Min(space, paren)
-                : (paren != -1) ? paren
-                : (space != -1) ? space
+        var end = paren != -1 && space != -1 ? Math.Min(space, paren)
+                : paren != -1 ? paren
+                : space != -1 ? space
                 : -1;
         if (end == -1) {
           typeName = stype;
@@ -908,7 +911,7 @@ namespace System.Data.Linq.SqlClient {
 
         // if the type provider supports MAX types, return one, otherwise use
         // the maximum size determined above
-        return Create(targetType, SupportsMaxSize ? SqlTypeSystem.LargeTypeSizeIndicator : maxSize);
+        return Create(targetType, SupportsMaxSize ? LargeTypeSizeIndicator : maxSize);
       }
 
       internal override void InitializeParameter(ProviderType type, DbParameter parameter, object value) {
@@ -1054,12 +1057,12 @@ namespace System.Data.Linq.SqlClient {
               // the maximum allowable size
               var concatType = GetBestType(highest.SqlDbType, null);
 
-              if ((!leftType.IsLargeType && leftType.Size.HasValue) &&
-                  (!rightType.IsLargeType && rightType.Size.HasValue)) {
+              if (!leftType.IsLargeType && leftType.Size.HasValue &&
+                  !rightType.IsLargeType && rightType.Size.HasValue) {
                 // If both types are not large types and have size, and the
                 // size is less than the default size, return the shortened type.
                 var concatSize = leftType.Size.Value + rightType.Size.Value;
-                if ((concatSize < concatType.Size) || concatType.IsLargeType) {
+                if (concatSize < concatType.Size || concatType.IsLargeType) {
                   return GetBestType(highest.SqlDbType, concatSize);
                 }
               }
@@ -1287,7 +1290,7 @@ namespace System.Data.Linq.SqlClient {
           int? bestSize = null;
 
           if (sqlTypeA.Size.HasValue && sqlTypeB.Size.HasValue) {
-            bestSize = (sqlTypeB.Size > sqlTypeA.Size) ? sqlTypeB.Size : sqlTypeA.Size;
+            bestSize = sqlTypeB.Size > sqlTypeA.Size ? sqlTypeB.Size : sqlTypeA.Size;
           }
 
           if (sqlTypeB.Size.HasValue && sqlTypeB.Size.Value == LargeTypeSizeIndicator
@@ -1303,7 +1306,7 @@ namespace System.Data.Linq.SqlClient {
       }
 
       internal override ProviderType From(object o) {
-        var clrType = (o != null) ? o.GetType() : typeof(object);
+        var clrType = o != null ? o.GetType() : typeof(object);
         if (clrType == typeof(string)) {
           var str = (string)o;
           return From(clrType, str.Length);
@@ -1335,7 +1338,7 @@ namespace System.Data.Linq.SqlClient {
       internal override ProviderType From(Type type, int? size) {
         if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>))
           type = type.GetGenericArguments()[0];
-        var tc = System.Type.GetTypeCode(type);
+        var tc = Type.GetTypeCode(type);
         switch (tc) {
           case TypeCode.Boolean:
             return Create(SqlDbType.Bit);
@@ -1417,7 +1420,7 @@ namespace System.Data.Linq.SqlClient {
         }
 
         // Providers that support the maximum size large type indicator should fall to that.
-        return SqlTypeSystem.LargeTypeSizeIndicator;
+        return LargeTypeSizeIndicator;
       }
 
 
@@ -1433,7 +1436,7 @@ namespace System.Data.Linq.SqlClient {
 
         // Retain mappings for DateTime and TimeSpan; add one for the new DateTimeOffset type.
         //
-        if (System.Type.GetTypeCode(type) == TypeCode.Object &&
+        if (Type.GetTypeCode(type) == TypeCode.Object &&
             type == typeof(DateTimeOffset)) {
           return Create(SqlDbType.DateTimeOffset);
         }
@@ -1447,7 +1450,7 @@ namespace System.Data.Linq.SqlClient {
       internal override ProviderType From(Type type, int? size) {
         if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>))
           type = type.GetGenericArguments()[0];
-        var tc = System.Type.GetTypeCode(type);
+        var tc = Type.GetTypeCode(type);
         switch (tc) {
           case TypeCode.Boolean:
             return Create(SqlDbType.Bit);

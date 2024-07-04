@@ -8,6 +8,5 @@
   </PropertyGroup>
   <ItemGroup Label="ProjectReferences">
     <ProjectReference Include="..\..\Common\.DotNetStandard\Common.DotNetStandard.csproj" />
-    <ProjectReference Include="..\xNewtonsoft\xNewtonsoft.csproj" />
   </ItemGroup>
 </Project>

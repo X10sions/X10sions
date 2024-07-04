@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 
-namespace System.Data.Linq.SqlClient {
+namespace xSystem.Data.Linq.SqlClient {
   internal class SqlAssign : SqlStatement {
     private SqlExpression leftValue;
     private SqlExpression rightValue;

@@ -55,7 +55,6 @@
   </ItemGroup> 
   <ItemGroup Label="ProjectReferences">
     <ProjectReference Include="..\..\..\Common\.Abstractions\Common.Abstractions.csproj" />
-    <ProjectReference Include="..\xLinqToDB.csproj" />
     <!--
     <ProjectReference Include="$(RepoSrcDir_X10sions)Common\.Abstractions\Common.Abstractions.csproj" />
     <ProjectReference Include="$(RepoSrcDir_X10sions)x\xLinqToDB\xLinqToDB.csproj" />

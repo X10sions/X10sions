@@ -1,9 +1,10 @@
-﻿using System.Diagnostics;
+﻿using System.Data.Linq.SqlClient;
+using System.Diagnostics;
 using System.Linq.Expressions;
 
-namespace System.Data.Linq.SqlClient {
+namespace xSystem.Data.Linq.SqlClient.Common;
 
-  [DebuggerDisplay("text = {Text}, \r\nsource = {SourceExpression}")]
+[DebuggerDisplay("text = {Text}, \r\nsource = {SourceExpression}")]
   internal abstract class SqlNode {
     internal Expression SourceExpression { get; private set; }
     internal SqlNodeType NodeType { get; }
@@ -29,5 +30,3 @@ namespace System.Data.Linq.SqlClient {
         }
 #endif
   }
-
-}

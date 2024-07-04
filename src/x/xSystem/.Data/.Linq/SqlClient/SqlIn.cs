@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq.Expressions;
 
-namespace System.Data.Linq.SqlClient {
+namespace xSystem.Data.Linq.SqlClient {
   internal class SqlIn : SqlSimpleTypeExpression {
     private SqlExpression expression;
     private List<SqlExpression> values;

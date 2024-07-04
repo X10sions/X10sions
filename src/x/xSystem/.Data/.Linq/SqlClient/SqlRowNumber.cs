@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq.Expressions;
+using xSystem.Data.Linq.SqlClient;
 
-namespace System.Data.Linq.SqlClient {
+namespace xSystem.Data.Linq.SqlClient {
   internal class SqlRowNumber : SqlSimpleTypeExpression {
     private List<SqlOrderExpression> orderBy;
 

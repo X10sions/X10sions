@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 
-namespace System.Data.Linq.SqlClient {
+namespace xSystem.Data.Linq.SqlClient {
   internal abstract class SqlExpression : SqlNode {
     internal Type ClrType { get; private set; }
 

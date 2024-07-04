@@ -1,4 +1,4 @@
-﻿namespace System.Data.Linq.SqlClient {
+﻿namespace xSystem.Data.Linq.SqlClient {
   internal static class Strings {
     internal static string OwningTeam => SR.GetString("OwningTeam");
     internal static string VbLikeDoesNotSupportMultipleCharacterRanges => SR.GetString("VbLikeDoesNotSupportMultipleCharacterRanges");

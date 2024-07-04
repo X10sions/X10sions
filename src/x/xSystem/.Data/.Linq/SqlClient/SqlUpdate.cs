@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System.Data.Linq;
 using System.Linq.Expressions;
 
-namespace System.Data.Linq.SqlClient {
+namespace xSystem.Data.Linq.SqlClient {
   internal class SqlUpdate : SqlStatement {
     private SqlSelect select;
     private List<SqlAssign> assignments;

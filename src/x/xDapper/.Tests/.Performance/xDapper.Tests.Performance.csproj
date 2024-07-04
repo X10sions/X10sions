@@ -55,7 +55,6 @@
     <ProjectReference Include="..\..\..\..\Common\.Testing\.XUnit\Common.Testing.XUnit.csproj" />
     <ProjectReference Include="..\..\..\xLinqToDB\xLinqToDB.csproj" />
     <ProjectReference Include="..\..\..\xSystem\.Data\.Linq\xSystem.Data.Linq.csproj" />
-    <ProjectReference Include="..\..\xDapper.csproj" />
   </ItemGroup>
 
 </Project>

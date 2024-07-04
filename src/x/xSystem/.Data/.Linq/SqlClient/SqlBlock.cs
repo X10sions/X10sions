@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq.Expressions;
 
-namespace System.Data.Linq.SqlClient {
+namespace xSystem.Data.Linq.SqlClient {
   internal class SqlBlock : SqlStatement {
     internal SqlBlock(Expression sourceExpression)
         : base(SqlNodeType.Block, sourceExpression) {

@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.Data.Linq;
+using System.Data.Linq.SqlClient;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace System.Data.Linq.SqlClient {
+namespace xSystem.Data.Linq.SqlClient {
   internal class SqlMethodCall : SqlSimpleTypeExpression {
     private MethodInfo method;
     private SqlExpression obj;

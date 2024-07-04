@@ -1,6 +1,7 @@
-﻿using System.Linq.Expressions;
+﻿using System.Data.Linq.SqlClient;
+using System.Linq.Expressions;
 
-namespace System.Data.Linq.SqlClient {
+namespace xSystem.Data.Linq.SqlClient {
   internal abstract class SqlSimpleTypeExpression : SqlExpression {
     private ProviderType sqlType;
 

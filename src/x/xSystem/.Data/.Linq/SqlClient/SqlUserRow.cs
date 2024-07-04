@@ -1,7 +1,9 @@
-﻿using System.Data.Linq.Mapping;
+﻿using System.Data.Linq;
+using System.Data.Linq.Mapping;
+using System.Data.Linq.SqlClient;
 using System.Linq.Expressions;
 
-namespace System.Data.Linq.SqlClient {
+namespace xSystem.Data.Linq.SqlClient {
   internal class SqlUserRow : SqlSimpleTypeExpression {
     private SqlUserQuery query;
     private MetaType rowType;

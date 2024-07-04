@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace System.Data.Linq.SqlClient {
+namespace xSystem.Data.Linq.SqlClient {
   internal class SqlMemberAssign : SqlNode {
     private MemberInfo member;
     private SqlExpression expression;

@@ -8,8 +8,4 @@
     <PackageReference Include="MiniProfiler" Version="4.2.22" />
   </ItemGroup>
 
-  <ItemGroup Label="ProjectReferences">
-    <ProjectReference Include=".Shared\xMiniProfiler.Shared.csproj" />
-  </ItemGroup>
-
 </Project>

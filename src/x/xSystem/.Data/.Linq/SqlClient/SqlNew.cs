@@ -2,8 +2,9 @@
 using System.Data.Linq.Mapping;
 using System.Linq.Expressions;
 using System.Reflection;
+using xSystem.Data.Linq.SqlClient;
 
-namespace System.Data.Linq.SqlClient {
+namespace xSystem.Data.Linq.SqlClient {
   internal class SqlNew : SqlSimpleTypeExpression {
     private MetaType metaType;
     private ConstructorInfo constructor;

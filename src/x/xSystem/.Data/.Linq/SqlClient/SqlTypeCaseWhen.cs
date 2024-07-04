@@ -1,4 +1,4 @@
-﻿namespace System.Data.Linq.SqlClient;
+﻿namespace xSystem.Data.Linq.SqlClient;
 /// <summary>
 /// Represents one choice of object instantiation type in a type case.
 /// When 'match' is the same as type case Discriminator then the corresponding

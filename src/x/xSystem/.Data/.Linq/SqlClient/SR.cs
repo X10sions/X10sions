@@ -2,7 +2,7 @@
 using System.Resources;
 using System.Threading;
 
-namespace System.Data.Linq.SqlClient {
+namespace xSystem.Data.Linq.SqlClient {
   internal sealed class SR {
     internal const string OwningTeam = "OwningTeam";
     internal const string VbLikeDoesNotSupportMultipleCharacterRanges = "VbLikeDoesNotSupportMultipleCharacterRanges";
@@ -170,7 +170,7 @@ namespace System.Data.Linq.SqlClient {
       resources = new ResourceManager("System.Data.Linq.SqlClient", GetType().Assembly);
     }
     private static SR GetLoader() {
-      if(loader == null) {
+      if (loader == null) {
         var value = new SR();
         Interlocked.CompareExchange(ref loader, value, null);
       }
@@ -178,14 +178,14 @@ namespace System.Data.Linq.SqlClient {
     }
     public static string GetString(string name, params object[] args) {
       var sR = GetLoader();
-      if(sR == null) {
+      if (sR == null) {
         return null;
       }
       var @string = sR.resources.GetString(name, Culture);
-      if(args != null && args.Length != 0) {
-        for(var i = 0; i < args.Length; i++) {
+      if (args != null && args.Length != 0) {
+        for (var i = 0; i < args.Length; i++) {
           var text = args[i] as string;
-          if(text != null && text.Length > 1024) {
+          if (text != null && text.Length > 1024) {
             args[i] = text.Substring(0, 1021) + "...";
           }
         }

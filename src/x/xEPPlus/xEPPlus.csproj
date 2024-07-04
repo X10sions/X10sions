@@ -11,7 +11,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Common\.NetStandard\Common.NetStandard.csproj" />
-    <ProjectReference Include="..\xUnitsNet\xUnitsNet.csproj" />
     <!-- 
     <ProjectReference Include="$(RepoSrcDir_X10sions)Common\.NetStandard\Common.NetStandard.csproj" />
     <ProjectReference Include="$(RepoSrcDir_X10sions)x\xUnitsNet\xUnitsNet.csproj" />

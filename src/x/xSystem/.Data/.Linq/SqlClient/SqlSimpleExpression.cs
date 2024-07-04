@@ -1,4 +1,7 @@
-﻿namespace System.Data.Linq.SqlClient {
+﻿using System.Data.Linq;
+using System.Data.Linq.SqlClient;
+
+namespace xSystem.Data.Linq.SqlClient {
   internal class SqlSimpleExpression : SqlExpression {
     private SqlExpression expr;
 

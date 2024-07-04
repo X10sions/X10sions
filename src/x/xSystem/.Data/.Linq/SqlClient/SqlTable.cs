@@ -2,7 +2,7 @@
 using System.Data.Linq.Mapping;
 using System.Linq.Expressions;
 
-namespace System.Data.Linq.SqlClient {
+namespace xSystem.Data.Linq.SqlClient {
   internal class SqlTable : SqlNode {
     internal MetaTable MetaTable { get; }
     internal string Name => MetaTable.TableName;

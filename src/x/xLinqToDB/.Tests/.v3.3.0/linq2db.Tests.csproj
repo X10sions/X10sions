@@ -47,23 +47,6 @@
 		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />
     -->
   </ItemGroup>
-  <ItemGroup Label="ProjectReferences">
-    <ProjectReference Include="..\..\xLinqToDB.csproj" />
-    <!--
-    <ProjectReference Include="..\..\Source\LinqToDB.AspNet\LinqToDB.AspNet.csproj" />
-    <ProjectReference Include="..\VisualBasic\Tests.VisualBasic.vbproj" />
-    <ProjectReference Include="..\FSharp\Tests.FSharp.fsproj" />
-
-    <ProjectReference Include="$(RepoSrcDir_X10sions)x\xAutoFixture\.AutoMoq\xAutoFixture.AutoMoq.csproj" />
-    <ProjectReference Include="$(RepoSrcDir_X10sions)x\xCoverlet\.Collector\xCoverlet.Collector.csproj" />
-    <ProjectReference Include="$(RepoSrcDir_X10sions)x\xGenFu\xGenFu.csproj" />
-    <ProjectReference Include="$(RepoSrcDir_X10sions)x\xLinqToDB\xLinqToDB.csproj" />
-    <ProjectReference Include="$(RepoSrcDir_X10sions)x\xMoq\xMoq.csproj" />
-    <ProjectReference Include="$(RepoSrcDir_X10sions)x\xMicrosoft\.NET\.Test\.Sdk\xMicrosoft.NET.Test.Sdk.csproj" />
-    <ProjectReference Include="$(RepoSrcDir_X10sions)x\xNUnit3TestAdapter\xNUnit3TestAdapter.csproj" />
-  
-    -->
-  </ItemGroup>
   <!-- 
   <ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp2.1' OR '$(TargetFramework)' == 'netcoreapp3.1' OR '$(TargetFramework)' == 'net5.0' ">
     <Compile Remove="Metadata\AttributeReaderTests.cs" />

@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.Data.Linq;
 using System.Data.Linq.Mapping;
+using System.Data.Linq.SqlClient;
 using System.Linq.Expressions;
 
-namespace System.Data.Linq.SqlClient {
+namespace xSystem.Data.Linq.SqlClient {
   /// <summary>
   /// Represents the construction of an object in abstract 'super sql'.
   /// The type may be polymorphic. A discriminator field is used to determine 

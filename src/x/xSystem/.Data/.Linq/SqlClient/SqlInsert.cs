@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 
-namespace System.Data.Linq.SqlClient {
+namespace xSystem.Data.Linq.SqlClient {
   internal class SqlInsert : SqlStatement {
     private SqlTable table;
     private SqlRow row;

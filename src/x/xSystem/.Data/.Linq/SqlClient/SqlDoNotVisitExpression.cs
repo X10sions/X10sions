@@ -1,4 +1,4 @@
-﻿namespace System.Data.Linq.SqlClient {
+﻿namespace xSystem.Data.Linq.SqlClient {
   internal class SqlDoNotVisitExpression : SqlExpression {
     internal new SqlExpression Expression { get; }
     internal override ProviderType SqlType => Expression.SqlType;

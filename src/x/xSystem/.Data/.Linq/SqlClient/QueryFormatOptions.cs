@@ -1,4 +1,4 @@
-﻿namespace System.Data.Linq.SqlClient {
+﻿namespace xSystem.Data.Linq.SqlClient {
   [Flags]
   internal enum QueryFormatOptions {
     None = 0x0,

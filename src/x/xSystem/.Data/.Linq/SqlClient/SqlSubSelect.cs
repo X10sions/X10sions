@@ -1,4 +1,6 @@
-﻿namespace System.Data.Linq.SqlClient {
+﻿using xSystem.Data.Linq.SqlClient;
+
+namespace xSystem.Data.Linq.SqlClient {
   internal class SqlSubSelect : SqlSimpleTypeExpression {
     private SqlSelect select;
 
