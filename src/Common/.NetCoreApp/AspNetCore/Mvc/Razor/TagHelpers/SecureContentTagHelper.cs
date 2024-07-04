@@ -1,14 +1,12 @@
-﻿using Common.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Common.NetCoreApp.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Common.AspNetCore.Mvc.Razor.TagHelpers {
+
   [HtmlTargetElement("secure-content")]
   public class SecureContentTagHelper : TagHelper {
     public SecureContentTagHelper(MsEmpDbContext dbContext) {

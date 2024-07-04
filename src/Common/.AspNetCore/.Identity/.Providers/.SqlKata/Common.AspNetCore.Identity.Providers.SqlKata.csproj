@@ -4,4 +4,8 @@
     <Product>NetStandard Extensions</Product>
     <VersionPart1>1</VersionPart1>
   </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\x\xSqlKata\xSqlKata.csproj" />
+    <ProjectReference Include="..\..\Common.AspNetCore.Identity.csproj" />
+  </ItemGroup>
 </Project>

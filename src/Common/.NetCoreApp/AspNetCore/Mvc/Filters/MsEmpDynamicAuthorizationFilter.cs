@@ -1,6 +1,5 @@
-﻿using Common.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Common.NetCoreApp.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Filters;
-using System.Threading.Tasks;
 
 namespace Common.AspNetCore.Mvc.Filters {
   public class MsEmpDynamicAuthorizationFilter : IAsyncAuthorizationFilter {

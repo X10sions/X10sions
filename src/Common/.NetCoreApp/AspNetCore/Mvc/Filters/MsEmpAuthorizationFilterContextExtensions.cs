@@ -1,5 +1,6 @@
 ﻿using Common.AspNetCore.Identity.EntityFrameworkCore;
 using Common.Collections.Paged;
+using Common.NetCoreApp.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Abstractions;
 using Microsoft.AspNetCore.Mvc.Controllers;
