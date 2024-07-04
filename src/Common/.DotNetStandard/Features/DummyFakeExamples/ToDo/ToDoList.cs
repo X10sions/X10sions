@@ -1,4 +1,4 @@
-﻿using Common.Data.Entities;
+﻿using Common.Domain.Entities;
 using Common.Domain.ValueObjects;
 using Common.Features.DummyFakeExamples.ToDo.Item;
 

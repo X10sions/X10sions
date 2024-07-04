@@ -1,4 +1,4 @@
-﻿using Common.Data.Entities;
+﻿using Common.Domain.Entities;
 using System.Linq.Expressions;
 
 namespace Common.Data.Repositories;
@@ -20,5 +20,18 @@ public interface ICommandRepository<T, TId> where T : class, IEntityWithId<TId> 
   Task UpdatePartialAsync(TId key, object item, CancellationToken cancellationToken = default);
   void UpdateRange(IEnumerable<T> items);
   Task UpdateRangeAsync(IEnumerable<T> items, CancellationToken cancellationToken = default);
+
+}
+
+public interface IWriteRepository<T> where T : class {
+  Task<int> DeleteAsync(IEnumerable<T> rows, CancellationToken token = default);
+  Task<int> InsertAsync(IEnumerable<T> rows, CancellationToken token = default);
+  Task<TKey> InsertWithIdAsync<TKey>(T row, Func<T, TKey>? idSelector = null, CancellationToken token = default);
+  Task<int> UpdateAsync(T row, CancellationToken token = default);
+}
+
+public static class IWriteRepositoryExtetnsions {
+  public async static Task<int> DeleteAsync<T>(this IWriteRepository<T> repo, T row, CancellationToken token = default) where T : class => await repo.DeleteAsync(new[] { row }, token);
+  public async static Task<int> InsertAsync<T>(this IWriteRepository<T> repo, T row, CancellationToken token = default) where T : class => await repo.InsertAsync(new[] { row }, token);
 
 }

@@ -1,7 +1,7 @@
-﻿using Common.Data.Entities;
+﻿using Common.Domain.Entities;
 using System.Linq.Expressions;
 
-namespace Common.Data;
+namespace Common.Data.Services;
 
 public interface IGenericBusinessService<T, TKey> : IBusinessService<T, TKey> where T : class, IEntityWithId<TKey>
   //where TKey : IEquatable<TKey>

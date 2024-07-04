@@ -1,8 +1,8 @@
 ﻿using Common.Collections.Paged;
-using Common.Data.Entities;
+using Common.Domain.Entities;
 using System.Linq.Expressions;
 
-namespace Common.Data;
+namespace Common.Data.Repositories;
 
 public interface IBusinessRepository<T, TKey>
   where T : class, IEntityWithId<TKey>

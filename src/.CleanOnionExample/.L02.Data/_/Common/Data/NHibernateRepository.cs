@@ -1,4 +1,5 @@
 ﻿using Common.Data;
+using Common.Data.Repositories;
 using NHibernate;
 using NHibernate.Linq;
 using System.Linq.Expressions;

@@ -1,4 +1,5 @@
-﻿using Common.Data.Entities;
+﻿using Common.Domain.Entities;
+using Common.Data.Repositories;
 
 namespace Common.Data;
 

@@ -1,4 +1,4 @@
-﻿using Common.Data.Entities;
+﻿using Common.Domain.Entities;
 
 namespace Common.Features.DummyFakeExamples.Owner;
 

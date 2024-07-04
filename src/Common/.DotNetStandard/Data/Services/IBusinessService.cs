@@ -1,8 +1,8 @@
 ﻿using Common.Collections.Paged;
-using Common.Data.Entities;
+using Common.Domain.Entities;
 using System.Linq.Expressions;
 
-namespace Common.Data;
+namespace Common.Data.Services;
 
 public interface IBusinessService<T, TKey> where T : class, IEntityWithId<TKey>
   //where TKey : IEquatable<TKey>

@@ -6,6 +6,11 @@
     <RootNamespace>CleanOnionExample</RootNamespace>
     <VersionPart1>6</VersionPart1>
   </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="Data\Models\**" />
+    <EmbeddedResource Remove="Data\Models\**" />
+    <None Remove="Data\Models\**" />
+  </ItemGroup>
   <ItemGroup Label="PackageReferences">
     <!--
     <PackageReference Include="EntityFrameworkCore.Jet" Version="5.0.0-alpha.1" />
@@ -42,8 +47,5 @@
     -->
     <ProjectReference Include="..\..\Common\.DotNet\Common.DotNet.csproj" />
     <ProjectReference Include="..\..\x\xLinqToDB\.AspNet\xLinqToDB.AspNet.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Data\Models\" />
   </ItemGroup>
 </Project>

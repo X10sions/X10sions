@@ -1,7 +1,8 @@
 ﻿using Common.Collections.Paged;
-using Common.Data.Entities;
+using Common.Data.Repositories;
+using Common.Domain.Entities;
 using System.Linq.Expressions;
-namespace Common.Data;
+namespace Common.Data.Services;
 
 public class GenericBusinessService<T, TKey> : IGenericBusinessService<T, TKey> where T : class, IEntityWithId<TKey> where TKey : IEquatable<TKey> {
   protected readonly IUnitOfWork _unitOfWork;

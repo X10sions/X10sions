@@ -1,4 +1,6 @@
-﻿namespace Common.Data.Entities {
+﻿using Common.Domain.Entities;
+
+namespace Common.Data.Entities {
   public class Audit : IEntityWithId<int> {
     public int Id { get; set; }
     public string UserId { get; set; }

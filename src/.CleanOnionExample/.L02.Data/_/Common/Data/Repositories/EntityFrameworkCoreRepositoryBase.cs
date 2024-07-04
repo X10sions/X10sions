@@ -1,4 +1,4 @@
-﻿using Common.Data.Entities;
+﻿using Common.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
@@ -17,7 +17,6 @@ public class EntityFrameworkCoreRepositoryBase<TDbContext, TEntity, TId> : IRepo
 
   public IQueryable<TEntity> Queryable => GetDbSet();
   public IQueryable<TEntity> GetQueryable(Expression<Func<TEntity, bool>> predicate) => GetDbSet().Where(predicate);
-
 
   public bool Any() {
     throw new NotImplementedException();

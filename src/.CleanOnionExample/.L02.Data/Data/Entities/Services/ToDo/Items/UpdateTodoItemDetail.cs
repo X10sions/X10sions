@@ -16,7 +16,7 @@ public static class UpdateTodoItemDetail {
       _context = context;
     }
 
-    public async Task<Unit> Handle(Command request, CancellationToken cancellationToken) {
+    public async Task Handle(Command request, CancellationToken cancellationToken) {
       var entity = await _context.TodoItems.FindAsync([request.Id], cancellationToken);
       if (entity == null) {
         throw new NotFoundException(nameof(ToDoItem), request.Id);
@@ -24,10 +24,9 @@ public static class UpdateTodoItemDetail {
       entity.ListId = request.ListId;
       entity.Priority = request.Priority;
       entity.Note = request.Note;
-
       await _context.SaveChangesAsync(cancellationToken);
-
-      return Unit.Value;
+      //return Unit.Value;
     }
+  
   }
 }

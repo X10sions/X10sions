@@ -7,6 +7,11 @@
     <VersionPart2>0</VersionPart2>
     <Nullable>enable</Nullable>
   </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="Features\DummyFakeExamples\WeatherForecast\**" />
+    <EmbeddedResource Remove="Features\DummyFakeExamples\WeatherForecast\**" />
+    <None Remove="Features\DummyFakeExamples\WeatherForecast\**" />
+  </ItemGroup>
   <ItemGroup Label="PackageReferences">
     <PackageReference Update="FastExpressionCompiler.LightExpression" Version="3.3.3" />
   </ItemGroup>
@@ -14,7 +19,6 @@
     <ProjectReference Include="..\..\x\xSystem\.DotNetStandard\xSystem.DotNetStandard.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Features\DummyFakeExamples\WeatherForecast\" />
     <Folder Include="Models\Win32\" />
   </ItemGroup>
 </Project>

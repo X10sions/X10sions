@@ -1,4 +1,4 @@
-﻿namespace Common.Data;
+﻿namespace Common.Domain;
 
 /// <summary>
 /// Apply this marker interface only to aggregate root entities 

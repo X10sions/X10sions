@@ -1,4 +1,6 @@
-﻿namespace Common.Features.DummyFakeExamples.ToDo.Item;
+﻿using Common.Domain;
 
-public record ToDoItemCreatedEvent(Guid Id, string Description, string Summary);
+namespace Common.Features.DummyFakeExamples.ToDo.Item;
+
+public record ToDoItemCreatedEvent(Guid Id, string Description, string Summary) : DomainEventBase { }
 

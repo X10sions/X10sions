@@ -1,4 +1,4 @@
-﻿using Common.Data.Entities;
+﻿using Common.Domain.Entities;
 using System.Linq.Expressions;
 
 namespace Common.Data.Repositories;

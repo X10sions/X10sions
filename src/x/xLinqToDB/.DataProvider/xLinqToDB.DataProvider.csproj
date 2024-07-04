@@ -11,5 +11,6 @@
     <ProjectReference Include="..\..\..\lib\IBM.git\src\xIBM.Data.DB2.iSeries\xIBM.Data.DB2.iSeries.csproj" />
     -->
     <ProjectReference Include="..\..\..\Common\.Data\Common.Data.csproj" />
+    <ProjectReference Include="..\xLinqToDB.csproj" />
   </ItemGroup> 
 </Project>

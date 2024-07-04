@@ -1,4 +1,4 @@
-﻿namespace Common.Data.Entities;
+﻿namespace Common.Domain.Entities;
 /// <summary>
 /// A single unit of relational data that can be identified by a primary key.
 /// </summary>

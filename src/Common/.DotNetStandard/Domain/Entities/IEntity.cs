@@ -1,3 +1,3 @@
-﻿namespace Common.Data.Entities;
+﻿namespace Common.Domain.Entities;
 
 public interface IEntity : IAggregateRoot { }

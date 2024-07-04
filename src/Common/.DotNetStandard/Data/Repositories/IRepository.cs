@@ -1,4 +1,4 @@
-﻿using Common.Data.Entities;
+﻿using Common.Domain.Entities;
 
 namespace Common.Data.Repositories;
 
@@ -16,3 +16,11 @@ public interface IRepositoryAsync<T> where T : class {
   Task UpdateAsync(T entity);
   Task DeleteAsync(T entity);
 }
+
+public interface IRepository<T> : IReadRepository<T>, IWriteRepository<T> where T : class { }
+
+public interface IRepository<T, TDb, TTable> : IRepository<T> where T : class where TTable : IQueryable<T> {
+  TDb Database { get; }
+  TTable Table { get; }
+}
+

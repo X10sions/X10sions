@@ -1,4 +1,4 @@
-﻿namespace Common.Data.Entities;
+﻿namespace Common.Domain.Entities;
 
 public interface IEntityAuditable<TBy> : IEntityAuditableDelete<TBy>, IEntityAuditableInsert<TBy>, IEntityAuditableUpdate<TBy> { }
 

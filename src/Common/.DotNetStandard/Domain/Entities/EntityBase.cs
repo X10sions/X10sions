@@ -1,4 +1,4 @@
-﻿namespace Common.Data.Entities;
+﻿namespace Common.Domain.Entities;
 
 public abstract class EntityBase : IEntity {
   public List<DomainEventBase> Events = new List<DomainEventBase>();

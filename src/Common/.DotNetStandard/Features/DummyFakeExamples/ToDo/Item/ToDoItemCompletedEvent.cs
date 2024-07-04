@@ -1,4 +1,4 @@
-﻿using Common.Data;
+﻿using Common.Domain; 
 
 namespace Common.Features.DummyFakeExamples.ToDo.Item;
-public record ToDoItemCompletedEvent(ToDoItem CompletedItem) : DomainEventBase;
+public record ToDoItemCompletedEvent(ToDoItem CompletedItem) : DomainEventBase {}

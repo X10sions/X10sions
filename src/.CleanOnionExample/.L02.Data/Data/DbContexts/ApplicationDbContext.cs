@@ -3,7 +3,8 @@ using CleanOnionExample.Data.Entities.Services;
 using CleanOnionExample.Services;
 using Common.Data.DbContexts;
 using Common.Data.Entities;
-using Common.Events;
+using Common.Domain;
+using Common.Domain.Entities;
 using Common.Features.DummyFakeExamples.Auth;
 using Common.Features.DummyFakeExamples.Category;
 using Common.Features.DummyFakeExamples.Clock;
@@ -118,7 +119,7 @@ public class ApplicationDbContext : AuditableContext, IApplicationDbContext {
       }
     }
 
-    var events = ChangeTracker.Entries<IHasDomainEvent>()
+    var events = ChangeTracker.Entries<IHaveDomainEvent>()
             .Select(x => x.Entity.DomainEvents)
             .SelectMany(x => x)
             .Where(domainEvent => !domainEvent.IsPublished)
@@ -136,7 +137,7 @@ public class ApplicationDbContext : AuditableContext, IApplicationDbContext {
   }
 
 
-  private async System.Threading.Tasks.Task DispatchEvents(DomainEvent[] events) {
+  private async Task DispatchEvents(IDomainEvent[] events) {
     foreach (var @event in events) {
       @event.IsPublished = true;
       await _domainEventService.Publish(@event);

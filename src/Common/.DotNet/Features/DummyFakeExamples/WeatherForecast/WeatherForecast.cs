@@ -1,8 +1,8 @@
 ﻿using Common.Data;
-using Common.Data.Entities;
+using Common.Domain.Entities;
 using Common.Data.Events;
-using System.ComponentModel.DataAnnotations;
 using System.Linq.Expressions;
+using Common.Data.Repositories;
 
 namespace Common.Features.DummyFakeExamples.WeatherForecast;
 

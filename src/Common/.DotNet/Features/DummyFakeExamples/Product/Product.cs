@@ -1,4 +1,4 @@
-﻿using Common.Data.Entities;
+﻿using Common.Domain.Entities;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Common.Features.DummyFakeExamples.Product;
