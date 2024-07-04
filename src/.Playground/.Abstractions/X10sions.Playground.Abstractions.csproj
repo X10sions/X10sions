@@ -8,4 +8,7 @@
   <ItemGroup>
     <Folder Include="Data\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\.DotNet\Common.DotNet.csproj" />
+  </ItemGroup>
 </Project>

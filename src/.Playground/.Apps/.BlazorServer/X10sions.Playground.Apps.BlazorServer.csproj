@@ -6,6 +6,7 @@
     <RootNamespace>X10sions.Playground</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Common\.DotNet\Common.DotNet.csproj" />
     <ProjectReference Include="..\..\.Razor\.Pages\X10sions.Playground.Razor.Pages.csproj" />
   </ItemGroup>
 </Project>

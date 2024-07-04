@@ -1,6 +1,7 @@
 ﻿@page "/fetchdata"
 @inject HttpClient Http
-@using X10sions.Playground.Data
+@using Common.Features.DummyFakeExamples.WeatherForecast
+@using X10sions.Playground.Razor
 @inject WeatherForecastService ForecastService
 @inject AppSettings appSettings
 <PageTitle>Weather forecast</PageTitle>
@@ -48,7 +49,7 @@
   protected override async Task OnInitializedAsync() {
     var uri = new Uri($"{appSettings.AppBaseAddress}{appSettings.AppContentPath}/sample-data/weather.json");
     //var httpForecasts = await Http.GetFromJsonAsync<WeatherForecast[]>(uri);
-    var serviceForecasts = await ForecastService.GetForecastAsync(DateTime.Now);
+    var serviceForecasts = await ForecastService.GetForecastAsync(DateTime.Now.ToDateOnly());
     //forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>(uri);
     //forecasts = httpForecasts ;
     forecasts = serviceForecasts;
