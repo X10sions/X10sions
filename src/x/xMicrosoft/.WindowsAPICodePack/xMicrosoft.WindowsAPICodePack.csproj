@@ -5,12 +5,9 @@
     <VersionPart1>2019</VersionPart1>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="System.Drawing.Common" Version="5.0.2" />
+    <PackageReference Include="System.Drawing.Common" Version="8.0.6" />
   </ItemGroup>
-  <ItemGroup>  
-    <ProjectReference Include="..\..\xSystem\xSystem.csproj" />
-    <!-- 
-    <ProjectReference Include="$(RepoSrcDir_X10sions)x\xSystem\xSystem.csproj" />
-    -->
+  <ItemGroup>
+    <ProjectReference Include="..\..\xSystem\.Windows\xSystem.Windows.csproj" />
   </ItemGroup>
 </Project>

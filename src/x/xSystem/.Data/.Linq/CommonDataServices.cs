@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.Linq.Mapping;
 using System.Data.Linq.Provider;
-using System.Data.Linq.SqlClient;
+using xSystem.Data.Linq.SqlClient;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;

@@ -9,7 +9,7 @@
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.10.0" />
   </ItemGroup>
   <ItemGroup Label="ProjectReferences">
-    <ProjectReference Include="..\..\..\..\..\Common\.Testing\Common.Testing.csproj" />
+    <ProjectReference Include="..\..\..\..\..\Common\.Testing\.XUnit\Common.Testing.XUnit.csproj" />
     <ProjectReference Include="..\..\xSystem.DotNetStandard.csproj" />
   </ItemGroup>
 </Project>

@@ -1,39 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup Label="Application">
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <Product>IQToolkit (SQLite) Tests</Product>
   </PropertyGroup>
   <ItemGroup Label="ProjectReferences">
-    <ProjectReference Include="$(RepoSrcDir_X10sions)x\xIQToolkit\.Data\xIQToolkit.Data.csproj" />
-    <ProjectReference Include="$(RepoSrcDir_X10sions)x\xIQToolkit\.Data\.Ado\xIQToolkit.Data.Ado.csproj" />
-    <ProjectReference Include="$(RepoSrcDir_X10sions)x\xIQToolkit\.Data\.Sqlite\xIQToolkit.Data.Sqlite.csproj" />
-    <ProjectReference Include="$(RepoTestDir_X10sions)xIQToolkit\.Common\xIQToolkit.Common.Tests.csproj" />
-  </ItemGroup>
-  <!--
-  <package id="System.Data.Common" version="4.3.0"  />
-  <package id="System.Data.SQLite.Core" version="1.0.95.0"  requireReinstallation="true" />
-
-  <ItemGroup>
-    <None Include="App.config" />
-    <None Include="Northwind.db3">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Northwind.sl3">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="packages.config" />
+    <ProjectReference Include="..\..\.Data\.Ado\xIQToolkit.Data.Ado.csproj" />
+    <ProjectReference Include="..\..\.Data\.Sqlite\xIQToolkit.Data.Sqlite.csproj" />
+    <ProjectReference Include="..\.Common\xIQToolkit.Common.Tests.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Data.Common, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Data.Common.4.3.0\lib\net451\System.Data.Common.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Data.SQLite, Version=1.0.95.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\System.Data.SQLite.Core.1.0.95.0\lib\net45\System.Data.SQLite.dll</HintPath>
-    </Reference>
+    <Folder Include="Properties\" />
   </ItemGroup>
-  <Import Project="..\packages\System.Data.SQLite.Core.1.0.95.0\build\net45\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.95.0\build\net45\System.Data.SQLite.Core.targets')" />
--->
 </Project>

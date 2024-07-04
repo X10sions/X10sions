@@ -1,8 +1,15 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup Label="Application">
     <TargetFramework>netstandard2.0</TargetFramework>
     <Product>IQToolkit Data Access Extensions</Product>
     <VersionPart1>1</VersionPart1>
     <VersionPart2>0</VersionPart2>
   </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="System.Data.Odbc" Version="8.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Common\.DotNetStandard\.Old\Common.DotNetStandard.Old.csproj" />
+    <ProjectReference Include="..\.Odbc\xIQToolkit.Data.Odbc.csproj" />
+  </ItemGroup>
 </Project>

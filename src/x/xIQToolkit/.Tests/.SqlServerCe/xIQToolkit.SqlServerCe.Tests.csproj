@@ -1,16 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup Label="Application">
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net48</TargetFramework>
     <Product>IQToolkit (SqlServerCe) Tests</Product>
   </PropertyGroup>
   <ItemGroup Label="PackageReferences">
     <PackageReference Include="Microsoft.SqlServer.Compact" Version="4.0.8876.1" />
   </ItemGroup>
   <ItemGroup Label="ProjectReferences">
-    <ProjectReference Include="$(RepoSrcDir_X10sions)x\xIQToolkit\.Data\xIQToolkit.Data.csproj" />
-    <ProjectReference Include="$(RepoSrcDir_X10sions)x\xIQToolkit\.Data\.Ado\xIQToolkit.Data.Ado.csproj" />
-    <ProjectReference Include="$(RepoSrcDir_X10sions)x\xIQToolkit\.Data\.SqlServerCe\xIQToolkit.Data.SqlServerCe.csproj" />
-    <ProjectReference Include="$(RepoTestDir_X10sions)xIQToolkit\.Common\xIQToolkit.Common.Tests.csproj" />
+    <ProjectReference Include="..\..\.Data\.Ado\xIQToolkit.Data.Ado.csproj" />
+    <ProjectReference Include="..\..\.Data\.SqlServerCe\xIQToolkit.Data.SqlServerCe.csproj" />
+    <ProjectReference Include="..\.Common\xIQToolkit.Common.Tests.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
   </ItemGroup>
 <!--
   <package id="Microsoft.SqlServer.Compact" version="4.0.8876.1"/>

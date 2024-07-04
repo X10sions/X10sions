@@ -6,9 +6,10 @@
     <VersionPart2>0</VersionPart2>
   </PropertyGroup>
   <ItemGroup Label="PackageReferences">
-    <!--
-    -->
     <PackageReference Include="Microsoft.Data.Sqlite.Core" Version="5.0.7" />
     <PackageReference Include="System.Data.SQLite" Version="1.0.114.4" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\.Ado\xIQToolkit.Data.Ado.csproj" />
   </ItemGroup>
 </Project>

@@ -15,6 +15,9 @@
     <PackageReference Include="Reqnroll.MsTest" Version="2.0.3" />
     <PackageReference Include="Verify.MSTest" Version="25.0.2" />
   </ItemGroup>
+  <ItemGroup Label="ProjectReferences">
+    <ProjectReference Include="..\Common.Testing.csproj" />
+  </ItemGroup>
   <!-- 
   <ItemGroup Label="Usings">
     <Using Include="Microsoft.VisualStudio.TestTools.UnitTesting" />

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data.Linq.Provider;
-using System.Data.Linq.SqlClient;
+using xSystem.Data.Linq.SqlClient;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
