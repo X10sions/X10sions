@@ -5,15 +5,10 @@ using IdentityServer4.Models;
 using IdentityServer4.Services;
 using IdentityServer4.Stores;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
 using System.Security.Principal;
-using System.Threading.Tasks;
 using xDamienBod.StsServer.Attributes;
 using xDamienBod.StsServer.Models;
 
@@ -71,7 +66,7 @@ namespace IdentityServer4.Quickstart.UI {
           // if the user cancels, send a result back into IdentityServer as if they 
           // denied the consent (even if this client does not require consent).
           // this will send back an access denied OIDC error response to the client.
-          await _interaction.GrantConsentAsync(context, ConsentResponse.Denied);
+          await _interaction.DenyAuthorizationAsync(context, AuthorizationError.AccessDenied);
 
           // we can trust model.ReturnUrl since GetAuthorizationContextAsync returned non-null
           return Redirect(model.ReturnUrl);
@@ -152,6 +147,8 @@ namespace IdentityServer4.Quickstart.UI {
       // for the specific prtotocols used and store them in the local auth cookie.
       // this is typically used to store data needed for signout from those protocols.
       var additionalLocalClaims = new List<Claim>();
+      additionalLocalClaims.AddRange(claims);
+
       var localSignInProps = new AuthenticationProperties();
       ProcessLoginCallbackForOidc(result, additionalLocalClaims, localSignInProps);
       ProcessLoginCallbackForWsFed(result, additionalLocalClaims, localSignInProps);
@@ -161,16 +158,19 @@ namespace IdentityServer4.Quickstart.UI {
       // we must issue the cookie maually, and can't use the SignInManager because
       // it doesn't expose an API to issue additional claims from the login workflow
       var principal = await _signInManager.CreateUserPrincipalAsync(user);
-
-      //foreach(var claim in claims)
-      //{
-      //    additionalLocalClaims.AddRange(claims);
-      //}
-
       additionalLocalClaims.AddRange(principal.Claims);
+
       var name = principal.FindFirst(JwtClaimTypes.Name)?.Value ?? user.Id;
       await _events.RaiseAsync(new UserLoginSuccessEvent(provider, providerUserId, user.Id, name));
-      await HttpContext.SignInAsync(user.Id, name, provider, localSignInProps, additionalLocalClaims.ToArray());
+
+      // issue authentication cookie for user
+      var isuser = new IdentityServerUser(principal.GetSubjectId()) {
+        DisplayName = name,
+        IdentityProvider = provider,
+        AdditionalClaims = additionalLocalClaims
+      };
+
+      await HttpContext.SignInAsync(isuser, localSignInProps);
 
       // delete temporary cookie used during external authentication
       await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
@@ -243,24 +243,19 @@ namespace IdentityServer4.Quickstart.UI {
           EnableLocalLogin = false,
           ReturnUrl = returnUrl,
           Username = context?.LoginHint,
-          ExternalProviders = new ExternalProvider[] { new ExternalProvider { AuthenticationScheme = context.IdP } }
+          ExternalProviders = [new ExternalProvider { AuthenticationScheme = context.IdP }]
         };
       }
-
       var schemes = await _schemeProvider.GetAllSchemesAsync();
-
-      var providers = schemes
-          .Where(x => x.DisplayName != null ||
-                      (x.Name.Equals(AccountOptions.WindowsAuthenticationSchemeName, StringComparison.OrdinalIgnoreCase))
-          )
+      var providers = schemes.Where(x => x.DisplayName != null || (x.Name.Equals(AccountOptions.WindowsAuthenticationSchemeName, StringComparison.OrdinalIgnoreCase)))
           .Select(x => new ExternalProvider {
-            DisplayName = x.DisplayName,
+            DisplayName = GetDisplayName(x),
             AuthenticationScheme = x.Name
           }).ToList();
 
       var allowLocal = true;
-      if (context?.ClientId != null) {
-        var client = await _clientStore.FindEnabledClientByIdAsync(context.ClientId);
+      if (context?.Client.ClientId != null) {
+        var client = await _clientStore.FindEnabledClientByIdAsync(context.Client.ClientId);
         if (client != null) {
           allowLocal = client.EnableLocalLogin;
 
@@ -275,8 +270,17 @@ namespace IdentityServer4.Quickstart.UI {
         EnableLocalLogin = allowLocal && AccountOptions.AllowLocalLogin,
         ReturnUrl = returnUrl,
         Username = context?.LoginHint,
-        ExternalProviders = providers.ToArray()
+        ExternalProviders = providers
       };
+    }
+
+    private string GetDisplayName(AuthenticationScheme authenticationScheme) {
+      if (authenticationScheme.Name.Equals(AccountOptions.WindowsAuthenticationSchemeName,
+                      StringComparison.OrdinalIgnoreCase)) {
+        return AccountOptions.WindowsAuthenticationSchemeName;
+      }
+
+      return authenticationScheme.DisplayName;
     }
 
     private async Task<LoginViewModel> BuildLoginViewModelAsync(LoginInputModel model) {

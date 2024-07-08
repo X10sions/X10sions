@@ -3,11 +3,9 @@ using Microsoft.AspNetCore.Mvc.Abstractions;
 using Microsoft.AspNetCore.Mvc.ActionConstraints;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using System.IO;
-using System.Linq;
 
 namespace Common.AspNetCore.Mvc {
-  public class xMvcRouteInformation : IMvcRouteInformation {
+  public class MvcRouteInformation : IMvcRouteInformation {
     public string? AreaName { get; set; } = string.Empty;
     public string AreaPath => string.IsNullOrWhiteSpace(AreaName) ? string.Empty : Path.AltDirectorySeparatorChar + AreaName;
 
@@ -95,3 +93,4 @@ namespace Common.AspNetCore.Mvc {
     public override string ToString() => $"RouteInformation{{Area:\"{AreaName}\", HttpMethod: \"{HttpMethod}\", MvcPath:\"{MvcPath}\", RelativePath:\"{string.Empty}\"}}";
   }
 }
+

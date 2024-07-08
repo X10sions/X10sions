@@ -17,6 +17,9 @@ public readonly record struct IntCYY(int Value) : IValueObject<int>, IFormattabl
   public const int MinValue = 0;
   public const int MaxValue = 999;
 
+  public const int MinYY = 0;
+  public const int MaxYY = 99;
+
   public static readonly IntCYY Min = new(MinValue);
   public static readonly IntCYY Max = new(MaxValue);
 

@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup Label="Application">
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Product>NetStandard Extensions</Product>
+    <Product>Common.AspNetCore Extensions</Product>
     <VersionPart1>2</VersionPart1>
     <VersionPart1>2</VersionPart1>
   </PropertyGroup>
@@ -15,9 +15,9 @@
   </ItemGroup>
   <ItemGroup Label="PackageReferences">
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
-    <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="7.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="7.0.0" />
-    <PackageReference Include="System.Data.Odbc" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="8.0.6" />
+    <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="8.0.6" />
+    <PackageReference Include="System.Data.Odbc" Version="8.0.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\.DotNetStandard\Common.DotNetStandard.csproj" />

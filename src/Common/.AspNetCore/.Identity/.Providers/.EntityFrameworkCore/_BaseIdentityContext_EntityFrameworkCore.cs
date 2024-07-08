@@ -1,7 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Common.AspNetCore.Identity.Providers.EntityFrameworkCore {
   public class _BaseIdentityContext_EntityFrameworkCore : DbContext, IIdentityContext_EntityFrameworkCore {

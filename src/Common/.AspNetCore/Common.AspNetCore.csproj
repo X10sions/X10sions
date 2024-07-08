@@ -10,6 +10,11 @@
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\x\xMicrosoft\.AspNetCore\xMicrosoft.AspNetCore.csproj" />
     <ProjectReference Include="..\.DotNetStandard\Common.DotNetStandard.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Mvc\Filters\" />
+    <Folder Include="Mvc\Infrastructure\" />
   </ItemGroup>
 </Project>

@@ -12,9 +12,9 @@ using xDamienBod.StsServer.Models;
 namespace xDamienBod.StsServer {
   public class StsServerStartup {
     public IConfiguration Configuration { get; }
-    public IHostingEnvironment Environment { get; }
+    public IWebHostEnvironment Environment { get; }
 
-    public StsServerStartup(IConfiguration configuration, IHostingEnvironment environment) {
+    public StsServerStartup(IConfiguration configuration, IWebHostEnvironment environment) {
       Configuration = configuration;
       Environment = environment;
     }

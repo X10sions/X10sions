@@ -10,9 +10,9 @@ namespace LinqToDB.DataProvider.DB2iSeries {
   }
 
   public static class DB2iSeriesDataProvider_OdbcExtensions {
-    public static LinqToDbConnectionOptionsBuilder UseDB2iSeries_Odbc(this LinqToDbConnectionOptionsBuilder builder, string connectionString) => builder.UseConnectionString(new DB2iSeriesDataProvider_Odbc(connectionString), connectionString);
-    public static LinqToDbConnectionOptionsBuilder UseDB2iSeries_Odbc(this LinqToDbConnectionOptionsBuilder builder, IDbConnection connection, bool disposeConnection ) => builder.UseConnection(new DB2iSeriesDataProvider_Odbc(connection.ConnectionString), connection, disposeConnection);
-    public static LinqToDbConnectionOptionsBuilder UseDB2iSeries_Odbc(this LinqToDbConnectionOptionsBuilder builder, Func<IDbConnection> connectionFactory) => builder.UseConnectionFactory(new DB2iSeriesDataProvider_Odbc(connectionFactory().ConnectionString), connectionFactory);
+    public static DataOptions UseDB2iSeries_Odbc(this DataOptions builder, string connectionString) => builder.UseConnectionString(new DB2iSeriesDataProvider_Odbc(connectionString), connectionString);
+    public static DataOptions UseDB2iSeries_Odbc(this DataOptions builder, IDbConnection connection, bool disposeConnection ) => builder.UseConnection(new DB2iSeriesDataProvider_Odbc(connection.ConnectionString), connection, disposeConnection);
+    public static DataOptions UseDB2iSeries_Odbc(this DataOptions builder, Func<IDbConnection> connectionFactory) => builder.UseConnectionFactory(new DB2iSeriesDataProvider_Odbc(connectionFactory().ConnectionString), connectionFactory);
   }
 
 }

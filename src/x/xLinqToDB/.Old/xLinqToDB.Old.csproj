@@ -22,27 +22,27 @@
     <PackageReference Include="linq2db.SqlServer" Version="3.1.3" />
     <PackageReference Include="linq2db.SqlServer.MS" Version="3.1.3" />
     -->
-    <PackageReference Include="linq2db.Tools" Version="3.4.0" />
+    <PackageReference Include="linq2db.Tools" Version="5.4.1" />
 
-    <PackageReference Include="AdoNetCore.AseClient" Version="0.19.1" />
-    <PackageReference Include="FirebirdSql.Data.FirebirdClient" Version="7.10.1" />
+    <PackageReference Include="AdoNetCore.AseClient" Version="0.19.2" />
+    <PackageReference Include="FirebirdSql.Data.FirebirdClient" Version="10.3.1" />
     <PackageReference Include="IBM.Data.DB2.Core" Version="2.2.0.100" />
+    <PackageReference Include="IBM.Data.DB2.iSeries" Version="7.1.0" />
     <!--
     <PackageReference Include="IBM.Data.DB2.Core" Version="3.1.0.400" />
     <PackageReference Include="Net5.IBM.Data.Db2" Version="5.0.0.200" />
     -->
-    <PackageReference Include="Microsoft.Data.SqlClient" Version="2.1.1" />
-    <PackageReference Include="Microsoft.Data.Sqlite" Version="5.0.2" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.1" />
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="8.0.6" />
     <PackageReference Include="Microsoft.SqlServer.Compact" Version="4.0.8876.1" />
-    <PackageReference Include="MySql.Data" Version="8.0.23" />
-    <PackageReference Include="MySqlConnector" Version="1.2.1" />
-    <PackageReference Include="Npgsql" Version="5.0.3" />
-    <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="2.19.101" />
-    <PackageReference Include="System.Data.Odbc" Version="5.0.0" />
-    <PackageReference Include="System.Data.OleDb" Version="5.0.0" />
-    <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
-    <PackageReference Include="System.Data.SQLite" Version="1.0.113.7" />
-    <PackageReference Include="System.Data.SQLite.Core" Version="1.0.113.7" />
+    <PackageReference Include="MySql.Data" Version="9.0.0" />
+    <PackageReference Include="MySqlConnector" Version="2.3.7" />
+    <PackageReference Include="Npgsql" Version="8.0.3" />
+    <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="2.19.230" />
+    <PackageReference Include="System.Data.Odbc" Version="8.0.0" />
+    <PackageReference Include="System.Data.OleDb" Version="8.0.0" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
+    <PackageReference Include="System.Data.SQLite" Version="1.0.118" />
     <!--
     IBM.Data.DB2.iSeries
     IBM.Data.Informix
@@ -52,15 +52,6 @@
     Sybase.AdoNet45.AseClient
     -->
 
-  </ItemGroup> 
-  <ItemGroup Label="ProjectReferences">
-    <ProjectReference Include="..\..\..\Common\.Abstractions\Common.Abstractions.csproj" />
-    <!--
-    <ProjectReference Include="$(RepoSrcDir_X10sions)Common\.Abstractions\Common.Abstractions.csproj" />
-    <ProjectReference Include="$(RepoSrcDir_X10sions)x\xLinqToDB\xLinqToDB.csproj" />
-    <ProjectReference Include="$(RepoSrcDir_X10sions)x\xSystem\.Data\.Odbc\xSystem.Data.Odbc.csproj" />
-    <ProjectReference Include="$(RepoSrcDir_X10sions)x\xSystem\.Data\.OleDb\xSystem.Data.OleDb.csproj" />
-    -->
   </ItemGroup>
 
   <ItemGroup Label="Removes">
@@ -70,6 +61,10 @@
     <!--
     <Folder Include="DataProvider\DB2iSeries\V3_2_3\TB\_ExpressionAttributes\" />
     -->
+  </ItemGroup>
+
+  <ItemGroup Label="ProjectReferences">
+    <ProjectReference Include="..\..\..\Common\.DotNetStandard\Common.DotNetStandard.csproj" />
   </ItemGroup>
 
 </Project>
