@@ -181,7 +181,7 @@ stateSaveParams
     public static string ToCssString(this IOptions options) => options.InitDataTables ? " data-tables-init" : string.Empty;
 
     public static string ToDataHtmlAttributesString(this IOptions options)
-      => JsonConvert.SerializeObject(options, DataTablesJsonSerializerSettings.Instance).Replace(":", "=").Replace(";", " ");
+      =>  JsonConvert.SerializeObject(options, DataTablesJsonSerializerSettings.Instance).Replace(":", "=").Replace(";", " ");
 
   }
 
