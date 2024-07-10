@@ -1,10 +1,11 @@
 ﻿using FluentAssertions;
 using FluentAssertions.Execution;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace Common.Structures;
 
-public class IntCYYMMDDTests {
+public class IntCYYMMDDTests(ITestOutputHelper testOutputHelper) {
 
   [Fact]
   public void DateOnly_ShouldBeToday_WhenConstructorIsEmpty() {

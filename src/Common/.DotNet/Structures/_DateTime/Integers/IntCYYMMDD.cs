@@ -2,7 +2,7 @@
 using System.Linq.Expressions;
 
 namespace Common.Structures;
-public readonly record struct IntCYYMMDD(int Value) : IValueObject<int>,
+public readonly record struct IntCYYMMDD : IValueObject<int>,
   IComparable,
   IComparable<IntCYYMMDD>,
   IComparable<DateOnly>,
@@ -21,48 +21,86 @@ public readonly record struct IntCYYMMDD(int Value) : IValueObject<int>,
   IEquatable<string> {
 
   public IntCYYMMDD() : this(DateTime.Now) { }
-  public IntCYYMMDD(DateOnly d) : this(new IntCYYMM(d), d.Day) { }
-  public IntCYYMMDD(DateTime d) : this(new IntCYYMM(d), d.Day) { }
+  public IntCYYMMDD(int value) {
+    Value = value.Clamp(MinValue, MaxValue);
+  }
+  public IntCYYMMDD(int c, int yy, int mm, int dd) {
+    C = c.Clamp(MinC, MaxC);
+    YY = yy.Clamp(MinYY, MaxYY);
+    MM = mm.Clamp(MinMM, MaxMM);
+    DD = dd.Clamp(MinDD, MaxDD);
+    Value = (C * 1000000 + YY * 10000 + MM * 100 + dd).Clamp(MinValue, MaxValue);
+
+    Year = new Year(YY);
+    Month = new Month(MM);
+
+    //YYYY = YY + 1900;
+
+    DateOnly = new(Year.Value, Month.Value, DD.Clamp(1, MaxDaysInMonth));
+  }
+  public IntCYYMMDD(DateTime dt) : this(dt.ToDateOnly()) { }
+  public IntCYYMMDD(DateOnly d) {
+    Year = new(d.Year);
+    Month = new (d.Month);
+
+    C = d.Year - 1900;
+    YY = d.Year-1900;
+    MM = d.Month;
+    DD = d.Day;
+    Value = C * 1000000 + YY * 10000 + MM * 100 + DD;
+    //=> new(Year.Value, Month.Value, DD.Clamp(1, MaxDaysInMonth));
+    DateOnly = d;
+  }
+
   //IntCYYMMDD(Year yyyy, Month mm, Day dd) : this(new DateTime(yyyy.Value, mm.Value, dd.Value)) { }
   //IntCYYMMDD(IntC c, IntYY yy, Month mm, Day dd) : this(c.Value * 1000000 + yy.Value * 10000 + mm.Value * 100 + dd.Value) { }
   public IntCYYMMDD(string c, string yy, string mm, string dd) : this(int.Parse(c + yy + mm + dd)) { }
   IntCYYMMDD(string cyymmdd) : this(cyymmdd.As(0)) { }
   public IntCYYMMDD(string c, string yymmdd) : this((c + yymmdd).As(0)) { }
-  IntCYYMMDD(IntCYYMM cyymm, int dd) : this(cyymm.Value * 100 + dd) { }
+  //IntCYYMMDD(IntCYYMM cyymm, int dd) : this(cyymm.Value * 100 + dd) { }
   //IntCYYMMDD(IntC c, IntYYMMDD yymmdd) : this(c.Value * 1000000 + yymmdd.Value) { }
   public IntCYYMMDD(DecimalCYYMMDD_HHMMSS cyymmdd_hmmss) : this(cyymmdd_hmmss.Value) { }
   IntCYYMMDD(decimal cyymmdd_hhmmss) : this((int)cyymmdd_hhmmss) { }
 
-  public int Value { get; init; } = Value.Clamp(MinValue, MaxValue);
-  public DateOnly DateOnly => new DateOnly(Year.Value, Month.Value, DD.Clamp(1, MaxDaysInMonth));
+  public int Value { get; }
+
+  public DateOnly DateOnly { get; }
   public DateTime DateTime => DateOnly.ToDateTime(TimeOnly.MinValue);
   public int MaxDaysInMonth => Month.DaysInMonth(Year);
 
-  public int C => CYY / 100;
-  public int CYY => IntCYYMM.CYY;
-  public int CYYMM => IntCYYMM.Value;
-  public int DD => Value % 100;
-  public int MM => IntCYYMM.MM;
-  public int YY => IntCYYMM.CYY;
-  public int YYYY => IntCYYMM.YYYY;
+  public int C { get; }// => CYY / 100;
+  public int CYY => C * 100 + YY; //IntCYYMM.CYY;
+  public int CYYMM => CYY * 100 + MM;// IntCYYMM.Value;
+  public int DD { get; }// => Value % 100;
+  public int MM { get; }// => IntCYYMM.MM;
+  public int YY { get; }//=> IntCYYMM.CYY;
+  public int YYYY { get; } // IntCYYMM.YYYY;
   public int YYMMDD => (YY * 10000) + (MM * 100) + DD;
   //public IntC IntC => new(this);
   //public IntCYY IntCYY => new(this);
-  public IntCYYMM IntCYYMM => new(Value / 100);
-  public Month Month => IntCYYMM.Month;
-  public Year Year => IntCYYMM.Year;
+  //public IntCYYMM IntCYYMM => new(Value / 100);
+  public Month Month { get; }// => new(MM);// IntCYYMM.Month;
+  public Year Year { get; }//=> new(YYYY);// IntCYYMM.Year;
   public bool IsValid => Value.IsBetween(MinValidCYYMMDD, MaxValidCYYMMDD);
 
-  public DateTime? DateWithTime(IntHHMMSS hhmmss) => DateOnly.ToDateTime(hhmmss.TimeOnly);
+  //public DateTime? DateWithTime(IntHHMMSS hhmmss) => DateOnly.ToDateTime(hhmmss.TimeOnly);
 
   public string YYYY_MM_DD(string separator = "-") => $"{YYYY:0000}{separator}{MM:00}{separator}{DD:00}";
   public string DD_MM_YYYY(string separator = "-") => $"{DD:00}{separator}{MM:00}{separator}{YYYY:0000}";
-
 
   #region Min & Max Values
 
   public const int MinValue = 0;
   public const int MaxValue = 9999999;
+
+  public const int MinC = 0;
+  public const int MaxC = 9;
+  public const int MinYY = 0;
+  public const int MaxYY = 99;
+  public const int MinMM = 0;
+  public const int MaxMM = 99;
+  public const int MinDD = 0;
+  public const int MaxDD = 99;
 
   public const int MinValidCYYMMDD = 101;
   public const int MaxValidCYYMMDD = 9991231;
@@ -83,12 +121,12 @@ public readonly record struct IntCYYMMDD(int Value) : IValueObject<int>,
   public static implicit operator IntCYYMMDD(int value) => new IntCYYMMDD(value);
   public static implicit operator IntCYYMMDD(string value) => new IntCYYMMDD(Convert.ToInt32(value));
 
-  public static implicit operator DateOnly(IntCYYMMDD value) => value.DateOnly;
-  public static implicit operator DateTime(IntCYYMMDD value) => value.DateTime;
-  public static implicit operator decimal(IntCYYMMDD value) => value.Value;
-  public static implicit operator double(IntCYYMMDD value) => value.Value;
-  public static implicit operator int(IntCYYMMDD value) => value.Value;
-  public static implicit operator string(IntCYYMMDD value) => value.ToString();
+  //public static implicit operator DateOnly(IntCYYMMDD value) => value.DateOnly;
+  //public static implicit operator DateTime(IntCYYMMDD value) => value.DateTime;
+  //public static implicit operator decimal(IntCYYMMDD value) => value.Value;
+  //public static implicit operator double(IntCYYMMDD value) => value.Value;
+  //public static implicit operator int(IntCYYMMDD value) => value.Value;
+  //public static implicit operator string(IntCYYMMDD value) => value.ToString();
 
   #region IComparable
   public int CompareTo(object? obj) {

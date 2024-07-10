@@ -4,8 +4,8 @@ namespace Common.Structures;
 public readonly record struct Month(int Value) : IValueObject<int> {
   public Month(DateOnly d) : this(d.Month) { }
   public Month(DateTime d) : this(d.Month) { }
-  public Month(IntCYYMM cyymm) : this(cyymm.MM) { }
-  public Month(IntCYYMMDD cyymmdd) : this(cyymmdd.MM) { }
+  //public Month(IntCYYMM cyymm) : this(cyymm.MM) { }
+  //public Month(IntCYYMMDD cyymmdd) : this(cyymmdd.MM) { }
 
   public Month(string value) : this(int.Parse(value)) { }
 

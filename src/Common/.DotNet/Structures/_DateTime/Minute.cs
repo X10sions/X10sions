@@ -6,9 +6,9 @@ public readonly record struct Minute(int Value) : IValueObject<int> {
   public Minute(DateTime d) : this(d.Minute) { }
   public Minute(TimeOnly t) : this(t.Minute) { }
   //public Minute(TimeSpan ts) : this(ts.Minutes) { }
-  public Minute(IntHHMM hhmm) : this(hhmm.MM) { }
+  //public Minute(IntHHMM hhmm) : this(hhmm.MM) { }
 
-  public Minute(IntHHMMSS hhmmss) : this(new IntHHMM(hhmmss).Value % 100) { }
+  //public Minute(IntHHMMSS hhmmss) : this(new IntHHMM(hhmmss).Value % 100) { }
   public Minute(string value) : this(int.Parse(value)) { }
   public const int MinValue = 0;
   public const int MaxValue = 59;

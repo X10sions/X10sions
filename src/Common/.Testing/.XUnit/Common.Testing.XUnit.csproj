@@ -4,6 +4,7 @@
     <IsPackable>false</IsPackable>
   </PropertyGroup>
   <ItemGroup Label="PackageReferences">
+    <PackageReference Include="Meziantou.Extensions.Logging.Xunit" Version="1.0.7" />
     <PackageReference Include="Meziantou.Xunit.ParallelTestFramework" Version="2.2.0" />
     <!-- 
     <PackageReference Include="Reqnroll.xUnit" Version="2.0.3" />

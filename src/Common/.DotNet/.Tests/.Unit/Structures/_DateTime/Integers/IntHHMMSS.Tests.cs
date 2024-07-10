@@ -1,19 +1,31 @@
 ﻿using FluentAssertions;
 using FluentAssertions.Execution;
-using Xunit;
+using Meziantou.Extensions.Logging.Xunit;
+using Microsoft.Extensions.Logging;
+using Moq;
+using Xunit.Abstractions;
+using Pose;
 
 namespace Common.Structures;
 
-public class IntHHMMSSTests {
+public class IntHHMMSSTests(ITestOutputHelper testOutputHelper) {
+  ILogger logger = XUnitLogger.CreateLogger<IntHHMMSS>(testOutputHelper);
+
 
   [Fact]
   public void DateOnly_ShouldBeToday_WhenConstructorIsEmpty() {
+    //    var shimDateTimeNow = Shim.Replace(() => DateTime.Now).With(() => new DateTime(2024, 6, 9));
+    //    PoseContext.Isolate(()=> {
     var sut = new IntHHMMSS();
     var now = DateTime.Now;
+    testOutputHelper.WriteLine($"{now}");
+    testOutputHelper.WriteLine($"{sut.GetDateTime()}");
+
     using (new AssertionScope()) {
       sut.TimeOnly.Should().Be(now.ToTimeOnly());
       //sut.DateTime.Should().Be(now);
     }
+    //    }, shimDateTimeNow);
   }
 
   public record GivenTimeOnly(int Value, TimeOnly TimeOnly, int HH, int MM, int SS) {
@@ -35,7 +47,7 @@ public class IntHHMMSSTests {
   public void Value_ShouldBeExpected_WhenConstructorIsTimeOnly(GivenTimeOnly data) {
     var sut = new IntHHMMSS(data.TimeOnly);
     using (new AssertionScope()) {
-      sut.TimeOnly .Should().Be(data.TimeOnly);
+      sut.TimeOnly.Should().Be(data.TimeOnly);
       sut.HH.Should().Be(data.HH);
       sut.MM.Should().Be(data.MM);
       sut.SS.Should().Be(data.SS);

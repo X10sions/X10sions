@@ -12,5 +12,5 @@ public readonly record struct Millisecond(int Value) : IValueObject<int> {
   public override string ToString() => Value.ToString("000");
 
   public static readonly Millisecond Min = new(MinValue);
-  public static readonly Millisecond Max = new (MaxValue);
+  public static readonly Millisecond Max = new(MaxValue);
 }

@@ -16,55 +16,37 @@ internal static class CachedExpressionCompiler {
   /// If the provided expression is particularly obscure and the system doesn't know how to handle it, it will
   /// return null.
   /// </remarks>
-  public static Func<TModel, object> Process<TModel, TResult>(Expression<Func<TModel, TResult>> expression) {
+  public static Func<TModel, object>? Process<TModel, TResult>(Expression<Func<TModel, TResult>> expression) {
     ArgumentNullException.ThrowIfNull(expression);
     return Compiler<TModel, TResult>.Compile(expression);
   }
 
   private static class Compiler<TModel, TResult> {
-    private static Func<TModel, object> _identityFunc;
+    private static Func<TModel, object>? _identityFunc;
 
-    private static readonly ConcurrentDictionary<MemberInfo, Func<TModel, object>> _simpleMemberAccessCache =
-        new ConcurrentDictionary<MemberInfo, Func<TModel, object>>();
+    private static readonly ConcurrentDictionary<MemberInfo, Func<TModel, object>> _simpleMemberAccessCache = new ConcurrentDictionary<MemberInfo, Func<TModel, object>>();
 
-    private static readonly ConcurrentDictionary<MemberExpressionCacheKey, Func<TModel, object>> _chainedMemberAccessCache =
-        new ConcurrentDictionary<MemberExpressionCacheKey, Func<TModel, object>>(MemberExpressionCacheKeyComparer.Instance);
+    private static readonly ConcurrentDictionary<MemberExpressionCacheKey, Func<TModel, object>> _chainedMemberAccessCache = new ConcurrentDictionary<MemberExpressionCacheKey, Func<TModel, object>>(MemberExpressionCacheKeyComparer.Instance);
 
-    private static readonly ConcurrentDictionary<MemberInfo, Func<object, TResult>> _constMemberAccessCache =
-        new ConcurrentDictionary<MemberInfo, Func<object, TResult>>();
+    private static readonly ConcurrentDictionary<MemberInfo, Func<object, TResult>> _constMemberAccessCache = new ConcurrentDictionary<MemberInfo, Func<object, TResult>>();
 
-    public static Func<TModel, object> Compile(Expression<Func<TModel, TResult>> expression) {
+    public static Func<TModel, object>? Compile(Expression<Func<TModel, TResult>> expression) {
       Debug.Assert(expression != null);
-
       switch (expression.Body) {
         // model => model
-        case var body when body == expression.Parameters[0]:
-          return CompileFromIdentityFunc(expression);
-
+        case var body when body == expression.Parameters[0]: return CompileFromIdentityFunc(expression);
         // model => (object){const}
-        case ConstantExpression constantExpression:
-          return CompileFromConstLookup(constantExpression);
-
+        case ConstantExpression constantExpression: return CompileFromConstLookup(constantExpression);
         // model => CapturedConstant
-        case MemberExpression memberExpression when memberExpression.Expression is ConstantExpression constantExpression:
-          return CompileCapturedConstant(memberExpression, constantExpression);
-
+        case MemberExpression memberExpression when memberExpression.Expression is ConstantExpression constantExpression: return CompileCapturedConstant(memberExpression, constantExpression);
         // model => ModelType.StaticMember
-        case MemberExpression memberExpression when memberExpression.Expression == null:
-          return CompileFromStaticMemberAccess(expression, memberExpression);
-
+        case MemberExpression memberExpression when memberExpression.Expression == null: return CompileFromStaticMemberAccess(expression, memberExpression);
         // model => model.Member
-        case MemberExpression memberExpression when memberExpression.Expression == expression.Parameters[0]:
-          return CompileFromSimpleMemberAccess(expression, memberExpression);
-
+        case MemberExpression memberExpression when memberExpression.Expression == expression.Parameters[0]: return CompileFromSimpleMemberAccess(expression, memberExpression);
         // model => model.Member1.Member2
-        case MemberExpression memberExpression when IsChainedPropertyAccessor(memberExpression):
-          return CompileForChainedMemberAccess(expression, memberExpression);
-
-        default:
-          return null;
+        case MemberExpression memberExpression when IsChainedPropertyAccessor(memberExpression): return CompileForChainedMemberAccess(expression, memberExpression);
+        default: return null;
       }
-
       bool IsChainedPropertyAccessor(MemberExpression memberExpression) {
         while (memberExpression.Expression != null) {
           if (memberExpression.Expression is MemberExpression leftExpression) {
@@ -73,41 +55,33 @@ internal static class CachedExpressionCompiler {
           } else if (memberExpression.Expression == expression.Parameters[0]) {
             return true;
           }
-
           break;
         }
-
         return false;
       }
     }
 
-    private static Func<TModel, object> CompileFromConstLookup(
-        ConstantExpression constantExpression) {
+    private static Func<TModel, object?> CompileFromConstLookup(ConstantExpression constantExpression) {
       // model => {const}
       var constantValue = constantExpression.Value;
       return _ => constantValue;
     }
 
-    private static Func<TModel, object> CompileFromIdentityFunc(
-        Expression<Func<TModel, TResult>> expression) {
+    private static Func<TModel, object> CompileFromIdentityFunc(Expression<Func<TModel, TResult>> expression) {
       // model => model
       // Don't need to lock, as all identity funcs are identical.
       if (_identityFunc == null) {
         var identityFuncCore = expression.Compile();
         _identityFunc = model => identityFuncCore(model);
       }
-
       return _identityFunc;
     }
 
-    private static Func<TModel, object> CompileFromStaticMemberAccess(
-        Expression<Func<TModel, TResult>> expression,
-        MemberExpression memberExpression) {
+    private static Func<TModel, object> CompileFromStaticMemberAccess(Expression<Func<TModel, TResult>> expression, MemberExpression memberExpression) {
       // model => ModelType.StaticMember
       if (_simpleMemberAccessCache.TryGetValue(memberExpression.Member, out var result)) {
         return result;
       }
-
       var func = expression.Compile();
       result = model => func(model);
       result = _simpleMemberAccessCache.GetOrAdd(memberExpression.Member, result);
@@ -115,9 +89,7 @@ internal static class CachedExpressionCompiler {
       return result;
     }
 
-    private static Func<TModel, object> CompileFromSimpleMemberAccess(
-        Expression<Func<TModel, TResult>> expression,
-        MemberExpression memberExpression) {
+    private static Func<TModel, object> CompileFromSimpleMemberAccess(Expression<Func<TModel, TResult>> expression, MemberExpression memberExpression) {
       // Input: () => m.Member
       // Output: () => (m == null) ? null : m.Member
       if (_simpleMemberAccessCache.TryGetValue(memberExpression.Member, out var result)) {
@@ -137,7 +109,6 @@ internal static class CachedExpressionCompiler {
       if (_chainedMemberAccessCache.TryGetValue(key, out var result)) {
         return result;
       }
-
       var cacheableKey = key.MakeCacheable();
       result = _chainedMemberAccessCache.GetOrAdd(cacheableKey, Rewrite(expression, memberExpression));
       return result;
@@ -148,13 +119,9 @@ internal static class CachedExpressionCompiler {
       if (!_constMemberAccessCache.TryGetValue(memberExpression.Member, out var result)) {
         // rewrite as capturedLocal => ((TDeclaringType)capturedLocal)
         var parameterExpression = Expression.Parameter(typeof(object), "capturedLocal");
-        var castExpression =
-            Expression.Convert(parameterExpression, memberExpression.Member.DeclaringType);
+        var castExpression = Expression.Convert(parameterExpression, memberExpression.Member.DeclaringType);
         var replacementMemberExpression = memberExpression.Update(castExpression);
-        var replacementExpression = Expression.Lambda<Func<object, TResult>>(
-            replacementMemberExpression,
-            parameterExpression);
-
+        var replacementExpression = Expression.Lambda<Func<object, TResult>>(replacementMemberExpression, parameterExpression);
         result = replacementExpression.Compile();
         result = _constMemberAccessCache.GetOrAdd(memberExpression.Member, result);
       }
@@ -163,15 +130,11 @@ internal static class CachedExpressionCompiler {
       return _ => result(capturedLocal);
     }
 
-    private static Func<TModel, object> Rewrite(
-        Expression<Func<TModel, TResult>> expression,
-        MemberExpression memberExpression) {
-      Expression combinedNullTest = null;
+    private static Func<TModel, object> Rewrite(Expression<Func<TModel, TResult>> expression, MemberExpression memberExpression) {
+      Expression? combinedNullTest = null;
       var currentExpression = memberExpression;
-
       while (currentExpression != null) {
         AddNullCheck(currentExpression.Expression, ref combinedNullTest);
-
         if (currentExpression.Expression is MemberExpression leftExpression) {
           currentExpression = leftExpression;
         } else {

@@ -1,9 +1,8 @@
 ﻿using FluentAssertions;
-using Xunit;
 
-namespace Common.Structures {
-  public class IntCTests {
-    public static TheoryData<int, int> ValueExpectedData => new() {
+namespace Common.Structures;
+public class IntCTests {
+  public static TheoryData<int, int> ValueExpectedData => new() {
       { -10, IntC.MinValue },
       { -1, IntC.MinValue },
       {  0, IntC.MinValue},
@@ -28,8 +27,6 @@ namespace Common.Structures {
       { 10000, IntC.MaxValue},
     };
 
-    [Theory, MemberData(nameof(ValueExpectedData))] public void Value_ShouldBeExpected_GivenValue(int given, int expected) => new IntC(given).Value.Should().Be(expected);
-
-  }
+  [Theory, MemberData(nameof(ValueExpectedData))] public void Value_ShouldBeExpected_GivenValue(int given, int expected) => new IntC(given).Value.Should().Be(expected);
 
 }

@@ -33,7 +33,6 @@ internal static class ExpressionHelper {
     var length = 0;
     var segmentCount = 0;
     var trailingMemberExpressions = 0;
-
     var part = expression.Body;
     while (part != null) {
       switch (part.NodeType) {
@@ -42,7 +41,6 @@ internal static class ExpressionHelper {
           // don't cache and don't remove ".Model" (if that's .Property).
           doNotCache = true;
           lastIsModel = false;
-
           var methodExpression = (MethodCallExpression)part;
           if (IsSingleArgumentIndexer(methodExpression)) {
             length += "[99]".Length;
@@ -54,7 +52,6 @@ internal static class ExpressionHelper {
             part = null;
           }
           break;
-
         case ExpressionType.ArrayIndex:
           var binaryExpression = (BinaryExpression)part;
 
@@ -83,32 +80,27 @@ internal static class ExpressionHelper {
             trailingMemberExpressions++;
           }
           break;
-
         case ExpressionType.Parameter:
           // Unsupported but indicates previous member access was not the view's Model.
           lastIsModel = false;
           part = null;
           break;
-
         default:
           // Unsupported.
           part = null;
           break;
       }
     }
-
     // If name would start with ".model", then strip that part away.
     if (lastIsModel) {
       length -= ".model".Length;
       segmentCount--;
       trailingMemberExpressions--;
     }
-
     // Trim the leading "." if present. The loop below special-cases the last property to avoid this addition.
     if (trailingMemberExpressions > 0) {
       length--;
     }
-
     Debug.Assert(segmentCount >= 0);
     if (segmentCount == 0) {
       Debug.Assert(!doNotCache);
@@ -125,12 +117,9 @@ internal static class ExpressionHelper {
         case ExpressionType.Call:
           Debug.Assert(doNotCache);
           var methodExpression = (MethodCallExpression)part;
-
           InsertIndexerInvocationText(builder, methodExpression.Arguments.Single(), expression);
-
           part = methodExpression.Object;
           break;
-
         case ExpressionType.ArrayIndex:
           Debug.Assert(doNotCache);
           var binaryExpression = (BinaryExpression)part;

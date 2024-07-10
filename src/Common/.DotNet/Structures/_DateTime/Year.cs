@@ -5,9 +5,9 @@ namespace Common.Structures;
 public readonly record struct Year(int Value) : IValueObject<int>, IFormattable {
   public Year(DateOnly d) : this(d.Year) { }
   public Year(DateTime d) : this(d.Year) { }
-  public Year(IntCYY cyy) : this(cyy.YYYY) { }
-  public Year(IntCYYMM cyymm) : this(cyymm.YYYY) { }
-  public Year(IntCYYMMDD cyymmdd) : this(cyymmdd.YYYY) { }
+  //public Year(IntCYY cyy) : this(cyy.YYYY) { }
+  //public Year(IntCYYMM cyymm) : this(cyymm.YYYY) { }
+  //public Year(IntCYYMMDD cyymmdd) : this(cyymmdd.YYYY) { }
 
   public const int MinValue = 1;
   public const int MinValidValue = 1;
