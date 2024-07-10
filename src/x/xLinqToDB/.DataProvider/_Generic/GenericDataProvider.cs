@@ -29,6 +29,22 @@ public interface IGenericDataProvider : IDataProvider {
 //  //}
 //}
 
+public class GenericDataProvider<TConnection, TDataReader> : GenericDataProvider<TConnection>
+  where TConnection : DbConnection, new()
+  where TDataReader : DbDataReader {
+  protected GenericDataProvider(DataSourceInformationRow dataSourceInformationRow) : base(dataSourceInformationRow, typeof(TDataReader)) { }
+  protected GenericDataProvider(string connectionString) : this(GetDataSourceInformationRow(connectionString)) { }
+
+  public static DataSourceInformationRow GetDataSourceInformationRow(string connectionString) {
+    var conn = new TConnection {
+      ConnectionString = connectionString
+    };
+    return conn.GetDataSourceInformationRow();
+  }
+
+}
+
+
 public class GenericDataProvider<TConnection> : DataProviderBase<TConnection>, IGenericDataProvider where TConnection : DbConnection, new() {
 
   // https://docs.envobi.com/articles/adb/adb-supported-databases.html
@@ -149,8 +165,6 @@ public class GenericDataProvider<TConnection> : DataProviderBase<TConnection>, I
       DataConnection.WriteTraceLine(DataReaderType.Assembly.FullName, DataConnection.TraceSwitch.DisplayName, TraceLevel.Info);
     }
   }
-
-
 
   Dictionary<MemberHelper.MemberInfoWithType, IExpressionInfo> MemberExpressions = new Dictionary<MemberHelper.MemberInfoWithType, IExpressionInfo>();
   //public TConnection Connection { get; }
