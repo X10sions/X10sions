@@ -7,12 +7,12 @@ using System.Data.Odbc;
 
 namespace FreeSql.Odbc.DB2iSeries;
 
-class OdbcDB2iSeriesAdo : Internal.CommonProvider.xAdoProvider {
-  public OdbcDB2iSeriesAdo() : base(xDataType.OdbcDB2iSeries, null, null) { }
-  public OdbcDB2iSeriesAdo(CommonUtils util, string masterConnectionString, string[] slaveConnectionStrings, Func<DbConnection> connectionFactory) : base(xDataType.OdbcDB2iSeries, masterConnectionString, slaveConnectionStrings) {
-    base._util = util;
+class OdbcDB2iSeriesAdo : Internal.CommonProvider.AdoProvider {
+  public OdbcDB2iSeriesAdo() : base(DataType.Odbc, null, null) { }
+  public OdbcDB2iSeriesAdo(CommonUtils util, string masterConnectionString, string[] slaveConnectionStrings, Func<DbConnection> connectionFactory) : base(DataType.Odbc, masterConnectionString, slaveConnectionStrings) {
+    _util = util;
     if (connectionFactory != null) {
-      MasterPool = new FreeSql.Internal.CommonProvider.xDbConnectionPool(xDataType.OdbcDB2iSeries, connectionFactory);
+      MasterPool = new FreeSql.Internal.CommonProvider.DbConnectionPool(DataType.Odbc, connectionFactory);
       return;
     }
     if (!string.IsNullOrEmpty(masterConnectionString))
@@ -25,7 +25,7 @@ class OdbcDB2iSeriesAdo : Internal.CommonProvider.xAdoProvider {
     }
   }
 
-  string[] ncharDbTypes = new[] { "NVARCHAR", "NCHAR", "NTEXT" };
+  string[] ncharDbTypes = ["NVARCHAR", "NCHAR", "NTEXT"];
   public override object AddslashesProcessParam(object param, Type mapType, ColumnInfo mapColumn) {
     if (param == null) return "NULL";
     if (mapType != null && mapType != param.GetType() && (param is IEnumerable == false))
