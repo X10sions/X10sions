@@ -1,8 +1,8 @@
 ﻿using System.Data.Linq;
-using System.Data.Linq.SqlClient;
+using System.Data.Linq.SqlClient.Common;
 using System.Diagnostics.CodeAnalysis;
 
-namespace xSystem.Data.Linq.SqlClient {
+namespace System.Data.Linq.SqlClient {
   internal class SqlUnion : SqlNode {
     private SqlNode left;
     private SqlNode right;

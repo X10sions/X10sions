@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq.Expressions;
 
-namespace xSystem.Data.Linq.SqlClient {
+namespace System.Data.Linq.SqlClient {
   internal class SqlFunctionCall : SqlSimpleTypeExpression {
     internal string Name { get; }
     internal List<SqlExpression> Arguments { get; }

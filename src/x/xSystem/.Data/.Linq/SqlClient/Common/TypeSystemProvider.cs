@@ -1,7 +1,7 @@
 ﻿using System.Data.Common;
 using System.Data.Linq.SqlClient;
 
-namespace xSystem.Data.Linq.SqlClient.Common;
+namespace System.Data.Linq.SqlClient.Common;
 internal abstract class TypeSystemProvider {
   internal abstract ProviderType PredictTypeForUnary(SqlNodeType unaryOp, ProviderType operandType);
   internal abstract ProviderType PredictTypeForBinary(SqlNodeType binaryOp, ProviderType leftType, ProviderType rightType);

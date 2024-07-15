@@ -2,7 +2,7 @@
 using System.Resources;
 using System.Threading;
 
-namespace xSystem.Data.Linq.SqlClient {
+namespace System.Data.Linq.SqlClient {
   internal sealed class SR {
     internal const string OwningTeam = "OwningTeam";
     internal const string VbLikeDoesNotSupportMultipleCharacterRanges = "VbLikeDoesNotSupportMultipleCharacterRanges";

@@ -12,9 +12,9 @@ using System.Data.Linq.Mapping;
 using System.Data.Linq.Provider;
 using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
-using xSystem.Data.Linq.SqlClient.Common;
+using System.Data.Linq.SqlClient.Common;
 
-namespace xSystem.Data.Linq.SqlClient.Query;
+namespace System.Data.Linq.SqlClient.Query;
 
 /// <summary>
 /// These are application types used to represent types used during intermediate

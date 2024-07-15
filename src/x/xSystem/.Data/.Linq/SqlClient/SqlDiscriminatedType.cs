@@ -1,7 +1,7 @@
 ﻿using System.Data.Linq.Mapping;
 using System.Linq.Expressions;
 
-namespace xSystem.Data.Linq.SqlClient {
+namespace System.Data.Linq.SqlClient {
   internal class SqlDiscriminatedType : SqlExpression {
     private ProviderType sqlType;
     internal override ProviderType SqlType => sqlType;

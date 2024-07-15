@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 
-namespace xSystem.Data.Linq.SqlClient {
+namespace System.Data.Linq.SqlClient {
   internal class SqlDelete : SqlStatement {
     private SqlSelect select;
 

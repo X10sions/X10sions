@@ -1,6 +1,7 @@
-﻿using System.Reflection;
+﻿using System.Data.Linq.SqlClient.Common;
+using System.Reflection;
 
-namespace xSystem.Data.Linq.SqlClient {
+namespace System.Data.Linq.SqlClient {
   internal class SqlMemberAssign : SqlNode {
     private MemberInfo member;
     private SqlExpression expression;

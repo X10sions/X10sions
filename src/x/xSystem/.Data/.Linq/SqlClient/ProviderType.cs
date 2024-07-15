@@ -1,4 +1,4 @@
-﻿namespace xSystem.Data.Linq.SqlClient {
+﻿namespace System.Data.Linq.SqlClient {
   internal abstract class ProviderType {
     internal abstract bool IsUnicodeType { get; }
     internal abstract bool IsRuntimeOnlyType { get; }

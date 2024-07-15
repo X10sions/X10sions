@@ -1,4 +1,4 @@
-﻿namespace xSystem.Data.Linq.SqlClient {
+﻿namespace System.Data.Linq.SqlClient {
   public enum SqlOrderType {
     Ascending,
     Descending

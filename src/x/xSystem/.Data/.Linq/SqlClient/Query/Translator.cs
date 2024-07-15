@@ -10,9 +10,10 @@ using System.Data.Linq.Provider;
 using System.Data.Linq.SqlClient;
 using System.Linq;
 using System.Diagnostics.CodeAnalysis;
-using xSystem.Data.Linq.SqlClient.Common;
+using System.Data.Linq.SqlClient.Common;
+using System.Data.Linq.Mapping;
 
-namespace xSystem.Data.Linq.SqlClient.Query;
+namespace System.Data.Linq.SqlClient.Query;
 internal class Translator {
   private class RelationComposer : ExpressionVisitor {
     private ParameterExpression parameter;

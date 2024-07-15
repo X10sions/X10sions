@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Data.Linq.SqlClient.Common;
 using System.Linq.Expressions;
 
-namespace xSystem.Data.Linq.SqlClient {
+namespace System.Data.Linq.SqlClient {
   internal class SqlRow : SqlNode {
     internal List<SqlColumn> Columns { get; }
 

@@ -1,7 +1,7 @@
 ﻿using System.Data.Linq;
 using System.Data.Linq.SqlClient;
 
-namespace xSystem.Data.Linq.SqlClient {
+namespace System.Data.Linq.SqlClient {
   internal class SqlWhen {
     private SqlExpression matchExpression;
     private SqlExpression valueExpression;

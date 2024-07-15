@@ -1,7 +1,7 @@
 ﻿using System.Data.Linq.SqlClient;
 using System.Diagnostics.CodeAnalysis;
 
-namespace xSystem.Data.Linq.SqlClient.Common;
+namespace System.Data.Linq.SqlClient.Common;
 public static class SqlNodeTypeOperators {
 
   /// <summary>

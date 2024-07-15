@@ -1,7 +1,7 @@
 ﻿using System.Linq.Expressions;
 
 
-namespace xSystem.Data.Linq.SqlClient {
+namespace System.Data.Linq.SqlClient {
   internal class SqlJoin : SqlSource {
     private SqlJoinType joinType;
     private SqlSource left;

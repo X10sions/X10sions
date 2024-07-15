@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Data.Linq.Mapping;
+using System.Data.Linq.SqlClient.Common;
 using System.Linq.Expressions;
 
-namespace xSystem.Data.Linq.SqlClient {
+namespace System.Data.Linq.SqlClient {
   internal class SqlTable : SqlNode {
     internal MetaTable MetaTable { get; }
     internal string Name => MetaTable.TableName;

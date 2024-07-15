@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Linq.Expressions;
 
-namespace xSystem.Data.Linq.SqlClient;
+namespace System.Data.Linq.SqlClient;
+
 internal abstract class ExpressionVisitor {
   internal ExpressionVisitor() {
   }

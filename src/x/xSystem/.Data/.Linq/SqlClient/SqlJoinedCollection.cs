@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 
-namespace xSystem.Data.Linq.SqlClient;
+namespace System.Data.Linq.SqlClient;
 internal class SqlJoinedCollection : SqlSimpleTypeExpression {
   private SqlExpression expression;
   private SqlExpression count;

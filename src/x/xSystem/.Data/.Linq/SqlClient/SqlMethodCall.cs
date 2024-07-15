@@ -4,7 +4,7 @@ using System.Data.Linq.SqlClient;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace xSystem.Data.Linq.SqlClient {
+namespace System.Data.Linq.SqlClient {
   internal class SqlMethodCall : SqlSimpleTypeExpression {
     private MethodInfo method;
     private SqlExpression obj;

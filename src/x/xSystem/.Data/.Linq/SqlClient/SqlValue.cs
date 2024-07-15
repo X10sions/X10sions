@@ -1,7 +1,7 @@
 ﻿using System.Data.Linq.SqlClient;
 using System.Linq.Expressions;
 
-namespace xSystem.Data.Linq.SqlClient {
+namespace System.Data.Linq.SqlClient {
   internal class SqlValue : SqlSimpleTypeExpression {
     private object value;
     private bool isClient;

@@ -1,7 +1,7 @@
 ﻿using System.Data.Linq.SqlClient;
 using System.Reflection;
 
-namespace xSystem.Data.Linq.SqlClient.Common;
+namespace System.Data.Linq.SqlClient.Common;
 /// <summary>
 /// https://github.com/nlh774/DotNetReferenceSource/blob/master/ndp/fx/src/DLinq/Dlinq/SqlClient/Common/InheritanceRules.cs
 /// </summary>

@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Data.Linq;
-using System.Data.Linq.SqlClient;
+using System.Data.Linq.SqlClient.Common;
 using System.Linq.Expressions;
 
-namespace xSystem.Data.Linq.SqlClient {
+namespace System.Data.Linq.SqlClient {
   internal class SqlUserQuery : SqlNode {
     private string queryText;
     private SqlExpression projection;

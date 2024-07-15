@@ -4,7 +4,7 @@ using System.Data.Linq.SqlClient;
 using System.Linq;
 using System.Reflection;
 
-namespace xSystem.Data.Linq.SqlClient.Common;
+namespace System.Data.Linq.SqlClient.Common;
 internal static class TypeSystem {
   private static ILookup<string, MethodInfo> _sequenceMethods;
 

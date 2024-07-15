@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 
-namespace xSystem.Data.Linq.SqlClient {
+namespace System.Data.Linq.SqlClient {
   internal class SqlClientParameter : SqlSimpleTypeExpression {
     // Expression<Func<object[], T>>
     LambdaExpression accessor;

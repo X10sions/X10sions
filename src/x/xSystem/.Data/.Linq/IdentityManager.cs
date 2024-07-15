@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Data.Linq.Mapping;
-using xSystem.Data.Linq.SqlClient;
+using System.Data.Linq.SqlClient;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 

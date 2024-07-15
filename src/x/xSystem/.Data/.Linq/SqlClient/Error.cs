@@ -2,7 +2,7 @@
 using System.Text;
 using System.Transactions;
 
-namespace xSystem.Data.Linq.SqlClient;
+namespace System.Data.Linq.SqlClient;
 internal static class Error {
   internal static Exception VbLikeDoesNotSupportMultipleCharacterRanges() => new ArgumentException(Strings.VbLikeDoesNotSupportMultipleCharacterRanges);
   internal static Exception VbLikeUnclosedBracket() => new ArgumentException(Strings.VbLikeUnclosedBracket);

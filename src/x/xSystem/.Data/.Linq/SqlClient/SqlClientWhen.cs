@@ -1,4 +1,4 @@
-﻿namespace xSystem.Data.Linq.SqlClient {
+﻿namespace System.Data.Linq.SqlClient {
   /// <summary>
   /// A single WHEN clause for ClientCase.
   /// </summary>

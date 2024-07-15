@@ -9,8 +9,9 @@ using System.Data.Linq;
 using System.Data.Linq.Mapping;
 using System.Data.Linq.Provider;
 using System.Diagnostics.CodeAnalysis;
+using System.Data.Linq.SqlClient.Common;
 
-namespace xSystem.Data.Linq.SqlClient.Query;
+namespace System.Data.Linq.SqlClient.Query;
 
 internal static class TypeSource {
   private class Visitor : SqlVisitor {

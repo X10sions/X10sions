@@ -11,7 +11,7 @@ using System.Data.Linq.Provider;
 using System.Diagnostics.CodeAnalysis;
 using System.Data.Linq.SqlClient;
 
-namespace xSystem.Data.Linq.SqlClient.Query;
+namespace System.Data.Linq.SqlClient.Query;
 
 internal static class SqlExpressionNullability {
 

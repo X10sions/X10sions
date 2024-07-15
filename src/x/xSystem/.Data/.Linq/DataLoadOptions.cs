@@ -1,12 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using xSystem.Data.Linq.SqlClient;
+using System.Data.Linq.SqlClient;
+using System.Data.Linq.SqlClient.Common;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace System.Data.Linq {
-  public sealed class DataLoadOptions {
+namespace System.Data.Linq;
+
+
+
+public sealed class DataLoadOptions {
     private static class Searcher {
       private class Visitor : SqlClient.ExpressionVisitor {
         internal MemberInfo MemberInfo;
@@ -147,7 +151,7 @@ namespace System.Data.Linq {
       if(frozen) {
         throw System.Data.Linq.Error.IncludeNotAllowedAfterFreeze();
       }
-      includes.Add(new MetaPosition(association), association);
+      includes.Add(new  MetaPosition(association), association);
       ValidateTypeGraphAcyclic();
     }
 
@@ -232,5 +236,3 @@ namespace System.Data.Linq {
       new SubqueryValidator().VisitLambda(subquery);
     }
   }
-
-}

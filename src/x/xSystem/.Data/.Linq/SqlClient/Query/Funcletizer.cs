@@ -5,10 +5,10 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Data.Linq.Mapping;
 using System.Diagnostics.CodeAnalysis;
-using xSystem.Data.Linq.SqlClient.Common;
+using System.Data.Linq.SqlClient.Common;
 using System.Data.Linq;
 
-namespace xSystem.Data.Linq.SqlClient.Query;
+namespace System.Data.Linq.SqlClient.Query;
 
 internal static class Funcletizer {
 

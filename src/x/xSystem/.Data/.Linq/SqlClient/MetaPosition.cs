@@ -1,7 +1,8 @@
 ﻿using System.Collections;
 using System.Reflection;
 
-namespace xSystem.Data.Linq.SqlClient;
+namespace System.Data.Linq.SqlClient;
+ 
 internal struct MetaPosition : IEqualityComparer<MetaPosition>, IEqualityComparer {
   private int metadataToken;
 

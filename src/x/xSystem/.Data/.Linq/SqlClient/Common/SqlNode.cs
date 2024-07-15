@@ -1,8 +1,9 @@
 ﻿using System.Data.Linq.SqlClient;
+using System.Data.Linq.SqlClient.Query;
 using System.Diagnostics;
 using System.Linq.Expressions;
 
-namespace xSystem.Data.Linq.SqlClient.Common;
+namespace System.Data.Linq.SqlClient.Common;
 
 [DebuggerDisplay("text = {Text}, \r\nsource = {SourceExpression}")]
   internal abstract class SqlNode {

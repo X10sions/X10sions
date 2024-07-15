@@ -1,7 +1,7 @@
 ﻿using System.Linq.Expressions;
-using xSystem.Data.Linq.SqlClient;
+using System.Data.Linq.SqlClient;
 
-namespace xSystem.Data.Linq.SqlClient {
+namespace System.Data.Linq.SqlClient {
   internal class SqlLike : SqlSimpleTypeExpression {
     private SqlExpression expression;
     private SqlExpression pattern;

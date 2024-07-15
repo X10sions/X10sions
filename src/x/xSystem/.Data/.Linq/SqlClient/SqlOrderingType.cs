@@ -1,4 +1,4 @@
-﻿namespace xSystem.Data.Linq.SqlClient {
+﻿namespace System.Data.Linq.SqlClient {
   internal enum SqlOrderingType {
     Default,
     Never,

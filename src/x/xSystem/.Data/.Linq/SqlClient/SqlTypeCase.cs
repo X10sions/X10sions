@@ -4,7 +4,7 @@ using System.Data.Linq.Mapping;
 using System.Data.Linq.SqlClient;
 using System.Linq.Expressions;
 
-namespace xSystem.Data.Linq.SqlClient {
+namespace System.Data.Linq.SqlClient {
   /// <summary>
   /// Represents the construction of an object in abstract 'super sql'.
   /// The type may be polymorphic. A discriminator field is used to determine 

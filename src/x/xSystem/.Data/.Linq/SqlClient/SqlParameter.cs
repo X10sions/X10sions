@@ -3,7 +3,7 @@ using System.Data.Linq;
 using System.Data.Linq.SqlClient;
 using System.Linq.Expressions;
 
-namespace xSystem.Data.Linq.SqlClient {
+namespace System.Data.Linq.SqlClient {
   internal class SqlParameter : SqlSimpleTypeExpression {
     internal SqlParameter(Type clrType, ProviderType sqlType, string name, Expression sourceExpression) : base(SqlNodeType.Parameter, clrType, sqlType, sourceExpression) {
       if (name == null)

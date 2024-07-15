@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace xSystem.Data.Linq.SqlClient {
+namespace System.Data.Linq.SqlClient {
   internal class SqlClientQuery : SqlSimpleTypeExpression {
     private SqlSubSelect query;
     private List<SqlExpression> arguments;

@@ -2,7 +2,7 @@
 using System.Data.Linq.SqlClient;
 using System.Reflection;
 
-namespace xSystem.Data.Linq.SqlClient {
+namespace System.Data.Linq.SqlClient {
   internal class SqlMember : SqlSimpleTypeExpression {
     private SqlExpression expression;
     private MemberInfo member;

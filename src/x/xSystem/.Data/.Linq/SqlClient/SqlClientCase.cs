@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq.Expressions;
 
-namespace xSystem.Data.Linq.SqlClient {
+namespace System.Data.Linq.SqlClient {
   /// <summary>
   /// A case statement that must be evaluated on the client. For example, a case statement
   /// that contains values of LINK, Element, or Multi-set are not directly handleable by 

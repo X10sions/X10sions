@@ -1,7 +1,7 @@
 ﻿using System.Data.Linq.SqlClient;
 using System.Linq.Expressions;
 
-namespace xSystem.Data.Linq.SqlClient.Common;
+namespace System.Data.Linq.SqlClient.Common;
 
 // SQL Client extensions to ExpressionType
 internal enum InternalExpressionType {

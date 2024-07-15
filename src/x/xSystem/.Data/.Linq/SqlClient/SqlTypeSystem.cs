@@ -2,13 +2,13 @@
 using System.Data;
 using System.Data.Common;
 using System.Data.Linq;
-using System.Data.Linq.SqlClient;
+using System.Data.Linq.SqlClient.Common;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
 using System.Text;
 
-namespace xSystem.Data.Linq.SqlClient {
+namespace System.Data.Linq.SqlClient {
   internal static class SqlTypeSystem {
 
     internal static TypeSystemProvider Create2000Provider() => new Sql2000Provider();

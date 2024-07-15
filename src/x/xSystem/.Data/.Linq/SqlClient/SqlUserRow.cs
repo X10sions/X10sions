@@ -3,7 +3,7 @@ using System.Data.Linq.Mapping;
 using System.Data.Linq.SqlClient;
 using System.Linq.Expressions;
 
-namespace xSystem.Data.Linq.SqlClient {
+namespace System.Data.Linq.SqlClient {
   internal class SqlUserRow : SqlSimpleTypeExpression {
     private SqlUserQuery query;
     private MetaType rowType;

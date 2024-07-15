@@ -1,4 +1,6 @@
-﻿namespace xSystem.Data.Linq.SqlClient {
+﻿using System.Data.Linq.SqlClient.Common;
+
+namespace System.Data.Linq.SqlClient {
   internal class SqlAliasRef : SqlExpression {
     private SqlAlias alias;
 

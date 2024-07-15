@@ -1,7 +1,7 @@
-﻿using System.Data.Linq.SqlClient;
+﻿using System.Data.Linq.SqlClient.Common;
 using System.Linq.Expressions;
 
-namespace xSystem.Data.Linq.SqlClient {
+namespace System.Data.Linq.SqlClient {
   internal abstract class SqlSource : SqlNode {
     internal SqlSource(SqlNodeType nt, Expression sourceExpression)
       : base(nt, sourceExpression) {

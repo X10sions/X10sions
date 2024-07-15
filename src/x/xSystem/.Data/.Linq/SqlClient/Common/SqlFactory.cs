@@ -4,7 +4,7 @@ using System.Data.Linq.SqlClient;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace xSystem.Data.Linq.SqlClient.Common;
+namespace System.Data.Linq.SqlClient.Common;
 internal class SqlFactory {
     private MetaModel model;
     internal TypeSystemProvider TypeProvider { get; }
