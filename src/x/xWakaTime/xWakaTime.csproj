@@ -1,6 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup Label="Application">
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net48</TargetFramework>
+    <!--
+    <TargetFramework>netstandard2.0</TargetFramework>
+    -->
     <Product>WakaTime NetStandard Extensions</Product>
   </PropertyGroup>
 
@@ -12,12 +15,15 @@
     <PackageReference Include="Avalonia.Win32" Version="0.10.6" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="System.Web.Extensions" />
+  </ItemGroup>
+
   <!--
   <ItemGroup>
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
--->
 
   <ItemGroup>
     <Compile Update="Properties\Resources.Designer.cs">
@@ -33,5 +39,6 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
+-->
 
 </Project>
