@@ -1,4 +1,4 @@
-﻿namespace Common.Features.DummyFakeExamples.Cache;
+﻿namespace X10sions.Fake.Features.Cache;
 
 public interface ICachingService {
   T? GetItem<T>(string cacheKey);

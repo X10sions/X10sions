@@ -1,7 +1,7 @@
 ﻿@page "/fetchdata"
 <PageTitle>Weather forecast</PageTitle>
-@using Common.Features.DummyFakeExamples.WeatherForecast
 @using System.Net.Http.Json
+@using X10sions.Fake.Features.WeatherForecast
 @inject WeatherForecastService ForecastService
 @inject HttpClient Http
 <h1>Weather forecast</h1>
@@ -13,7 +13,7 @@
   private WeatherForecast[]? forecastsFromService;
 
   protected override async Task OnInitializedAsync() {
-    forecastsFromService = await ForecastService.GetForecastAsync(DateTime.Now.ToDateOnly());
+    forecastsFromService = await ForecastService.GetForecastAsync(DateOnly.FromDateTime(DateTime.Now));
   }
 
   private WeatherForecast[]? forecastsFromServer;

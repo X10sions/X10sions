@@ -1,5 +1,5 @@
 ﻿
-namespace Common.Features.DummyFakeExamples.Clock;
+namespace X10sions.Fake.Features.Clock;
 
 public class DateTimeService : IDateTimeService {
   public DateTime Now { get; } = DateTime.Now;

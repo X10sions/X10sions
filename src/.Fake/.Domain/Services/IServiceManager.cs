@@ -1,7 +1,7 @@
-﻿using Common.Features.DummyFakeExamples.Person;
-using Common.Features.DummyFakeExamples.WeatherForecast;
+﻿using X10sions.Fake.Features.Person;
+using X10sions.Fake.Features.WeatherForecast;
 
-namespace Common.Features.DummyFakeExamples;
+namespace X10sions.Fake.Domain.Services;
 
 public interface IServiceManager {
   //IOwnerService OwnerService { get; }

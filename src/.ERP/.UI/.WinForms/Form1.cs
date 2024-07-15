@@ -1,8 +1,8 @@
-using Common.Features.DummyFakeExamples.WeatherForecast;
 using Microsoft.AspNetCore.Components.WebView.WindowsForms;
 using Microsoft.Extensions.DependencyInjection;
 using X10sions.ERP.Data.Models;
 using X10sions.ERP.Razor;
+using X10sions.Fake.Features.WeatherForecast;
 
 namespace X10sions.ERP.WinForms {
   public partial class Form1 : Form {

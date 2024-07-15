@@ -1,4 +1,4 @@
-﻿namespace Common.Features.DummyFakeExamples.Clock;
+﻿namespace X10sions.Fake.Features.Clock;
 
 public interface IDateTimeService {
   DateTime Now { get; }

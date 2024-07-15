@@ -12,6 +12,6 @@
     <Folder Include="Data\Services\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Common\.DotNet\Common.DotNet.csproj" />
+    <ProjectReference Include="..\.Fake\.Domain\X10sions.Fake.Domain.csproj" />
   </ItemGroup>
 </Project>
