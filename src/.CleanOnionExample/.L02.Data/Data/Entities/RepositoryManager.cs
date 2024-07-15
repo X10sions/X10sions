@@ -1,12 +1,11 @@
 ﻿using CleanOnionExample.Data.DbContexts;
 using CleanOnionExample.Data.Entities.Services;
-using Common.Features.DummyFakeExamples.Account;
-using Common.Features.DummyFakeExamples.Owner;
-using Common.Features.DummyFakeExamples.Person;
-using Common.Features.DummyFakeExamples.WeatherForecast;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using X10sions.Fake.Features.Account;
+using X10sions.Fake.Features.Owner;
+using X10sions.Fake.Features.Person;
+using X10sions.Fake.Features.WeatherForecast;
 
 namespace CleanOnionExample.Data.Entities;
 

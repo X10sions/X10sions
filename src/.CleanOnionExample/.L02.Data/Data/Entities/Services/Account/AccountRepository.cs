@@ -1,6 +1,5 @@
 ﻿using CleanOnionExample.Data.DbContexts;
 using Common.Data.Repositories;
-using Common.Features.DummyFakeExamples.Account;
 using Microsoft.EntityFrameworkCore;
 using X10sions.Fake.Features.Account;
 

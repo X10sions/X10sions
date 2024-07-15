@@ -48,4 +48,22 @@ public static class LinqExtensions {
     _ => throw new ArgumentException("MemberInfo must be of type FieldInfo, PropertyInfo or MethodInfo", nameof(member))
   };
 
+  public static T GetValue<T>(this MemberInfo member, object srcObject) => (T)member.ResolveValue(srcObject);
+
+  public static void SetValue(this MemberInfo member, object destObject, object value) {
+    switch (member) {
+      case FieldInfo mfi:
+        mfi.SetValue(destObject, value);
+        break;
+      case PropertyInfo mpi:
+        mpi.SetValue(destObject, value);
+        break;
+      case MethodInfo mi:
+        mi.Invoke(destObject, [value]);
+        break;
+      default:
+        throw new ArgumentException("MemberInfo must be of type FieldInfo, PropertyInfo or MethodInfo", nameof(member));
+    }
+  }
+  public static void SetValue<T>(this MemberInfo member, object destObject, T value) => member.SetValue(destObject, (object)value);
 }

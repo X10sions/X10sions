@@ -1,7 +1,6 @@
 ﻿using CleanOnionExample.Data.DbContexts;
-using Common.Data;
-using Common.Features.DummyFakeExamples.Customer;
 using MediatR;
+using X10sions.Fake.Features.Customer;
 
 namespace CleanOnionExample.Data.Entities.Services;
 public class GetCustomerByIdQuery : IRequest<Customer> {

@@ -6,10 +6,12 @@
     <Product>Common Abtractions Unit Tests</Product>
   </PropertyGroup> 
   <ItemGroup Label="PackageReferences">
+    <PackageReference Include="Dapper" Version="2.1.35" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.10.0" />
+    <PackageReference Include="System.Data.SqlServerCe_unofficial" Version="4.0.8482.1" />
   </ItemGroup>
   <ItemGroup Label="ProjectReferences">
-    <ProjectReference Include="..\..\.Testing\.XUnit\Common.Testing.XUnit.csproj" />
+    <ProjectReference Include="..\..\.Testing\.NUnit\Common.Testing.NUnit.csproj" />
     <ProjectReference Include="..\Common.Linq.csproj" />
   </ItemGroup>
 </Project>

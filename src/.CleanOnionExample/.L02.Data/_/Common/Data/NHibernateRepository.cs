@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 
 public interface INHibernateRepository<T> : IRepository<T, ISession, IQueryable<T>> where T : class { }
 
-public class NHibernateQuery<T> : IQuery<T> where T : class {
+public class NHibernateQuery<T> : NHibernate.IQuery<T> where T : class {
   public NHibernateQuery(IQueryable<T> queryable) {
     Queryable = queryable;
   }
@@ -26,7 +26,7 @@ public class NHibernateRepository<T> : INHibernateRepository<T> where T : class 
 
   public ISession Database { get; }
   public IQueryable<T> Table { get; }
-  public IQuery<T> Query { get; }
+  public  IQuery<T> Query { get; }
 
   #region IWriteRepository
   public virtual async Task<int> DeleteAsync(IEnumerable<T> rows, CancellationToken token = default) {

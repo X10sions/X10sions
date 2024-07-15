@@ -1,6 +1,6 @@
 ﻿using CleanOnionExample.Data.DbContexts;
 using Common.Data.Repositories;
-using Common.Features.DummyFakeExamples.Person;
+using X10sions.Fake.Features.Person;
 
 namespace CleanOnionExample.Data.Entities.Services;
 internal sealed class PersonRepository : EntityFrameworkCoreRepositoryBase<ApplicationDbContext, Person, int>, IPersonRepository {

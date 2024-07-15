@@ -2,7 +2,7 @@
 using Common.Features.DummyFakeExamples.ToDo.Item;
 using MediatR;
 using X10sions.Fake.Features.ToDo.Item;
-using X10sions.Fake.Features.ToDoItem;
+using X10sions.Fake.Features. ToDoItem;
 
 namespace CleanOnionExample.Data.Entities.Services;
 

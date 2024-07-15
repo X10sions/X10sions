@@ -1,5 +1,5 @@
-﻿using Common.Features.DummyFakeExamples.WeatherForecast;
-using Common.Collections.Paged;
+﻿using Common.Collections.Paged;
+using X10sions.Fake.Features.WeatherForecast;
 
 namespace CleanOnionExample.Data.Entities;
 

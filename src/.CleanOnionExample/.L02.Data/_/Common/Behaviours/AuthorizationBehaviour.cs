@@ -1,8 +1,8 @@
 ﻿using Common.Exceptions;
-using Common.Features.DummyFakeExamples.Auth;
 using Common.Security;
 using MediatR;
 using System.Reflection;
+using X10sions.Fake.Features.Auth;
 
 namespace Common.Behaviours;
 

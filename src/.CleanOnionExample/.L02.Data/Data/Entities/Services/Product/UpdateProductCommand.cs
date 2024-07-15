@@ -1,10 +1,11 @@
 ﻿using AutoMapper;
 using Common.Data;
 using Common.Exceptions;
-using Common.Features.DummyFakeExamples.Product;
 using Common.Results;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
+using X10sions.Fake.Features.Product;
 
 namespace CleanOnionExample.Data.Entities.Services;
 public class GetAllProductsQuery : IRequest<PaginatedResult<GetAllProductsResponse>> {

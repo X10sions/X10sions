@@ -1,7 +1,6 @@
-﻿using CleanOnionExample.Data.Entities;
-using Common.Features.DummyFakeExamples.ToDo;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using X10sions.Fake.Features.ToDo;
 
 namespace CleanOnionExample.Services.EntityFrameworkCore.Configurations;
 
@@ -11,8 +10,7 @@ public class ToDoListConfiguration : IEntityTypeConfiguration<ToDoList> {
         .HasMaxLength(200)
         .IsRequired();
 
-    builder
-        .OwnsOne(b => b.Colour);
+    builder.OwnsOne(b => b.Colour);
   }
 }
 

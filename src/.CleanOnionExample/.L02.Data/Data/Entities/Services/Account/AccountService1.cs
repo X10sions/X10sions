@@ -1,8 +1,5 @@
 ﻿using Common.Enums;
 using Common.Exceptions;
-using Common.Features.DummyFakeExamples.Account;
-using Common.Features.DummyFakeExamples.Auth;
-using Common.Features.DummyFakeExamples.Clock;
 using Common.Mail;
 using Common.Net;
 using Common.Results;
@@ -15,6 +12,10 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
+using X10sions.Fake.Features.Account;
+using X10sions.Fake.Features.Auth;
+using X10sions.Fake.Features.Clock;
+using X10sions.Fake.Features.User;
 
 namespace CleanOnionExample.Data.Entities.Services;
 

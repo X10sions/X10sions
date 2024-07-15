@@ -1,7 +1,7 @@
-﻿using Common.Features.DummyFakeExamples.Auth;
-using MediatR;
+﻿using MediatR;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
+using X10sions.Fake.Features.Auth;
 
 namespace Common.Behaviours;
 public class PerformanceBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse> where TRequest : IRequest<TResponse> {

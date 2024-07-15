@@ -1,8 +1,8 @@
-﻿using Common.Features.DummyFakeExamples.Person;
-using Common.Features.DummyFakeExamples.WeatherForecast;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using X10sions.Fake.Features.Account;
 using X10sions.Fake.Features.Owner;
+using X10sions.Fake.Features.Person;
+using X10sions.Fake.Features.WeatherForecast;
 
 namespace CleanOnionExample.Data.Entities.Services;
 public interface IRepositoryManager {

@@ -1,7 +1,6 @@
-﻿using Common.Features.DummyFakeExamples.Auth;
-using Common.Interfaces;
-using MediatR.Pipeline;
+﻿using MediatR.Pipeline;
 using Microsoft.Extensions.Logging;
+using X10sions.Fake.Features.Auth;
 
 namespace Common.Behaviours;
 public class LoggingBehaviour<TRequest> : IRequestPreProcessor<TRequest> where TRequest : notnull {

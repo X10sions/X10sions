@@ -1,6 +1,6 @@
-﻿using Common.Features.DummyFakeExamples.Account;
-using Common.Features.DummyFakeExamples.Owner;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using X10sions.Fake.Features.Account;
+using X10sions.Fake.Features.Owner;
 
 namespace CleanOnionExample.Data.DbContexts;
 
