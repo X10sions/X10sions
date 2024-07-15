@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup Label="Application">
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <Product>X10sions.Fake.Domain</Product>
     <RootNamespace>X10sions.Fake</RootNamespace>
     <VersionPart1>2</VersionPart1>
