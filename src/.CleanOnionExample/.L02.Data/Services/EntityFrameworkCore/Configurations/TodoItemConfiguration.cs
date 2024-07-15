@@ -2,6 +2,7 @@
 using Common.Features.DummyFakeExamples.ToDo.Item;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using X10sions.Fake.Features.ToDo.Item;
 
 namespace CleanOnionExample.Services.EntityFrameworkCore.Configurations;
 

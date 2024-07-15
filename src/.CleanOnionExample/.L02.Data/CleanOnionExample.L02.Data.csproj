@@ -45,6 +45,7 @@
     <ProjectReference Include="..\..\..\..\x10sions\EntityFrameworkCore.Jet\src\EFCore.Jet.Odbc\EFCore.Jet.Odbc.csproj" />
     <ProjectReference Include="..\..\..\..\x10sions\EntityFrameworkCore.Jet\src\EFCore.Jet.OleDb\EFCore.Jet.OleDb.csproj" />
     -->
+    <ProjectReference Include="..\..\.Fake\.Domain\X10sions.Fake.Domain.csproj" />
     <ProjectReference Include="..\..\Common\.DotNet\Common.DotNet.csproj" />
     <ProjectReference Include="..\..\x\xLinqToDB\.AspNet\xLinqToDB.AspNet.csproj" />
   </ItemGroup>

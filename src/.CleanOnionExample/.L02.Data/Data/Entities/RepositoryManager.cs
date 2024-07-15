@@ -6,6 +6,7 @@ using Common.Features.DummyFakeExamples.Person;
 using Common.Features.DummyFakeExamples.WeatherForecast;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using X10sions.Fake.Features.Account;
 
 namespace CleanOnionExample.Data.Entities;
 

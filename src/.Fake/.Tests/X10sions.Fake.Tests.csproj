@@ -12,7 +12,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Common\.Testing\.XUnit\Common.Testing.XUnit.csproj" />
-    <ProjectReference Include="..\X10sions.Fake.csproj" />
+    <ProjectReference Include="..\.Domain\X10sions.Fake.Domain.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Using Include="Xunit" />

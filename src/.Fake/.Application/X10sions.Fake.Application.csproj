@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup Label="Application">
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Product>X10sions.Fake.Application</Product>
+    <RootNamespace>X10sions.Fake</RootNamespace>
+    <VersionPart1>2</VersionPart1>
+    <VersionPart2>0</VersionPart2>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="Features\DummyFakeExamples\WeatherForecast\**" />
+    <Compile Remove="Models\**" />
+    <EmbeddedResource Remove="Features\DummyFakeExamples\WeatherForecast\**" />
+    <EmbeddedResource Remove="Models\**" />
+    <None Remove="Features\DummyFakeExamples\WeatherForecast\**" />
+    <None Remove="Models\**" />
+  </ItemGroup>
+  <ItemGroup Label="PackageReferences">
+    <PackageReference Update="FastExpressionCompiler.LightExpression" Version="3.3.3" />
+  </ItemGroup>
+  <ItemGroup Label="ProjectReferences">
+    <ProjectReference Include="..\.Domain\X10sions.Fake.Domain.csproj" />
+  </ItemGroup>
+</Project>

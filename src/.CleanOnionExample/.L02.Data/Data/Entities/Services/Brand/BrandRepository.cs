@@ -1,7 +1,7 @@
-﻿using Common.Data.Repositories;
-using Common.Features.DummyFakeExamples.Brand;
+﻿using Common.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Distributed;
+using X10sions.Fake.Features.Brand;
 using static Common.Features.DummyFakeExamples.Constants.CacheKeys;
 
 namespace CleanOnionExample.Data.Entities.Services;

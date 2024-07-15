@@ -1,6 +1,6 @@
-﻿using Common.Features.DummyFakeExamples.Account;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using X10sions.Fake.Features.Account;
 
 namespace CleanOnionExample.Services.EntityFrameworkCore.Configurations;
 internal sealed class AccountConfiguration : IEntityTypeConfiguration<Account> {

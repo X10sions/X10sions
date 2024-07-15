@@ -15,6 +15,7 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
   <ItemGroup Label="ProjectReferences">
+    <ProjectReference Include="..\.Infrastructure\X10sions.Fake.Infrastructure.csproj" />
     <ProjectReference Include="..\.Razor\X10sions.Fake.Razor.csproj" />
   </ItemGroup>
 </Project>

@@ -1,9 +1,9 @@
-﻿using Common.Data.Repositories;
+﻿using Common.Domain;
+using Common.Domain.Repositories;
 using LinqToDB;
 using System.Linq.Expressions;
 
 namespace Common.Data;
-
 public interface ILinq2DBRepository<T> : IRepository<T, IDataContext, ITable<T>> where T : class { }
 
 public class Linq2DbQuery<T> : IQuery<T> where T : class {

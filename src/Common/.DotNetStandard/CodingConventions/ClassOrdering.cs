@@ -1,10 +1,6 @@
-﻿using Common.Features.DummyFakeExamples.User;
-
-namespace Common.CodingConventions;// Match folder structure
-public class ClassOrdering {//match class names with class files
+﻿namespace Common.CodingConventions;// Match folder structure
+public class ClassOrdering<T>(T service) {//match class names with class files
   private static readonly string HeaderName = "X-API-Key";
-  private readonly IUserService _userService;
-  public ClassOrdering(IUserService userService) => _userService = userService;
   ~ClassOrdering() { }
   public delegate string SomeDelegate(string value);
   public event EventHandler SomeEvent;
@@ -14,5 +10,4 @@ public class ClassOrdering {//match class names with class files
   internal void SomeInternalMethod() { }
   protected virtual void OnSomeEvent() => SomeEvent?.Invoke(this, EventArgs.Empty);
   private void SomePrivateMethod() { }
-
 }

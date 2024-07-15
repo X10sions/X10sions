@@ -2,6 +2,7 @@
 using Common.Data.Repositories;
 using Common.Features.DummyFakeExamples.Account;
 using Microsoft.EntityFrameworkCore;
+using X10sions.Fake.Features.Account;
 
 namespace CleanOnionExample.Data.Entities.Services;
 internal sealed class AccountRepository : EntityFrameworkCoreRepositoryBase<RepositoryDbContext, Account, Guid>, IAccountRepository {

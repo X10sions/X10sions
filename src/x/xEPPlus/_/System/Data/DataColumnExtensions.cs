@@ -6,7 +6,7 @@ namespace System.Data {
 
     public static ExcelHorizontalAlignment GuessHorizontalAlignment(this DataColumn dataColumn) {
       var type = dataColumn.DataType;
-      if (type.IsDateTime()) {
+      if (type.IsDateOrTime()) {
         return ExcelHorizontalAlignment.Center;
       }
       if (type.IsNumeric()) {

@@ -22,6 +22,10 @@ public static class TypeExtensions {
   public static string GetFullNameElseName<T>() => typeof(T).GetFullNameElseName();
   public static MemberInfo[] GetStaticMembers(this Type type, string name) => type.GetMember(name, BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.Public);
 
+  public static bool IsDateOrTime(this Type type) => type is DateTime || type is TimeSpan;
+  public static bool IsNumeric(this Type type) => type is byte || type is sbyte || type is short || type is int || type is long || type is ushort || type is uint || type is ulong || type is decimal || type is float || type is double;
+  public static bool IsText(this Type type) => type is char || type is string;
+
   public static bool IsNullable(this Type type) => (!type.IsValueType) || (Nullable.GetUnderlyingType(type) != null);
   //public static bool IsNullableEnum(this Type _type) => Nullable.GetUnderlyingType(_type)?.IsEnum ?? false;
 

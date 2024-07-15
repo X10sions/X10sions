@@ -1,8 +1,8 @@
 ﻿using Common.Exceptions;
 using Common.Features.DummyFakeExamples.Account;
 using Mapster;
+using X10sions.Fake.Features.Account;
 namespace CleanOnionExample.Data.Entities.Services;
-using Task = System.Threading.Tasks.Task;
 
 internal sealed class AccountService2 : IAccountService2 {
   public AccountService2(IRepositoryManager repositoryManager) => _repositoryManager = repositoryManager;

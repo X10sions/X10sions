@@ -1,9 +1,9 @@
-﻿namespace CleanOnionExample.Data.Entities.Services;
-
-using Common.Exceptions;
+﻿using Common.Exceptions;
 using Common.Features.DummyFakeExamples.Owner;
 using Mapster;
-using Task = System.Threading.Tasks.Task;
+using X10sions.Fake.Features.Owner;
+
+namespace CleanOnionExample.Data.Entities.Services;
 
 internal sealed class OwnerService : IOwnerService {
   public OwnerService(IRepositoryManager repositoryManager) => _repositoryManager = repositoryManager;

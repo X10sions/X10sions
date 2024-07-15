@@ -1,12 +1,11 @@
-﻿using Common.Data;
-using Common.Enums;
+﻿using Common.Enums;
 using Common.Exceptions;
 using Common.Features.DummyFakeExamples.Account;
 using Common.Features.DummyFakeExamples.Auth;
 using Common.Features.DummyFakeExamples.Clock;
-using Common.Features.DummyFakeExamples.User;
 using Common.Mail;
 using Common.Net;
+using Common.Results;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Options;

@@ -1,9 +1,16 @@
-﻿using X10sions.Fake.Data.Enums;
-using X10sions.Fake.Data.Models;
-using ServiceStack;
+﻿using ServiceStack;
 using ServiceStack.OrmLite;
 using System.Data;
 using X10sions.Fake.Data.Repositories;
+using X10sions.Fake.Data;
+using X10sions.Fake.Features.Order.Detail;
+using X10sions.Fake.Features.Customer;
+using X10sions.Fake.Features.Order;
+using X10sions.Fake.Features.Product;
+using X10sions.Fake.Features.Employee;
+using X10sions.Fake.Features.Address;
+using X10sions.Fake.Features.Name;
+using X10sions.Fake.Features.Robot;
 
 namespace X10sions.Fake.Pages.Testing.Orm {
   public class OrmLite {

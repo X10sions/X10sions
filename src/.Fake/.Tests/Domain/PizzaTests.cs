@@ -1,4 +1,5 @@
 ﻿using FluentAssertions;
+using X10sions.Fake.Features.Pizza;
 
 namespace X10sions.Fake.Domain;
 public class PizzaTests(PizzaValidator _pizzaValidator) {

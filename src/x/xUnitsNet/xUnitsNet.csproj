@@ -2,10 +2,10 @@
   <PropertyGroup Label="Application">
     <TargetFramework>netstandard2.0</TargetFramework>
     <Product>UnitsNet NetStandard Extensions</Product>
-    <VersionPart1>4</VersionPart1>
-    <VersionPart2>68</VersionPart2>
+    <VersionPart1>5</VersionPart1>
+    <VersionPart2>52</VersionPart2>
   </PropertyGroup>
   <ItemGroup Label="PackageReferences">
-    
+    <PackageReference Include="UnitsNet" Version="5.52.0" />
   </ItemGroup>
 </Project>

@@ -1,4 +1,5 @@
-﻿using Common.Data.Repositories;
+﻿using Common.Domain;
+using Common.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 

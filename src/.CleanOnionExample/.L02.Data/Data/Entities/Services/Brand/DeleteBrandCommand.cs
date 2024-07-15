@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using Common.Data;
-using Common.Features.DummyFakeExamples.Brand;
+using Common.Results;
 using MediatR;
+using X10sions.Fake.Features.Brand;
 
 namespace CleanOnionExample.Data.Entities.Services;
 public class DeleteBrandCommand : IRequest<Result<int>> {
@@ -20,7 +20,7 @@ public class DeleteBrandCommand : IRequest<Result<int>> {
       var product = await _brandRepository.GetByIdAsync(command.Id);
       await _brandRepository.DeleteAsync(product);
       await _unitOfWork.SaveChangesAsync(cancellationToken);
-      return Common.Data.Result<int>.Success(product.Id);
+      return Result<int>.Success(product.Id);
     }
   }
 }
