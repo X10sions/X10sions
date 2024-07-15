@@ -1,5 +1,5 @@
-﻿using Common.Features.DummyFakeExamples.WeatherForecast;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using X10sions.Fake.Features.WeatherForecast;
 using X10sions.Wsus.Api;
 using X10sions.Wsus.Api.Endpoints;
 using X10sions.Wsus.Data;

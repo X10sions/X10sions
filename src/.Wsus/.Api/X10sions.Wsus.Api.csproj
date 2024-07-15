@@ -12,7 +12,7 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
   </ItemGroup>
   <ItemGroup Label="ProjectReferences">
-    <ProjectReference Include="..\..\Common\.DotNet\Common.DotNet.csproj" />
+    <ProjectReference Include="..\..\.Fake\.Domain\X10sions.Fake.Domain.csproj" />
     <ProjectReference Include="..\X10sions.Wsus.csproj" />
   </ItemGroup>
 </Project>

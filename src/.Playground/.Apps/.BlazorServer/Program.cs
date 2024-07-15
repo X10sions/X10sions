@@ -1,5 +1,5 @@
-using Common.Features.DummyFakeExamples.WeatherForecast;
 using Microsoft.Extensions.Options;
+using X10sions.Fake.Features.WeatherForecast;
 using X10sions.Playground.Razor;
 
 var builder = WebApplication.CreateBuilder(args);

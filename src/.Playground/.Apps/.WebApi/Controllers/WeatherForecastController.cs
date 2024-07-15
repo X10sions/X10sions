@@ -1,5 +1,5 @@
-using Common.Features.DummyFakeExamples.WeatherForecast;
 using Microsoft.AspNetCore.Mvc;
+using X10sions.Fake.Features.WeatherForecast;
 
 namespace X10sions.Playground.WebApi.Controllers {
   [ApiController]
