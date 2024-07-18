@@ -1,5 +1,6 @@
-﻿using Common.Features.DummyFakeExamples.ToDo.Item;
+﻿using Common.Domain.Repositories;
 using MediatR;
+using X10sions.Fake.Features.ToDo.Item;
 
 namespace CleanOnionExample.Data.Entities.Services;
 
@@ -28,7 +29,7 @@ public class ToDoItemService : IToDoItemService {
   }
 
   public async Task<IEnumerable<ToDoItemViewModel>> GetAll() {
-    var entities = await _repository.GetAllAsync();
+    var entities = await _repository.GetListAsync();
     return _viewModelMapper.ConstructFromListOfEntities(entities);
   }
 

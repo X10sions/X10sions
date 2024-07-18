@@ -40,7 +40,7 @@ public static class IAuditLogsExtensions {
         }
         switch (entry.State) {
           case EntityState.Added:
-            auditEntry.AuditType = AuditType.Insert;
+            auditEntry.AuditType = AuditType.Create;
             auditEntry.NewValues[propertyName] = property.CurrentValue;
             break;
           case EntityState.Deleted:

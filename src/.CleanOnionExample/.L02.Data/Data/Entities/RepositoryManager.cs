@@ -1,7 +1,9 @@
 ﻿using CleanOnionExample.Data.DbContexts;
 using CleanOnionExample.Data.Entities.Services;
+using Common.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using X10sions.Fake.Domain.Services;
 using X10sions.Fake.Features.Account;
 using X10sions.Fake.Features.Owner;
 using X10sions.Fake.Features.Person;
@@ -15,7 +17,7 @@ public sealed class RepositoryManager : IRepositoryManager {
   private readonly Lazy<IPersonRepository> _lazyPersonRepository;
   private readonly Lazy<IWeatherForecastRepository> _lazyWeatherForecastApiRepository;
   private readonly Lazy<IWeatherForecastRepository> _lazyWeatherForecastStoreRepository;
-  private readonly Lazy<IUnitOfWork> _lazyUnitOfWork;
+  //private readonly Lazy<IUnitOfWork> _lazyUnitOfWork;
 
   public RepositoryManager(RepositoryDbContext repositoryDbContext, ApplicationDbContext applicationDbContext, HttpClient httpClient, ILogger logger) {
     _lazyAccountRepository = new Lazy<IAccountRepository>(() => new AccountRepository(repositoryDbContext));
@@ -24,13 +26,14 @@ public sealed class RepositoryManager : IRepositoryManager {
     _lazyWeatherForecastApiRepository = new Lazy<IWeatherForecastRepository>(() => new WeatherForecastApiRepository(httpClient, logger));
     _lazyWeatherForecastStoreRepository = new Lazy<IWeatherForecastRepository>(() => new  WeatherForecastStoreRepository(new RandomDataStore(5)));
 
-    _lazyUnitOfWork = new Lazy<IUnitOfWork>(() => new UnitOfWork(repositoryDbContext));
+    //_lazyUnitOfWork = new Lazy<IUnitOfWork>(() => new UnitOfWork(repositoryDbContext));
   }
 
   public IOwnerRepository OwnerRepository => _lazyOwnerRepository.Value;
   public IAccountRepository AccountRepository => _lazyAccountRepository.Value;
-  public IUnitOfWork UnitOfWork => _lazyUnitOfWork.Value;
+  //public IUnitOfWork UnitOfWork => _lazyUnitOfWork.Value;
   public IPersonRepository PersonRepository => _lazyPersonRepository.Value;
   public IWeatherForecastRepository WeatherForecastApiRepository => _lazyWeatherForecastApiRepository.Value;
   public IWeatherForecastRepository WeatherForecastStoreRepository => _lazyWeatherForecastStoreRepository.Value;
+
 }

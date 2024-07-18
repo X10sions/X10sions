@@ -2,7 +2,7 @@
 
 public class BusinessResult : IBusinessResult {
   public BusinessResult() {
-    Messages = new HashSet<IMessageResult>();//!!!
+    Messages = new HashSet<IMessageResult>();
   }
 
   public ICollection<IMessageResult> Messages { get; }

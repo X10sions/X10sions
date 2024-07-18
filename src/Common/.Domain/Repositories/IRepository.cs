@@ -2,25 +2,25 @@
 
 namespace Common.Domain.Repositories;
 
-public interface IRepository<T, TId> : ICommandRepository<T, TId>, IQueryRepository<T, TId>
-  where T : class, IEntityWithId<TId>
-  //where TId : IEquatable<TId> 
-  { }
+public interface IRepository<T> : IReadRepository<T>, IWriteRepository<T> 
+  where T : class { }
 
-public interface IRepositoryAsync<T> where T : class {
-  IQueryable<T> Entities { get; }
-  Task<T> GetByIdAsync(int id);
-  Task<List<T>> GetAllAsync();
-  Task<List<T>> GetPagedReponseAsync(int pageNumber, int pageSize);
-  Task<T> AddAsync(T entity);
-  Task UpdateAsync(T entity);
-  Task DeleteAsync(T entity);
+public interface IRepository<T, TKey> : IReadRepository<T, TKey>, IWriteRepository<T, TKey>
+  where T : class, IEntityWithId<TKey> 
+  where TKey : IEquatable<TKey> {
 }
 
-public interface IRepository<T> : IReadRepository<T>, IWriteRepository<T> where T : class { }
+public interface IRepositoryAsync<T> : IReadRepositoryAsync<T>, IWriteRepositoryAsync<T>
+  where T : class { }
 
-public interface IRepository<T, TDb, TTable> : IRepository<T> where T : class where TTable : IQueryable<T> {
-  TDb Database { get; }
+public interface IRepositoryAsync<T, TKey> : IReadRepositoryAsync<T, TKey>, IWriteRepositoryAsync<T, TKey>
+  where T : class, IEntityWithId<TKey>
+  where TKey : IEquatable<TKey> { }
+
+public interface IRepositoryAsync<T, TDatabase, TTable> : IRepositoryAsync<T> 
+  where T : class 
+  where TTable : IQueryable<T> {
+  TDatabase Database { get; }
   TTable Table { get; }
 }
 

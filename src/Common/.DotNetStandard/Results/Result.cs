@@ -1,47 +1,51 @@
-﻿namespace Common.Results;
+﻿using Common.ValueObjects;
 
-//public record BaseResponseDTO(bool IsSuccess, string[] Errors);
+namespace Common.Results;
 
+/// <summary>
+/// LanguageExt
+/// FluentResults
+/// Ardalis.Result
+/// ErrorOr, OneOf
+/// CSharpFunctionalExtensions
+/// </summary>
 public class Result : IResult {
-  public Result() { }
 
-  public Result(string? message = null, IEnumerable<string>? errors = null) {
+  internal Result(string? message, IEnumerable<Error> errors) {
     Message = message;
-    if (errors != null) Errors.AddRange(errors);
+    Errors.AddRange(errors.Where(x => x != Error.None));
   }
 
-  public List<string> Errors { get; set; } = new List<string>();
+  public List<Error> Errors { get; } = new();
+  public string? Message { get; }
 
-  public bool Failed => !Succeeded;
-  public string? Message { get; set; }
-  public bool Succeeded { get; set; }
-
-  public static IResult Fail(string? message = null) => new Result { Succeeded = false, Message = message };
-  //public static IResult Fail(string? message = null) => new Result(message, new[] { nameof(Fail) });
-  public static Task<IResult> FailAsync(string? message = null) => Task.FromResult(Fail(message));
-  public static IResult Success(string? message = null) => new Result { Succeeded = true, Message = message };
-  public static Task<IResult> SuccessAsync(string? message = null) => Task.FromResult(Success(message));
+  public static Result Fail(Error error) => new Result(null, [error]);
+  public static Result Fail(string? message = null, IEnumerable<Error>? errors = null) => new Result(message, errors ?? [Error.Unspecified]);
+  public static Task<Result> FailAsync(string? message = null, IEnumerable<Error>? errors = null) => Task.FromResult(Fail(message, errors));
+  public static Result Success(string? message = null) => new Result(message, []);
+  public static Result<TValue> Success<TValue>(TValue value, string? message = null) => new Result<TValue>(value, message, []);
+  public static Result<TValue> Fail<TValue>(Error error) => new Result<TValue>(default, null, [error]);
+  public static Task<Result> SuccessAsync(string? message = null) => Task.FromResult(Success(message));
 }
 
-public class Result<T> : Result, IResult<T> {
-  public Result() { }
-  public Result(string? message = null, IEnumerable<string>? errors = null) {
-    Message = message;
-    if (errors != null) Errors.AddRange(errors);
-  }
-  public Result(T data, string? message = null, IEnumerable<string>? errors = null) : this(message, errors) {
-    Data = data;
+public class Result<T> : Result, IResult<T>, IValueObject<T> {
+  internal Result(T value, string? message, IEnumerable<Error> errors) : base(message, errors) {
+    Value = value;
   }
 
-  public T Data { get; set; }
+  public T Value { get; }
 
-  public static new IResult<T> Fail(string? message = null) => new Result<T> { Succeeded = false, Message = message };
-  //public new static IResult<T> Fail(string? message = null) => new Result<T>(message, new[] { nameof(Fail) });
-  public static IResult<T> Fail(T data, string? message = null) => new Result<T>(data, message, new[] { nameof(Fail) });
-  public static new Task<IResult<T>> FailAsync(string? message = null) => Task.FromResult(Fail(message));
-  public static Task<IResult<T>> FailAsync(T data, string? message = null) => Task.FromResult(Fail(data, message));
-  public static new IResult<T> Success(string? message = null) => new Result<T> { Succeeded = true, Message = message };
-  public static IResult<T> Success(T data, string? message = null) => new Result<T> { Succeeded = true, Data = data, Message = message };
-  public static new Task<IResult<T>> SuccessAsync(string? message = null) => Task.FromResult(Success(message));
-  public static Task<IResult<T>> SuccessAsync(T data, string? message = null) => Task.FromResult(Success(data, message));
+  //public new static IResult<T> Fail(string? message = null, IEnumerable<Error>? errors = null) => new Result<T>(default, message, errors ?? [Error.Unspecified]);
+  public static Result<T> Fail(T data, string? message = null, IEnumerable<Error>? errors = null) => new Result<T>(data, message, errors ?? [Error.Unspecified]);
+  //public new static Task<IResult<T>> FailAsync(string? message = null, IEnumerable<Error>? errors = null) => Task.FromResult(Fail(message, errors));
+  public static Task<Result<T>> FailAsync(T data, string? message = null, IEnumerable<Error>? errors = null) => Task.FromResult(Fail(data, message, errors));
+  //public new static IResult<T> Success(string? message = null) => new Result<T>(message, []);
+  public static Result<T> Success(T data, string? message = null) => new Result<T>(data, message, []);
+  //public new static Task<IResult<T>> SuccessAsync(string? message = null) => Task.FromResult(Success(message));
+  public static Task<Result<T>> SuccessAsync(T data, string? message = null) => Task.FromResult(Success(data, message));
+
+  public static Result<T> ValidationFailure<T>(Error error) => new(default, null, [error]);
+
+  public static implicit operator Result<T>(T? value) => value is not null ? Success(value) : Fail<T>(Error.NullValue);
+
 }

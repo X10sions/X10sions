@@ -1,7 +1,9 @@
-﻿namespace X10sions.Fake.Features.Person;
+﻿using Common.Domain.Repositories;
 
-public interface IPersonRepository {
-  IQueryable<Person> Person { get; }
+namespace X10sions.Fake.Features.Person;
+
+public interface IPersonRepository : IRepositoryAsync<Person, int> {
+  //IQueryable<Person> Person { get; }
   //Task<List<Product>> GetListAsync();
   //Task<Product> GetByIdAsync(int productId);
   //Task<int> InsertAsync(Product product);

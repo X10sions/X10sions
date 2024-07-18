@@ -1,4 +1,8 @@
-﻿namespace X10sions.Fake.Features.ToDo.Item;
+﻿using Common.Domain.Events;
 
-public record ToDoItemDeletedEvent(Guid Id);
+namespace X10sions.Fake.Features.ToDo.Item;
+
+public record ToDoItemDeletedEvent(Guid Id) : DomainEventBase {
+  public ToDoItemDeletedEvent(ToDoItem entity) : this(entity.Id.Value) { }
+}
 

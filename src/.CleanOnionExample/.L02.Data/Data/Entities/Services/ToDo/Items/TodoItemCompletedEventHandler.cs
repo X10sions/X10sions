@@ -1,8 +1,7 @@
-﻿using Common.Features.DummyFakeExamples.ToDo.Item;
-using Common.Models;
+﻿using Common.Models;
 using MediatR;
 using Microsoft.Extensions.Logging;
-using X10sions.Fake.Features.ToDoItem;
+using X10sions.Fake.Features.ToDo.Item;
 
 namespace CleanOnionExample.Data.Entities.Services;
 

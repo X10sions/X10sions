@@ -1,21 +1,8 @@
 ﻿using Common.Domain.Repositories;
 using NHibernate;
-using NHibernate.Linq;
 using System.Linq.Expressions;
 
-public interface INHibernateRepository<T> : IRepository<T, ISession, IQueryable<T>> where T : class { }
-
-public class NHibernateQuery<T> : NHibernate.IQuery<T> where T : class {
-  public NHibernateQuery(IQueryable<T> queryable) {
-    Queryable = queryable;
-  }
-  public IQueryable<T> Queryable { get; }
-
-  public virtual async Task<bool> AnyAsync(Expression<Func<T, bool>> predicate, CancellationToken token = default) => await Queryable.AnyAsync(predicate, token);
-  public virtual async Task<int> CountAsync(Expression<Func<T, bool>> predicate, CancellationToken token = default) => await Queryable.CountAsync(predicate, token);
-  public virtual async Task<T?> FirstOrDefaultAsync(Expression<Func<T, bool>> predicate, CancellationToken token = default) => await Queryable.FirstOrDefaultAsync(predicate, token);
-  public virtual async Task<List<T>> ToListAsync(Expression<Func<T, bool>> predicate, CancellationToken token = default) => await Queryable.Where(predicate).ToListAsync(token);
-}
+public interface INHibernateRepository<T> : IRepositoryAsync<T, ISession, IQueryable<T>> where T : class { }
 
 public class NHibernateRepository<T> : INHibernateRepository<T> where T : class {
   public NHibernateRepository(ISession session) {
@@ -26,10 +13,11 @@ public class NHibernateRepository<T> : INHibernateRepository<T> where T : class 
 
   public ISession Database { get; }
   public IQueryable<T> Table { get; }
-  public  IQuery<T> Query { get; }
+  public  Common.Domain.IQuery<T> Query { get; }
+  public IQueryable<T> Queryable => Table;
 
   #region IWriteRepository
-  public virtual async Task<int> DeleteAsync(IEnumerable<T> rows, CancellationToken token = default) {
+  public  async Task<int> DeleteAsync(IEnumerable<T> rows, CancellationToken token = default) {
     var rowCount = 0;
     foreach (var row in rows) {
       await Database.DeleteAsync(row, token);
@@ -38,7 +26,11 @@ public class NHibernateRepository<T> : INHibernateRepository<T> where T : class 
     return rowCount;
   }
 
-  public virtual async Task<int> InsertAsync(IEnumerable<T> rows, CancellationToken token = default) {
+  public async Task<T?> GetAsync(Expression<Func<T, bool>> predicate, CancellationToken cancellationToken = default) => Database.GetAsync(predicate, cancellationToken);
+
+  public async Task<IEnumerable<T>> GetListAsync(Expression<Func<T, bool>> predicate, CancellationToken cancellationToken = default) => Queryable.Where(predicate).ToListAsync( cancellationToken);
+
+  public  async Task<int> InsertAsync(IEnumerable<T> rows, CancellationToken token = default) {
     var rowCount = 0;
     foreach (var row in rows) {
       await Database.SaveAsync(row, token);
@@ -47,12 +39,21 @@ public class NHibernateRepository<T> : INHibernateRepository<T> where T : class 
     return rowCount;
   }
 
-  public virtual async Task<TKey> InsertWithIdAsync<TKey>(T row, Func<T, TKey>? idSelector = null, CancellationToken token = default)
+  public  async Task<TKey> InsertWithIdAsync<TKey>(T row, Func<T, TKey>? idSelector = null, CancellationToken token = default)
     => (TKey)  await Database.SaveAsync(row, token );
 
-  public virtual async Task<int> UpdateAsync(T row, CancellationToken token = default) {
+  public  async Task<int> UpdateAsync(T row, CancellationToken token = default) {
     await Database.UpdateAsync(row, token);
     return 1;
+  }
+
+  public async Task<int> UpdateAsync(IEnumerable<T> rows, CancellationToken token = default) {
+    var count =0;
+    foreach (var row in rows) {
+      await Database.UpdateAsync(row ,token);
+      count++;
+    }
+    return count;
   }
 
   #endregion

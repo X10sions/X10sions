@@ -1,4 +1,8 @@
 ﻿namespace System.Data.Linq.Mapping;
+/// <summary>
+/// Column Attribute
+/// </summary>
+/// <seealso cref="System.Attribute" />
 [Obsolete]
 public sealed class ColumnAttribute : Attribute {
   public string Name { get; set; }

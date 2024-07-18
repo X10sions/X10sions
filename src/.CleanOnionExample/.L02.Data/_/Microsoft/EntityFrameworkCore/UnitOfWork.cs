@@ -1,33 +1,41 @@
-﻿namespace Microsoft.EntityFrameworkCore;
+﻿//using Common.Data;
+//using Common.Domain;
+//using Common.Domain.Entities;
+//using Common.Domain.Repositories;
+//using X10sions.Fake.Domain.Services;
 
-public interface IUnitOfWork : IDisposable {
-  Task Rollback();
-  Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
-}
+//namespace Microsoft.EntityFrameworkCore;
 
-internal class UnitOfWork : IUnitOfWork {
-  public UnitOfWork(DbContext dbContext) => this.dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
+//internal class UnitOfWork : IUnitOfWork {
+//  public UnitOfWork(DbContext dbContext) => this.dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
 
-  private readonly DbContext dbContext;
-  private bool disposed;
+//  private readonly DbContext dbContext;
+//  private bool disposed;
 
-  public Task Rollback() => Task.CompletedTask;
+//  public Task Rollback() => Task.CompletedTask;
+//  public int SaveChanges() => dbContext.SaveChanges();
+//  public Task<int> SaveChangesAsync(CancellationToken cancellationToken = default) => dbContext.SaveChangesAsync(cancellationToken);
 
-  public Task<int> SaveChangesAsync(CancellationToken cancellationToken = default) => dbContext.SaveChangesAsync(cancellationToken);
+//  public void Dispose() {
+//    Dispose(true);
+//    GC.SuppressFinalize(this);
+//  }
 
-  public void Dispose() {
-    Dispose(true);
-    GC.SuppressFinalize(this);
-  }
+//  protected virtual void Dispose(bool disposing) {
+//    if (disposed) {
+//      return;
+//    }
+//    if (disposing) {
+//      dbContext.Dispose();
+//    }
+//    disposed = true;
+//  }
 
-  protected virtual void Dispose(bool disposing) {
-    if (disposed) {
-      return;
-    }
-    if (disposing) {
-      dbContext.Dispose();
-    }
-    disposed = true;
-  }
+//  IRepository<T> IUnitOfWork.GetRepository<T, TKey>() => new EFCoreRepository<T>(dbContext);
 
-}
+//  IBusinessRepository<T, TKey> IUnitOfWork.GetBusinessRepository<T, TKey>() 
+//    //where T : class, IEntityWithId<TKey>
+//    //where TKey : IEquatable<TKey> 
+//    => new GenericBusinessService<T,TKey>(this).GetById;
+
+//}

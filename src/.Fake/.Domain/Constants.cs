@@ -1,4 +1,4 @@
-﻿namespace Common.Features.DummyFakeExamples;
+﻿namespace X10sions.Fake;
 
 public static class Constants {
 

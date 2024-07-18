@@ -1,4 +1,5 @@
 ﻿using CleanOnionExample.Data.Entities;
+using X10sions.Fake.Features.User;
 namespace CleanOnionExample.Data.Seeds;
 
 public static class DefaultUser {

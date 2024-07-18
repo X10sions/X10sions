@@ -49,4 +49,7 @@
     <ProjectReference Include="..\..\Common\.DotNet\Common.DotNet.csproj" />
     <ProjectReference Include="..\..\x\xLinqToDB\.AspNet\xLinqToDB.AspNet.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="_\Common\Data\Repositories\" />
+  </ItemGroup>
 </Project>

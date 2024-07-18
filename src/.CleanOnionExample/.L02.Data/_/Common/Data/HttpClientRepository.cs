@@ -16,10 +16,10 @@ public class HttpClientQuery<T> : IQuery<T> where T : class {
   HttpClient? Database;
   public string BaseApiPath { get; }
 
-  public virtual async Task<bool> AnyAsync(Expression<Func<T, bool>> predicate, CancellationToken token = default) =>  await Database.GetFromJsonAsync<bool>($"/api{BaseApiPath}/any", token);
-  public virtual async Task<int> CountAsync(Expression<Func<T, bool>> predicate, CancellationToken token = default) => await Database.GetFromJsonAsync<int>($"/api{BaseApiPath}/count", token);
-  public virtual async Task<T?> FirstOrDefaultAsync(Expression<Func<T, bool>> predicate, CancellationToken token = default) => await Database.GetFromJsonAsync<T?>($"/api{BaseApiPath}/get", token);
-  public virtual async Task<List<T>> ToListAsync(Expression<Func<T, bool>> predicate, CancellationToken token = default) {
+  public  async Task<bool> AnyAsync(Expression<Func<T, bool>> predicate, CancellationToken token = default) =>  await Database.GetFromJsonAsync<bool>($"/api{BaseApiPath}/any", token);
+  public  async Task<int> CountAsync(Expression<Func<T, bool>> predicate, CancellationToken token = default) => await Database.GetFromJsonAsync<int>($"/api{BaseApiPath}/count", token);
+  public  async Task<T?> FirstOrDefaultAsync(Expression<Func<T, bool>> predicate, CancellationToken token = default) => await Database.GetFromJsonAsync<T?>($"/api{BaseApiPath}/get", token);
+  public  async Task<List<T>> ToListAsync(Expression<Func<T, bool>> predicate, CancellationToken token = default) {
     var response = await Database.PostAsJsonAsync($"/api{BaseApiPath}/list", token);
     return await response.Content.ReadFromJsonAsync<List<T>>(cancellationToken: token);
   }
@@ -36,11 +36,12 @@ public  class HttpClientRepository<T> : IHttpClientRepository<T> where T : class
   public HttpClient Database { get; }
   public IQueryable<T> Table { get; }
   public IQuery<T> Query { get; }
+  //public IQueryable<T> Queryable => Table;
   public string  BaseApiPath{ get; }
 
 
   #region IWriteRepository
-  public virtual async Task<int> DeleteAsync(IEnumerable<T> rows, CancellationToken token = default) {
+  public  async Task<int> DeleteAsync(IEnumerable<T> rows, CancellationToken token = default) {
     var rowCount = 0;
     foreach (var row in rows) {
       var response = await Database.PostAsJsonAsync($"/api{BaseApiPath}/delete", row, token);
@@ -50,7 +51,7 @@ public  class HttpClientRepository<T> : IHttpClientRepository<T> where T : class
     return rowCount;
   }
 
-  public virtual async Task<int> InsertAsync(IEnumerable<T> rows, CancellationToken token = default) {
+  public  async Task<int> InsertAsync(IEnumerable<T> rows, CancellationToken token = default) {
     var rowCount = 0;
     foreach (var row in rows) {
       var response = await Database.PostAsJsonAsync($"/api{BaseApiPath}/add", row, token);
@@ -60,12 +61,12 @@ public  class HttpClientRepository<T> : IHttpClientRepository<T> where T : class
     return rowCount;
   }
   [Obsolete(nameof(NotImplementedException))]
-  public virtual async Task<TKey> InsertWithIdAsync<TKey>(T row, Func<T, TKey> idSelector, CancellationToken token = default) {
+  public  async Task<TKey> InsertWithIdAsync<TKey>(T row, Func<T, TKey> idSelector, CancellationToken token = default) {
     throw new NotImplementedException();
   }
 
   [Obsolete(nameof(NotImplementedException))]
-  public virtual async Task<int> UpdateAsync(T row, CancellationToken token = default) {
+  public  async Task<int> UpdateAsync(T row, CancellationToken token = default) {
     throw new NotImplementedException();
   }
   #endregion

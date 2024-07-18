@@ -2,4 +2,4 @@
 
 namespace X10sions.Fake.Features.ToDo.Item;
 
-public interface IToDoItemRepository : IRepository<ToDoItem, ToDoItemId> { }
+public interface IToDoItemRepository : IRepositoryAsync<ToDoItem, ToDoItemId> { }

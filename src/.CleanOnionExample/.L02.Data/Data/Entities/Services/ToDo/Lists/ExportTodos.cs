@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using CleanOnionExample.Data.DbContexts;
-using Common.Features.DummyFakeExamples.ToDo.Item;
 using Common.Interfaces;
 using Common.Mappings;
 using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using X10sions.Fake.Features.ToDo.Item;
 namespace CleanOnionExample.Data.Entities.Services;
 
 public static class ExportTodos {

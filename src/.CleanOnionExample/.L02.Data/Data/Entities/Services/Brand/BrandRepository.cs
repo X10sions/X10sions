@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Distributed;
 using X10sions.Fake.Features.Brand;
-using static Common.Features.DummyFakeExamples.Constants.CacheKeys;
+using static X10sions.Fake.Constants.CacheKeys;
 
 namespace CleanOnionExample.Data.Entities.Services;
 
@@ -17,7 +17,7 @@ public class BrandRepository : IBrandRepository {
 
   public IQueryable<Brand> Brands => _repository.Entities;
 
-  public async System.Threading.Tasks.Task DeleteAsync(Brand brand) {
+  public async Task DeleteAsync(Brand brand) {
     await _repository.DeleteAsync(brand);
     await _distributedCache.RemoveAsync(BrandCacheKeys.ListKey);
     await _distributedCache.RemoveAsync(BrandCacheKeys.GetKey(brand.Id));
@@ -37,7 +37,7 @@ public class BrandRepository : IBrandRepository {
     return brand.Id;
   }
 
-  public async System.Threading.Tasks.Task UpdateAsync(Brand brand) {
+  public async Task UpdateAsync(Brand brand) {
     await _repository.UpdateAsync(brand);
     await _distributedCache.RemoveAsync(BrandCacheKeys.ListKey);
     await _distributedCache.RemoveAsync(BrandCacheKeys.GetKey(brand.Id));

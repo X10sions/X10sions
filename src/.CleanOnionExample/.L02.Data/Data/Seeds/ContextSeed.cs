@@ -1,8 +1,6 @@
 ﻿using CleanOnionExample.Data.DbContexts;
 using CleanOnionExample.Data.Entities;
 using Common.ValueObjects;
-using Common.Features.DummyFakeExamples.ToDo;
-using Common.Features.DummyFakeExamples.ToDo.Item;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using X10sions.Fake.Features.ToDo.Item;
@@ -65,7 +63,6 @@ public static class ApplicationDbContextSeed {
           new ToDoItem { Title = "Water" }
         }
       });
-
       await context.SaveChangesAsync();
     }
   }

@@ -1,9 +1,9 @@
 ﻿using Azure.Core.GeoJson;
-using Common.Features.DummyFakeExamples.WeatherForecast;
 using System.Text.Json;
 using System.Text;
 using Common.Collections.Paged;
 using Microsoft.Extensions.Logging;
+using X10sions.Fake.Features.WeatherForecast;
 
 namespace CleanOnionExample.Data.Entities;
 
