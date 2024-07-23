@@ -1,5 +1,5 @@
-﻿using Common.Domain.Repositories;
+﻿using RCommon.Persistence.Crud;
 
 namespace X10sions.Fake.Features.Owner;
 
-public interface IOwnerRepository : IRepositoryAsync<Owner, Guid> { }
+public interface IOwnerRepository : IReadOnlyRepository<Owner, Guid>, IWriteOnlyRepository<Owner,Guid> { }

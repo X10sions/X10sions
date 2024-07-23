@@ -178,7 +178,7 @@ public class AccountService1 : IAccountService1 {
     );
   }
 
-  public async System.Threading.Tasks.Task ForgotPassword(ForgotPasswordRequest model, string origin) {
+  public async Task ForgotPassword(ForgotPasswordRequest model, string origin) {
     var account = await _userManager.FindByEmailAsync(model.Email);
     // always return ok response to prevent email enumeration
     if (account == null) return;

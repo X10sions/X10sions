@@ -1,7 +1,7 @@
 ﻿using Common.Domain.Entities;
 using System.Linq.Expressions;
-using Common.Domain.Repositories;
 using Common.Domain.Events;
+using RCommon.Persistence.Crud;
 
 namespace X10sions.Fake.Features.WeatherForecast;
 
@@ -65,6 +65,6 @@ public partial class WeatherForecast {
 
 
 public static class WeatherForecastExtensions {
-  public static async Task<WeatherForecast?> GetByIdAsync(this IReadRepository<WeatherForecast> repository, Guid id, CancellationToken token = default)
-    => await repository.Query.FirstOrDefaultAsync(WeatherForecast.GetById(id), token);
+  public static async Task<WeatherForecast?> GetByIdAsync(this IReadOnlyRepository<WeatherForecast> repository, Guid id, CancellationToken token = default)
+    => await repository.GetAsync(WeatherForecast.GetById(id), token);
 }

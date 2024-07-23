@@ -1,6 +1,6 @@
 ﻿using CleanOnionExample.Data.DbContexts;
-using Common.Data;
 using Microsoft.EntityFrameworkCore;
+using RCommon.Persistence.EFCore.Crud;
 using X10sions.Fake.Features.Account;
 
 namespace CleanOnionExample.Data.Entities.Services;

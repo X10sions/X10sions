@@ -1,5 +1,5 @@
 ﻿using CleanOnionExample.Data.DbContexts;
-using Common.Data;
+using RCommon.Persistence.EFCore.Crud;
 using X10sions.Fake.Features.Owner;
 
 namespace CleanOnionExample.Data.Entities.Services;

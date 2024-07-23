@@ -5,7 +5,7 @@ using System.Net.Http.Json;
 
 namespace Common.Data;
 
-public interface IHttpClientRepository<T> : IRepository<T, HttpClient, IQueryable<T>> where T : class { }
+public interface IHttpClientRepository<T> : IRepositoryAsync<T, HttpClient, IQueryable<T>> where T : class { }
 public class HttpClientQuery<T> : IQuery<T> where T : class {
   public HttpClientQuery(HttpClient httpClient, string baseApiPath) {
     //  Queryable = queryable;
@@ -61,14 +61,10 @@ public  class HttpClientRepository<T> : IHttpClientRepository<T> where T : class
     return rowCount;
   }
   [Obsolete(nameof(NotImplementedException))]
-  public  async Task<TKey> InsertWithIdAsync<TKey>(T row, Func<T, TKey> idSelector, CancellationToken token = default) {
-    throw new NotImplementedException();
-  }
+  public async Task<TKey> InsertWithIdAsync<TKey>(T row, Func<T, TKey> idSelector, CancellationToken token = default) => throw new NotImplementedException();
 
   [Obsolete(nameof(NotImplementedException))]
-  public  async Task<int> UpdateAsync(T row, CancellationToken token = default) {
-    throw new NotImplementedException();
-  }
+  public async Task<int> UpdateAsync(T row, CancellationToken token = default) => throw new NotImplementedException();
   #endregion
 }
 

@@ -1,4 +1,4 @@
-﻿using Common.Domain.Repositories;
+﻿using RCommon.Persistence.Crud;
 using X10sions.Fake.Features.ToDo.Item;
 
 namespace X10sions.Fake.Features.Project;
@@ -12,5 +12,5 @@ public record ProjectDTO(int Id, string Name) : CreateProjectDTO(Name) {
 public abstract record CreateProjectDTO(string Name);
 
 public static class ProjectExtensions {
-  public async static Task<Project?> GetByIdAsync(this IRepository<Project> repository, int id, CancellationToken token = default) => await repository.Query.FirstOrDefaultAsync(x => x.Id == id, token);
+  public async static Task<Project?> GetByIdAsync(this IReadOnlyRepository<Project> repository, int id, CancellationToken token = default) => await repository.GetAsync(x => x.Id == id, token);
 }

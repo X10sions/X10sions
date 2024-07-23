@@ -1,6 +1,5 @@
 ﻿using Common.Data;
 using IBM.EntityFrameworkCore;
-using LinqToDB;
 using LinqToDB.AspNet;
 using LinqToDB.DataProvider.Access;
 using LinqToDB.DataProvider.MySql;
@@ -8,6 +7,7 @@ using LinqToDB.DataProvider.Oracle;
 using LinqToDB.DataProvider.PostgreSQL;
 using LinqToDB.DataProvider.SQLite;
 using LinqToDB.DataProvider.SqlServer;
+using LinqToDB;
 using Microsoft.Data.SqlClient;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
@@ -15,20 +15,21 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Npgsql;
 using Oracle.ManagedDataAccess.Client;
+using RCommon.Persistence.EFCore.Crud;
+using RCommon.Persistence.Linq2Db.Crud;
+using RCommon.Persistence.NHibernate.Crud;
 using System.Data.Odbc;
 using System.Data.OleDb;
 
 namespace CleanOnionExample.Data.DbContexts;
-
 
 public static class Extensions {
 
   public static IServiceCollection AddScopedRepository_CleanOnionExample(this IServiceCollection services) {
     services.AddScoped(typeof(IEFCoreRepository<>), typeof(EFCoreRepository<>));
     services.AddScoped(typeof(IHttpClientRepository<>), typeof(HttpClientRepository<>));
-    services.AddScoped(typeof(ILinq2DBRepository<>), typeof(Linq2DbRepository<>));
+    services.AddScoped(typeof(ILinq2DbRepository<>), typeof(Linq2DbRepository<>));
     services.AddScoped(typeof(INHibernateRepository<>), typeof(NHibernateRepository<>));
-    services.AddScoped(typeof(RepositoryManager<>));
     return services;
   }
 

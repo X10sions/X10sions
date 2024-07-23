@@ -1,5 +1,4 @@
-﻿using Common.Domain.Repositories;
-using MediatR;
+﻿using MediatR;
 using X10sions.Fake.Features.ToDo.Item;
 
 namespace CleanOnionExample.Data.Entities.Services;
@@ -28,13 +27,13 @@ public class ToDoItemService : IToDoItemService {
     await _mediator.Publish(deleteCommand);
   }
 
-  public async Task<IEnumerable<ToDoItemViewModel>> GetAll() {
-    var entities = await _repository.GetListAsync();
+  public async Task<IEnumerable<ToDoItemViewModel>> GetAllAsync(CancellationToken cancellationToken = default) {
+    var entities = await _repository.GetAllAsync(x=> true, cancellationToken);
     return _viewModelMapper.ConstructFromListOfEntities(entities);
   }
 
-  public async Task<ToDoItemViewModel> GetById(Guid id) {
-    var entity = await _repository.GetByIdAsync(new ToDoItemId(id));
+  public async Task<ToDoItemViewModel> GetByIdAsync(Guid id, CancellationToken cancellationToken = default) {
+    var entity = await _repository.GetByPrimaryKeyAsync(new ToDoItemId(id), cancellationToken);
     return _viewModelMapper.ConstructFromEntity(entity);
   }
 }

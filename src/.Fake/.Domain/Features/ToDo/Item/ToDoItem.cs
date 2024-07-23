@@ -1,8 +1,9 @@
 ﻿using Common.Domain.Entities;
 using Common.Enums;
+using RCommon.Entities;
 
 namespace X10sions.Fake.Features.ToDo.Item;
-public class ToDoItem : EntityBase<ToDoItemId> {
+public class ToDoItem : BusinessEntity<ToDoItemId> {// EntityBase<ToDoItemId> {
   //public class ToDoItem : IEntityWithId<ToDoItemId> {
   public ToDoItemId Id { get; set; }
   public ToDoItemSummary Summary { get; set; }
@@ -15,7 +16,8 @@ public class ToDoItem : EntityBase<ToDoItemId> {
   public void MarkComplete() {
     if (!IsDone) {
       IsDone = true;
-      Events.Add(new ToDoItemCompletedEvent(this));
+      AddLocalEvent(new ToDoItemCompletedEvent(this));
+      //Events.Add(new ToDoItemCompletedEvent(this));
     }
   }
   public override string ToString() => $"{Id}: Status: {(IsDone ? "Done!" : "Not done.")} - {Title} - {Description}";

@@ -1,8 +1,8 @@
-﻿using Common.Domain.Entities;
+﻿using RCommon.Entities;
 
 namespace X10sions.Fake.Features.Account;
 
-public class Account : EntityBase<Guid> {
+public class Account : BusinessEntity<Guid>{// EntityBase<Guid> {
   public DateTime DateCreated { get; set; }
   public string AccountType { get; set; }
   public Guid OwnerId { get; set; }

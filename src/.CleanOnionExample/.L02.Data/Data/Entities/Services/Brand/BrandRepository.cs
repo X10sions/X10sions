@@ -1,46 +1,36 @@
-﻿using Common.Domain.Repositories;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Distributed;
+using RCommon.Persistence.Crud;
 using X10sions.Fake.Features.Brand;
 using static X10sions.Fake.Constants.CacheKeys;
 
 namespace CleanOnionExample.Data.Entities.Services;
 
-public class BrandRepository : IBrandRepository {
-  private readonly IRepositoryAsync<Brand> _repository;
-  private readonly IDistributedCache _distributedCache;
-
-  public BrandRepository(IDistributedCache distributedCache, IRepositoryAsync<Brand> repository) {
-    _distributedCache = distributedCache;
-    _repository = repository;
-  }
-
-  public IQueryable<Brand> Brands => _repository.Entities;
+public class BrandRepository(IDistributedCache distributedCache, ILinqRepository<Brand> repository) : IBrandRepository {
+  public IQueryable<Brand> Brands => repository.Queryable;
 
   public async Task DeleteAsync(Brand brand) {
-    await _repository.DeleteAsync(brand);
-    await _distributedCache.RemoveAsync(BrandCacheKeys.ListKey);
-    await _distributedCache.RemoveAsync(BrandCacheKeys.GetKey(brand.Id));
+    await repository.DeleteAsync(brand);
+    await distributedCache.RemoveAsync(BrandCacheKeys.ListKey);
+    await distributedCache.RemoveAsync(BrandCacheKeys.GetKey(brand.Id));
   }
 
   public async Task<Brand> GetByIdAsync(int brandId) {
-    return await _repository.Entities.Where(p => p.Id == brandId).FirstOrDefaultAsync();
+    return await repository.Queryable.Where(p => p.Id == brandId).FirstOrDefaultAsync();
   }
 
-  public async Task<List<Brand>> GetListAsync() {
-    return await _repository.Entities.ToListAsync();
-  }
+  public async Task<ICollection<Brand>> GetListAsync() =>await repository.GetAllAsync(x=> true);
 
   public async Task<int> InsertAsync(Brand brand) {
-    await _repository.AddAsync(brand);
-    await _distributedCache.RemoveAsync(BrandCacheKeys.ListKey);
+    await repository.InsertAsync(brand);
+    await distributedCache.RemoveAsync(BrandCacheKeys.ListKey);
     return brand.Id;
   }
 
   public async Task UpdateAsync(Brand brand) {
-    await _repository.UpdateAsync(brand);
-    await _distributedCache.RemoveAsync(BrandCacheKeys.ListKey);
-    await _distributedCache.RemoveAsync(BrandCacheKeys.GetKey(brand.Id));
+    await repository.UpdateAsync(brand);
+    await distributedCache.RemoveAsync(BrandCacheKeys.ListKey);
+    await distributedCache.RemoveAsync(BrandCacheKeys.GetKey(brand.Id));
   }
 }
 
@@ -64,9 +54,9 @@ public class BrandCacheRepository : IBrandCacheRepository {
     return brand;
   }
 
-  public async Task<List<Brand>> GetCachedListAsync() {
+  public async Task<ICollection<Brand>> GetCachedListAsync() {
     var cacheKey = BrandCacheKeys.ListKey;
-    var brandList = await _distributedCache.GetAsync<List<Brand>>(cacheKey);
+    var brandList = await _distributedCache.GetAsync<ICollection<Brand>>(cacheKey);
     if (brandList == null) {
       brandList = await _brandRepository.GetListAsync();
       await _distributedCache.SetAsync(cacheKey, brandList);

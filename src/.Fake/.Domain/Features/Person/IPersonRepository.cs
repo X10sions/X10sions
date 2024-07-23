@@ -1,8 +1,8 @@
-﻿using Common.Domain.Repositories;
+﻿using RCommon.Persistence.Crud;
 
 namespace X10sions.Fake.Features.Person;
 
-public interface IPersonRepository : IRepositoryAsync<Person, int> {
+public interface IPersonRepository : IReadOnlyRepository<Person, int>, IWriteOnlyRepository<Person,int> {
   //IQueryable<Person> Person { get; }
   //Task<List<Product>> GetListAsync();
   //Task<Product> GetByIdAsync(int productId);

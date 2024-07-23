@@ -19,7 +19,4 @@
   <ItemGroup Label="ProjectReferences">
     <ProjectReference Include="..\.DotNetStandard\Common.DotNetStandard.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="_\" />
-  </ItemGroup>
 </Project>

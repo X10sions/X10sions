@@ -1,5 +1,4 @@
 ﻿using Common.Exceptions;
-using Common.Domain.Repositories;
 using Mapster;
 using X10sions.Fake.Features.Account;
 using X10sions.Fake.Features.Owner;
@@ -14,11 +13,11 @@ internal sealed class AccountService2(IOwnerRepository ownerRepository, IAccount
   }
 
   public async Task<Account.GetQuery> GetByIdAsync(Guid ownerId, Guid accountId, CancellationToken cancellationToken) {
-    var owner = await ownerRepository.GetByIdAsync(ownerId, cancellationToken);
+    var owner = await ownerRepository.GetByPrimaryKeyAsync(ownerId, cancellationToken);
     if (owner is null) {
       throw new OwnerNotFoundException(ownerId);
     }
-    var account = await accountRepository.GetByIdAsync(accountId, cancellationToken);
+    var account = await accountRepository.GetByPrimaryKeyAsync(accountId, cancellationToken);
     if (account is null) {
       throw new AccountNotFoundException(accountId);
     }
@@ -30,7 +29,7 @@ internal sealed class AccountService2(IOwnerRepository ownerRepository, IAccount
   }
 
   public async Task<Account.GetQuery> CreateAsync(Guid ownerId, Account.UpdateCommand accountForCreationDto, CancellationToken cancellationToken = default) {
-    var owner = await ownerRepository.GetByIdAsync(ownerId, cancellationToken);
+    var owner = await ownerRepository.GetByPrimaryKeyAsync(ownerId, cancellationToken);
     if (owner is null) {
       throw new OwnerNotFoundException(ownerId);
     }
@@ -42,18 +41,18 @@ internal sealed class AccountService2(IOwnerRepository ownerRepository, IAccount
   }
 
   public async Task DeleteAsync(Guid ownerId, Guid accountId, CancellationToken cancellationToken = default) {
-    var owner = await ownerRepository.GetByIdAsync(ownerId, cancellationToken);
+    var owner = await ownerRepository.GetByPrimaryKeyAsync(ownerId, cancellationToken);
     if (owner is null) {
       throw new OwnerNotFoundException(ownerId);
     }
-    var account = await accountRepository.GetByIdAsync(accountId, cancellationToken);
+    var account = await accountRepository.GetByPrimaryKeyAsync(accountId, cancellationToken);
     if (account is null) {
       throw new AccountNotFoundException(accountId);
     }
     if (account.OwnerId != owner.Id) {
       throw new AccountDoesNotBelongToOwnerException(owner.Id, account.Id);
     }
-    await accountRepository.DeleteByIdAsync(account.Id, cancellationToken);
+    await accountRepository.DeleteAsync(account, cancellationToken);
     //await _repositoryManager.UnitOfWork.SaveChangesAsync(cancellationToken);
   }
 }

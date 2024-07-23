@@ -10,7 +10,7 @@ public class ToDoListConfiguration : IEntityTypeConfiguration<ToDoList> {
         .HasMaxLength(200)
         .IsRequired();
 
-    builder.OwnsOne(b => b.Colour);
+    builder.Property(b => b.Colour).HasConversion(v => v.Value, v => new(v));
   }
 }
 

@@ -6,12 +6,15 @@ using CleanOnionExample.Services.Cache;
 using CleanOnionExample.Services.JWT;
 using CleanOnionExample.Services.Mail;
 using Common.Data;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.Reflection;
 using System.Text;
 using System.Text.Json;
+using X10sions.Fake.Features.ToDo.Item;
 
 namespace Microsoft.AspNetCore.Builder;
 

@@ -1,5 +1,4 @@
-﻿using Common.Domain.Repositories;
-using Common.Exceptions;
+﻿using Common.Exceptions;
 using Mapster;
 using X10sions.Fake.Features.Owner;
 
@@ -8,13 +7,13 @@ namespace CleanOnionExample.Data.Entities.Services;
 internal sealed class OwnerService(IOwnerRepository ownerRepository) : IOwnerService {
 
   public async Task<IEnumerable<GetOwnerQuery>> GetAllAsync(CancellationToken cancellationToken = default) {
-    var owners = await ownerRepository.GetListAsync(cancellationToken);
+    var owners = await ownerRepository.GetAllAsync(x=> true, cancellationToken);
     var ownersDto = owners.Adapt<IEnumerable<GetOwnerQuery>>();
     return ownersDto;
   }
 
   public async Task<GetOwnerQuery> GetByIdAsync(Guid ownerId, CancellationToken cancellationToken = default) {
-    var owner = await ownerRepository.GetByIdAsync(ownerId, cancellationToken);
+    var owner = await ownerRepository.GetByPrimaryKeyAsync(ownerId, cancellationToken);
     if (owner is null) {
       throw new OwnerNotFoundException(ownerId);
     }
@@ -29,7 +28,7 @@ internal sealed class OwnerService(IOwnerRepository ownerRepository) : IOwnerSer
   }
 
   public async Task UpdateAsync(Guid ownerId, UpdateOwnerCommand ownerForUpdateDto, CancellationToken cancellationToken = default) {
-    var owner = await ownerRepository.GetByIdAsync(ownerId, cancellationToken);
+    var owner = await ownerRepository.GetByPrimaryKeyAsync(ownerId, cancellationToken);
     if (owner is null) {
       throw new OwnerNotFoundException(ownerId);
     }
@@ -40,11 +39,11 @@ internal sealed class OwnerService(IOwnerRepository ownerRepository) : IOwnerSer
   }
 
   public async Task DeleteAsync(Guid ownerId, CancellationToken cancellationToken = default) {
-    var owner = await ownerRepository.GetByIdAsync(ownerId, cancellationToken);
+    var owner = await ownerRepository.GetByPrimaryKeyAsync(ownerId, cancellationToken);
     if (owner is null) {
       throw new OwnerNotFoundException(ownerId);
     }
-    await ownerRepository.DeleteByIdAsync(owner.Id, cancellationToken);
+    await ownerRepository.DeleteAsync(owner, cancellationToken);
     //await _repositoryManager.UnitOfWork.SaveChangesAsync(cancellationToken);
   }
 }
