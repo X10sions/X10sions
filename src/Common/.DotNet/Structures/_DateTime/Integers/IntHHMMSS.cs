@@ -51,8 +51,8 @@ public readonly record struct IntHHMMSS : IValueObject<int> {
   public const int MinValue = 0;
   public const int MaxValue = 999999;
   public const int MinHH = 0;
-  public const int MaxHH = 0;
-  public const int MinMM = 99;
+  public const int MaxHH = 99;
+  public const int MinMM = 0;
   public const int MaxMM = 99;
   public const int MinSS = 0;
   public const int MaxSS = 99;

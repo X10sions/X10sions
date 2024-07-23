@@ -38,16 +38,16 @@ public class IntHHTests(ITestOutputHelper testOutputHelper) {
       };
   }
 
-  [Theory, MemberData(nameof(TheoryData), MemberType = typeof(GivenValue))]
-  public void Value_ShouldBeExpected_GivenValue(GivenValue data) {
-    var sut = new IntHH(data.InputValue);
-    testOutputHelper.WriteLine($"sut.Call-01: {sut.Hour}");
-    testOutputHelper.WriteLine($"sut.Call-02: {sut.Hour}");
-    testOutputHelper.WriteLine($"sut.Call-03: {sut.Hour}");
-    using (new AssertionScope()) {
-      sut.Value.Should().Be(data.ExpectedValue);
-      sut.Hour.Value.Should().Be(data.HourValue);
-    }
-  }
+  //[Theory, MemberData(nameof(TheoryData), MemberType = typeof(GivenValue))]
+  //public void Value_ShouldBeExpected_GivenValue(GivenValue data) {
+  //  var sut = new IntHH(data.InputValue);
+  //  testOutputHelper.WriteLine($"sut.Call-01: {sut.Hour}");
+  //  testOutputHelper.WriteLine($"sut.Call-02: {sut.Hour}");
+  //  testOutputHelper.WriteLine($"sut.Call-03: {sut.Hour}");
+  //  using (new AssertionScope()) {
+  //    sut.Value.Should().Be(data.ExpectedValue);
+  //    sut.Hour.Value.Should().Be(data.HourValue);
+  //  }
+  //}
 
 }

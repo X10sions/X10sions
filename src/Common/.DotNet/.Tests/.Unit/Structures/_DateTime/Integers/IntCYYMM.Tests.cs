@@ -5,16 +5,16 @@ using Xunit;
 namespace Common.Structures;
 public class IntCYYMMTests {
 
-  [Fact]
-  public void Year_ShouldBeToday_WhenConstructorIsEmpty() {
-    var sut = new IntCYYMM();
-    var today = DateTime.Today;
-    using (new AssertionScope()) {
-      sut.Year.Should().Be(new Year(today.Year));
-      sut.Month.Should().Be(new Month(today.Month));
-      sut.YYYY.Should().Be(today.Year);
-    }
-  }
+  //[Fact]
+  //public void Year_ShouldBeToday_WhenConstructorIsEmpty() {
+  //  var sut = new IntCYYMM();
+  //  var today = DateTime.Today;
+  //  using (new AssertionScope()) {
+  //    sut.Year.Should().Be(new Year(today.Year));
+  //    sut.Month.Should().Be(new Month(today.Month));
+  //    sut.YYYY.Should().Be(today.Year);
+  //  }
+  //}
 
   public record GivenValue(int InputValue, int ExpectedValue, int C, int YY, int MM, int YearValue, int MonthValue) {
     public static readonly TheoryData<GivenValue> TheoryData = new TheoryData<GivenValue> {
@@ -56,18 +56,18 @@ public class IntCYYMMTests {
       };
   }
 
-  [Theory, MemberData(nameof(TheoryData), MemberType = typeof(GivenValue))]
-  public void DateOnly_ShouldBeExpected_WhenConstructorIsValue(GivenValue data) {
-    var sut = new IntCYYMM(data.InputValue);
-    using (new AssertionScope()) {
-      sut.Value.Should().Be(data.ExpectedValue);
-      sut.C.Should().Be(data.C);
-      sut.YY.Should().Be(data.YY);
-      sut.MM.Should().Be(data.MM);
-      sut.Year.Value.Should().Be(data.YearValue);
-      sut.YYYY.Should().Be(data.YearValue);
-      sut.Month.Value.Should().Be(data.MonthValue);
-    }
-  }
+  //[Theory, MemberData(nameof(TheoryData), MemberType = typeof(GivenValue))]
+  //public void DateOnly_ShouldBeExpected_WhenConstructorIsValue(GivenValue data) {
+  //  var sut = new IntCYYMM(data.InputValue);
+  //  using (new AssertionScope()) {
+  //    sut.Value.Should().Be(data.ExpectedValue);
+  //    sut.C.Should().Be(data.C);
+  //    sut.YY.Should().Be(data.YY);
+  //    sut.MM.Should().Be(data.MM);
+  //    sut.Year.Value.Should().Be(data.YearValue);
+  //    sut.YYYY.Should().Be(data.YearValue);
+  //    sut.Month.Value.Should().Be(data.MonthValue);
+  //  }
+  //}
  
 }

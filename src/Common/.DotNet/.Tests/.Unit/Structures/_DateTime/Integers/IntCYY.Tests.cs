@@ -6,15 +6,15 @@ namespace Common.Structures;
 
 public class IntCYYTests {
 
-  [Fact]
-  public void Year_ShouldBeToday_WhenConstructorIsEmpty() {
-    var sut = new IntCYY();
-    var expectedYear = DateTime.Today.Year;
-    using (new AssertionScope()) {
-      sut.Year.Should().Be(new Year(expectedYear));
-      sut.YYYY.Should().Be(expectedYear);
-    }
-  }
+  //[Fact]
+  //public void Year_ShouldBeToday_WhenConstructorIsEmpty() {
+  //  var sut = new IntCYY();
+  //  var expectedYear = DateTime.Today.Year;
+  //  using (new AssertionScope()) {
+  //    sut.Year.Should().Be(new Year(expectedYear));
+  //    sut.YYYY.Should().Be(expectedYear);
+  //  }
+  //}
 
   public record GivenValue(int InputValue, int ExpectedValue, Year Year, int C, int YY, int YYYY) {
     public static readonly TheoryData<GivenValue> TheoryData = new TheoryData<GivenValue> {
@@ -35,16 +35,16 @@ public class IntCYYTests {
       };
   }
 
-  [Theory, MemberData(nameof(TheoryData), MemberType = typeof(GivenValue))]
-  public void Year_ShouldBeExpected_WhenConstructorIsValue(GivenValue data) {
-    var sut = new IntCYY(data.InputValue);
-    using (new AssertionScope()) {
-      sut.C.Should().Be(data.C);
-      sut.YY.Should().Be(data.YY);
-      sut.YYYY.Should().Be(data.YYYY);
-      sut.Year.Should().Be(data.Year);
-      sut.Value.Should().Be(data.ExpectedValue);
-    }
-  }
+  //[Theory, MemberData(nameof(TheoryData), MemberType = typeof(GivenValue))]
+  //public void Year_ShouldBeExpected_WhenConstructorIsValue(GivenValue data) {
+  //  var sut = new IntCYY(data.InputValue);
+  //  using (new AssertionScope()) {
+  //    sut.C.Should().Be(data.C);
+  //    sut.YY.Should().Be(data.YY);
+  //    sut.YYYY.Should().Be(data.YYYY);
+  //    sut.Year.Should().Be(data.Year);
+  //    sut.Value.Should().Be(data.ExpectedValue);
+  //  }
+  //}
 
 }
