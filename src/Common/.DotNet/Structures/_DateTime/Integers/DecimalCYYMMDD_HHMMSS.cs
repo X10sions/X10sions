@@ -50,6 +50,8 @@ public static class DecimalCYYMMDD_HHMMSSExtensions {
   //public static Year ToYear(this int yyyy) => new(yyyy);
   //public static IntCYYMM ToIntCYYMM(this int cyymm) => new IntCYYMM(cyymm);
   //public static IntCYYMMDD ToIntCYYMMDD(this int cyymmdd) => new IntCYYMMDD(cyymmdd);
+  public static DecimalCYYMMDD_HHMMSS ToDecimalCYYMMDD_HHMMSS(this int cyymmdd, int hhmmss = 0) =>  new DecimalCYYMMDD_HHMMSS(cyymmdd, hhmmss);
+  public static DecimalCYYMMDD_HHMMSS? ToDecimalCYYMMDD_HHMMSS(this int? cyymmdd, int hhmmss = 0) =>  cyymmdd.HasValue ?  cyymmdd.Value.ToDecimalCYYMMDD_HHMMSS(hhmmss) : null;
   //public static DecimalCYYMMDD_HHMMSS ToIntCYYMMDD_HHMMSS(this int cyymmdd, int hhmmss = 0) => new DecimalCYYMMDD_HHMMSS(cyymmdd, hhmmss);
   //public static DecimalCYYMMDD_HHMMSS ToIntCYYMMDD_HHMMSS(this int year, int month, int day, int hour = 0, int minute = 0, int second = 0, int millisecond = 0) => new DecimalCYYMMDD_HHMMSS(year, month, day, hour, minute, second, millisecond);
   //public static IntHHMMSS ToIntHHMMSS(this int hhmmss) => new IntHHMMSS(hhmmss);
