@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 
-namespace Common.Data.Specification;
+namespace Common.Data.Specifications;
 
 public interface IOrderedSpecificationBuilder<T> : ISpecificationBuilder<T> {
   bool IsChainDiscarded { get; set; }

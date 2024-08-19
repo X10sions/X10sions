@@ -17,5 +17,6 @@
   </ItemGroup>
   <ItemGroup Label="ProjectReferences">
     <ProjectReference Include="..\..\x\xSystem\.DotNetStandard\xSystem.DotNetStandard.csproj" />
+    <ProjectReference Include="..\.Analyzers\Common.Analyzers.csproj" />
   </ItemGroup>
 </Project>

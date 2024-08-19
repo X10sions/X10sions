@@ -1,5 +1,4 @@
-﻿
-namespace NSubstitute;
+﻿namespace NSubstitute;
 public static class GetSubstitute {
 
   public static TimeProvider ForTimeProvider() {

@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 
-namespace Common.Data.Specification;
+namespace Common.Data.Specifications;
 
 public interface ISearchExpressionInfo<T> {
    Expression<Func<T, string>> Selector { get; }

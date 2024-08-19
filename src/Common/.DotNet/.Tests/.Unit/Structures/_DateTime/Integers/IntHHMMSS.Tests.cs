@@ -15,12 +15,12 @@ public class IntHHMMSSTests(ITestOutputHelper testOutputHelper) {
   [Fact]
   public void DateOnly_ShouldBeToday_WhenConstructorIsEmpty() {
     var sut = new IntHHMMSS();
-    var now = TimeProvider.System.GetLocalNow().DateTime;
+    var expected = TimeProvider.System.GetLocalNow().DateTime;
     using (new AssertionScope()) {
-      sut.Hour.Value.Should().Be(now.Hour);
-      sut.Minute.Value.Should().Be(now.Minute);
-      sut.Second.Value.Should().Be(now.Second);
-      sut.TimeOnly.Should().BeCloseTo(now.ToTimeOnly(), TimeSpan.FromSeconds(1));
+      sut.Hour.Value.Should().Be(expected.Hour);
+      sut.Minute.Value.Should().Be(expected.Minute);
+      sut.Second.Value.Should().Be(expected.Second);
+      sut.TimeOnly.Should().BeCloseTo(expected.ToTimeOnly(), TimeSpan.FromSeconds(1));
     }
   }
 

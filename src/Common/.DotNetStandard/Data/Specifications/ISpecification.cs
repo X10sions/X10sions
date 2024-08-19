@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 
-namespace Common.Data.Specification;
+namespace Common.Data.Specifications;
 
 /// <summary>
 /// Based on https://github.com/ardalis/Specification/tree/main/Specification/src/Ardalis.Specification

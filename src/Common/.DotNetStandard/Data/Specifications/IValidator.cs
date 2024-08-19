@@ -1,4 +1,4 @@
-﻿namespace Common.Data.Specification;
+﻿namespace Common.Data.Specifications;
 
 public interface IValidator {
   bool IsValid<T>(T entity, ISpecification<T> specification);

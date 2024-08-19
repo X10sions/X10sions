@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 
-namespace Common.Data.Specification;
+namespace Common.Data.Specifications;
 
 public interface IIncludableSpecificationBuilder<T, out TProperty> : ISpecificationBuilder<T> where T : class {
   bool IsChainDiscarded { get; set; }

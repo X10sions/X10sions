@@ -16,7 +16,7 @@ public static class IPagedListExtensions {
       var chunk = superset.Skip(i * take).Take(take).ToList();
       if (chunk.Any()) {
         result.Add(chunk);
-      };
+      }
     }
     return result;
   }

@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 
-namespace Common.Data.Specification;
+namespace Common.Data.Specifications;
 
 public interface IOrderExpressionInfo<T> {
   Expression<Func<T, object?>> KeySelector { get; }

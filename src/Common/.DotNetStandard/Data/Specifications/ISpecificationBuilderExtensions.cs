@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 
-namespace Common.Data.Specification;
+namespace Common.Data.Specifications;
 public static class ISpecificationBuilderExtensions {
   public static ISpecificationBuilder<T> Where<T>(this ISpecificationBuilder<T> specificationBuilder, Expression<Func<T, bool>> criteria)
       => Where(specificationBuilder, criteria, true);

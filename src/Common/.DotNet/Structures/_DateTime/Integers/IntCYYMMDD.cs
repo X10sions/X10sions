@@ -2,7 +2,7 @@
 using System.Linq.Expressions;
 
 namespace Common.Structures;
-public readonly record struct IntCYYMMDD : IValueObject<int>,
+public readonly record struct IntCYYMMDD(int Value) : IValueObject<int>,
   IComparable,
   IComparable<IntCYYMMDD>,
   IComparable<DateOnly>,
@@ -20,37 +20,19 @@ public readonly record struct IntCYYMMDD : IValueObject<int>,
   IEquatable<int>,
   IEquatable<string> {
 
-  public IntCYYMMDD() : this(DateTime.Now) { }
-  public IntCYYMMDD(int value) {
-    Value = value.Clamp(MinValue, MaxValue);
-  }
-  public IntCYYMMDD(int c, int yy, int mm, int dd) {
-    C = c.Clamp(MinC, MaxC);
-    YY = yy.Clamp(MinYY, MaxYY);
-    MM = mm.Clamp(MinMM, MaxMM);
-    DD = dd.Clamp(MinDD, MaxDD);
-    Value = (C * 1000000 + YY * 10000 + MM * 100 + dd).Clamp(MinValue, MaxValue);
+  public IntCYYMMDD() : this(TimeProvider.System.GetLocalNow().Date) { }
+  public IntCYYMMDD(int c, int yy, int mm, int dd) : this(
+    1000000 * c.Clamp(MinC, MaxC) +
+    10000 * yy.Clamp(MinYY, MaxYY) +
+    100 * mm.Clamp(MinMM, MaxMM) +
+    dd.Clamp(MinDD, MaxDD)) { }
 
-    Year = new Year(YY);
-    Month = new Month(MM);
-
-    //YYYY = YY + 1900;
-
-    DateOnly = new(Year.Value, Month.Value, DD.Clamp(1, MaxDaysInMonth));
-  }
   public IntCYYMMDD(DateTime dt) : this(dt.ToDateOnly()) { }
-  public IntCYYMMDD(DateOnly d) {
-    Year = new(d.Year);
-    Month = new (d.Month);
-
-    C = d.Year - 1900;
-    YY = d.Year-1900;
-    MM = d.Month;
-    DD = d.Day;
-    Value = C * 1000000 + YY * 10000 + MM * 100 + DD;
-    //=> new(Year.Value, Month.Value, DD.Clamp(1, MaxDaysInMonth));
-    DateOnly = d;
-  }
+  public IntCYYMMDD(DateOnly d) : this(
+    10000 * d.Year - 1900 +
+    100 * d.Month +
+    d.Day
+    ) { }
 
   //IntCYYMMDD(Year yyyy, Month mm, Day dd) : this(new DateTime(yyyy.Value, mm.Value, dd.Value)) { }
   //IntCYYMMDD(IntC c, IntYY yy, Month mm, Day dd) : this(c.Value * 1000000 + yy.Value * 10000 + mm.Value * 100 + dd.Value) { }
@@ -62,25 +44,25 @@ public readonly record struct IntCYYMMDD : IValueObject<int>,
   public IntCYYMMDD(DecimalCYYMMDD_HHMMSS cyymmdd_hmmss) : this(cyymmdd_hmmss.Value) { }
   IntCYYMMDD(decimal cyymmdd_hhmmss) : this((int)cyymmdd_hhmmss) { }
 
-  public int Value { get; }
+  public int Value { get; init; } = Value.Clamp(MinValue, MaxValue);
 
-  public DateOnly DateOnly { get; }
+  public DateOnly DateOnly => new(Year.Value, Month.Value, DD.Clamp(1, MaxDaysInMonth));
   public DateTime DateTime => DateOnly.ToDateTime(TimeOnly.MinValue);
   public int MaxDaysInMonth => Month.DaysInMonth(Year);
 
-  public int C { get; }// => CYY / 100;
-  public int CYY => C * 100 + YY; //IntCYYMM.CYY;
-  public int CYYMM => CYY * 100 + MM;// IntCYYMM.Value;
-  public int DD { get; }// => Value % 100;
-  public int MM { get; }// => IntCYYMM.MM;
-  public int YY { get; }//=> IntCYYMM.CYY;
-  public int YYYY { get; } // IntCYYMM.YYYY;
+  public int C => CYY / 100;
+  public int CYY => CYYMM / 100;
+  public int CYYMM => Value / 100;// CYY * 100 + MM;// IntCYYMM.Value;
+  public int DD => Value % 100;
+  public int MM => CYYMM % 100; // => IntCYYMM.MM;
+  public int YY => CYY % 100;//=> IntCYYMM.CYY;
+  public int YYYY => CYY + 1900;// IntCYYMM.YYYY;
   public int YYMMDD => (YY * 10000) + (MM * 100) + DD;
   //public IntC IntC => new(this);
   //public IntCYY IntCYY => new(this);
   //public IntCYYMM IntCYYMM => new(Value / 100);
-  public Month Month { get; }// => new(MM);// IntCYYMM.Month;
-  public Year Year { get; }//=> new(YYYY);// IntCYYMM.Year;
+  public Month Month => new(MM);// IntCYYMM.Month;
+  public Year Year => new(YYYY);// IntCYYMM.Year;
   public bool IsValid => Value.IsBetween(MinValidCYYMMDD, MaxValidCYYMMDD);
 
   //public DateTime? DateWithTime(IntHHMMSS hhmmss) => DateOnly.ToDateTime(hhmmss.TimeOnly);
@@ -109,7 +91,7 @@ public readonly record struct IntCYYMMDD : IValueObject<int>,
   public static readonly IntCYYMMDD Max = new(9999999);
   /// <summary>1901-01-01</summary>
   public static readonly IntCYYMMDD MinValid = new(101);
-  /// <summary>9999-12-31</summary>
+  /// <summary>2899-12-31</summary>
   public static readonly IntCYYMMDD MaxValid = new(9991231);
   #endregion
 

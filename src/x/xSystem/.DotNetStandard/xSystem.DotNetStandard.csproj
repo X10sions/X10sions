@@ -14,7 +14,5 @@
     <PackageReference Include="Microsoft.Bcl.HashCode" Version="1.1.1" />
     <PackageReference Include="Microsoft.Bcl.Numerics" Version="8.0.0" />
     <PackageReference Include="Microsoft.Bcl.TimeProvider" Version="8.0.1" />
-  </ItemGroup>
-
-  
+  </ItemGroup> 
 </Project>

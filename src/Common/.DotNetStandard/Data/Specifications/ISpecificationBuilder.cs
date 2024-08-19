@@ -1,4 +1,4 @@
-﻿namespace Common.Data.Specification;
+﻿namespace Common.Data.Specifications;
 
 public interface ISpecificationBuilder<T> {
   ISpecification<T> Specification { get; }

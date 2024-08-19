@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 
-namespace Common.Data.Specification;
+namespace Common.Data.Specifications;
 
 public abstract class Specification<T, TResult> : Specification<T>, ISpecification<T, TResult> {
   protected new virtual ISpecificationBuilder<T, TResult> Query { get; }
