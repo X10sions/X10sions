@@ -6,6 +6,6 @@
     <VersionPart2>2</VersionPart2>
   </PropertyGroup>
   <ItemGroup Label="PackageReferences">
-    <PackageReference Include="FreeSql.Provider.Custom" Version="3.2.686" />
+    <PackageReference Include="FreeSql.Provider.Custom" Version="3.2.833" />
   </ItemGroup>
 </Project>

@@ -6,7 +6,7 @@
     <RootNamespace>X10sions.Playground</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.7.1" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Common\.DotNet\Common.DotNet.csproj" />

@@ -8,12 +8,12 @@
     <IsPackable>false</IsPackable>
   </PropertyGroup>
   <ItemGroup Label="PackageReferences">
-    <PackageReference Include="Microsoft.Playwright.MSTest" Version="1.44.0" />
-    <PackageReference Include="MSTest.Analyzers" Version="3.4.3" ExcludeAssets="compile" />
-    <PackageReference Include="MSTest.TestAdapter" Version="3.4.3" />
-    <PackageReference Include="MSTest.TestFramework" Version="3.4.3" />
+    <PackageReference Include="Microsoft.Playwright.MSTest" Version="1.46.0" />
+    <PackageReference Include="MSTest.Analyzers" Version="3.5.2" ExcludeAssets="compile" />
+    <PackageReference Include="MSTest.TestAdapter" Version="3.5.2" />
+    <PackageReference Include="MSTest.TestFramework" Version="3.5.2" />
     <PackageReference Include="Reqnroll.MsTest" Version="2.0.3" />
-    <PackageReference Include="Verify.MSTest" Version="25.0.2" />
+    <PackageReference Include="Verify.MSTest" Version="26.2.0" />
   </ItemGroup>
   <ItemGroup Label="ProjectReferences">
     <ProjectReference Include="..\Common.Testing.csproj" />

@@ -7,7 +7,7 @@
     <RootNamespace>X10sions.Playground.Wpf</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebView.Wpf" Version="8.0.40" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebView.Wpf" Version="8.0.80" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\.Razor\.Components\X10sions.Playground.Razor.Components.csproj" />

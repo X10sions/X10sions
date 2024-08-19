@@ -16,6 +16,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup Label="PackageReferences">
-    <PackageReference Include="PuppeteerSharp" Version="18.0.1" />
+    <PackageReference Include="PuppeteerSharp" Version="18.1.0" />
   </ItemGroup>
 </Project>

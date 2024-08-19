@@ -7,6 +7,6 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup Label="PackageReferences">
-    <PackageReference Include="System.Linq.Dynamic.Core" Version="1.3.14" />
+    <PackageReference Include="System.Linq.Dynamic.Core" Version="1.4.4" />
   </ItemGroup>
 </Project>

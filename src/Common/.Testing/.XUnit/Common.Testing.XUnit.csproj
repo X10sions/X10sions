@@ -5,16 +5,16 @@
   </PropertyGroup>
   <ItemGroup Label="PackageReferences">
     <PackageReference Include="Meziantou.Extensions.Logging.Xunit" Version="1.0.7" />
-    <PackageReference Include="Meziantou.Xunit.ParallelTestFramework" Version="2.2.0" />
+    <PackageReference Include="Meziantou.Xunit.ParallelTestFramework" Version="2.3.0" />
     <!-- 
     <PackageReference Include="Reqnroll.xUnit" Version="2.0.3" />
     -->
     <PackageReference Include="Roslynator.Testing.CSharp.Xunit" Version="4.12.4" />
-    <PackageReference Include="Verify.Xunit" Version="25.0.2" />
-    <PackageReference Include="xunit" Version="2.8.1" />
-    <PackageReference Include="xunit.analyzers" Version="1.14.0" ExcludeAssets="compile" />
-    <PackageReference Include="Xunit.Combinatorial" Version="1.4.1" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.8.1" ExcludeAssets="compile" />
+    <PackageReference Include="Verify.Xunit" Version="26.2.0" />
+    <PackageReference Include="xunit" Version="2.9.0" />
+    <PackageReference Include="xunit.analyzers" Version="1.15.0" ExcludeAssets="compile" />
+    <PackageReference Include="Xunit.Combinatorial" Version="1.6.24" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2" ExcludeAssets="compile" />
   </ItemGroup>
   <ItemGroup Label="ProjectReferences">
     <ProjectReference Include="..\Common.Testing.csproj" />

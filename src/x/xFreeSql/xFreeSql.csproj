@@ -17,7 +17,7 @@
     <None Remove="v3_2_687\_Providers\DB2iSeries\NotUsed\**" />
   </ItemGroup>
   <ItemGroup Label="PackageReferences">
-    <PackageReference Include="FreeSql" Version="3.2.687" />
+    <PackageReference Include="FreeSql" Version="3.2.833" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
   </ItemGroup>
 </Project>

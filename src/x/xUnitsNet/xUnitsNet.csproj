@@ -6,6 +6,6 @@
     <VersionPart2>52</VersionPart2>
   </PropertyGroup>
   <ItemGroup Label="PackageReferences">
-    <PackageReference Include="UnitsNet" Version="5.52.0" />
+    <PackageReference Include="UnitsNet" Version="5.56.0" />
   </ItemGroup>
 </Project>
