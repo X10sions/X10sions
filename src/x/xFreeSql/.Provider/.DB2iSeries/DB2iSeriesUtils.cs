@@ -6,15 +6,12 @@ using System.Data.Odbc;
 using System.Globalization;
 using System.Text;
 
-namespace FreeSql.Odbc.DB2iSeries;
+namespace FreeSql.DB2i;
 
-public class OdbcDB2iSeriesUtils : CommonUtils {
-  public OdbcDB2iSeriesUtils(IFreeSql orm) : base(orm) {
-  }
-
+public class DB2iUtils(IFreeSql orm) : CommonUtils(orm) {
   public bool IsSelectRowNumber => ServerVersion <= 10;
   public bool IsDB2iSeries2005 => ServerVersion == 9;
-  public int ServerVersion = 0;
+  public int ServerVersion { get; set; }
 
   public override DbParameter AppendParamter(List<DbParameter> _params, string parameterName, ColumnInfo col, Type type, object value) {
     if (string.IsNullOrEmpty(parameterName)) parameterName = $"p_{_params?.Count}";
@@ -35,8 +32,9 @@ public class OdbcDB2iSeriesUtils : CommonUtils {
         return ret;
       });
 
-  public override string FormatSql(string sql, params object[] args) => sql?.FormatOdbcDB2iSeries(args);
-  public override string QuoteSqlName(params string[] name) {
+  public override string FormatSql(string sql, params object[] args) => (_orm?.Ado as DB2iAdo)?.Addslashes(sql, args);
+
+  public override string QuoteSqlNameAdapter(params string[] name) {
     if (name.Length == 1) {
       var nametrim = name[0].Trim();
       if (nametrim.StartsWith("(") && nametrim.EndsWith(")"))
@@ -47,6 +45,7 @@ public class OdbcDB2iSeriesUtils : CommonUtils {
     }
     return $"[{string.Join("].[", name)}]";
   }
+
   public override string TrimQuoteSqlName(string name) {
     var nametrim = name.Trim();
     if (nametrim.StartsWith("(") && nametrim.EndsWith(")"))

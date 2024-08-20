@@ -2,6 +2,7 @@
   <PropertyGroup Label="Application">
     <TargetFramework>netstandard2.0</TargetFramework>
     <Product>FreeSql.Provider.Custom</Product>
+    <RootNamespace>FreeSql</RootNamespace>
     <VersionPart1>3</VersionPart1>
     <VersionPart2>2</VersionPart2>
   </PropertyGroup>

@@ -5,14 +5,14 @@ using System.Data.Common;
 using System.Data.Odbc;
 using System.Text.RegularExpressions;
 
-namespace FreeSql.Odbc.DB2iSeries;
+namespace FreeSql.DB2i;
 
-class OdbcDB2iSeriesConnectionPool : ObjectPool<DbConnection> {
+class DB2iConnectionPool : ObjectPool<DbConnection> {
 
   internal Action availableHandler;
   internal Action unavailableHandler;
 
-  public OdbcDB2iSeriesConnectionPool(string name, string connectionString, Action? availableHandler, Action? unavailableHandler) : base(null) {
+  public DB2iConnectionPool(string name, string connectionString, Action? availableHandler, Action? unavailableHandler) : base(null) {
     this.availableHandler = availableHandler;
     this.unavailableHandler = unavailableHandler;
     var policy = new OdbcDB2iSeriesConnectionPoolPolicy {
@@ -34,7 +34,7 @@ class OdbcDB2iSeriesConnectionPool : ObjectPool<DbConnection> {
 
 class OdbcDB2iSeriesConnectionPoolPolicy : IPolicy<DbConnection> {
 
-  internal OdbcDB2iSeriesConnectionPool _pool;
+  internal DB2iConnectionPool _pool;
   public string Name { get; set; } = $"DB2iSeries OdbcConnection {CoreStrings.S_ObjectPool}";
   public int PoolSize { get; set; } = 100;
   public TimeSpan SyncGetTimeout { get; set; } = TimeSpan.FromSeconds(10);

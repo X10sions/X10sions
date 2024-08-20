@@ -5,27 +5,27 @@ using System.Collections;
 using System.Data.Common;
 using System.Data.Odbc;
 
-namespace FreeSql.Odbc.DB2iSeries;
+namespace FreeSql.DB2i;
 
-class OdbcDB2iSeriesAdo : Internal.CommonProvider.xAdoProvider {
-  public OdbcDB2iSeriesAdo() : base(xDataType.OdbcDB2iSeries, null, null) { }
-  public OdbcDB2iSeriesAdo(CommonUtils util, string masterConnectionString, string[] slaveConnectionStrings, Func<DbConnection> connectionFactory) : base(xDataType.OdbcDB2iSeries, masterConnectionString, slaveConnectionStrings) {
-    base._util = util;
+class DB2iAdo : Internal.CommonProvider.AdoProvider {
+  public DB2iAdo() : base(DataType.Odbc, null, null) { }
+  public DB2iAdo(CommonUtils util, string masterConnectionString, string[] slaveConnectionStrings, Func<DbConnection> connectionFactory) : base(DataType.Odbc, masterConnectionString, slaveConnectionStrings) {
+    _util = util;
     if (connectionFactory != null) {
-      MasterPool = new FreeSql.Internal.CommonProvider.xDbConnectionPool(xDataType.OdbcDB2iSeries, connectionFactory);
+      MasterPool = new FreeSql.Internal.CommonProvider.DbConnectionPool(DataType.Odbc, connectionFactory);
       return;
     }
     if (!string.IsNullOrEmpty(masterConnectionString))
-      MasterPool = new OdbcDB2iSeriesConnectionPool(CoreStrings.S_MasterDatabase, masterConnectionString, null, null);
+      MasterPool = new DB2iConnectionPool(CoreStrings.S_MasterDatabase, masterConnectionString, null, null);
     if (slaveConnectionStrings != null) {
       foreach (var slaveConnectionString in slaveConnectionStrings) {
-        var slavePool = new OdbcDB2iSeriesConnectionPool($"{CoreStrings.S_SlaveDatabase}{SlavePools.Count + 1}", slaveConnectionString, () => Interlocked.Decrement(ref slaveUnavailables), () => Interlocked.Increment(ref slaveUnavailables));
+        var slavePool = new DB2iConnectionPool($"{CoreStrings.S_SlaveDatabase}{SlavePools.Count + 1}", slaveConnectionString, () => Interlocked.Decrement(ref slaveUnavailables), () => Interlocked.Increment(ref slaveUnavailables));
         SlavePools.Add(slavePool);
       }
     }
   }
 
-  string[] ncharDbTypes = new[] { "NVARCHAR", "NCHAR", "NTEXT" };
+  string[] ncharDbTypes = ["NVARCHAR", "NCHAR", "NTEXT"];
   public override object AddslashesProcessParam(object param, Type mapType, ColumnInfo mapColumn) {
     if (param == null) return "NULL";
     if (mapType != null && mapType != param.GetType() && (param is IEnumerable == false))
@@ -62,7 +62,7 @@ class OdbcDB2iSeriesAdo : Internal.CommonProvider.xAdoProvider {
   public override DbCommand CreateCommand() => new OdbcCommand();
 
   public override void ReturnConnection(IObjectPool<DbConnection> pool, Object<DbConnection> conn, Exception ex) {
-    var rawPool = pool as OdbcDB2iSeriesConnectionPool;
+    var rawPool = pool as DB2iConnectionPool;
     if (rawPool != null) rawPool.Return(conn, ex);
     else pool.Return(conn);
   }
