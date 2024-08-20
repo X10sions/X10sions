@@ -3,7 +3,6 @@ using FreeSql.Internal.CommonProvider;
 using FreeSql.Internal.Model;
 using System.Linq.Expressions;
 using System.Text;
-using xFreeSql.v3_2_687.DB2iSeries;
 
 namespace FreeSql.DB2i;
 public enum DB2iProviderType { IBM, Odbc, OleDb }
