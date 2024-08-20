@@ -331,7 +331,7 @@ public class GenericDataProvider<TConnection> : DataProviderBase<TConnection>, I
     switch (DbSystem) {
       case var _ when DbSystem == DbSystem.Access: return new Access.AccessBulkCopy().BulkCopy(dataOptions.BulkCopyOptions.BulkCopyType == BulkCopyType.Default ? Access.AccessTools.DefaultBulkCopyType : dataOptions.BulkCopyOptions.BulkCopyType, table, dataOptions, source);
       default: return base.BulkCopy(dataOptions, table, source);
-    };
+    }
   }
 
   [UrlAsAt.AccessOdbcDataProviderDataProvider_2021_03_14]
@@ -340,7 +340,7 @@ public class GenericDataProvider<TConnection> : DataProviderBase<TConnection>, I
     switch (DbSystem) {
       case var _ when DbSystem == DbSystem.Access: return new Access.AccessBulkCopy().BulkCopyAsync(dataOptions.BulkCopyOptions.BulkCopyType == BulkCopyType.Default ? Access.AccessTools.DefaultBulkCopyType : dataOptions.BulkCopyOptions.BulkCopyType, table, dataOptions, source, cancellationToken);
       default: return base.BulkCopyAsync(dataOptions, table, source, cancellationToken);
-    };
+    }
   }
 
   [UrlAsAt.AccessOdbcDataProviderDataProvider_2021_03_14]
@@ -349,7 +349,7 @@ public class GenericDataProvider<TConnection> : DataProviderBase<TConnection>, I
     switch (DbSystem) {
       case var _ when DbSystem == DbSystem.Access: return new Access.AccessBulkCopy().BulkCopyAsync(dataOptions.BulkCopyOptions.BulkCopyType == BulkCopyType.Default ? Access.AccessTools.DefaultBulkCopyType : dataOptions.BulkCopyOptions.BulkCopyType, table, dataOptions, source, cancellationToken);
       default: return base.BulkCopyAsync(dataOptions, table, source, cancellationToken);
-    };
+    }
   }
 
   public override ISqlBuilder CreateSqlBuilder(MappingSchema mappingSchema, DataOptions dataOptions) => new GenericSqlBuilder(this, DataSourceInformationRow, mappingSchema, dataOptions, GetSqlOptimizer(dataOptions), SqlProviderFlags);
@@ -362,7 +362,7 @@ public class GenericDataProvider<TConnection> : DataProviderBase<TConnection>, I
       case var _ when DbSystem == DbSystem.Access: SetParameter_Access(dataConnection, parameter, name, dataType, value); break;
         //case DbSystem.Names.DB2iSeries: SetParameter_DB2iSeries_MTGFS01(dataConnection, parameter, name, dataType, value); break;
         //default: base.SetParameter(dataConnection, parameter, name, dataType, value); break;
-    };
+    }
     base.SetParameter(dataConnection, parameter, name, dataType, value);
   }
 
@@ -407,7 +407,7 @@ public class GenericDataProvider<TConnection> : DataProviderBase<TConnection>, I
     switch (DbSystem) {
       case var _ when DbSystem == DbSystem.Access: SetParameterType_Access(dataConnection, parameter, dataType); break;
       default: base.SetParameterType(dataConnection, parameter, dataType); break;
-    };
+    }
   }
 
   [UrlAsAt.AccessOdbcDataProviderDataProvider_2021_03_14]

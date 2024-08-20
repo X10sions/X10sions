@@ -13,7 +13,7 @@ public class IntHHMMSSTests(ITestOutputHelper testOutputHelper) {
   readonly TimeProvider timeProvider = GetSubstitute.ForTimeProvider();
 
   [Fact]
-  public void DateOnly_ShouldBeToday_WhenConstructorIsEmpty() {
+  public void ConstructorTests_GivenEmpty_ShouldBeNow() {
     var sut = new IntHHMMSS();
     var expected = TimeProvider.System.GetLocalNow().DateTime;
     using (new AssertionScope()) {
@@ -40,7 +40,7 @@ public class IntHHMMSSTests(ITestOutputHelper testOutputHelper) {
   }
 
   [Theory, MemberData(nameof(GivenTimeOnly.TheoryData), MemberType = typeof(GivenTimeOnly))]
-  public void Value_ShouldBeExpected_WhenConstructorIsTimeOnly(GivenTimeOnly data) {
+  public void ConstructorTests_GivenTimeOnly(GivenTimeOnly data) {
     var sut = new IntHHMMSS(data.TimeOnly);
     using (new AssertionScope()) {
       sut.TimeOnly.Should().Be(data.TimeOnly);
@@ -105,15 +105,15 @@ public class IntHHMMSSTests(ITestOutputHelper testOutputHelper) {
       new ( 249999, 249999, new(23, 59, 59), 24, 99, 99),
       new ( 990000, 990000, new(23,  0,  0), 99,  0,  0),
       new ( 990724, 990724, new(23,  7, 24), 99,  7, 24),
-      new ( 990799, 990799, new(23,  7, 31), 99,  7, 99),
+      new ( 990799, 990799, new(23,  7, 59), 99,  7, 99),
       new ( 991231, 991231, new(23, 12, 31), 99, 12, 31),
       new ( 999999, IntHHMMSS.MaxValue, new(23, 59, 59), 99, 99, 99),
-      new (1000000, IntHHMMSS.MaxValue, new(23, 59, 59), 99,  0,  0),
+      new (1000000, IntHHMMSS.MaxValue, new(23, 59, 59), 99, 99, 99),
     };
   }
 
   [Theory, MemberData(nameof(GivenValue.TheoryData), MemberType = typeof(GivenValue))]
-  public void TimeOnlyOnly_ShouldBeExpected_WhenConstructorIsValue(GivenValue data) {
+  public void ConstructorTests_GivenValue(GivenValue data) {
     var sut = new IntHHMMSS(data.Value);
     using (new AssertionScope()) {
       sut.TimeOnly.Should().Be(data.TimeOnly);

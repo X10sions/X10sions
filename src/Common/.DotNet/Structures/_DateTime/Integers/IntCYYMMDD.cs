@@ -29,7 +29,7 @@ public readonly record struct IntCYYMMDD(int Value) : IValueObject<int>,
 
   public IntCYYMMDD(DateTime dt) : this(dt.ToDateOnly()) { }
   public IntCYYMMDD(DateOnly d) : this(
-    10000 * d.Year - 1900 +
+    10000 * (d.Year - 1900) +
     100 * d.Month +
     d.Day
     ) { }
