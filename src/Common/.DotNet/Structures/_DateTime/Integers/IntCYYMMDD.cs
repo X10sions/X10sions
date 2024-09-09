@@ -68,7 +68,7 @@ public readonly record struct IntCYYMMDD(int Value) : IValueObject<int>,
   //public DateTime? DateWithTime(IntHHMMSS hhmmss) => DateOnly.ToDateTime(hhmmss.TimeOnly);
 
   public string YYYY_MM_DD(string separator = "-") => $"{YYYY:0000}{separator}{MM:00}{separator}{DD:00}";
-  public string DD_MM_YYYY(string separator = "-") => $"{DD:00}{separator}{MM:00}{separator}{YYYY:0000}";
+  [Obsolete]public string DD_MM_YYYY(string separator = "-") => $"{DD:00}{separator}{MM:00}{separator}{YYYY:0000}";
 
   #region Min & Max Values
 
