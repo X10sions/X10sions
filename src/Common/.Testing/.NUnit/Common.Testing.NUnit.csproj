@@ -4,12 +4,12 @@
     <IsPackable>false</IsPackable>
   </PropertyGroup>
   <ItemGroup Label="PackageReferences">
-    <PackageReference Include="Microsoft.Playwright.NUnit" Version="1.46.0" />
-    <PackageReference Include="NUnit" Version="4.1.0" />
-    <PackageReference Include="NUnit.Analyzers" Version="4.3.0" ExcludeAssets="compile" />
+    <PackageReference Include="Microsoft.Playwright.NUnit" Version="1.48.0" />
+    <PackageReference Include="NUnit" Version="4.2.2" />
+    <PackageReference Include="NUnit.Analyzers" Version="4.4.0" ExcludeAssets="compile" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.6.0" />
-    <PackageReference Include="Reqnroll.NUnit" Version="2.0.3" />
-    <PackageReference Include="Verify.NUnit" Version="26.2.0" />
+    <PackageReference Include="Reqnroll.NUnit" Version="2.2.1" />
+    <PackageReference Include="Verify.NUnit" Version="28.3.2" />
     <!-- 
     <PackageReference Include="AutoFixture.Xunit2" Version="4.17.0" />
     -->
