@@ -4,17 +4,17 @@
     <IsPackable>false</IsPackable>
   </PropertyGroup>
   <ItemGroup Label="PackageReferences">
-    <PackageReference Include="Meziantou.Extensions.Logging.Xunit" Version="1.0.7" />
+    <PackageReference Include="Meziantou.Extensions.Logging.Xunit" Version="1.0.8" />
     <PackageReference Include="Meziantou.Xunit.ParallelTestFramework" Version="2.3.0" />
     <!-- 
     <PackageReference Include="Reqnroll.xUnit" Version="2.0.3" />
     -->
-    <PackageReference Include="Roslynator.Testing.CSharp.Xunit" Version="4.12.4" />
-    <PackageReference Include="Verify.Xunit" Version="26.2.0" />
-    <PackageReference Include="xunit" Version="2.9.0" />
-    <PackageReference Include="xunit.analyzers" Version="1.15.0" ExcludeAssets="compile" />
+    <PackageReference Include="Roslynator.Testing.CSharp.Xunit" Version="4.12.9" />
+    <PackageReference Include="Verify.Xunit" Version="28.3.2" />
+    <PackageReference Include="xunit" Version="2.9.2" />
+    <PackageReference Include="xunit.analyzers" Version="1.17.0" ExcludeAssets="compile" />
     <PackageReference Include="Xunit.Combinatorial" Version="1.6.24" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2" ExcludeAssets="compile" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="3.0.0-pre.49" ExcludeAssets="compile" />
   </ItemGroup>
   <ItemGroup Label="ProjectReferences">
     <ProjectReference Include="..\Common.Testing.csproj" />
