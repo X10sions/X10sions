@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
     <Nullable>enable</Nullable>
@@ -6,9 +6,9 @@
     <RootNamespace></RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Folder Include="Sql\" />
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="Delta" Version="6.4.0" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="6.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.6" />
+    <PackageReference Include="Npgsql" Version="9.0.3" />
   </ItemGroup>
 </Project>
