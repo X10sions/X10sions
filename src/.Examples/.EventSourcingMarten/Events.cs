@@ -1,5 +1,6 @@
 ﻿namespace X10sions.Examples.EventSourcingMarten;
 public class Events {
+
   public class OrderCreated {
     public Guid Id { get; set; } = Guid.CreateVersion7();
     public string ProductName { get; set; }
@@ -25,4 +26,5 @@ public class Events {
     public Guid Id { get; set; }
     public DateTime DeliveredAtUtc { get; set; }
   }
+
 }
