@@ -1,0 +1,6 @@
+@EventSourcingMarten_HostAddress = http://localhost:5059
+
+GET {{EventSourcingMarten_HostAddress}}/orders
+Accept: application/json
+
+###
