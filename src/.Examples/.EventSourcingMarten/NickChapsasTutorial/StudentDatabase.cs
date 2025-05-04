@@ -8,6 +8,13 @@ public class StudentDatabase {
   private readonly Dictionary<Guid, SortedList<DateTime, Event>> _studentEvents = new();
   private readonly Dictionary<Guid, Student> _students = new();
 
+  //private readonly IAmazonDynamoDB _amazonDynamoDB = new AmazonDynamoDBClient(Amazon.RegionEndpoint.EUWest2);
+  //private const string TableName = "students";
+
+  //public async Task AppendAmazonDynamoDBAsync<T>(T @event) where T: Event { 
+  //} 
+
+
   public void Append(Event @event) {
     var stream = _studentEvents!.GetValueOrDefault(@event.StreamId, null);
     if (stream is null) {
