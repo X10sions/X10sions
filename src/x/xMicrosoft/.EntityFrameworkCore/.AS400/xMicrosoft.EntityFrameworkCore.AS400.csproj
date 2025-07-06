@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup Label="Application">
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <Product>AS400 EntityFrameworkCore NetStandard Extensions</Product>
   </PropertyGroup>
   <ItemGroup>

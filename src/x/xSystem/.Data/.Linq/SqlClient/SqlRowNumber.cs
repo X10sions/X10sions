@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq.Expressions;
+using System.Data.Linq.SqlClient;
 
 namespace System.Data.Linq.SqlClient {
   internal class SqlRowNumber : SqlSimpleTypeExpression {

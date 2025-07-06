@@ -2,13 +2,14 @@
   <PropertyGroup Label="Application">
     <TargetFramework>netstandard2.0</TargetFramework>
     <Product>System.Management  NetStandard Extensions</Product>
-    <VersionPart1>5</VersionPart1>
+    <VersionPart1>8</VersionPart1>
     <VersionPart2>0</VersionPart2>
   </PropertyGroup>
   <ItemGroup Label="PackageReferences">
-    <PackageReference Include="System.Management" Version="5.0.0" />
+    <PackageReference Include="System.Management" Version="8.0.0" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Common\.Abstractions\Common.Abstractions.csproj" />
+    <ProjectReference Include="..\..\xWin32\xWin32.csproj" />
+    <ProjectReference Include="..\.DotNetStandard\xSystem.DotNetStandard.csproj" />
   </ItemGroup>  
 </Project>

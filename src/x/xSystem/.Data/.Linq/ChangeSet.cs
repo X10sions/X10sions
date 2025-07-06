@@ -2,8 +2,9 @@
 using System.Collections.ObjectModel;
 using System.Globalization;
 
-namespace System.Data.Linq {
-  public sealed class ChangeSet {
+namespace System.Data.Linq;
+
+public sealed class ChangeSet {
     private ReadOnlyCollection<object> inserts;
     private ReadOnlyCollection<object> deletes;
     private ReadOnlyCollection<object> updates;
@@ -25,5 +26,3 @@ namespace System.Data.Linq {
       }) + "}";
     }
   }
-
-}

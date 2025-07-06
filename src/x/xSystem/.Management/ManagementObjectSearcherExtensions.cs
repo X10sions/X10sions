@@ -1,11 +1,9 @@
-﻿using Common.Models.Win32;
-using System.Collections.Generic;
-using System.Linq;
+﻿using CIMv2;
 using System.Net;
 
 namespace System.Management {
-  public static class ManagementObjectSearcherExtensions {
 
+  public static class ManagementObjectSearcherExtensions {
     public static void GetNetworkPrinters() {
       foreach (var item in ListWin32_Printer(new ManagementObjectSearcher())) {
         var name = item.Name;
@@ -46,15 +44,16 @@ namespace System.Management {
     public static IEnumerable<Win32_ComputerSystem> ListWin32_ComputerSystem(this ManagementObjectSearcher mos, string nameOrIpAddress = null, ConnectionOptions connectionOptions = null) {
       mos.Scope = GetManagementScope(nameOrIpAddress, connectionOptions);
       mos.Query = new ObjectQuery($"SELECT * from {nameof(Win32_ComputerSystem)}");
-      return from ManagementObject x in mos.Get() select new Win32_ComputerSystem {
-        Caption = x.GetPropertyValue<string>(nameof(Win32_ComputerSystem.Caption)),
-        Domain = x.GetPropertyValue<string>(nameof(Win32_ComputerSystem.Domain)),
-        InstallDate = x.GetPropertyValue<DateTime>(nameof(Win32_ComputerSystem.InstallDate)),
-        Name = x.GetPropertyValue<string>(nameof(Win32_ComputerSystem.Name)),
-        Status = x.GetPropertyValue<string>(nameof(Win32_ComputerSystem.Status)),
-        UserName = x.GetPropertyValue<string>(nameof(Win32_ComputerSystem.UserName)),
-        Workgroup = x.GetPropertyValue<string>(nameof(Win32_ComputerSystem.Workgroup))
-      };
+      return from ManagementObject x in mos.Get()
+             select new Win32_ComputerSystem {
+               Caption = x.GetPropertyValue<string>(nameof(Win32_ComputerSystem.Caption)),
+               Domain = x.GetPropertyValue<string>(nameof(Win32_ComputerSystem.Domain)),
+               InstallDate = x.GetPropertyValue<DateTime>(nameof(Win32_ComputerSystem.InstallDate)),
+               Name = x.GetPropertyValue<string>(nameof(Win32_ComputerSystem.Name)),
+               Status = x.GetPropertyValue<string>(nameof(Win32_ComputerSystem.Status)),
+               UserName = x.GetPropertyValue<string>(nameof(Win32_ComputerSystem.UserName)),
+               Workgroup = x.GetPropertyValue<string>(nameof(Win32_ComputerSystem.Workgroup))
+             };
     }
 
     public static IEnumerable<Win32_Printer> ListWin32_Printer(this ManagementObjectSearcher @this, string nameOrIpAddress = null, ConnectionOptions connectionOptions = null) {
@@ -86,36 +85,37 @@ namespace System.Management {
     public static IEnumerable<Win32_PrintJob> ListWin32_PrintJob(this ManagementObjectSearcher mos, string nameOrIpAddress = null, ConnectionOptions connectionOptions = null) {
       mos.Scope = GetManagementScope(nameOrIpAddress, connectionOptions);
       mos.Query = new ObjectQuery($"SELECT * from {nameof(Win32_PrintJob)}");
-      return from ManagementObject x in mos.Get() select new Win32_PrintJob {
-        Color = x.GetPropertyValue<string>(nameof(Win32_PrintJob.Color)),
-        Caption = x.GetPropertyValue<string>(nameof(Win32_PrintJob.Caption)),
-        DataType = x.GetPropertyValue<string>(nameof(Win32_PrintJob.DataType)),
-        Description = x.GetPropertyValue<string>(nameof(Win32_PrintJob.Description)),
-        Document = x.GetPropertyValue<string>(nameof(Win32_PrintJob.Document)),
-        DriverName = x.GetPropertyValue<string>(nameof(Win32_PrintJob.DriverName)),
-        ElapsedTime = x.GetPropertyValue<DateTime>(nameof(Win32_PrintJob.ElapsedTime)),
-        HostPrintQueue = x.GetPropertyValue<string>(nameof(Win32_PrintJob.HostPrintQueue)),
-        InstallDate = x.GetPropertyValue<DateTime>(nameof(Win32_PrintJob.InstallDate)),
-        JobId = x.GetPropertyValue<uint>(nameof(Win32_PrintJob.JobId)),
-        JobStatus = x.GetPropertyValue<string>(nameof(Win32_PrintJob.JobStatus)),
-        Name = x.GetPropertyValue<string>(nameof(Win32_PrintJob.Name)),
-        Notify = x.GetPropertyValue<string>(nameof(Win32_PrintJob.Notify)),
-        Owner = x.GetPropertyValue<string>(nameof(Win32_PrintJob.Owner)),
-        PagesPrinted = x.GetPropertyValue<uint>(nameof(Win32_PrintJob.PagesPrinted)),
-        PaperLength = x.GetPropertyValue<uint>(nameof(Win32_PrintJob.PaperLength)),
-        PaperSize = x.GetPropertyValue<string>(nameof(Win32_PrintJob.PaperSize)),
-        PaperWidth = x.GetPropertyValue<uint>(nameof(Win32_PrintJob.PaperWidth)),
-        Parameters = x.GetPropertyValue<string>(nameof(Win32_PrintJob.Parameters)),
-        PrintProcessor = x.GetPropertyValue<string>(nameof(Win32_PrintJob.PrintProcessor)),
-        Priority = x.GetPropertyValue<uint>(nameof(Win32_PrintJob.Priority)),
-        Size = x.GetPropertyValue<uint>(nameof(Win32_PrintJob.Size)),
-        Status = x.GetPropertyValue<string>(nameof(Win32_PrintJob.Status)),
-        StartTime = x.GetPropertyValue<DateTime>(nameof(Win32_PrintJob.StartTime)),
-        StatusMask = x.GetPropertyValue<uint>(nameof(Win32_PrintJob.StatusMask)),
-        TimeSubmitted = x.GetPropertyValue<DateTime>(nameof(Win32_PrintJob.TimeSubmitted)),
-        TotalPages = x.GetPropertyValue<uint>(nameof(Win32_PrintJob.TotalPages)),
-        UntilTime = x.GetPropertyValue<DateTime>(nameof(Win32_PrintJob.UntilTime))
-      };
+      return from ManagementObject x in mos.Get()
+             select new Win32_PrintJob {
+               Color = x.GetPropertyValue<string>(nameof(Win32_PrintJob.Color)),
+               Caption = x.GetPropertyValue<string>(nameof(Win32_PrintJob.Caption)),
+               DataType = x.GetPropertyValue<string>(nameof(Win32_PrintJob.DataType)),
+               Description = x.GetPropertyValue<string>(nameof(Win32_PrintJob.Description)),
+               Document = x.GetPropertyValue<string>(nameof(Win32_PrintJob.Document)),
+               DriverName = x.GetPropertyValue<string>(nameof(Win32_PrintJob.DriverName)),
+               ElapsedTime = x.GetPropertyValue<DateTime>(nameof(Win32_PrintJob.ElapsedTime)),
+               HostPrintQueue = x.GetPropertyValue<string>(nameof(Win32_PrintJob.HostPrintQueue)),
+               InstallDate = x.GetPropertyValue<DateTime>(nameof(Win32_PrintJob.InstallDate)),
+               JobId = x.GetPropertyValue<uint>(nameof(Win32_PrintJob.JobId)),
+               JobStatus = x.GetPropertyValue<string>(nameof(Win32_PrintJob.JobStatus)),
+               Name = x.GetPropertyValue<string>(nameof(Win32_PrintJob.Name)),
+               Notify = x.GetPropertyValue<string>(nameof(Win32_PrintJob.Notify)),
+               Owner = x.GetPropertyValue<string>(nameof(Win32_PrintJob.Owner)),
+               PagesPrinted = x.GetPropertyValue<uint>(nameof(Win32_PrintJob.PagesPrinted)),
+               PaperLength = x.GetPropertyValue<uint>(nameof(Win32_PrintJob.PaperLength)),
+               PaperSize = x.GetPropertyValue<string>(nameof(Win32_PrintJob.PaperSize)),
+               PaperWidth = x.GetPropertyValue<uint>(nameof(Win32_PrintJob.PaperWidth)),
+               Parameters = x.GetPropertyValue<string>(nameof(Win32_PrintJob.Parameters)),
+               PrintProcessor = x.GetPropertyValue<string>(nameof(Win32_PrintJob.PrintProcessor)),
+               Priority = x.GetPropertyValue<uint>(nameof(Win32_PrintJob.Priority)),
+               Size = x.GetPropertyValue<uint>(nameof(Win32_PrintJob.Size)),
+               Status = x.GetPropertyValue<string>(nameof(Win32_PrintJob.Status)),
+               StartTime = x.GetPropertyValue<DateTime>(nameof(Win32_PrintJob.StartTime)),
+               StatusMask = x.GetPropertyValue<uint>(nameof(Win32_PrintJob.StatusMask)),
+               TimeSubmitted = x.GetPropertyValue<DateTime>(nameof(Win32_PrintJob.TimeSubmitted)),
+               TotalPages = x.GetPropertyValue<uint>(nameof(Win32_PrintJob.TotalPages)),
+               UntilTime = x.GetPropertyValue<DateTime>(nameof(Win32_PrintJob.UntilTime))
+             };
     }
 
     public static IEnumerable<Win32_Process> ListWin32_Process(this ManagementObjectSearcher @this, string nameOrIpAddress = null, ConnectionOptions connectionOptions = null) {
@@ -133,15 +133,16 @@ namespace System.Management {
     public static IEnumerable<Win32_Share> ListWin32_Shares(this ManagementObjectSearcher mos, string nameOrIpAddress = null, ConnectionOptions connectionOptions = null) {
       mos.Scope = GetManagementScope(nameOrIpAddress, connectionOptions);
       mos.Query = new ObjectQuery($"SELECT * from {nameof(Win32_Share)}");
-      return from ManagementObject x in mos.Get() select new Win32_Share {
-        Caption = x.GetPropertyValue<string>(nameof(Win32_Share.Caption)),
-        Description = x.GetPropertyValue<string>(nameof(Win32_Share.Description)),
-        InstallDate = x.GetPropertyValue<DateTime>(nameof(Win32_Share.InstallDate)),
-        Name = x.GetPropertyValue<string>(nameof(Win32_Share.Name)),
-        Path = x.GetPropertyValue<string>(nameof(Win32_Share.Path)),
-        Status = x.GetPropertyValue<string>(nameof(Win32_Share.Status)),
-        Type = x.GetPropertyValue<uint>(nameof(Win32_Share.Type)),
-      };
+      return from ManagementObject x in mos.Get()
+             select new Win32_Share {
+               Caption = x.GetPropertyValue<string>(nameof(Win32_Share.Caption)),
+               Description = x.GetPropertyValue<string>(nameof(Win32_Share.Description)),
+               InstallDate = x.GetPropertyValue<DateTime>(nameof(Win32_Share.InstallDate)),
+               Name = x.GetPropertyValue<string>(nameof(Win32_Share.Name)),
+               Path = x.GetPropertyValue<string>(nameof(Win32_Share.Path)),
+               Status = x.GetPropertyValue<string>(nameof(Win32_Share.Status)),
+               Type = x.GetPropertyValue<uint>(nameof(Win32_Share.Type)),
+             };
     }
 
     #region Mappings

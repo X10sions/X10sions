@@ -1,20 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup Label="Application">
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <Product>Common NetCoreApp</Product>
     <VersionPart1>3</VersionPart1>
     <VersionPart2>1</VersionPart2>
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.RazorPages" Version="2.2.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.8" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.RazorPages" Version="2.1.11" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.8" />
+    <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="8.0.8" />
   </ItemGroup>
-  <ItemGroup Label="ProjectReferences">
-    <!-- 
-    <ProjectReference Include="$(RepoSrcDir_X10sions)x\xMicrosoft\.AspNetcore\xMicrosoft.AspNetcore.csproj" />
-    <ProjectReference Include="$(RepoSrcDir_X10sions)x\xMicrosoft\.Extensions\xMicrosoft.Extensions.csproj" />
-    -->
-    <ProjectReference Include="..\..\x\xMicrosoft\.AspNetCore\xMicrosoft.AspNetCore.csproj" />
-    <ProjectReference Include="..\..\x\xMicrosoft\.Extensions\xMicrosoft.Extensions.csproj" />
+  <ItemGroup>
+    <Folder Include="AspNetCore\Mvc\" />
   </ItemGroup>
 </Project>

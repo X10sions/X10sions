@@ -1,5 +1,6 @@
-﻿using CleanOnionExample.Data.Entities;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using X10sions.Fake.Features.Account;
+using X10sions.Fake.Features.Owner;
 
 namespace CleanOnionExample.Data.DbContexts;
 

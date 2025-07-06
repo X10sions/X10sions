@@ -1,5 +1,4 @@
 ﻿using Kbg.NppPluginNET.PluginInfrastructure;
-using System;
 using System.Collections;
 using System.Collections.Concurrent;
 using System.Drawing;

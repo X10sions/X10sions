@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup Label="Application">
+    <TargetFramework>net8.0</TargetFramework>
+    <Product>X10sions.Fake.Domain</Product>
+    <RootNamespace>X10sions.Fake</RootNamespace>
+    <VersionPart1>2</VersionPart1>
+    <VersionPart2>0</VersionPart2>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="Models\**" />
+    <EmbeddedResource Remove="Models\**" />
+    <None Remove="Models\**" />
+  </ItemGroup>
+  <ItemGroup Label="PackageReferences">
+    <PackageReference Update="FastExpressionCompiler.LightExpression" Version="3.3.3" />
+  </ItemGroup>
+  <ItemGroup Label="ProjectReferences">
+    <ProjectReference Include="..\..\Common\.Domain\Common.Domain.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="ServiceStack.Interfaces" Version="8.3.0" />
+    <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
+  </ItemGroup>
+</Project>

@@ -10,7 +10,7 @@
     <PackageReference Include="System.Drawing.Common" Version="8.0.8" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Common\.NetStandard\Common.NetStandard.csproj" />
+    <ProjectReference Include="..\xSystem\.DotNetStandard\xSystem.DotNetStandard.csproj" />
     <ProjectReference Include="..\xUnitsNet\xUnitsNet.csproj" />
   </ItemGroup>
 </Project>

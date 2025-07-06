@@ -1,8 +1,6 @@
 ﻿using ServiceStack.OrmLite;
 using ServiceStack;
 using System.Data;
-using X10sions.Fake.Data.Enums;
-using X10sions.Fake.Data.Models;
 
 namespace X10sions.Fake.Pages.Testing.Orm {
 

@@ -1,15 +1,14 @@
-﻿using CleanOnionExample.Services;
-using Common.Interfaces;
-using MediatR.Pipeline;
+﻿using MediatR.Pipeline;
 using Microsoft.Extensions.Logging;
+using X10sions.Fake.Features.Auth;
 
 namespace Common.Behaviours;
 public class LoggingBehaviour<TRequest> : IRequestPreProcessor<TRequest> where TRequest : notnull {
   private readonly ILogger _logger;
   private readonly ICurrentUserService _currentUserService;
-  private readonly IIdentityService _identityService;
+  private readonly Interfaces.IIdentityService _identityService;
 
-  public LoggingBehaviour(ILogger<TRequest> logger, ICurrentUserService currentUserService, IIdentityService identityService) {
+  public LoggingBehaviour(ILogger<TRequest> logger, ICurrentUserService currentUserService,  Interfaces.IIdentityService identityService) {
     _logger = logger;
     _currentUserService = currentUserService;
     _identityService = identityService;

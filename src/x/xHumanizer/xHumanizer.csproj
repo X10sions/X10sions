@@ -6,9 +6,9 @@
     <VersionPart2>11</VersionPart2>
   </PropertyGroup>
   <ItemGroup Label="PackageReferences">
-    <PackageReference Include="Humanizer.Core" Version="2.11.10" />
+    <PackageReference Include="Humanizer.Core" Version="2.14.1" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\xSystem\xSystem.csproj" />
+    <ProjectReference Include="..\xSystem\.DotNetStandard\xSystem.DotNetStandard.csproj" />
   </ItemGroup>
 </Project>

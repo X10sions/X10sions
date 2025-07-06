@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.Data.Linq.SqlClient.Common;
+using System.Reflection;
 
 namespace System.Data.Linq.SqlClient {
   internal class SqlMemberAssign : SqlNode {

@@ -12,7 +12,6 @@ public static class ModelStateDictionaryExtensions {
       modelState.AddModelError(string.Empty, error.Description);
     }
   }
-
   public static void AddModelError<TViewModel, TProperty>(this ModelStateDictionary modelState, Expression<Func<TViewModel, TProperty>> lambdaExpression, string error) => modelState.AddModelError(lambdaExpression.GetMemberName(), error);
   //public static void AddModelError<TModel>(this ModelStateDictionary modelState, Expression<Func<TModel, object>> expression, string errorMessage) => modelState.AddModelError(ExpressionHelper.GetExpressionText(expression), errorMessage);
   //public static void AddModelError<TModel>(this ModelStateDictionary modelState, Expression<Func<TModel, object>> expression, Exception exception) => modelState.AddModelError(ExpressionHelper.GetExpressionText(expression), exception);

@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Data.Linq;
+using System.Data.Linq.SqlClient.Common;
 using System.Linq.Expressions;
 
 namespace System.Data.Linq.SqlClient {
@@ -11,7 +13,7 @@ namespace System.Data.Linq.SqlClient {
     internal SqlUserQuery(SqlNodeType nt, SqlExpression projection, IEnumerable<SqlExpression> args, Expression source)
         : base(nt, source) {
       Projection = projection;
-      this.args = (args != null) ? new List<SqlExpression>(args) : new List<SqlExpression>();
+      this.args = args != null ? new List<SqlExpression>(args) : new List<SqlExpression>();
       columns = new List<SqlUserColumn>();
     }
 
@@ -19,7 +21,7 @@ namespace System.Data.Linq.SqlClient {
         : base(SqlNodeType.UserQuery, source) {
       this.queryText = queryText;
       Projection = projection;
-      this.args = (args != null) ? new List<SqlExpression>(args) : new List<SqlExpression>();
+      this.args = args != null ? new List<SqlExpression>(args) : new List<SqlExpression>();
       columns = new List<SqlUserColumn>();
     }
 

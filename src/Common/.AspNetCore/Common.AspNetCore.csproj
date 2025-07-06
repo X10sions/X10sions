@@ -1,18 +1,20 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup Label="Application">
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <Product>Common.AspNetCore</Product>
-    <VersionPart1>7</VersionPart1>
+    <VersionPart1>8</VersionPart1>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
   <ItemGroup Label="FrameworkReferences">
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
-  <ItemGroup Label="ProjectReferences">
-    <ProjectReference Include="..\.Abstractions\Common.Abstractions.csproj" />
-    <!--
-    <ProjectReference Include="$(RepoSrcDir_X10sions)x\xMicrosoft\.Extensions\xMicrosoft.Extensions.csproj" />
-    -->
+  <ItemGroup>
+    <ProjectReference Include="..\..\x\xMicrosoft\.AspNetCore\xMicrosoft.AspNetCore.csproj" />
+    <ProjectReference Include="..\.DotNetStandard\Common.DotNetStandard.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Mvc\Filters\" />
+    <Folder Include="Mvc\Infrastructure\" />
   </ItemGroup>
 </Project>

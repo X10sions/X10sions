@@ -1,5 +1,5 @@
-﻿using CleanOnionExample.Services.Auth;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
+using X10sions.Fake.Features.Auth;
 
 namespace CleanOnionExample.Data.Entities;
 public class ApplicationUser : IdentityUser {

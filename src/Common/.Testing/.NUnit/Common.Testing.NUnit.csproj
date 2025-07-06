@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+  <ItemGroup Label="PackageReferences">
+    <PackageReference Include="Microsoft.Playwright.NUnit" Version="1.48.0" />
+    <PackageReference Include="NUnit" Version="4.2.2" />
+    <PackageReference Include="NUnit.Analyzers" Version="4.4.0" ExcludeAssets="compile" />
+    <PackageReference Include="NUnit3TestAdapter" Version="4.6.0" />
+    <PackageReference Include="Reqnroll.NUnit" Version="2.2.1" />
+    <PackageReference Include="Verify.NUnit" Version="28.3.2" />
+    <!-- 
+    <PackageReference Include="AutoFixture.Xunit2" Version="4.17.0" />
+    -->
+  </ItemGroup>
+  <ItemGroup Label="ProjectReferences">
+    <ProjectReference Include="..\Common.Testing.csproj" />
+  </ItemGroup>
+  <!-- 
+  <ItemGroup Label="Usings">
+    <Using Include="NUnit.Framework" />
+  </ItemGroup>
+  -->
+</Project>

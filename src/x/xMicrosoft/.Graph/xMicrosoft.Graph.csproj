@@ -6,9 +6,9 @@
     <VersionPart2>52</VersionPart2>
   </PropertyGroup> 
   <ItemGroup Label="PackageReferences">
-    <PackageReference Include="Microsoft.Graph" Version="5.52.0" />
+    <PackageReference Include="Microsoft.Graph" Version="5.56.0" />
   </ItemGroup> 
   <ItemGroup>
-    <ProjectReference Include="..\..\xSystem\.NetStandard\xSystem.NetStandard.csproj" />
+    <ProjectReference Include="..\..\xSystem\.DotNetStandard\xSystem.DotNetStandard.csproj" />
   </ItemGroup>
 </Project>

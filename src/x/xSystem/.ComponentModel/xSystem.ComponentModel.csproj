@@ -9,6 +9,6 @@
     <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
   </ItemGroup>
   <ItemGroup Label="ProjectReferences">    
-    <ProjectReference Include="..\.NetStandard\xSystem.NetStandard.csproj" />    
+    <ProjectReference Include="..\.DotNetStandard\xSystem.DotNetStandard.csproj" />    
   </ItemGroup>
 </Project>

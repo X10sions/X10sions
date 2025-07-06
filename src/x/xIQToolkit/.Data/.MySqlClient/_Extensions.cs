@@ -1,7 +1,4 @@
-﻿extern alias MySqlConnector;
-extern alias MySqlData;
-using MySqlData::MySql.Data.MySqlClient;
-using System;
+﻿using MySql.Data.MySqlClient;
 using System.Data;
 
 namespace IQToolkit.Data.MySqlClient {

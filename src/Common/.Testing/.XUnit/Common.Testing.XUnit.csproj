@@ -1,0 +1,47 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+  <ItemGroup Label="PackageReferences">
+    <PackageReference Include="Meziantou.Extensions.Logging.Xunit" Version="1.0.8" />
+    <PackageReference Include="Meziantou.Xunit.ParallelTestFramework" Version="2.3.0" />
+    <!-- 
+    <PackageReference Include="Reqnroll.xUnit" Version="2.0.3" />
+    -->
+    <PackageReference Include="Roslynator.Testing.CSharp.Xunit" Version="4.12.9" />
+    <PackageReference Include="Verify.Xunit" Version="28.3.2" />
+    <PackageReference Include="xunit" Version="2.9.2" />
+    <PackageReference Include="xunit.analyzers" Version="1.17.0" ExcludeAssets="compile" />
+    <PackageReference Include="Xunit.Combinatorial" Version="1.6.24" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="3.0.0-pre.49" ExcludeAssets="compile" />
+  </ItemGroup>
+  <ItemGroup Label="ProjectReferences">
+    <ProjectReference Include="..\Common.Testing.csproj" />
+  </ItemGroup>
+  <!-- 
+  <ItemGroup Label="Usings">
+    <Using Include="Xunit" />
+  </ItemGroup>
+  -->
+  <PropertyGroup>
+    <IncludeMeziantouXunitParallelTestFramework>false</IncludeMeziantouXunitParallelTestFramework>
+  </PropertyGroup>
+
+  <!-- 
+  [assembly: Xunit.TestFramework("Meziantou.Xunit.ParallelTestFramework", "Meziantou.Xunit.ParallelTestFramework")]
+  [assembly: global::Xunit.TestFramework("Reqnroll.xUnit.ReqnrollPlugin.XunitTestFrameworkWithAssemblyFixture", "Reqnroll.xUnit.ReqnrollPlugin")]
+
+  <PropertyGroup>
+    <IncludeMeziantouXunitParallelTestFramework Condition="'$(IncludeMeziantouXunitParallelTestFramework)' == ''">false</IncludeMeziantouXunitParallelTestFramework>
+    <EnableXunitDependencyInjectionDefaultTestFrameworkAttribute>false</EnableXunitDependencyInjectionDefaultTestFrameworkAttribute>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <AssemblyAttribute Include="Xunit.TestFramework" Condition="$(IncludeMeziantouXunitParallelTestFramework) == 'true'">
+      <_Parameter1>Meziantou.Xunit.ParallelTestFramework</_Parameter1>
+      <_Parameter2>Meziantou.Xunit.ParallelTestFramework</_Parameter2>
+    </AssemblyAttribute>
+  </ItemGroup>
+  -->
+</Project>

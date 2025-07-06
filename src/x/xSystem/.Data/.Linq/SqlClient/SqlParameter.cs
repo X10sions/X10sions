@@ -1,4 +1,7 @@
-﻿using System.Linq.Expressions;
+﻿using System.Data;
+using System.Data.Linq;
+using System.Data.Linq.SqlClient;
+using System.Linq.Expressions;
 
 namespace System.Data.Linq.SqlClient {
   internal class SqlParameter : SqlSimpleTypeExpression {
@@ -8,12 +11,12 @@ namespace System.Data.Linq.SqlClient {
       if (typeof(Type).IsAssignableFrom(clrType))
         throw Error.ArgumentWrongValue("clrType");
       Name = name;
-      Direction = System.Data.ParameterDirection.Input;
+      Direction = ParameterDirection.Input;
     }
 
     internal string Name { get; }
 
-    internal System.Data.ParameterDirection Direction { get; set; }
+    internal ParameterDirection Direction { get; set; }
   }
 
 }

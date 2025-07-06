@@ -1,0 +1,9 @@
+{
+  "stryker-config": {
+    "project": "Common.DotNet.csproj",
+    "reporters": [
+      "progress",
+      "html"
+    ]
+  }
+}

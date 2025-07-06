@@ -2,6 +2,7 @@
 using Common.Data;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using X10sions.Fake.Features.Customer;
 
 namespace CleanOnionExample.Data.Entities.Services;
 

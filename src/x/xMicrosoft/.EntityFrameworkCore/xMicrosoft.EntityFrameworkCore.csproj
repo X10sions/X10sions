@@ -1,11 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup Label="Application">
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <Product>Microsoft.EntityFrameworkCore Extensions</Product>
-    <VersionPart1>7</VersionPart1>
+    <VersionPart1>8</VersionPart1>
   </PropertyGroup>
   <ItemGroup Label="PackageReferences">
-    <PackageReference Include="EFCore.NamingConventions" Version="7.0.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.0" />
+    <PackageReference Include="EFCore.NamingConventions" Version="8.0.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.8" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\xSystem\.DotNetStandard\xSystem.DotNetStandard.csproj" />
   </ItemGroup>
 </Project>

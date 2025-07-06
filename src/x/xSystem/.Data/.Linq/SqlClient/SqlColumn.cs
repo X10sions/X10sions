@@ -1,7 +1,6 @@
 ﻿using System.Data.Linq.Mapping;
 using System.Linq.Expressions;
 
-
 namespace System.Data.Linq.SqlClient {
   internal class SqlColumn : SqlExpression {
     private SqlExpression expression;

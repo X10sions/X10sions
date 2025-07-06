@@ -1,6 +1,7 @@
 ﻿using CleanOnionExample.Data.DbContexts;
 using Common.Data;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace CleanOnionExample.Data.Entities.Services;
 

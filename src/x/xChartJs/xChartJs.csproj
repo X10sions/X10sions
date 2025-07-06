@@ -7,7 +7,7 @@
     <Description>https://www.chartjs.org</Description>
   </PropertyGroup>
   <ItemGroup Label="ProjectReferences">
-    <ProjectReference Include="..\..\Common\.Abstractions\Common.Abstractions.csproj" />
+    <ProjectReference Include="..\..\Common\.DotNetStandard\Common.DotNetStandard.csproj" />
     <ProjectReference Include="..\xNewtonsoft\xNewtonsoft.csproj" />
   </ItemGroup>
 </Project>

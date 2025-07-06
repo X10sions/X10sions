@@ -1,33 +1,33 @@
 ﻿using System.Linq.Expressions;
-using System.Reflection;
+//using System.Reflection;
 
 namespace LinqToDB.Linq;
 public static class IValueInsertableExtensions {
 
-  public static IValueInsertable<T> ValueLambdaByType<T>(this IValueInsertable<T> insertable, LambdaExpression expression, object? value) where T : notnull {
-    var fieldType = expression.Body.Type;
-    if (expression.IsPropertyNullable()) {
-      //if (fieldType.IsNullable()) {
-      insertable = fieldType == typeof(bool?) ? insertable.Value(expression.AsTypedExpression<T, bool?>(), (bool?)value)
-                 : fieldType == typeof(double?) ? insertable.Value(expression.AsTypedExpression<T, double?>(), (double?)value)
-                 : fieldType.IsEnum ? insertable.Value(expression.AsTypedExpression<T, object>(), value is string ? Enum.Parse(fieldType, value as string) : Enum.ToObject(fieldType, value))
-                 : fieldType == typeof(int?) ? insertable.Value(expression.AsTypedExpression<T, int?>(), (int?)value)
-                 : fieldType == typeof(long?) ? insertable.Value(expression.AsTypedExpression<T, long?>(), (long?)value)
-                 : fieldType == typeof(short?) ? insertable.Value(expression.AsTypedExpression<T, short?>(), (short?)value)
-                 : fieldType == typeof(string) ? insertable.Value(expression.AsTypedExpression<T, string?>(), (string?)value)
-                 : throw new NotImplementedException(fieldType.ToString());
-    } else {
-      insertable = fieldType == typeof(bool) ? insertable.Value(expression.AsTypedExpression<T, bool>(), (bool)value)
-                 : fieldType == typeof(double) ? insertable.Value(expression.AsTypedExpression<T, double>(), (double)value)
-                 : fieldType.IsEnum ? insertable.Value(expression.AsTypedExpression<T, int>(), (int)value)
-                 : fieldType == typeof(int) ? insertable.Value(expression.AsTypedExpression<T, int>(), (int)value)
-                 : fieldType == typeof(long) ? insertable.Value(expression.AsTypedExpression<T, long>(), (long)value)
-                 : fieldType == typeof(short) ? insertable.Value(expression.AsTypedExpression<T, short>(), (short)value)
-                 : fieldType == typeof(string) ? insertable.Value(expression.AsTypedExpression<T, string>(), (string)value)
-                 : throw new NotImplementedException(fieldType.ToString());
-    }
-    return insertable;
-  }
+  //public static IValueInsertable<T> ValueLambdaByType<T>(this IValueInsertable<T> insertable, LambdaExpression expression, object? value) where T : notnull {
+  //  var fieldType = expression.Body.Type;
+  //  if (expression.IsPropertyNullable()) {
+  //    //if (fieldType.IsNullable()) {
+  //    insertable = fieldType == typeof(bool?) ? insertable.Value(expression.AsTypedExpression<T, bool?>(), (bool?)value)
+  //               : fieldType == typeof(double?) ? insertable.Value(expression.AsTypedExpression<T, double?>(), (double?)value)
+  //               : fieldType.IsEnum ? insertable.Value(expression.AsTypedExpression<T, object>(), value is string ? Enum.Parse(fieldType, value as string) : Enum.ToObject(fieldType, value))
+  //               : fieldType == typeof(int?) ? insertable.Value(expression.AsTypedExpression<T, int?>(), (int?)value)
+  //               : fieldType == typeof(long?) ? insertable.Value(expression.AsTypedExpression<T, long?>(), (long?)value)
+  //               : fieldType == typeof(short?) ? insertable.Value(expression.AsTypedExpression<T, short?>(), (short?)value)
+  //               : fieldType == typeof(string) ? insertable.Value(expression.AsTypedExpression<T, string?>(), (string?)value)
+  //               : throw new NotImplementedException(fieldType.ToString());
+  //  } else {
+  //    insertable = fieldType == typeof(bool) ? insertable.Value(expression.AsTypedExpression<T, bool>(), (bool)value)
+  //               : fieldType == typeof(double) ? insertable.Value(expression.AsTypedExpression<T, double>(), (double)value)
+  //               : fieldType.IsEnum ? insertable.Value(expression.AsTypedExpression<T, int>(), (int)value)
+  //               : fieldType == typeof(int) ? insertable.Value(expression.AsTypedExpression<T, int>(), (int)value)
+  //               : fieldType == typeof(long) ? insertable.Value(expression.AsTypedExpression<T, long>(), (long)value)
+  //               : fieldType == typeof(short) ? insertable.Value(expression.AsTypedExpression<T, short>(), (short)value)
+  //               : fieldType == typeof(string) ? insertable.Value(expression.AsTypedExpression<T, string>(), (string)value)
+  //               : throw new NotImplementedException(fieldType.ToString());
+  //  }
+  //  return insertable;
+  //}
 
   public static IValueInsertable<T> ValueLambda<T, TV>(this IValueInsertable<T> source, LambdaExpression le, TV value, IQueryable<T> query) where T : notnull {
     //var converted  = Expression.Lambda<Func<T, int?>>(Expression.Convert(le.Body,  le.Body.Type), le.Parameters);

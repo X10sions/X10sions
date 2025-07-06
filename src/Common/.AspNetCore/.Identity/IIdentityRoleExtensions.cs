@@ -1,4 +1,6 @@
-﻿namespace Common.AspNetCore.Identity;
+﻿using System;
+
+namespace Common.AspNetCore.Identity;
 
 public static class IIdentityRoleExtensions {
   #region IQueryable

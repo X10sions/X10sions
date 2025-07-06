@@ -1,12 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup Label="Application">
-    <TargetFramework>netstandard2.1</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <Product>NetStandard Extensions</Product>
     <VersionPart1>1</VersionPart1>
   </PropertyGroup>
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
   <ItemGroup Label="ProjectReferences">
     <ProjectReference Include="..\..\..\..\..\x\xMicrosoft\.AspNetCore\.Identity\.EntityFrameworkCore\xMicrosoft.AspNetCore.Identity.EntityFrameworkCore.csproj" />
     <ProjectReference Include="..\..\..\..\..\x\xMicrosoft\.EntityFrameworkCore\xMicrosoft.EntityFrameworkCore.csproj" />
+    <ProjectReference Include="..\..\..\Common.AspNetCore.csproj" />
     <ProjectReference Include="..\..\Common.AspNetCore.Identity.csproj" />
     <!-- 
     <ProjectReference Include="$(RepoSrcDir_X10sions)Common\.AspNetCore\.Identity\Common.AspNetCore.Identity.csproj" />

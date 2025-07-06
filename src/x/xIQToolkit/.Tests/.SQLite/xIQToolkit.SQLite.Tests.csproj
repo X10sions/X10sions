@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup Label="Application">
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Product>IQToolkit (SQLite) Tests</Product>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectReferences">
+    <ProjectReference Include="..\..\.Data\.Ado\xIQToolkit.Data.Ado.csproj" />
+    <ProjectReference Include="..\..\.Data\.Sqlite\xIQToolkit.Data.Sqlite.csproj" />
+    <ProjectReference Include="..\.Common\xIQToolkit.Common.Tests.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+</Project>

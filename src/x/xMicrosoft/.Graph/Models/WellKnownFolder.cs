@@ -22,3 +22,6 @@ public enum WellKnownFolder {
   [EnumMember(Value = "serverFailures")] ServerFailures,
   [EnumMember(Value = "syncIssues")] SyncIssues,
 }
+
+//https://learn.microsoft.com/en-us/graph/api/resources/enums?view=graph-rest-1.0
+//https://learn.microsoft.com/en-us/graph/api/resources/enums-externalconnectors?view=graph-rest-1.0

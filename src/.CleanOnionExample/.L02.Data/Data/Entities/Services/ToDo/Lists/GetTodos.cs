@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using CleanOnionExample.Data.DbContexts;
-using CleanOnionExample.Enums;
+using Common.Enums;
 using Common.Mappings;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using X10sions.Fake.Features.ToDo;
 
 
 namespace CleanOnionExample.Data.Entities.Services;

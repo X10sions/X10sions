@@ -2,10 +2,10 @@
   <PropertyGroup Label="Application">
     <TargetFramework>netstandard2.0</TargetFramework>
     <Product>System NetStandard Extensions</Product>
-    <VersionPart1>4</VersionPart1>
-    <VersionPart2>7</VersionPart2> 
+    <VersionPart1>8</VersionPart1>
+    <VersionPart2>0</VersionPart2> 
   </PropertyGroup>
   <ItemGroup Label="PackageReferences">
-    <PackageReference Include="System.DirectoryServices.AccountManagement" Version="5.0.0" />
+    <PackageReference Include="System.DirectoryServices.AccountManagement" Version="8.0.0" />
   </ItemGroup>
 </Project>

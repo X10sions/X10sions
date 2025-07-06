@@ -1,4 +1,5 @@
 ﻿using System.Linq.Expressions;
+using System.Data.Linq.SqlClient.Common;
 
 namespace System.Data.Linq.SqlClient {
   internal class SqlIncludeScope : SqlNode {

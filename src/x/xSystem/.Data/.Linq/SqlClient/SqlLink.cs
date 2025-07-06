@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Data.Linq.Mapping;
 using System.Linq.Expressions;
+using System.Data.Linq.SqlClient;
 
 namespace System.Data.Linq.SqlClient {
   internal class SqlLink : SqlSimpleTypeExpression {

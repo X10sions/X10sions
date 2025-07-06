@@ -1,4 +1,4 @@
-﻿using Common.Data;
+﻿using Common.Results;
 
 namespace Microsoft.EntityFrameworkCore;
 

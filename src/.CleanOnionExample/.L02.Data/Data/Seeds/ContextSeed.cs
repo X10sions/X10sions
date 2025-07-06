@@ -1,8 +1,10 @@
 ﻿using CleanOnionExample.Data.DbContexts;
 using CleanOnionExample.Data.Entities;
-using CleanOnionExample.Data.Entities.ValueObjects;
+using Common.ValueObjects;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using X10sions.Fake.Features.ToDo.Item;
+using X10sions.Fake.Features.ToDo;
 
 namespace CleanOnionExample.Data.Seeds;
 
@@ -44,12 +46,12 @@ public static class ApplicationDbContextSeed {
     }
   }
 
-  public static async System.Threading.Tasks.Task SeedSampleDataAsync(ApplicationDbContext context) {
+  public static async Task SeedSampleDataAsync(ApplicationDbContext context) {
     // Seed, if necessary
     if (!context.TodoLists.Any()) {
       context.TodoLists.Add(new ToDoList {
         Title = "Shopping",
-        Colour = Colour.Blue,
+        Colour = ColourCode.Blue,
         Items = {
           new ToDoItem { Title = "Apples", IsDone = true },
           new ToDoItem { Title = "Milk", IsDone = true },
@@ -61,7 +63,6 @@ public static class ApplicationDbContextSeed {
           new ToDoItem { Title = "Water" }
         }
       });
-
       await context.SaveChangesAsync();
     }
   }

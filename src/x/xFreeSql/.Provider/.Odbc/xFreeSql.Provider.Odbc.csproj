@@ -2,13 +2,14 @@
   <PropertyGroup Label="Application">
     <TargetFramework>netstandard2.0</TargetFramework>
     <Product>FreeSql.Provider.Odbc</Product>
+    <RootNamespace>FreeSql.Odbc</RootNamespace>
     <VersionPart1>3</VersionPart1>
     <VersionPart2>2</VersionPart2>
   </PropertyGroup>
   <ItemGroup Label="PackageReferences">
-    <PackageReference Include="FreeSql.Provider.Odbc" Version="3.2.686" />
+    <PackageReference Include="FreeSql.Provider.Odbc" Version="3.2.833" />
   </ItemGroup>
-  <ItemGroup>
+  <ItemGroup Label="ProjectReferences">
     <ProjectReference Include="..\..\xFreeSql.csproj" />
   </ItemGroup>
 </Project>

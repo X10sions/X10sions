@@ -1,25 +1,17 @@
-﻿namespace CleanOnionExample.Data.Entities.Services;
-public class PersonService : IPersonService {
-  public PersonService(IRepositoryManager repositoryManager) => _repositoryManager = repositoryManager;
+﻿using Mapster;
+using X10sions.Fake.Features.Person;
 
-  private readonly IRepositoryManager _repositoryManager;
-
-
-  //public PersonService(IBaseRepository<Person, int> person) {
-  //  _person = person;
-  //}
-
-  //private readonly IBaseRepository<Person, int> _person;
-
-  public async Task<Person.GetQuery> InsertAsync(Person.UpdateCommand personForCreationDto, CancellationToken cancellationToken = default) {
+namespace CleanOnionExample.Data.Entities.Services;
+public class PersonService(IPersonRepository personRepository) : IPersonService {
+  public async Task<GetPersonQuery> InsertAsync( UpdatePersonCommand personForCreationDto, CancellationToken cancellationToken = default) {
     var person = personForCreationDto.Adapt<Person>();
-    await _repositoryManager.PersonRepository.InsertAsync(person, cancellationToken);
-    await _repositoryManager.UnitOfWork.SaveChangesAsync(cancellationToken);
-    return person.Adapt<Person.GetQuery>();
+    await personRepository.InsertAsync(person, cancellationToken);
+    //await _repositoryManager.UnitOfWork.SaveChangesAsync(cancellationToken);
+    return person.Adapt<GetPersonQuery>();
   }
 
-  public async System.Threading.Tasks.Task UpdateAsync(int id, Person.UpdateCommand person, CancellationToken cancellationToken = default) {
-    var dbRecord = await _repositoryManager.PersonRepository.GetByIdAsync(id, cancellationToken);
+  public async Task UpdateAsync(int id, UpdatePersonCommand person, CancellationToken cancellationToken = default) {
+    var dbRecord = await personRepository.GetByPrimaryKeyAsync(id, cancellationToken);
     if (dbRecord is null) {
       throw new Exception($"Not found id: {id}");
     }
@@ -27,29 +19,29 @@ public class PersonService : IPersonService {
     dbRecord.LastName = person.LastName;
     dbRecord.Email = person.Email;
     dbRecord.MobileNo = person.MobileNo;
-    await _repositoryManager.UnitOfWork.SaveChangesAsync(cancellationToken);
+    //await _repositoryManager.UnitOfWork.SaveChangesAsync(cancellationToken);
   }
 
-  public async System.Threading.Tasks.Task DeleteAsync(int id, CancellationToken cancellationToken = default) {
-    var person = await _repositoryManager.PersonRepository.GetByIdAsync(id, cancellationToken);
+  public async Task DeleteAsync(int id, CancellationToken cancellationToken = default) {
+    var person = await personRepository.GetByPrimaryKeyAsync(id, cancellationToken);
     if (person is null) {
       throw new Exception($"Not found id: {id}");
     }
-    await _repositoryManager.PersonRepository.DeleteAsync(id, cancellationToken);
-    await _repositoryManager.UnitOfWork.SaveChangesAsync(cancellationToken);
+    await personRepository.DeleteAsync(person, cancellationToken);
+    //await _repositoryManager.UnitOfWork.SaveChangesAsync(cancellationToken);
   }
 
-  public async Task<IEnumerable<Person.GetQuery>> GetAllAsync(CancellationToken cancellationToken = default) {
-    var list = await _repositoryManager.PersonRepository.GetAllAsync(cancellationToken);
-    return list.Adapt<IEnumerable<Person.GetQuery>>();
+  public async Task<IEnumerable<GetPersonQuery>> GetListAsync(CancellationToken cancellationToken = default) {
+    var list = await personRepository.GetAllAsync(x=> true, cancellationToken);
+    return list.Adapt<IEnumerable<GetPersonQuery>>();
   }
 
-  public async Task<Person.GetQuery> GetByIdAsync(int id, CancellationToken cancellationToken = default) {
-    var person = await _repositoryManager.PersonRepository.GetByIdAsync(id, cancellationToken);
+  public async Task<GetPersonQuery> GetByIdAsync(int id, CancellationToken cancellationToken = default) {
+    var person = await personRepository.GetByPrimaryKeyAsync(id, cancellationToken);
     if (person is null) {
       throw new Exception($"Not found id: {id}");
     }
-    var dto = person.Adapt<Person.GetQuery>();
+    var dto = person.Adapt<GetPersonQuery>();
     return dto;
   }
 

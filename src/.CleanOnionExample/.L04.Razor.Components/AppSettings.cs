@@ -1,17 +1,18 @@
-﻿using Common.App.Settings;
+﻿using CleanOnionExample.Data;
+using Common.App.Settings;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 
 namespace CleanOnionExample.Razor.Components;
-public interface IAppSettings : Data.IAppSettings {
+public interface IAppSettings : IDataAppSettings {
   string AppBaseAddress { get; }
   string AppContentPath { get; }
   ApplicationDetailAppSettings AppDetail { get; }
 }
 
-public class AppSettings : Data.AppSettings, IAppSettings {
+public class AppSettings : DataAppSettings, IAppSettings {
   public const string ComponentsRazorClassLibraryName = "CleanOnionExample.Razor.Components";
   public const string PagesRazorClassLibraryName = "CleanOnionExample.Razor.Pages";
   public const string ComponentsContentPath = "_content/" + ComponentsRazorClassLibraryName;

@@ -6,6 +6,6 @@
     <VersionPart2>12</VersionPart2> 
   </PropertyGroup> 
   <ItemGroup Label="PackageReferences">
-    <PackageReference Include="RepoDb" Version="1.12.7" />
+    <PackageReference Include="RepoDb" Version="1.13.1" />
   </ItemGroup>
 </Project>

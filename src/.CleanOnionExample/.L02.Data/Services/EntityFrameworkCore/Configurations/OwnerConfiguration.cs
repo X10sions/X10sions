@@ -1,6 +1,6 @@
-﻿using CleanOnionExample.Data.Entities;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using X10sions.Fake.Features.Owner;
 
 namespace CleanOnionExample.Services.EntityFrameworkCore.Configurations;
 internal sealed class OwnerConfiguration : IEntityTypeConfiguration<Owner> {

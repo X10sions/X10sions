@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Product>IQToolkit (Common) Tests</Product>
+  </PropertyGroup>
+  <ItemGroup Label="PackageReferences">
+    <PackageReference Include="System.Data.Common" Version="4.3.0" />
+  </ItemGroup>
+  <ItemGroup Label="ProjectReferences">
+    <ProjectReference Include="..\..\.Data\.Ado\xIQToolkit.Data.Ado.csproj" />
+    <ProjectReference Include="..\xIQToolkit.Tests.csproj" />
+  </ItemGroup>
+</Project>

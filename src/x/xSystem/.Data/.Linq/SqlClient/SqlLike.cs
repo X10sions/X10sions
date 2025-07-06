@@ -1,4 +1,5 @@
 ﻿using System.Linq.Expressions;
+using System.Data.Linq.SqlClient;
 
 namespace System.Data.Linq.SqlClient {
   internal class SqlLike : SqlSimpleTypeExpression {

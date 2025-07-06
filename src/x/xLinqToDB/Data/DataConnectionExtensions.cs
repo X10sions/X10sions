@@ -85,6 +85,8 @@ namespace LinqToDB.Data {
       , Expression<Func<T, TMany, bool>> predicate
       ) where T : class? where TMany : class => fluentMappingBuilder.AddAssociationNullableToNotNull(prop1, prop2, predicate);
 
+    public static FluentMappingBuilder GetFluentMappingBuilder(this DataConnection dc) => new FluentMappingBuilder(dc.MappingSchema);
+
     public static ITable<T> GetTableWithPrimaryKey<T>(this DataConnection dataConnection, Expression<Func<T, object>> primaryKey, bool isPrimaryKeyIdentity)
       where T : class {
       var fmb = new FluentMappingBuilder(dataConnection.MappingSchema).Entity<T>().HasPrimaryKey(primaryKey);

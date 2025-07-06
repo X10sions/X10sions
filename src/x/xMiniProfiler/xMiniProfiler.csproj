@@ -5,11 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup Label="PackageReferences">
-    <PackageReference Include="MiniProfiler" Version="4.2.22" />
-  </ItemGroup>
-
-  <ItemGroup Label="ProjectReferences">
-    <ProjectReference Include=".Shared\xMiniProfiler.Shared.csproj" />
+    <PackageReference Include="MiniProfiler" Version="4.3.8" />
   </ItemGroup>
 
 </Project>

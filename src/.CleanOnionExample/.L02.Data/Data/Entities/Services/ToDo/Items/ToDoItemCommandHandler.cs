@@ -1,5 +1,5 @@
-﻿using Common.Data;
-using MediatR;
+﻿using MediatR;
+using X10sions.Fake.Features.ToDo.Item;
 
 namespace CleanOnionExample.Data.Entities.Services;
 
@@ -16,8 +16,8 @@ public class ToDoItemCommandHandler {
 
   public async Task<ToDoItem> HandleNewToDoItem(CreateNewToDoItemCommand createNewToDoItemCommand) {
     var task = _factory.CreateToDoItemInstance(
-        summary: new ToDoItemSummary(createNewToDoItemCommand.Summary),
-        description: new ToDoItemDescription(createNewToDoItemCommand.Description)
+      summary: new ToDoItemSummary(createNewToDoItemCommand.Summary),
+      description: new ToDoItemDescription(createNewToDoItemCommand.Description)
     );
     await _repository.InsertAsync(task);
     //var taskCreated = await _repository.InsertAsync(task);
@@ -29,7 +29,7 @@ public class ToDoItemCommandHandler {
   }
 
   public async Task HandleDeleteToDoItem(DeleteToDoItemCommand deleteCommand) {
-    await _repository.DeleteAsync(new ToDoItemId(deleteCommand.Id));
+    await _repository.DeleteByPrimaryKeyAsync(new ToDoItemId(deleteCommand.Id));
 
     // You may raise an event in case you need to propagate this change to other microservices
     await _mediator.Publish(new ToDoItemDeletedEvent(deleteCommand.Id));

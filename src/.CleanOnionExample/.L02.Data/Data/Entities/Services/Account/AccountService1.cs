@@ -1,11 +1,8 @@
-﻿using CleanOnionExample.Enums;
-using CleanOnionExample.Services;
-using CleanOnionExample.Services.Auth;
-using CleanOnionExample.Services.JWT;
-using Common.Data;
+﻿using Common.Enums;
 using Common.Exceptions;
 using Common.Mail;
 using Common.Net;
+using Common.Results;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Options;
@@ -15,6 +12,10 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
+using X10sions.Fake.Features.Account;
+using X10sions.Fake.Features.Auth;
+using X10sions.Fake.Features.Clock;
+using X10sions.Fake.Features.User;
 
 namespace CleanOnionExample.Data.Entities.Services;
 
@@ -177,7 +178,7 @@ public class AccountService1 : IAccountService1 {
     );
   }
 
-  public async System.Threading.Tasks.Task ForgotPassword(ForgotPasswordRequest model, string origin) {
+  public async Task ForgotPassword(ForgotPasswordRequest model, string origin) {
     var account = await _userManager.FindByEmailAsync(model.Email);
     // always return ok response to prevent email enumeration
     if (account == null) return;

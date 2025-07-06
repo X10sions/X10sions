@@ -1,5 +1,6 @@
 ﻿using System.Linq.Expressions;
 
+
 namespace System.Data.Linq.SqlClient {
   internal class SqlJoin : SqlSource {
     private SqlJoinType joinType;

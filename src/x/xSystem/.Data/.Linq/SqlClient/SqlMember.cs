@@ -1,4 +1,6 @@
-﻿using System.Reflection;
+﻿using System.Data.Linq;
+using System.Data.Linq.SqlClient;
+using System.Reflection;
 
 namespace System.Data.Linq.SqlClient {
   internal class SqlMember : SqlSimpleTypeExpression {

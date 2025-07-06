@@ -1,4 +1,6 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System.Data.Linq;
+using System.Data.Linq.SqlClient.Common;
+using System.Diagnostics.CodeAnalysis;
 
 namespace System.Data.Linq.SqlClient {
   internal class SqlUnion : SqlNode {

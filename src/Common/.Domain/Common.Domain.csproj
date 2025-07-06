@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup Label="Application">
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Product>Common.Domain</Product>
+    <RootNamespace>Common</RootNamespace>
+    <VersionPart1>2</VersionPart1>
+    <VersionPart2>0</VersionPart2>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="Features\DummyFakeExamples\WeatherForecast\**" />
+    <EmbeddedResource Remove="Features\DummyFakeExamples\WeatherForecast\**" />
+    <None Remove="Features\DummyFakeExamples\WeatherForecast\**" />
+  </ItemGroup>
+  <ItemGroup Label="PackageReferences">
+    <PackageReference Update="FastExpressionCompiler.LightExpression" Version="3.3.3" />
+    <PackageReference Include="MediatR.Contracts" Version="2.0.1" />
+  </ItemGroup>
+  <ItemGroup Label="ProjectReferences">
+    <ProjectReference Include="..\.DotNetStandard\Common.DotNetStandard.csproj" />
+  </ItemGroup>
+</Project>

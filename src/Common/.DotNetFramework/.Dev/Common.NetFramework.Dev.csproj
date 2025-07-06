@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup Label="Application">
+    <TargetFramework>net48</TargetFramework>
+    <Product>NetStandard Extensions</Product>
+    <RootNamespace />
+    <AssemblyVersion>2019.0320.2310.0</AssemblyVersion>
+    <FileVersion>2019.0320.2310.0</FileVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Common\DataX\xiDB2Connection.cs" />
+    <Compile Remove="Common\DataX\xJetConnection.cs" />
+    <Compile Remove="Common\DataX\xSqlCeConnection.cs" />
+  </ItemGroup>
+
+  <ItemGroup Label="PackageReferences">
+    <PackageReference Include="EntityFrameworkCore.SqlServerCompact40" Version="2.2.0.7" />
+    <PackageReference Include="EntityFrameworkCore.Jet" Version="3.1.1" />
+    <PackageReference Include="IBM.Data.DB2.iSeries" Version="7.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- 
+    <ProjectReference Include="..\.NetStandard\Nuget.NetStandard.csproj" />
+    -->
+  </ItemGroup>
+</Project>

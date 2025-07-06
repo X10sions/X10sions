@@ -1,9 +1,9 @@
-﻿using Common.Data;
-using Common.Events;
+﻿using Common.Domain.Events;
+using MediatR;
 
 namespace Common.Models;
 
-public class DomainEventNotification<TDomainEvent> : INotification where TDomainEvent : DomainEvent {
+public class DomainEventNotification<TDomainEvent> : INotification where TDomainEvent : DomainEventBase, INotification {
   public DomainEventNotification(TDomainEvent domainEvent) {
     DomainEvent = domainEvent;
   }

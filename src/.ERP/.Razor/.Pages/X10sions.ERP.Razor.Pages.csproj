@@ -9,14 +9,7 @@
   <ItemGroup Label="FrameworkReferences">
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
-  <ItemGroup Label="PackageReferences">
-    <!--
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.3" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="6.0.3" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="6.0.9" />
-    -->
-  </ItemGroup>
-  <ItemGroup Label="ProjectReferences">
+  <ItemGroup>
     <ProjectReference Include="..\X10sions.ERP.Razor.csproj" />
   </ItemGroup>
 </Project>

@@ -7,6 +7,6 @@
     <Description>https://getbootstrap.com</Description>
   </PropertyGroup>
   <ItemGroup Label="PackageReferences">
-    <PackageReference Include="MimeKit" Version="4.5.0" />
+    <PackageReference Include="MimeKit" Version="4.7.1" />
   </ItemGroup>
 </Project>

@@ -1,8 +1,32 @@
 <Project>
-<!--
-  <Import Project="../Directory.Build.props" />
--->
   <PropertyGroup>
+    <AnalysisLevel>latest</AnalysisLevel>
+    <Authors>TravBeamo</Authors>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
     <RepositoryType>git</RepositoryType>
+    <RootNamespace />
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">$(MSBuildThisFileDirectory)</SolutionDir>
+  </PropertyGroup>
+ <PropertyGroup>
+    <DoAutoVersion>true</DoAutoVersion>
+    <DoCommonMessages>false</DoCommonMessages>
+    <DoLocalNugetPackage>false</DoLocalNugetPackage>
+    <!-- 
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <IncludeSymbols>true</IncludeSymbols>
+    <RunAnalyzersDuringBuild>true</RunAnalyzersDuringBuild>
+    <RunAnalyzersDuringLiveAnalysis>true</RunAnalyzersDuringLiveAnalysis>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    <CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+    <AccelerateBuildsInVisualStudio>true</AccelerateBuildsInVisualStudio>
+    <ReportAnalyzer>true</ReportAnalyzer>
+    <AnalysisMode>All</AnalysisMode>
+    <Features>strict</Features>
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
+	-->
   </PropertyGroup>
 </Project>

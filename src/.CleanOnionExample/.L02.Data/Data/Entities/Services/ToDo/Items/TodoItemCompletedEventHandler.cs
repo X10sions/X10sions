@@ -1,8 +1,7 @@
-﻿using CleanOnionExample.Data.Services;
-using Common.Models;
-//using Task = System.Threading.Tasks.Task;
+﻿using Common.Models;
 using MediatR;
 using Microsoft.Extensions.Logging;
+using X10sions.Fake.Features.ToDo.Item;
 
 namespace CleanOnionExample.Data.Entities.Services;
 
@@ -18,4 +17,5 @@ public class ToDoItemCompletedEventHandler : INotificationHandler<DomainEventNot
     _logger.LogInformation("CleanArchitecture Domain Event: {DomainEvent}", domainEvent.GetType().Name);
     return Task.CompletedTask;
   }
+
 }

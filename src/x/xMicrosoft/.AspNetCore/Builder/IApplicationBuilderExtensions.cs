@@ -1,8 +1,12 @@
 ﻿using Common.FileProviders;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.StaticFiles;
+using Microsoft.Extensions.FileProviders;
+using Microsoft.Net.Http.Headers;
 using System.Reflection;
 
-namespace Microsoft.AspNetCore.Builder {
+namespace Microsoft.AspNetCore.Builder;
   public static class IApplicationBuilderExtensions {
 
     public static IDictionary<string, string> DefaultStaticFileMappingDictionary()
@@ -24,5 +28,31 @@ namespace Microsoft.AspNetCore.Builder {
       return builder;
     }
 
+  public static IApplicationBuilder UseLocalCdnFileServer(this IApplicationBuilder app, string physicalPath, string requestPath, TimeSpan? maxAge) {
+    var fileServerOptions = new FileServerOptions {
+      FileProvider = new PhysicalFileProvider(physicalPath),
+      RequestPath = new PathString(requestPath),
+      EnableDirectoryBrowsing = true
+    };
+    fileServerOptions.StaticFileOptions.OnPrepareResponse =
+      context => context.Context.Response.GetTypedHeaders().CacheControl = new CacheControlHeaderValue {
+        MaxAge = maxAge,
+        Public = true
+      };
+    return app.UseFileServer(fileServerOptions);
   }
+
+  public static IApplicationBuilder UseStaticFilesInPagesFolder(this IApplicationBuilder app, IWebHostEnvironment env, IDictionary<string, string> mapping, TimeSpan? maxAge = null, string pagesRoot = "pages") {
+    var contentTypeProvider = new FileExtensionContentTypeProvider(mapping);
+    var staticFileOptions = new StaticFileOptions {
+      ContentTypeProvider = contentTypeProvider,
+      FileProvider = new PhysicalFileProvider(Path.Combine(env.ContentRootPath, pagesRoot)),
+      RequestPath = new PathString(""),
+      OnPrepareResponse = context => context.Context.Response.GetTypedHeaders().CacheControl = new CacheControlHeaderValue { MaxAge = maxAge, Public = true }
+    };
+    app.UseStaticFiles(staticFileOptions);
+    return app;
+  }
+
+
 }

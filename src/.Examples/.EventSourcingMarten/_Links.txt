@@ -1,0 +1,6 @@
+2025-03-05  https://www.youtube.com/watch?v=RUw7Gajn6Vs (NickChapsas - Using Marten)
+2024-05-20  https://www.youtube.com/watch?v=n_o-xuuVtmw (NickChapsas - Using No Packages)
+2025-03-07  https://github.com/laurabrovkina/EventSourcingMarten
+
+2024-03-29  https://github.com/denis-tsv/EventSourcingMarten
+2024-08-06  https://github.com/Hona/VerticalSliceArchitecture.Samples.EventSourcingMartenDB

@@ -1,4 +1,5 @@
-﻿using System.Linq.Expressions;
+﻿using System.Data.Linq.SqlClient;
+using System.Linq.Expressions;
 
 namespace System.Data.Linq.SqlClient {
   internal class SqlValue : SqlSimpleTypeExpression {

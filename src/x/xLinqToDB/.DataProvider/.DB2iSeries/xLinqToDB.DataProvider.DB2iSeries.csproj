@@ -9,7 +9,8 @@
   <ItemGroup Label="PackageReferences">
     <PackageReference Include="linq2db4iSeries" Version="5.4.0" />
   </ItemGroup>
-  <ItemGroup Label="ProjectReferences">
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Common\.Data\Common.Data.csproj" />
     <ProjectReference Include="..\..\xLinqToDB.csproj" />
   </ItemGroup> 
 </Project>

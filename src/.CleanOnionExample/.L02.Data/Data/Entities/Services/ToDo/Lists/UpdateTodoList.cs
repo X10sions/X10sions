@@ -3,6 +3,7 @@ using Common.Exceptions;
 using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using X10sions.Fake.Features.ToDo;
 
 namespace CleanOnionExample.Data.Entities.Services;
 
@@ -17,7 +18,7 @@ public static class UpdateTodoList {
       _context = context;
     }
 
-    public async Task<Unit> Handle(Command request, CancellationToken cancellationToken) {
+    public async Task Handle(Command request, CancellationToken cancellationToken) {
       var entity = await _context.TodoLists.FindAsync(new object[] { request.Id }, cancellationToken);
 
       if (entity == null) {
@@ -25,7 +26,7 @@ public static class UpdateTodoList {
       }
       entity.Title = request.Title;
       await _context.SaveChangesAsync(cancellationToken);
-      return Unit.Value;
+      //return Unit.Value;
     }
   }
 

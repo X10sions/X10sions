@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Data.Linq.Mapping;
+using System.Data.Linq.SqlClient;
 using System.Linq.Expressions;
 
 namespace System.Data.Linq.SqlClient {

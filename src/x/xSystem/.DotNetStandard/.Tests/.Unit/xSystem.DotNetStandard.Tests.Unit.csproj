@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+    <Product>xSystem NetStandard Unit Tests</Product>
+  </PropertyGroup>
+  <ItemGroup Label="PackageReferences">
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+  </ItemGroup>
+  <ItemGroup Label="ProjectReferences">
+    <ProjectReference Include="..\..\..\..\..\Common\.Testing\.XUnit\Common.Testing.XUnit.csproj" />
+    <ProjectReference Include="..\..\xSystem.DotNetStandard.csproj" />
+  </ItemGroup>
+</Project>

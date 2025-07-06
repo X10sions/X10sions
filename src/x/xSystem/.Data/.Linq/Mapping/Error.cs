@@ -54,6 +54,7 @@ namespace System.Data.Linq.Mapping {
     internal static Exception MappingOfInterfacesMemberIsNotSupported(object p0, object p1) => new NotSupportedException(Strings.MappingOfInterfacesMemberIsNotSupported(p0, p1));
     internal static Exception UnmappedClassMember(object p0, object p1) => new InvalidOperationException(Strings.UnmappedClassMember(p0, p1));
     internal static Exception ArgumentNull(string paramName) => new ArgumentNullException(paramName);
+    internal static Exception ArgumentWrongValue(object p0)=> new ArgumentException($"String.ArgumentWrongValue({p0})");
     internal static Exception ArgumentOutOfRange(string paramName) => new ArgumentOutOfRangeException(paramName);
     internal static Exception NotImplemented() => new NotImplementedException();
     internal static Exception NotSupported() => new NotSupportedException();

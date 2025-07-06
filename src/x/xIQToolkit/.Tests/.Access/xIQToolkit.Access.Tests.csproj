@@ -1,0 +1,11 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Product>IQToolkit (Access) Tests</Product>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectReferences">
+    <ProjectReference Include="..\..\.Data\.Access\xIQToolkit.Data.Access.csproj" />
+    <ProjectReference Include="..\..\.Data\.Ado\xIQToolkit.Data.Ado.csproj" />
+    <ProjectReference Include="..\.Common\xIQToolkit.Common.Tests.csproj" />
+  </ItemGroup>
+</Project>

@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using X10sions.ERP.Data;
 using X10sions.ERP.Data.Models;
-using X10sions.ERP.Data.Services;
 using X10sions.ERP.Razor.Areas.Identity;
+using X10sions.Fake.Features.WeatherForecast;
 
 var builder = WebApplication.CreateBuilder(args);
 

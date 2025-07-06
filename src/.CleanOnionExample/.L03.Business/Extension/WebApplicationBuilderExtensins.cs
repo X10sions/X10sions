@@ -42,9 +42,7 @@ namespace CleanOnionExample.Infrastructure.Extension {
       builder.Services.AddScoped<IWeatherForecastRepository, WeatherForecastApiRepository>();
       builder.Services.AddScoped<WeatherForecastService>();
 
-      //builder.Services.AddSingleton<IWeatherForecastDataBroker, WeatherForecastServerDataBroker>();
-      //builder.Services.AddSingleton<WeatherForecastDataStore>();
-
+      
       builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
     }
 
