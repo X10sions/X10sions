@@ -6,7 +6,7 @@
     <Product>xSystem NetStandard Unit Tests</Product>
   </PropertyGroup>
   <ItemGroup Label="PackageReferences">
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.10.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
   </ItemGroup>
   <ItemGroup Label="ProjectReferences">
     <ProjectReference Include="..\..\..\..\..\Common\.Testing\.XUnit\Common.Testing.XUnit.csproj" />

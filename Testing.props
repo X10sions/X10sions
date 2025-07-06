@@ -1,0 +1,18 @@
+<Project>
+  <PropertyGroup>
+    <Authors>TB</Authors>
+    <CollectCoverage>true</CollectCoverage>
+    <DoAutoVersion>false</DoAutoVersion>
+    <DoLocalNugetPackage>false</DoLocalNugetPackage>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <IsPackable>false</IsPackable>
+    <RootNamespace>_Tests</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup Label="TestingProjectReferences">
+    <ProjectReference Include="$(RepoSrcDir_X10sions)x\xAutoFixture\.AutoMoq\xAutoFixture.AutoMoq.csproj" />
+    <ProjectReference Include="$(RepoSrcDir_X10sions)x\xCoverlet\.Collector\xCoverlet.Collector.csproj" />
+    <ProjectReference Include="$(RepoSrcDir_X10sions)x\xGenFu\xGenFu.csproj" />
+    <ProjectReference Include="$(RepoSrcDir_X10sions)x\xMicrosoft\.NET\.Test\.Sdk\xMicrosoft.NET.Test.Sdk.csproj" />
+    <ProjectReference Include="$(RepoSrcDir_X10sions)x\xMoq\xMoq.csproj" />
+  </ItemGroup> 
+</Project>

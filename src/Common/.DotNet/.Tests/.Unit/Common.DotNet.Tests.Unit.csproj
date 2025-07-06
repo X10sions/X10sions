@@ -1,22 +1,22 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup> 
+  <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
     <Product>Common.DotNet Unit Tests</Product>
     <RootNamespace>Common</RootNamespace>
-    <!-- 
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>      
+    <!--
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     -->
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="Features\**" />
     <EmbeddedResource Remove="Features\**" />
     <None Remove="Features\**" />
-  </ItemGroup> 
+  </ItemGroup>
   <ItemGroup Label="PackageReferences">
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.10.0" />
-    <PackageReference Include="Poser" Version="2.1.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="Poser" />
   </ItemGroup>
   <ItemGroup Label="ProjectReferences">
     <ProjectReference Include="..\..\..\.Testing\.XUnit\Common.Testing.XUnit.csproj" />
