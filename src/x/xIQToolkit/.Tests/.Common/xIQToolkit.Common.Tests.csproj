@@ -4,7 +4,7 @@
     <Product>IQToolkit (Common) Tests</Product>
   </PropertyGroup>
   <ItemGroup Label="PackageReferences">
-    <PackageReference Include="System.Data.Common" Version="4.3.0" />
+    <PackageReference Include="System.Data.Common" />
   </ItemGroup>
   <ItemGroup Label="ProjectReferences">
     <ProjectReference Include="..\..\.Data\.Ado\xIQToolkit.Data.Ado.csproj" />

@@ -4,10 +4,10 @@
     <Product>Microsoft.Graph Extensions</Product>
     <VersionPart1>5</VersionPart1>
     <VersionPart2>52</VersionPart2>
-  </PropertyGroup> 
+  </PropertyGroup>
   <ItemGroup Label="PackageReferences">
-    <PackageReference Include="Microsoft.Graph" Version="5.56.0" />
-  </ItemGroup> 
+    <PackageReference Include="Microsoft.Graph" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\xSystem\.DotNetStandard\xSystem.DotNetStandard.csproj" />
   </ItemGroup>

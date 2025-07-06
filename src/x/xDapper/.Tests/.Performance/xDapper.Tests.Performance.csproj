@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net9.0</TargetFramework>
     <Product>xDapper Tests</Product>
     <RootNamespace />
     <!--
@@ -8,16 +8,6 @@
     <ProjectReference Include="..\Dapper.EntityFramework\Dapper.EntityFramework.csproj" />
     -->
     <!--
-    <PackageReference Include="BLToolkit" Version="4.3.6" />
-    -->
-    <!--
-    <PackageReference Include="FirebirdSql.Data.FirebirdClient" Version="7.0.0" />
-    <PackageReference Include="Microsoft.SqlServer.Types" Version="14.0.1016.290" />
-    <PackageReference Include="MySqlConnector" Version="0.56.0" />
-    <PackageReference Include="Iesi.Collections" Version="4.0.4" />
-    <PackageReference Include="Npgsql" Version="4.0.9" />
-    <PackageReference Include="SubSonic" Version="3.0.0.4" />
-    <PackageReference Include="System.Data.SQLite" Version="1.0.111" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Linq" />
@@ -25,36 +15,31 @@
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System" />
     <Reference Include="Microsoft.CSharp" />
-    <PackageReference Update="SourceLink.Create.GitHub" Version="2.8.3" />
-
     -->
   </PropertyGroup>
 
   <ItemGroup Label="PackageReferences">
-    <!--
-    <PackageReference Include="Dapper.Contrib" Version="2.0.30" />
-    -->
-    <PackageReference Include="Belgrade.Sql.Client" Version="1.1.4" />
-    <PackageReference Include="BenchmarkDotNet" Version="0.11.5" />
-    <PackageReference Include="Dashing" Version="2.2.0" />
-    <PackageReference Include="Dashing.Weaver" Version="2.2.0" />
-    <PackageReference Include="DevExpress.Xpo" Version="19.1.5" />
-    <PackageReference Include="EntityFramework" Version="6.5.1" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.6" />
-    <PackageReference Include="NHibernate" Version="5.5.1" />
-    <PackageReference Include="PetaPoco" Version="5.1.306" />
-    <PackageReference Include="ServiceStack.OrmLite.SqlServer" Version="5.6.0" />
-    <PackageReference Include="Soma" Version="1.9.0.1" />
-    <PackageReference Include="Susanoo.SqlServer" Version="1.2.4.2" />
-    <PackageReference Include="System.Data.Common" Version="4.3.0" />
-    <PackageReference Include="System.Linq" Version="4.3.0" />
-    <PackageReference Include="System.Linq.Expressions" Version="4.3.0" />
+    <PackageReference Include="Belgrade.Sql.Client"  />
+    <PackageReference Include="BenchmarkDotNet"  />
+    <PackageReference Include="Dashing"  />
+    <PackageReference Include="Dashing.Weaver" />
+    <PackageReference Include="DevExpress.Xpo"  />
+    <PackageReference Include="EntityFramework"  />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer"  />
+    <PackageReference Include="NHibernate"  />
+    <PackageReference Include="PetaPoco"  />
+    <PackageReference Include="ServiceStack.OrmLite.SqlServer" />
+    <PackageReference Include="Soma" />
+    <PackageReference Include="Susanoo.SqlServer" />
+    <PackageReference Include="System.Data.Common" />
+    <PackageReference Include="System.Linq" />
+    <PackageReference Include="System.Linq.Expressions" />
   </ItemGroup>
 
   <ItemGroup Label="ProjectReferences">
     <ProjectReference Include="..\..\..\..\Common\.Testing\.XUnit\Common.Testing.XUnit.csproj" />
     <ProjectReference Include="..\..\..\xLinqToDB\xLinqToDB.csproj" />
-    <!-- 
+    <!--
     <ProjectReference Include="..\..\..\xSystem\.Data\.Linq\xSystem.Data.Linq.csproj" />
     -->
   </ItemGroup>

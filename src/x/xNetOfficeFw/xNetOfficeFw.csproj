@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup Label="Application">
     <TargetFramework>net48</TargetFramework>
     <!-- 
@@ -9,6 +9,6 @@
     <VersionPart2>9</VersionPart2>
   </PropertyGroup>
   <ItemGroup Label="PackageReferences">
-    <PackageReference Include="NetOfficeFw.Core" Version="1.9.7" />
+    <PackageReference Include="NetOfficeFw.Core" />
   </ItemGroup>
 </Project>

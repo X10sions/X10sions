@@ -6,9 +6,9 @@
     <VersionPart2>0</VersionPart2>
   </PropertyGroup>
   <ItemGroup Label="PackageReferences">
-    <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
+    <PackageReference Include="System.ComponentModel.Annotations"  />
   </ItemGroup>
-  <ItemGroup Label="ProjectReferences">    
-    <ProjectReference Include="..\.DotNetStandard\xSystem.DotNetStandard.csproj" />    
+  <ItemGroup Label="ProjectReferences">
+    <ProjectReference Include="..\.DotNetStandard\xSystem.DotNetStandard.csproj" />
   </ItemGroup>
 </Project>

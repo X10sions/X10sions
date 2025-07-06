@@ -8,6 +8,6 @@
     <!--  see https://github.com/dotnet/samples/blob/main/core/extensions/ExcelDemo/ExcelDemo.csproj  -->
   </PropertyGroup>
   <ItemGroup Label="PackageReferences">
-    <PackageReference Include="Microsoft.Office.Interop.Excel" Version="15.0.4795.1001" />
+    <PackageReference Include="Microsoft.Office.Interop.Excel"  />
   </ItemGroup>
 </Project>

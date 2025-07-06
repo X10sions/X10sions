@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup Label="Application">
     <TargetFramework>netstandard2.0</TargetFramework>
     <Product>NetStandard Extensions</Product>
@@ -7,8 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup Label="PackageReferences">
-    <PackageReference Include="Serenity.Data" Version="3.14.5" />
-    <PackageReference Include="Serenity.Data.Entity" Version="3.14.5" />
+    <PackageReference Include="Serenity.Data" />
+    <PackageReference Include="Serenity.Data.Entity" />
   </ItemGroup>
 
 </Project>

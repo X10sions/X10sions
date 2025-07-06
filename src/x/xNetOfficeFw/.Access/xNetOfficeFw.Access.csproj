@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup Label="Application">
     <TargetFramework>net48</TargetFramework>
-    <!-- 
+    <!--
     <TargetFramework>netstandard2.0</TargetFramework>
     -->
     <Product>NetOfficeFw Access Extensions</Product>
@@ -9,6 +9,6 @@
     <VersionPart2>9</VersionPart2>
   </PropertyGroup>
   <ItemGroup Label="PackageReferences">
-    <PackageReference Include="NetOfficeFw.Access" Version="1.9.7" />
+    <PackageReference Include="NetOfficeFw.Access" />
   </ItemGroup>
 </Project>

@@ -4,7 +4,7 @@
     <Product>IQToolkit (SqlServerCe) Tests</Product>
   </PropertyGroup>
   <ItemGroup Label="PackageReferences">
-    <PackageReference Include="Microsoft.SqlServer.Compact" Version="4.0.8876.1" />
+    <PackageReference Include="Microsoft.SqlServer.Compact"  />
   </ItemGroup>
   <ItemGroup Label="ProjectReferences">
     <ProjectReference Include="..\..\.Data\.Ado\xIQToolkit.Data.Ado.csproj" />

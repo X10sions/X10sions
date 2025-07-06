@@ -1,16 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup Label="Application">
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net9.0</TargetFramework>
     <Product>Common NetCoreApp</Product>
     <VersionPart1>3</VersionPart1>
     <VersionPart2>1</VersionPart2>
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.8" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.RazorPages" Version="2.1.11" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.8" />
-    <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="8.0.8" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore"  />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.RazorPages"  />
+    <PackageReference Include="Microsoft.EntityFrameworkCore"  />
+    <PackageReference Include="Microsoft.Extensions.Identity.Stores" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="AspNetCore\Mvc\" />

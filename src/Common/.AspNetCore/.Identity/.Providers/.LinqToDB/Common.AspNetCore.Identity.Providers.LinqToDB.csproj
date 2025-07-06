@@ -5,7 +5,7 @@
     <VersionPart1>1</VersionPart1>
   </PropertyGroup>
   <ItemGroup Label="PackageReferences">
-    <PackageReference Include="linq2db" Version="4.3.0" />
+    <PackageReference Include="linq2db" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Common.AspNetCore.Identity.csproj" />

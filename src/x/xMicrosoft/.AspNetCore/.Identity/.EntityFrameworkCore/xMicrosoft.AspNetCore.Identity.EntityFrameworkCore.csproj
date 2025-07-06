@@ -1,11 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup Label="Application">
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net9.0</TargetFramework>
     <Product>Microsoft AspNetCore Identity EntityFrameworkCore Extensions</Product>
     <VersionPart1>8</VersionPart1>
     <VersionPart2>0</VersionPart2>
-  </PropertyGroup> 
+  </PropertyGroup>
   <ItemGroup Label="PackageReferences">
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.8" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore"   />
   </ItemGroup>
 </Project>

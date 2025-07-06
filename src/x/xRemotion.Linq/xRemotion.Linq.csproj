@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup Label="Application">
     <TargetFramework>netstandard2.0</TargetFramework>
     <Product>NetStandard Extensions</Product>
@@ -8,9 +8,9 @@
     -->
   </PropertyGroup>
   <ItemGroup Label="PackageReferences">
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageReference Include="NHibernate" Version="5.5.1" />
-    <PackageReference Include="Remotion.Linq" Version="2.2.0" />
+    <PackageReference Include="Newtonsoft.Json" />
+    <PackageReference Include="NHibernate" />
+    <PackageReference Include="Remotion.Linq" />
   </ItemGroup>
 
 </Project>

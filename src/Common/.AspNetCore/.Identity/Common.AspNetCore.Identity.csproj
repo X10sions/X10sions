@@ -14,10 +14,10 @@
     <None Remove="Odbc\**" />
   </ItemGroup>
   <ItemGroup Label="PackageReferences">
-    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
-    <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="8.0.8" />
-    <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="8.0.8" />
-    <PackageReference Include="System.Data.Odbc" Version="8.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity" />
+    <PackageReference Include="Microsoft.Extensions.Identity.Core"  />
+    <PackageReference Include="Microsoft.Extensions.Identity.Stores"  />
+    <PackageReference Include="System.Data.Odbc"  />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\.DotNetStandard\Common.DotNetStandard.csproj" />

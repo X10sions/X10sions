@@ -4,11 +4,11 @@
     <Product>Microsoft Data SqlClient Extensions</Product>
     <VersionPart1>5</VersionPart1>
     <VersionPart2>0</VersionPart2>
-  </PropertyGroup> 
+  </PropertyGroup>
   <ItemGroup Label="PackageReferences">
-    <PackageReference Include="Azure.Identity" Version="1.12.0" />
-    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.1" />
-    <PackageReference Include="Microsoft.Identity.Client" Version="4.63.0" />
-    <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
+    <PackageReference Include="Azure.Identity"  />
+    <PackageReference Include="Microsoft.Data.SqlClient" />
+    <PackageReference Include="Microsoft.Identity.Client" />
+    <PackageReference Include="System.Data.SqlClient"  />
   </ItemGroup>
 </Project>

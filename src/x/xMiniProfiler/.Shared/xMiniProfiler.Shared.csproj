@@ -5,9 +5,9 @@
     <VersionPart1>4</VersionPart1>
     <VersionPart2>3</VersionPart2>
     <Nullable>enable</Nullable>
-  </PropertyGroup> 
+  </PropertyGroup>
   <ItemGroup Label="PackageReferences">
-    <PackageReference Include="MiniProfiler.Shared" Version="4.3.8" />
-    <PackageReference Include="System.Text.RegularExpressions" Version="4.3.1" />
+    <PackageReference Include="MiniProfiler.Shared"   />
+    <PackageReference Include="System.Text.RegularExpressions" />
   </ItemGroup>
 </Project>

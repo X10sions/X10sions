@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup Label="Application">
-    <TargetFramework>net8.0</TargetFramework>
-    <!-- 
+    <TargetFramework>net9.0</TargetFramework>
+    <!--
     <TargetFramework>netstandard2.0</TargetFramework>
     <TargetFrameworks>netstandard2.0;net6.0</TargetFrameworks>
     -->
@@ -15,8 +15,8 @@
   <ItemGroup Label="ProjectReferences">
     <ProjectReference Include="..\..\..\Common\.DotNetStandard\Common.DotNetStandard.csproj" />
     <ProjectReference Include="..\.Extensions\xMicrosoft.Extensions.csproj" />
-    <!-- 
-    <ProjectReference Include="$(RepoSrcDir_X10sions)x\xMicrosoft\.Extensions\xMicrosoft.Extensions.csproj" />  
+    <!--
+    <ProjectReference Include="$(RepoSrcDir_X10sions)x\xMicrosoft\.Extensions\xMicrosoft.Extensions.csproj" />
     -->
   </ItemGroup>
 </Project>

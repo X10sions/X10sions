@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup Label="Application">
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net9.0</TargetFramework>
     <Product>X10sions.Fake.Application</Product>
     <RootNamespace>X10sions.Fake</RootNamespace>
     <VersionPart1>2</VersionPart1>
@@ -16,7 +16,7 @@
     <None Remove="Models\**" />
   </ItemGroup>
   <ItemGroup Label="PackageReferences">
-    <PackageReference Update="FastExpressionCompiler.LightExpression" Version="3.3.3" />
+    <PackageReference Include="FastExpressionCompiler.LightExpression"  />
   </ItemGroup>
   <ItemGroup Label="ProjectReferences">
     <ProjectReference Include="..\.Domain\X10sions.Fake.Domain.csproj" />

@@ -15,13 +15,13 @@
   </ItemGroup>
 
   <ItemGroup Label="PackageReferences">
-    <PackageReference Include="EntityFrameworkCore.SqlServerCompact40" Version="2.2.0.7" />
-    <PackageReference Include="EntityFrameworkCore.Jet" Version="3.1.1" />
-    <PackageReference Include="IBM.Data.DB2.iSeries" Version="7.1.0" />
+    <PackageReference Include="EntityFrameworkCore.SqlServerCompact40"/>
+    <PackageReference Include="EntityFrameworkCore.Jet"  />
+    <PackageReference Include="IBM.Data.DB2.iSeries"    />
   </ItemGroup>
 
   <ItemGroup>
-    <!-- 
+    <!--
     <ProjectReference Include="..\.NetStandard\Nuget.NetStandard.csproj" />
     -->
   </ItemGroup>

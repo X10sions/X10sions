@@ -3,14 +3,14 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <Product>Microsoft Extensions</Product>
     <VersionPart1>8</VersionPart1>
-  </PropertyGroup> 
+  </PropertyGroup>
   <ItemGroup Label="PackageReferences">
-    <PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="8.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
-    <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="8.0.8" />
-    <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Logging.EventLog" Version="8.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Options" Version="8.0.2" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Abstractions"  />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json"  />
+    <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded"  />
+    <PackageReference Include="Microsoft.Extensions.Hosting" />
+    <PackageReference Include="Microsoft.Extensions.Logging.EventLog"  />
+    <PackageReference Include="Microsoft.Extensions.Options" />
   </ItemGroup>
   <ItemGroup Label="ProjectReferences">
     <ProjectReference Include="..\..\xSystem\.DotNetStandard\xSystem.DotNetStandard.csproj" />

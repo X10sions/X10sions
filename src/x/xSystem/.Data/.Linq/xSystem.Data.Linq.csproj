@@ -7,9 +7,9 @@
     <VersionPart2>0</VersionPart2>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="System.Security.Permissions" Version="8.0.0" />
+    <PackageReference Include="System.Security.Permissions"  />
   </ItemGroup>
-  <!-- 
+  <!--
   <ItemGroup>
     <ProjectReference Include="$(RepoSrcDir_X10sions)x\xSystem\.Data\xSystem.Data.csproj" />
   </ItemGroup>
