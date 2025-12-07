@@ -1,14 +1,19 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup Label="Application">
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <Product>Microsoft.EntityFrameworkCore DB2iSeries Extensions</Product>
     <VersionPart1>8</VersionPart1>
   </PropertyGroup>
-  <ItemGroup Label="PackageReferences">
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.0" />
-  </ItemGroup>
   <ItemGroup>
-    <Folder Include="Infrastructure\Internal\" />
-    <Folder Include="_\System\Data\Common\" />
+    <Compile Remove="Infrastructure\**" />
+    <Compile Remove="_\**" />
+    <EmbeddedResource Remove="Infrastructure\**" />
+    <EmbeddedResource Remove="_\**" />
+    <None Remove="Infrastructure\**" />
+    <None Remove="_\**" />
+  </ItemGroup>
+  <ItemGroup Label="PackageReferences">
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="10.0.0" />
+    <PackageReference Include="System.Data.Odbc" Version="10.0.0" />
   </ItemGroup>
 </Project>
