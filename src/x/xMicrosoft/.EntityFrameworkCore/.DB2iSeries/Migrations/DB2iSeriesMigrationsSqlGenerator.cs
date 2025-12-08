@@ -5,7 +5,9 @@ using Microsoft.EntityFrameworkCore.Migrations.Operations;
 namespace xMicrosoft.EntityFrameworkCore.DB2iSeries.Migrations;
 
 public class DB2iSeriesMigrationsSqlGenerator : MigrationsSqlGenerator {
-  public DB2iSeriesMigrationsSqlGenerator(MigrationsSqlGeneratorDependencies dependencies, IRelationalAnnotationProvider annotationProvider) : base(dependencies) { }
+  public DB2iSeriesMigrationsSqlGenerator(MigrationsSqlGeneratorDependencies dependencies) : base(dependencies) { }
+  //public DB2iSeriesMigrationsSqlGenerator(MigrationsSqlGeneratorDependencies dependencies, ICommandBatchPreparer commandBatchPreparer) : base(dependencies, commandBatchPreparer) { }
+  //public DB2iSeriesMigrationsSqlGenerator(MigrationsSqlGeneratorDependencies dependencies, IRelationalAnnotationProvider annotationProvider) : base(dependencies) { }
 
   //protected override void Generate(CreateTableOperation operation, IModel model, MigrationCommandListBuilder builder, bool terminate = true) => base.Generate(operation, model, builder, terminate);
 
