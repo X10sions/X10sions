@@ -1,0 +1,11 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup Label="Application">
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Product>System.Data.Entity Extensions</Product>
+    <VersionPart1>6</VersionPart1>
+    <VersionPart2>5</VersionPart2>
+  </PropertyGroup>
+  <ItemGroup Label="PackageReferences">
+    <PackageReference Include="EntityFramework" /> 
+  </ItemGroup>
+</Project>

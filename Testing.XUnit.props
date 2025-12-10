@@ -1,0 +1,9 @@
+<Project>
+  <Import Project="Testing.props" />
+  <ItemGroup Label="Testing-XUnit-ProjectReferences">
+    <ProjectReference Include="$(RepoSrcDir_X10sions)x\xAutoFixture\.Xunit2\xAutoFixture.Xunit2.csproj" />
+    <ProjectReference Include="$(RepoSrcDir_X10sions)x\xXUnit\xXUnit.csproj" />
+    <ProjectReference Include="$(RepoSrcDir_X10sions)x\xXunit\.Combinatorial\xXunit.Combinatorial.csproj" />
+    <ProjectReference Include="$(RepoSrcDir_X10sions)x\xXUnit\.Runner\.VisualStudio\xXUnit.Runner.VisualStudio.csproj" />
+  </ItemGroup>  
+</Project>

@@ -4,11 +4,5 @@
     <Product>NetStandard Extensions</Product>
     <VersionPart1>1</VersionPart1>
     <VersionPart2>0</VersionPart2>
-  </PropertyGroup> 
-  <ItemGroup Label="PackageReferences">
-    <!--
-    <PackageReference Include="IQToolkit" Version="1.0.0" />
-    <PackageReference Include="IQToolkit.Common" Version="1.0.0" />
-    -->
-  </ItemGroup>
+  </PropertyGroup>
 </Project>

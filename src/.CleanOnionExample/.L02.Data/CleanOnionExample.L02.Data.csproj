@@ -1,6 +1,6 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup Label="Application">
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net9.0</TargetFramework>
     <Nullable>enable</Nullable>
     <Product>CleanOnionExample.Data</Product>
     <RootNamespace>CleanOnionExample</RootNamespace>
@@ -12,37 +12,33 @@
     <None Remove="Data\Models\**" />
   </ItemGroup>
   <ItemGroup Label="PackageReferences">
-    <!--
-    <PackageReference Include="EntityFrameworkCore.Jet" Version="5.0.0-alpha.1" />
-    <PackageReference Include="EntityFrameworkCore.Jet" Version="8.0.0-rc1" />
-    -->
-    <PackageReference Include="AutoMapper" Version="13.0.1" />
-    <PackageReference Include="Dapper.FluentMap.Dommel" Version="2.0.0" />
-    <PackageReference Include="DelegateDecompiler" Version="0.34.0" />
-    <PackageReference Include="Dommel" Version="3.3.1" />
-    <PackageReference Include="EntityFrameworkCore.Jet" Version="8.0.0" />
-    <PackageReference Include="FluentNHibernate" Version="3.4.0" />
-    <PackageReference Include="FluentValidation" Version="11.9.2" />
-    <PackageReference Include="IBM.EntityFrameworkCore" Version="8.0.0.200" />
-    <PackageReference Include="MailKit" Version="4.7.1.1" />
-    <PackageReference Include="Mapster" Version="7.4.0" />
-    <PackageReference Include="MediatR" Version="12.4.0" />
-    <PackageReference Include="MicroOrm.Dapper.Repositories" Version="1.26.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.8" />
-    <PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="8.0.8" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.8" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.8" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite.Core" Version="8.0.8" />
-    <PackageReference Include="Microsoft.FeatureManagement" Version="3.5.0" />
-    <PackageReference Include="MySql.Data" Version="8.4.0" />
-    <PackageReference Include="Net.IBM.Data.Db2" Version="8.0.0.200" />
-    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.4" />
-    <PackageReference Include="Oracle.EntityFrameworkCore" Version="8.23.50" />
-    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="8.0.2" />
-    <PackageReference Include="NHibernate" Version="5.5.2" />
-    <PackageReference Include="System.Data.Odbc" Version="8.0.0" />
-    <PackageReference Include="System.Data.OleDb" Version="8.0.0" />
+    <PackageReference Include="AutoMapper" />
+    <PackageReference Include="Dapper.FluentMap.Dommel" />
+    <PackageReference Include="DelegateDecompiler" />
+    <PackageReference Include="Dommel" />
+    <PackageReference Include="EntityFrameworkCore.Jet" />
+    <PackageReference Include="FluentNHibernate" />
+    <PackageReference Include="FluentValidation" />
+    <PackageReference Include="IBM.EntityFrameworkCore" />
+    <PackageReference Include="MailKit" />
+    <PackageReference Include="Mapster" />
+    <PackageReference Include="MediatR" />
+    <PackageReference Include="MicroOrm.Dapper.Repositories" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" />
+    <PackageReference Include="Microsoft.AspNetCore.WebUtilities" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite.Core" />
+    <PackageReference Include="Microsoft.FeatureManagement" />
+    <PackageReference Include="MySql.Data" />
+    <PackageReference Include="Net.IBM.Data.Db2" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" />
+    <PackageReference Include="Oracle.EntityFrameworkCore" />
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" />
+    <PackageReference Include="NHibernate" />
+    <PackageReference Include="System.Data.Odbc" />
+    <PackageReference Include="System.Data.OleDb" />
   </ItemGroup>
   <ItemGroup Label="ProjectReferences">
     <!--

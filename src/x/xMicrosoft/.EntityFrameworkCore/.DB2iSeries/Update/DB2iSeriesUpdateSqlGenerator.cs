@@ -6,8 +6,11 @@ namespace xMicrosoft.EntityFrameworkCore.DB2iSeries.Update;
 
 public class DB2iSeriesUpdateSqlGenerator : UpdateAndSelectSqlGenerator {
 
-  public DB2iSeriesUpdateSqlGenerator(UpdateSqlGeneratorDependencies dependencies) : base(dependencies) { }
+  public DB2iSeriesUpdateSqlGenerator(UpdateSqlGeneratorDependencies dependencies, NamingConvention namingConvention) : base(dependencies) {
+    _dummyTable = namingConvention.GetQualifiedName("SYSIBM", "SYSDUMMY1");
+  }
 
+  public string _dummyTable;
 
   protected override void AppendIdentityWhereCondition(StringBuilder commandStringBuilder, IColumnModification columnModification) {
     commandStringBuilder.AppendFormat("{0} = IDENTITY_VAL_LOCAL()", SqlGenerationHelper.DelimitIdentifier(columnModification.ColumnName));
@@ -25,7 +28,7 @@ public class DB2iSeriesUpdateSqlGenerator : UpdateAndSelectSqlGenerator {
 
   protected override ResultSetMapping AppendSelectAffectedCountCommand(StringBuilder commandStringBuilder, string name, string schema, int commandPosition) {
     commandStringBuilder
-        .Append("SELECT ROW_COUNT() FROM SYSIBM.SYSDUMMY1")
+        .AppendFormat("SELECT ROW_COUNT() FROM {0}", _dummyTable)
         .Append(SqlGenerationHelper.StatementTerminator)
         .AppendLine();
     return ResultSetMapping.LastInResultSet;

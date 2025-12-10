@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup Label="Application">
     <TargetFramework>netstandard2.0</TargetFramework>
     <Product>MimeKit .Net Extensions</Product>
@@ -7,6 +7,6 @@
     <Description>https://getbootstrap.com</Description>
   </PropertyGroup>
   <ItemGroup Label="PackageReferences">
-    <PackageReference Include="MimeKit" Version="4.7.1" />
+    <PackageReference Include="MimeKit" />
   </ItemGroup>
 </Project>

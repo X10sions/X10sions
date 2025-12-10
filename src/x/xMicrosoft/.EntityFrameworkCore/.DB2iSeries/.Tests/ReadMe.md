@@ -60,3 +60,38 @@ dotnet test --filter "FullyQualifiedName~Integration"
 ### All tests:
 
 dotnet test
+
+
+
+
+
+
+
+
+
+
+
+# EFCore.ISeries
+
+An Entity Framework Core provider for IBM i (AS/400) focusing on v5r4 compatibility via ODBC.
+
+## Features
+- Querying and CRUD over ODBC.
+- Identifier quoting with double-quotes.
+- Boolean emulation via SMALLINT (0/1).
+- `Take()` via `FETCH FIRST n ROWS ONLY`.
+- Basic migrations: create table, add/drop column, PK, indexes, FKs.
+
+## Limitations
+- `Skip()` not supported by default on v5r4 (use `Take()` and keyset pagination).
+- No native BOOLEAN; use SMALLINT.
+- Identity columns may be limited. Prefer client-generated GUIDs.
+
+## Connection string example
+
+
+## Usage
+```csharp
+var options = new DbContextOptionsBuilder<MyDbContext>()
+    .UseISeries("Driver={IBM i Access ODBC Driver};System=MYISERIES;Uid=USER;Pwd=PASS;Naming=1;DefaultLibraries=MYLIB")
+    .Options;

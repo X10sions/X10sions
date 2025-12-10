@@ -1,0 +1,101 @@
+<Project>
+  <Target Name="CommonMessagesBefore" BeforeTargets="Build">
+    <Message Importance="high" Text="$([System.DateTime]::Now.ToString('yyyy-MM-dd-HH:mm:ss')): CommonMessagesBefore     : $(MSBuildProjectName)" />
+    <PropertyGroup>
+      <BeforeIntermediateAssemblyModifiedTime>%(IntermediateAssembly.ModifiedTime)</BeforeIntermediateAssemblyModifiedTime>
+      <BeforeTargetPathFilesModifiedTime>%(TargetPathFiles.ModifiedTime)</BeforeTargetPathFilesModifiedTime>
+    </PropertyGroup>
+    <Message Importance="high" Text="---------------------------------" />
+    <Message Importance="high" Text="MSBuild                          " />
+    <Message Importance="high" Text="  MSBuild                       : $(MSBuild)" />
+    <Message Importance="high" Text="  MSBuildBinPath                : $(MSBuildBinPath)" />
+    <Message Importance="high" Text="  MSBuildExtensionsPath         : $(MSBuildExtensionsPath)" />
+    <Message Importance="high" Text="  MSBuildExtensionsPath32       : $(MSBuildExtensionsPath32)" />
+    <Message Importance="high" Text="  MSBuildExtensionsPath64       : $(MSBuildExtensionsPath64)" />
+    <Message Importance="high" Text="  MSBuildLastTaskResult         : $(MSBuildLastTaskResult)" />
+    <Message Importance="high" Text="  MSBuildNodeCount              : $(MSBuildNodeCount)" />
+    <Message Importance="high" Text="  MSBuildOverrideTasksPath      : $(MSBuildOverrideTasksPath)" />
+    <Message Importance="high" Text="  MSBuildProgramFiles32         : $(MSBuildProgramFiles32)" />
+    <Message Importance="high" Text="  MSBuildProjectDefaultTargets  : $(MSBuildProjectDefaultTargets)" />
+    <Message Importance="high" Text="  MSBuildProjectDirectory       : $(MSBuildProjectDirectory)" />
+    <Message Importance="high" Text="  MSBuildProjectDirectoryNoRoot : $(MSBuildProjectDirectoryNoRoot)" />
+    <Message Importance="high" Text="  MSBuildProjectExtension       : $(MSBuildProjectExtension)" />
+    <Message Importance="high" Text="  MSBuildProjectFile            : $(MSBuildProjectFile)" />
+    <Message Importance="high" Text="  MSBuildProjectFullPath        : $(MSBuildProjectFullPath)" />
+    <Message Importance="high" Text="  MSBuildProjectName            : $(MSBuildProjectName)" />
+    <Message Importance="high" Text="  MSBuildStartupDirectory       : $(MSBuildStartupDirectory)" />
+    <Message Importance="high" Text="  MSBuildThisFile               : $(MSBuildThisFile)" />
+    <Message Importance="high" Text="  MSBuildThisFileDirectory      : $(MSBuildThisFileDirectory)" />
+    <Message Importance="high" Text="  MSBuildThisFileDirectoryNoRoot: $(MSBuildThisFileDirectoryNoRoot)" />
+    <Message Importance="high" Text="  MSBuildThisFileExtension      : $(MSBuildThisFileExtension)" />
+    <Message Importance="high" Text="  MSBuildThisFileFullPath       : $(MSBuildThisFileFullPath)" />
+    <Message Importance="high" Text="  MSBuildThisFileName           : $(MSBuildThisFileName)" />
+    <Message Importance="high" Text="  MSBuildToolsPath:             : $(MSBuildToolsPath)" />
+    <Message Importance="high" Text="  MSBuildToolsVersion           : $(MSBuildToolsVersion)" />
+    <Message Importance="high" Text="---------------------------------" />
+    <Message Importance="high" Text="Environment (SET) Variables*     " />
+    <Message Importance="high" Text="  COMPUTERNAME                  : $(COMPUTERNAME)" />
+    <Message Importance="high" Text="  USERDNSDOMAIN                 : $(USERDNSDOMAIN)" />
+    <Message Importance="high" Text="  USERDOMAIN                    : $(USERDOMAIN)" />
+    <Message Importance="high" Text="  USERNAME                      : $(USERNAME)" />
+    <Message Importance="high" Text="---------------------------------" />
+    <Message Importance="high" Text="Project (CSPROJ)" />
+    <Message Importance="high" Text="  AssemblyName             : $(AssemblyName)" />
+    <Message Importance="high" Text="  Configuration            : $(Configuration)" />
+    <Message Importance="high" Text="  IntermediateOutputPath   : $(IntermediateOutputPath)" />
+    <Message Importance="high" Text="  Platform                 : $(Platform)" />
+    <Message Importance="high" Text="  ProjectDir               : $(ProjectDir)" />
+    <Message Importance="high" Text="  ProjectPath              : $(ProjectPath)" />
+    <Message Importance="high" Text="  SolutionDir              : $(SolutionDir)"/>
+    <Message Importance="high" Text="  TargetDir                : $(TargetDir)" />
+    <Message Importance="high" Text="  TargetFrameworkIdentifier: $(TargetFrameworkIdentifier)" />
+    <Message Importance="high" Text="  TargetFrameworkVersion   : $(TargetFrameworkVersion)" />
+    <Message Importance="high" Text="  TargetPath               : $(TargetPath)" />
+    <Message Importance="high" Text="  TargetPlatformIdentifier : $(TargetPlatformIdentifier)" />
+    <Message Importance="high" Text="  TargetPlatformVersion    : $(TargetPlatformVersion)" />
+    <Message Importance="high" Text="  Version                  : $(Version)" />
+    <Message Importance="high" Text="  VersionPrefix            : $(VersionPrefix)" />
+    <Message Importance="high" Text="  VersionSuffix            : $(VersionSuffix)" />
+    <Message Importance="high" Text="---------------------------------" />
+	<!--  https://docs.microsoft.com/en-us/visualstudio/msbuild/item-functions?view=vs-2019 -->
+    <Message Importance="high" Text="Item Group Counts          :" />
+    <Message Importance="high" Text="  IntermediateAssembly     : @(IntermediateAssembly->Count())" />
+    <Message Importance="high" Text="  PackageReference         : @(PackageReference->Count())" />
+    <Message Importance="high" Text="  ProjectReference         : @(ProjectReference->Count())" />
+    <Message Importance="high" Text="  Compile                  : @(Compile->Count())" />
+    <Message Importance="high" Text="  Content                  : @(Content->Count())" />
+    <Message Importance="high" Text="  Reference                : @(Reference->Count())" />
+    <Message Importance="high" Text="  EmbeddedResource         : @(EmbeddedResource->Count())" />
+    <Message Importance="high" Text="  None                     : @(None->Count())" />
+    <Message Importance="high" Text="  FileWrites               : @(FileWrites->Count())" />
+    <Message Importance="high" Text=" --------------------------------" />
+    <Message Importance="high" Text="Items                      " />
+    <Message Importance="high" Text="  IntermediateAssembly     : %(IntermediateAssembly.ModifiedTime) %(IntermediateAssembly.FullPath)" />
+    <Message Importance="high" Text="  Compile                  : %(Compile.ModifiedTime).SubString(0,19) %(Compile.FullPath)" />
+    <Message Importance="high" Text="  FileWrites               : %(FileWrites.ModifiedTime).SubString(0,19) %(FileWrites.FullPath)" />
+    <Message Importance="high" Text=" --------------------------------" />
+    <Message Importance="high" Text="Before ModifiedTimes      " />
+    <Message Importance="high" Text="  IntermediateAssembly     : $(BeforeIntermediateAssemblyModifiedTime)" />
+    <Message Importance="high" Text="  TargetPathFiles          : $(BeforeTargetPathFilesModifiedTime)" />
+  </Target>
+  <Target Name="CommonMessagesAfter" AfterTargets="Build">
+    <PropertyGroup>
+      <AfterIntermediateAssemblyModifiedTime>%(IntermediateAssembly.ModifiedTime)</AfterIntermediateAssemblyModifiedTime>
+      <AfterTargetPathFilesModifiedTime>%(TargetPathFiles.ModifiedTime)</AfterTargetPathFilesModifiedTime>
+      <!-- 
+      <IntermediateAssemblyModified Condition="'$(BeforeIntermediateAssemblyModifiedTime)' != '$(AfterIntermediateAssemblyModifiedTime)'">True</IntermediateAssemblyModified>
+      <TargetPathFilesModified Condition="'$(BeforeTargetPathFilesModifiedTime)' != '$(AfterTargetPathFilesModifiedTime)'">True</TargetPathFilesModified>
+      -->
+    </PropertyGroup>
+    <Message Importance="high" Text="$([System.DateTime]::Now.ToString('yyyy-MM-dd-HH:mm:ss')): CommonMessagesAfter     : $(MSBuildProjectName)" />
+    <Message Importance="high" Text="After ModifiedTimes     : " />
+    <Message Importance="high" Text="  IntermediateAssembly  : $(AfterIntermediateAssemblyModifiedTime)" />
+    <Message Importance="high" Text="  TargetPathFiles       : $(AfterTargetPathFilesModifiedTime)" />
+    <!-- 
+    <Message Importance="high" Text="IntermediateAssemblyModified          : $(IntermediateAssemblyModified)" />
+    <Message Importance="high" Text="TargetPathFilesModified               : $(TargetPathFilesModified)" />
+    
+    <Message Importance="high" Text="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+    -->
+  </Target>
+</Project>

@@ -6,6 +6,6 @@
     <VersionPart2>10</VersionPart2>
   </PropertyGroup>
   <ItemGroup Label="PackageReferences">
-    <PackageReference Include="MongoDB.Driver" Version="2.28.0" />
+    <PackageReference Include="MongoDB.Driver" />
   </ItemGroup>
 </Project>

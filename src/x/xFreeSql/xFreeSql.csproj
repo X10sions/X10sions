@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup Label="Application">
     <TargetFramework>netstandard2.0</TargetFramework>
     <Product>FreeSql Extensions</Product>
@@ -6,7 +6,7 @@
     <VersionPart2>2</VersionPart2>
   </PropertyGroup>
   <ItemGroup Label="PackageReferences">
-    <PackageReference Include="FreeSql" Version="3.2.833" />
-    <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
+    <PackageReference Include="FreeSql" />
+    <PackageReference Include="System.ComponentModel.Annotations" />
   </ItemGroup>
 </Project>

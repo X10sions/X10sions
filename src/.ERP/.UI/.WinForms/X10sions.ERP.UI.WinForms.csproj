@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net8.0-windows</TargetFramework>
+    <TargetFramework>net9.0-windows</TargetFramework>
     <OutputType>WinExe</OutputType>
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
@@ -8,7 +8,7 @@
     <IsShippingPackage>false</IsShippingPackage>
   </PropertyGroup>
   <ItemGroup Label="PackageReferences">
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebView.WindowsForms" Version="8.0.80" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebView.WindowsForms" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\.Razor\X10sions.ERP.Razor.csproj" />

@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup Label="Application">
     <TargetFramework>netstandard2.0</TargetFramework>
     <Product>NetStandard Extensions</Product>
@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup Label="PackageReferences">
-    <PackageReference Include="DatabaseSchemaReader" Version="2.11.0" />
+    <PackageReference Include="DatabaseSchemaReader" />
   </ItemGroup>
 
 </Project>

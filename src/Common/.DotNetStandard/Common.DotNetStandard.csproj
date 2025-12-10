@@ -13,7 +13,7 @@
     <None Remove="Models\Win32\**" />
   </ItemGroup>
   <ItemGroup Label="PackageReferences">
-    <PackageReference Update="FastExpressionCompiler.LightExpression" Version="3.3.3" />
+    <PackageReference Update="FastExpressionCompiler.LightExpression"  />
   </ItemGroup>
   <ItemGroup Label="ProjectReferences">
     <ProjectReference Include="..\..\x\xSystem\.DotNetStandard\xSystem.DotNetStandard.csproj" />

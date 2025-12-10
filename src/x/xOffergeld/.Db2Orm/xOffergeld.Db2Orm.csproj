@@ -6,6 +6,6 @@
     <VersionPart2>2</VersionPart2>
   </PropertyGroup>
   <ItemGroup Label="PackageReferences">
-    <PackageReference Include="Offergeld.Db2Orm" Version="1.2.5" />
+    <PackageReference Include="Offergeld.Db2Orm" />
   </ItemGroup>
 </Project>

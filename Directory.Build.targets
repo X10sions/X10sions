@@ -1,3 +1,5 @@
 <Project>
-  <Import Project="../Directory.Build.targets" />
+  <Import Condition=" '$(DoAutoVersion)' == 'true' " Project="AutoVersion.props" />
+  <Import Condition=" '$(DoAutoVersion)' == 'true' " Project="AutoVersion.targets" />
+  <Import Condition=" '$(DoCommonMessages)' == 'true' " Project="Common.Messages.targets"/>
 </Project>

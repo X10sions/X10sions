@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup Label="Application">
     <TargetFramework>netstandard2.1</TargetFramework>
     <Product>NetStandard Extensions</Product>
@@ -6,7 +6,7 @@
     <VersionPart2>1</VersionPart2>
 </PropertyGroup>
   <ItemGroup Label="PackageReferences">
-    <PackageReference Include="System.Reflection.Emit" Version="4.7.0" />
-    <PackageReference Include="TypeMerger" Version="2.1.4" />
+    <PackageReference Include="System.Reflection.Emit" />
+    <PackageReference Include="TypeMerger" />
   </ItemGroup>
 </Project>

@@ -12,6 +12,13 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7CADBEE8-D3D0-43BC-AFE9-B405AA94DA6B}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
+		AutoVersion.props = AutoVersion.props
+		AutoVersion.targets = AutoVersion.targets
+		Common.Messages.targets = Common.Messages.targets
+		Directory.Build.props = Directory.Build.props
+		Directory.Build.targets = Directory.Build.targets
+		Directory.Build.Tests.props = Directory.Build.Tests.props
+		Directory.Packages.props = Directory.Packages.props
 		build\Tests.props = build\Tests.props
 		build\Tests.XUnit.props = build\Tests.XUnit.props
 	EndProjectSection
@@ -83,8 +90,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common.Analyzers", "src\Common\.Analyzers\Common.Analyzers.csproj", "{3500ECA7-2274-4BF8-8BD2-CB28DBEE8753}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".Tests", ".Tests", "{2F8F7E0C-53FF-477B-85BB-608DB48EFDDD}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "X10sions.NugetPackages", "src\X10sions.NugetPackages\X10sions.NugetPackages.csproj", "{3D5122DD-C8B8-4D2F-AC3B-DE4AC89532FE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "x", "x", "{9F50D8BE-B9C9-4398-9C52-0E2094A3D5BC}"
 EndProject
@@ -410,6 +415,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common.Linq", "src\Common\.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common.Linq.Tests", "src\Common\.Linq\.Tests\Common.Linq.Tests.csproj", "{A768D845-3DC9-40C6-BE0D-4DC48C80A32A}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".Trading", ".Trading", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "X10sions.Trading", "src\.Trading\X10sions.Trading.csproj", "{61B75B22-583D-DAEC-126B-0524AA2BD13F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -532,10 +541,6 @@ Global
 		{3500ECA7-2274-4BF8-8BD2-CB28DBEE8753}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3500ECA7-2274-4BF8-8BD2-CB28DBEE8753}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3500ECA7-2274-4BF8-8BD2-CB28DBEE8753}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3D5122DD-C8B8-4D2F-AC3B-DE4AC89532FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3D5122DD-C8B8-4D2F-AC3B-DE4AC89532FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3D5122DD-C8B8-4D2F-AC3B-DE4AC89532FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3D5122DD-C8B8-4D2F-AC3B-DE4AC89532FE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{15666760-9986-466C-8746-9797D9031095}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{15666760-9986-466C-8746-9797D9031095}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{15666760-9986-466C-8746-9797D9031095}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -1068,6 +1073,10 @@ Global
 		{A768D845-3DC9-40C6-BE0D-4DC48C80A32A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A768D845-3DC9-40C6-BE0D-4DC48C80A32A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A768D845-3DC9-40C6-BE0D-4DC48C80A32A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{61B75B22-583D-DAEC-126B-0524AA2BD13F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61B75B22-583D-DAEC-126B-0524AA2BD13F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61B75B22-583D-DAEC-126B-0524AA2BD13F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61B75B22-583D-DAEC-126B-0524AA2BD13F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1265,6 +1274,7 @@ Global
 		{E07E47B9-5640-45CF-ABF5-437E238034E8} = {E4E84D9F-0C6C-45C6-83EB-6D5468523FF1}
 		{44BAF2E8-20B0-48AD-9AFC-D5A4B0035C05} = {30BB0427-8FC8-4BF3-8833-AF147088A596}
 		{A768D845-3DC9-40C6-BE0D-4DC48C80A32A} = {2F8F7E0C-53FF-477B-85BB-608DB48EFDDD}
+		{61B75B22-583D-DAEC-126B-0524AA2BD13F} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DC6013E7-2A8B-49BF-B7E1-799AD1E96BE7}

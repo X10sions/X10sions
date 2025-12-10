@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net48;net8.0</TargetFrameworks>
+    <TargetFrameworks>net48;net9.0</TargetFrameworks>
     <!--
     <TargetFramework>net8.0</TargetFramework>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -8,17 +8,17 @@
     <IsPackable>false</IsPackable>
   </PropertyGroup>
   <ItemGroup Label="PackageReferences">
-    <PackageReference Include="Microsoft.Playwright.MSTest" Version="1.48.0" />
-    <PackageReference Include="MSTest.Analyzers" Version="3.6.3" ExcludeAssets="compile" />
-    <PackageReference Include="MSTest.TestAdapter" Version="3.6.3" />
-    <PackageReference Include="MSTest.TestFramework" Version="3.6.3" />
-    <PackageReference Include="Reqnroll.MsTest" Version="2.2.1" />
-    <PackageReference Include="Verify.MSTest" Version="28.3.2" />
+    <PackageReference Include="Microsoft.Playwright.MSTest"  />
+    <PackageReference Include="MSTest.Analyzers"  ExcludeAssets="compile" />
+    <PackageReference Include="MSTest.TestAdapter" />
+    <PackageReference Include="MSTest.TestFramework"  />
+    <PackageReference Include="Reqnroll.MsTest"  />
+    <PackageReference Include="Verify.MSTest"   />
   </ItemGroup>
   <ItemGroup Label="ProjectReferences">
     <ProjectReference Include="..\Common.Testing.csproj" />
   </ItemGroup>
-  <!-- 
+  <!--
   <ItemGroup Label="Usings">
     <Using Include="Microsoft.VisualStudio.TestTools.UnitTesting" />
   </ItemGroup>

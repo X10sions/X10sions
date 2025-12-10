@@ -4,8 +4,8 @@
     <Product>Azure.Core Extensions</Product>
     <VersionPart1>1</VersionPart1>
     <VersionPart2>39</VersionPart2>
-  </PropertyGroup> 
+  </PropertyGroup>
   <ItemGroup Label="PackageReferences">
-    <PackageReference Include="Azure.Core" Version="1.39.0" />
+    <PackageReference Include="Azure.Core" />
   </ItemGroup>
 </Project>

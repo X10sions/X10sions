@@ -7,7 +7,7 @@
     <VersionPart2>2</VersionPart2>
   </PropertyGroup>
   <ItemGroup Label="PackageReferences">
-    <PackageReference Include="FreeSql.Provider.Odbc" Version="3.2.833" />
+    <PackageReference Include="FreeSql.Provider.Odbc"  />
   </ItemGroup>
   <ItemGroup Label="ProjectReferences">
     <ProjectReference Include="..\..\xFreeSql.csproj" />

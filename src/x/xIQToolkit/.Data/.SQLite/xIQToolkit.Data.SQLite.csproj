@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup Label="Application">
     <TargetFramework>netstandard2.0</TargetFramework>
     <Product>IQToolkit Data SQLite Extensions</Product>
@@ -6,8 +6,8 @@
     <VersionPart2>0</VersionPart2>
   </PropertyGroup>
   <ItemGroup Label="PackageReferences">
-    <PackageReference Include="Microsoft.Data.Sqlite.Core" Version="5.0.7" />
-    <PackageReference Include="System.Data.SQLite" Version="1.0.118" />
+    <PackageReference Include="Microsoft.Data.Sqlite.Core"  />
+    <PackageReference Include="System.Data.SQLite"  />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\.Ado\xIQToolkit.Data.Ado.csproj" />

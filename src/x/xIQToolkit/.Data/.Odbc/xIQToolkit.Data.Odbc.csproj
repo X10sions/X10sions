@@ -6,7 +6,7 @@
     <VersionPart2>0</VersionPart2>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="System.Data.Odbc" Version="8.0.0" />
+    <PackageReference Include="System.Data.Odbc" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\.Ado\xIQToolkit.Data.Ado.csproj" />

@@ -6,10 +6,10 @@
     <VersionPart2>0</VersionPart2>
   </PropertyGroup>
   <ItemGroup Label="PackageReferences">
-    <PackageReference Include="System.Management" Version="8.0.0" />
+    <PackageReference Include="System.Management"  />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\xWin32\xWin32.csproj" />
     <ProjectReference Include="..\.DotNetStandard\xSystem.DotNetStandard.csproj" />
-  </ItemGroup>  
+  </ItemGroup>
 </Project>

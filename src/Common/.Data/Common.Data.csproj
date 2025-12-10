@@ -7,8 +7,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup Label="PackageReferences">
-    <PackageReference Include="Ardalis.SmartEnum" Version="2.1.0" />
-    <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
+    <PackageReference Include="Ardalis.SmartEnum"   />
+    <PackageReference Include="System.Data.DataSetExtensions"  />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\.DotNetStandard\Common.DotNetStandard.csproj" />

@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup Label="Application">
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <Product>X10sions.Fake.Infrastructure</Product>
@@ -10,43 +10,43 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup Label="PackageReferences">
-    <PackageReference Include="Chloe.MySql" Version="5.27.0" />
-    <PackageReference Include="Chloe.Oracle" Version="5.27.0" />
-    <PackageReference Include="Chloe.PostgreSQL" Version="5.27.0" />
-    <PackageReference Include="Chloe.SQLite" Version="5.27.0" />
-    <PackageReference Include="Chloe.SqlServer" Version="5.27.0" />
-    <PackageReference Include="DelegateDecompiler" Version="0.34.0" />
-    <PackageReference Include="EntityFrameworkCore.Jet" Version="8.0.0" />
-    <PackageReference Include="FirebirdSql.EntityFrameworkCore.Firebird" Version="11.0.0" />
-    <PackageReference Include="FreeSql.All" Version="3.2.833" />
-    <PackageReference Include="IBM.EntityFrameworkCore" Version="8.0.0.200" />
-    <PackageReference Include="linq2db.AspNet" Version="5.4.1" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite.Core" Version="8.0.8" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.8" />
-    <PackageReference Include="MySql.EntityFrameworkCore" Version="8.0.5" />
-    <PackageReference Include="NHibernate" Version="5.5.2" />
-    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.4" />
-    <PackageReference Include="Oracle.EntityFrameworkCore" Version="8.23.50" />
-    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="8.0.2" />
-    <PackageReference Include="RepoDb.MySql" Version="1.13.1" />
-    <PackageReference Include="RepoDb.MySqlConnector" Version="1.13.1" />
-    <PackageReference Include="RepoDb.PostgreSql" Version="1.13.1" />
-    <PackageReference Include="RepoDb.Sqlite.Microsoft" Version="1.13.1" />
-    <PackageReference Include="RepoDb.SQLite.System" Version="1.13.1" />
-    <PackageReference Include="RepoDb.SqlServer" Version="1.13.1" />
-    <PackageReference Include="ServiceStack.OrmLite.Firebird" Version="8.3.0" />
-    <PackageReference Include="ServiceStack.OrmLite.MySql" Version="8.3.0" />
-    <PackageReference Include="ServiceStack.OrmLite.MySqlConnector" Version="8.3.0" />
-    <PackageReference Include="ServiceStack.OrmLite.Oracle" Version="8.3.0" />
-    <PackageReference Include="ServiceStack.OrmLite.PostgreSQL" Version="8.3.0" />
-    <PackageReference Include="ServiceStack.OrmLite.Sqlite" Version="8.3.0" />
-    <PackageReference Include="ServiceStack.OrmLite.SqlServer" Version="8.3.0" />
-    <PackageReference Include="SmartSql.Bulk.MySql" Version="4.1.67" />
-    <PackageReference Include="SmartSql.Bulk.MySqlConnector" Version="4.1.67" />
-    <PackageReference Include="SmartSql.Bulk.PostgreSql" Version="4.1.67" />
-    <PackageReference Include="SmartSql.Bulk.SqlServer" Version="4.1.67" />
-    <PackageReference Include="sqlite-net-pcl" Version="1.9.172" />
-    <PackageReference Include="SqlSugarCore" Version="5.1.4.167" />
+    <PackageReference Include="Chloe.MySql"  />
+    <PackageReference Include="Chloe.Oracle"  />
+    <PackageReference Include="Chloe.PostgreSQL"  />
+    <PackageReference Include="Chloe.SQLite"  />
+    <PackageReference Include="Chloe.SqlServer"  />
+    <PackageReference Include="DelegateDecompiler"  />
+    <PackageReference Include="EntityFrameworkCore.Jet"  />
+    <PackageReference Include="FirebirdSql.EntityFrameworkCore.Firebird"  />
+    <PackageReference Include="FreeSql.All"  />
+    <PackageReference Include="IBM.EntityFrameworkCore"  />
+    <PackageReference Include="linq2db.AspNet" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite.Core"  />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer"  />
+    <PackageReference Include="MySql.EntityFrameworkCore" />
+    <PackageReference Include="NHibernate"  />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL"  />
+    <PackageReference Include="Oracle.EntityFrameworkCore"  />
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql"  />
+    <PackageReference Include="RepoDb.MySql"  />
+    <PackageReference Include="RepoDb.MySqlConnector"  />
+    <PackageReference Include="RepoDb.PostgreSql"  />
+    <PackageReference Include="RepoDb.Sqlite.Microsoft"  />
+    <PackageReference Include="RepoDb.SQLite.System"  />
+    <PackageReference Include="RepoDb.SqlServer"  />
+    <PackageReference Include="ServiceStack.OrmLite.Firebird" />
+    <PackageReference Include="ServiceStack.OrmLite.MySql"  />
+    <PackageReference Include="ServiceStack.OrmLite.MySqlConnector"  />
+    <PackageReference Include="ServiceStack.OrmLite.Oracle"  />
+    <PackageReference Include="ServiceStack.OrmLite.PostgreSQL"  />
+    <PackageReference Include="ServiceStack.OrmLite.Sqlite"  />
+    <PackageReference Include="ServiceStack.OrmLite.SqlServer"  />
+    <PackageReference Include="SmartSql.Bulk.MySql"  />
+    <PackageReference Include="SmartSql.Bulk.MySqlConnector" />
+    <PackageReference Include="SmartSql.Bulk.PostgreSql"  />
+    <PackageReference Include="SmartSql.Bulk.SqlServer"  />
+    <PackageReference Include="sqlite-net-pcl"  />
+    <PackageReference Include="SqlSugarCore"  />
     <!--
     https://github.com/sapiens/SqlFu
     https://github.com/ServiceStack/ServiceStack.OrmLite
@@ -58,19 +58,7 @@
     https://github.com/mistic100/jQuery-QueryBuilder
     https://github.com/tghamm/dynamic-linq-query-builder
     -->
-    <!-- 
-    <PackageReference Include="Azure.Identity" Version="1.11.4" />
-    <PackageReference Include="BouncyCastle.Cryptography" Version="2.4.0" />
-    <PackageReference Include="System.Data.Odbc" Version="8.0.0" />
-    <PackageReference Include="System.Data.OleDb" Version="8.0.0" />
-    <PackageReference Include="System.Drawing.Common" Version="4.7.3" />
-    <PackageReference Include="System.Net.Http" Version="4.3.4" />
-    <PackageReference Include="System.Security.Cryptography.Xml" Version="4.7.1" />
-    <PackageReference Include="System.Text.RegularExpressions" Version="4.3.1" />
-    -->
   </ItemGroup>
-
-
   <ItemGroup Label="ProjectReferences">
     <ProjectReference Include="..\..\x\xLinqToDB\.DataProvider\.DB2iSeries\xLinqToDB.DataProvider.DB2iSeries.csproj" />
     <ProjectReference Include="..\.Application\X10sions.Fake.Application.csproj" />

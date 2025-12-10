@@ -8,11 +8,11 @@
     <RootNamespace></RootNamespace>
   </PropertyGroup>
   <ItemGroup Label="PackageReferences">
-    <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.9" />
-    <PackageReference Include="Microsoft.AspNet.Identity.Core" Version="2.2.3" />
-    <PackageReference Include="Microsoft.AspNet.SignalR.Core" Version="2.4.3" />
-    <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.2.9" />
-    <PackageReference Include="Microsoft.AspNet.WebPages.Data" Version="3.2.9" />
+    <PackageReference Include="Microsoft.AspNet.Mvc" />
+    <PackageReference Include="Microsoft.AspNet.Identity.Core"  />
+    <PackageReference Include="Microsoft.AspNet.SignalR.Core"  />
+    <PackageReference Include="Microsoft.AspNet.WebApi.Core"  />
+    <PackageReference Include="Microsoft.AspNet.WebPages.Data" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\.DotNetStandard\Common.DotNetStandard.csproj" />

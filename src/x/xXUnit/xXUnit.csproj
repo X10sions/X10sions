@@ -1,11 +1,11 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net9.0</TargetFramework>
     <Product>XUnit NetStandard Extensions</Product>
     <VersionPart1>2</VersionPart1>
     <VersionPart2>4</VersionPart2>
   </PropertyGroup>
   <ItemGroup Label="PackageReferences">
-    <PackageReference Include="xunit" Version="2.4.1" />
+    <PackageReference Include="xunit" />
   </ItemGroup>
 </Project>

@@ -1,0 +1,91 @@
+<Project>
+  <PropertyGroup>
+    <AutoVersionIsEnabled Condition=" '$(VersionPart1)$(VersionPart2)$(VersionPart3)$(VersionPart4)' != '' ">true</AutoVersionIsEnabled>
+  </PropertyGroup>
+  <Choose>
+    <When Condition=" '$(AutoVersionIsEnabled)' != '' ">
+      <PropertyGroup>
+        <DateTimeFormat>yyyy-MM-dd HH:mm:ss.fff</DateTimeFormat>
+        <Now>$([System.DateTime]::Now.ToString($(DateTimeFormat)))</Now>
+        <UtcNow>$([System.DateTime]::UtcNow.ToString($(DateTimeFormat)))</UtcNow>
+        <TotalDaysStartDate>2000-01-01</TotalDaysStartDate>
+        <!--
+      <UtcNowTotalSeconds>1.0.$([System.DateTime]::UtcNow.Date.Subtract($([System.DateTime]::Parse("2000-01-01"))).TotalDays).$([System.Math]::Floor($([MSBuild]::Divide($([System.DateTime]::UtcNow.TimeOfDay.TotalSeconds), 1.32))))</UtcNowTotalSeconds>
+      <UtcNowTotalDays>1.0.$([System.DateTime]::UtcNow.Date.Subtract($([System.DateTime]::Parse("2000-01-01"))).TotalDays)</UtcNowTotalDays>   
+
+      https://badflyer.com/msbuild-cheat-sheet/
+      
+      https://andrewlock.net/version-vs-versionsuffix-vs-packageversion-what-do-they-all-mean/
+      <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+      <LatestFullName>$([System.String]::Copy( $(LatestFullNameFileContents) ).Split( ';' )[ 0 ])</LatestFullName>
+      <LatestWriteTime>$([System.String]::Copy( $(LatestWriteTimeFileContents) ).Split( ';' )[ 0 ])</LatestWriteTime>
+      -->
+        <VersionDate>$(Now)</VersionDate>
+        <VersionDayOfYear>$([System.DateTime]::Parse($(VersionDate)).DayOfYear.ToString("000"))</VersionDayOfYear>
+        <VersionYear>$(VersionDate.Substring(0,4))</VersionYear>
+        <VersionMonth>$(VersionDate.Substring(5,2))</VersionMonth>
+        <VersionDay>$(VersionDate.Substring(8,2))</VersionDay>
+        <VersionHour>$(VersionDate.Substring(11,2))</VersionHour>
+        <VersionMinute>$(VersionDate.Substring(14,2))</VersionMinute>
+        <VersionSecond>$(VersionDate.Substring(17,2))</VersionSecond>
+        <VersionSecondFraction1>$(VersionDate.Substring(20,1))</VersionSecondFraction1>
+        <VersionSecondFraction2>$(VersionDate.Substring(20,2))</VersionSecondFraction2>
+        <VersionSecondFraction3>$(VersionDate.Substring(20,3))</VersionSecondFraction3>
+        <VersionFile>$(TargetDir)Version.props</VersionFile>
+        <VersionYYYYMMDD>$(VersionYear)$(VersionMonth)$(VersionDay)</VersionYYYYMMDD>
+        <VersionHHMMSS>$(VersionHour)$(VersionMinute)$(VersionSecond)</VersionHHMMSS>
+      </PropertyGroup>
+
+      <Choose>
+        <When Condition=" '$(VersionPart3)' != '' ">
+          <PropertyGroup>
+            <!-- xx.xx.xx.YYDayOfYear# -->
+            <VersionPart4>$(VersionYear.Substring(2,2))$(VersionDayOfYear)</VersionPart4>
+          </PropertyGroup>
+        </When>
+        <When Condition=" '$(VersionPart2)' != '' ">
+          <PropertyGroup>
+            <!-- xx.xx.YearMonth#.DayHourMinute# -->
+            <PreviousMonths>$([MSBuild]::Multiply($(VersionYear), 12))</PreviousMonths>
+            <VersionPart3>$([MSBuild]::Add($(PreviousMonths), $(VersionMonth)))</VersionPart3>
+
+            <PreviousDays>$([MSBuild]::Subtract($(VersionDay), 1))</PreviousDays>
+            <PreviousDays>$([MSBuild]::Multiply($(PreviousDays), 1440))</PreviousDays>
+            <PreviousHours>$([MSBuild]::Multiply($(VersionHour), 60))</PreviousHours>
+            <VersionPart4>$([MSBuild]::Add($(PreviousDays), $(PreviousHours)))</VersionPart4>
+            <VersionPart4>$([MSBuild]::Add($(VersionPart4), $(VersionMinute)))</VersionPart4>
+          </PropertyGroup>
+        </When>
+        <When Condition=" '$(VersionPart1)' != '' ">
+          <PropertyGroup>
+            <!-- xx.YYYY.MMDD.HHMM -->
+            <VersionPart2>$(VersionYear)</VersionPart2>
+            <VersionPart3>$(VersionMonth.TrimStart('0'))$(VersionDay)</VersionPart3>
+            <VersionPart4>$(VersionHour.TrimStart('0'))$(VersionMinute)</VersionPart4>
+          </PropertyGroup>
+        </When>
+        <!-- VersionPart1 == '0' -->
+        <Otherwise>
+          <PropertyGroup>
+            <!-- YYYY.MMDD.HHMM.SS -->
+            <VersionPart1>$(VersionYear)</VersionPart1>
+            <VersionPart2>$(VersionMonth.TrimStart('0'))$(VersionDay)</VersionPart2>
+            <VersionPart3>$(VersionHour.TrimStart('0'))$(VersionMinute)</VersionPart3>
+            <VersionPart4>$(VersionSecond.TrimStart('0'))</VersionPart4>
+          </PropertyGroup>
+        </Otherwise>
+      </Choose>
+      <PropertyGroup>
+        <!-- Default Values -->
+        <VersionPart1 Condition=" '$(VersionPart1)' == '' ">$([System.String]::Copy($(Version)).Split( '.' )[0])</VersionPart1>
+        <VersionPart2 Condition=" '$(VersionPart2)' == '' ">$([System.String]::Copy($(Version)).Split( '.' )[1])</VersionPart2>
+        <VersionPart3 Condition=" '$(VersionPart3)' == '' ">$([System.String]::Copy($(Version)).Split( '.' )[2])</VersionPart3>
+        <VersionPart4 Condition=" '$(VersionPart4)' == '' ">0</VersionPart4>
+      </PropertyGroup>
+      <PropertyGroup>
+        <AutoVersionPrefix3Part>$(VersionPart1).$(VersionPart2).$(VersionPart3)</AutoVersionPrefix3Part>
+        <AutoVersionPrefix4Part>$(AutoVersionPrefix3Part).$(VersionPart4)</AutoVersionPrefix4Part>
+      </PropertyGroup>
+    </When>
+  </Choose>
+</Project>

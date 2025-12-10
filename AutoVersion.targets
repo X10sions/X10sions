@@ -1,0 +1,19 @@
+<Project>
+  <Target Name="AutoVersionBefore" BeforeTargets="PreBuildEvent">
+    <!-- 
+    <Exec Command="echo %date% %time% > $(ProjectDir)\Resources\BuildDate.txt" ContinueOnError="true" />
+    -->
+    <PropertyGroup Condition=" '$(AutoVersionIsEnabled)' != '' and '$(Configuration)' == 'Release' ">
+      <PackageVersion>$(AutoVersionPrefix3Part)</PackageVersion>
+      <Version>$(AutoVersionPrefix4Part)</Version>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(AutoVersionIsEnabled)' != '' and '$(Configuration)' != 'Release' ">
+      <AutoVersionSuffix>$(VersionYYYYMMDD)-$(VersionHHMMSS)</AutoVersionSuffix>
+      <PackageVersion>$(AutoVersionPrefix3Part)-$(AutoVersionSuffix)</PackageVersion>
+      <Version>$(AutoVersionPrefix4Part)-$(AutoVersionSuffix)</Version>
+    </PropertyGroup>
+    <!-- 
+    <Message Importance="high" Text="Version: $(Version)" />
+    -->
+  </Target>
+</Project>

@@ -13,8 +13,8 @@
     <None Remove="Features\DummyFakeExamples\WeatherForecast\**" />
   </ItemGroup>
   <ItemGroup Label="PackageReferences">
-    <PackageReference Update="FastExpressionCompiler.LightExpression" Version="3.3.3" />
-    <PackageReference Include="MediatR.Contracts" Version="2.0.1" />
+    <PackageReference Update="FastExpressionCompiler.LightExpression" />
+    <PackageReference Include="MediatR.Contracts"   />
   </ItemGroup>
   <ItemGroup Label="ProjectReferences">
     <ProjectReference Include="..\.DotNetStandard\Common.DotNetStandard.csproj" />
