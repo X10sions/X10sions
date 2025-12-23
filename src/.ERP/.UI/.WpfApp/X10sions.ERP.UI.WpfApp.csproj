@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net9.0-windows</TargetFramework>
+    <TargetFramework>net10.0-windows</TargetFramework>
     <OutputType>WinExe</OutputType>
-    <Nullable>enable</Nullable>
+    <RootNamespace>X10sions.ERP.UI</RootNamespace>
     <UseWPF>true</UseWPF>
     <IsShippingPackage>false</IsShippingPackage>
   </PropertyGroup>

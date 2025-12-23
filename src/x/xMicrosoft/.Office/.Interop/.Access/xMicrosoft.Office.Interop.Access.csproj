@@ -3,7 +3,6 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <Product>Microsoft.Office.Interop.Access</Product>
     <VersionPart1>15</VersionPart1>
-    <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup Label="COMReferences">
     <COMReference Include="Microsoft.Office.Interop.Access">

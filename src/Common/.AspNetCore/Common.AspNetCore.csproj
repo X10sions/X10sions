@@ -1,10 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup Label="Application">
-    <TargetFramework>net9.0</TargetFramework>
     <Product>Common.AspNetCore</Product>
     <VersionPart1>8</VersionPart1>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
   <ItemGroup Label="FrameworkReferences">
     <FrameworkReference Include="Microsoft.AspNetCore.App" />

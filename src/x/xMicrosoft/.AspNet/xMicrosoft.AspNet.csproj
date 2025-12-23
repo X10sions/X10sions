@@ -4,7 +4,6 @@
     <Product>Microsoft.AspNet Extensions</Product>
     <VersionPart1>4</VersionPart1>
     <VersionPart2>8</VersionPart2>
-    <Nullable>enable</Nullable>
     <RootNamespace></RootNamespace>
   </PropertyGroup>
   <ItemGroup Label="PackageReferences">

@@ -4,7 +4,6 @@
     <Product>Microsoft.Office.Interop.Excel</Product>
     <VersionPart1>0</VersionPart1>
     <VersionPart1>9</VersionPart1>
-    <Nullable>enable</Nullable>
     <!--  see https://github.com/dotnet/samples/blob/main/core/extensions/ExcelDemo/ExcelDemo.csproj  -->
   </PropertyGroup>
   <ItemGroup Label="PackageReferences">

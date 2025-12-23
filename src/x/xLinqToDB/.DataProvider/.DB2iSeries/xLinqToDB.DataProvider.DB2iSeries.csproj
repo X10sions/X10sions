@@ -4,7 +4,6 @@
     <Product>LinqToDB.DataProvider Extensions</Product>
     <VersionPart1>5</VersionPart1>
     <VersionPart2>4</VersionPart2>
-    <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup Label="PackageReferences">
     <PackageReference Include="linq2db4iSeries" />

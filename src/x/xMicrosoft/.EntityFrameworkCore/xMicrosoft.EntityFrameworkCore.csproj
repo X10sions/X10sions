@@ -1,6 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup Label="Application">
-    <TargetFramework>net9.0</TargetFramework>
     <Product>Microsoft.EntityFrameworkCore Extensions</Product>
     <VersionPart1>8</VersionPart1>
   </PropertyGroup>

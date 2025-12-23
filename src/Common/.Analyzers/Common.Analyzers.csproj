@@ -2,9 +2,6 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <IsPackable>false</IsPackable>
-    <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
-    <EnableNETAnalyzers>true</EnableNETAnalyzers>
-    <AnalysisLevel>latest</AnalysisLevel>
   </PropertyGroup>
   <ItemGroup Label="PackageReferences">
     <PackageReference Include="IDisposableAnalyzers"  ExcludeAssets="compile" />

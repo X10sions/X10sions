@@ -4,8 +4,6 @@
     <Product>LinqToDB Extensions</Product>
     <VersionPart1>5</VersionPart1>
     <VersionPart2>4</VersionPart2>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
   <ItemGroup Label="PackageReferences">
     <PackageReference Include="linq2db" />

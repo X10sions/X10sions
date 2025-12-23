@@ -1,10 +1,7 @@
 <Project>
+  <Import Project="../Directory.Build.props" />
   <PropertyGroup>
-    <AnalysisLevel>latest</AnalysisLevel>
     <Authors>TravBeamo</Authors>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <LangVersion>latest</LangVersion>
-    <Nullable>enable</Nullable>
     <RepositoryType>git</RepositoryType>
     <RootNamespace />
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">$(MSBuildThisFileDirectory)</SolutionDir>

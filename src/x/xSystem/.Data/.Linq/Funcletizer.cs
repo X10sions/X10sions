@@ -1,5 +1,4 @@
 ﻿using System.Data.Linq.Mapping;
-using System.Data.Linq.SqlClient;
 using System.Data.Linq.SqlClient.Common;
 using System.Linq.Expressions;
 
@@ -11,7 +10,7 @@ internal static class Funcletizer {
     return new Localizer(new LocalMapper().MapLocals(expression)).Localize(expression);
   }
 
-  class Localizer : ExpressionVisitor {
+  class Localizer : SqlClient.ExpressionVisitor {
     Dictionary<Expression, bool> locals;
 
     internal Localizer(Dictionary<Expression, bool> locals) {
@@ -55,7 +54,7 @@ internal static class Funcletizer {
       return Expression.Invoke(Expression.Constant(Expression.Lambda(e).Compile()));
     }
   }
-  class DependenceChecker : ExpressionVisitor {
+  class DependenceChecker : SqlClient.ExpressionVisitor {
     HashSet<ParameterExpression> inScope = new HashSet<ParameterExpression>();
     bool isIndependent = true;
 
@@ -80,7 +79,7 @@ internal static class Funcletizer {
     }
   }
 
-  class LocalMapper : ExpressionVisitor {
+  class LocalMapper : SqlClient.ExpressionVisitor {
     bool isRemote;
     Dictionary<Expression, bool> locals;
 

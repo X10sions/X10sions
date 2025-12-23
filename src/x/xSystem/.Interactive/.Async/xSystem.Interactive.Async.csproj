@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup Label="Application">
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Product>System .Interactive.Async NetStandard Extensions</Product>
+    <Product>System.Interactive.Async NetStandard Extensions</Product>
     <VersionPart1>6</VersionPart1>
     <VersionPart2>0</VersionPart2>
   </PropertyGroup>

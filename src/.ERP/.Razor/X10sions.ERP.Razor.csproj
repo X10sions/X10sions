@@ -1,8 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
   <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>X10sions.ERP.Razor</RootNamespace>
   </PropertyGroup>
   <ItemGroup Label="PackageReferences">

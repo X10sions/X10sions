@@ -1,8 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
   <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>X10sions.ERP.UI</RootNamespace>
   </PropertyGroup>
   <ItemGroup Label="PackageReferences">
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" />
