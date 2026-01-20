@@ -7,10 +7,13 @@
     <PackageReference Include="Meziantou.Xunit.ParallelTestFramework"  />
     <PackageReference Include="Roslynator.Testing.CSharp.Xunit"  />
     <PackageReference Include="Verify.Xunit"  />
-    <PackageReference Include="xunit"  />
     <PackageReference Include="xunit.analyzers" ExcludeAssets="compile" />
     <PackageReference Include="Xunit.Combinatorial"  />
     <PackageReference Include="xunit.runner.visualstudio"  ExcludeAssets="compile" />
+    <!-- 
+    <PackageReference Include="xunit.v3" />
+    -->
+    <PackageReference Include="xunit.v3.extensibility.core" />
   </ItemGroup>
   <ItemGroup Label="ProjectReferences">
     <ProjectReference Include="..\Common.Testing.csproj" />

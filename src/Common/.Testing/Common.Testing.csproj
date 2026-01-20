@@ -1,6 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
+    <!-- 
     <TargetFramework>netstandard2.0</TargetFramework>
+    -->
     <IsPackable>false</IsPackable>
   </PropertyGroup>
   <ItemGroup Label="PackageReferences">
@@ -14,7 +16,9 @@
     <PackageReference Include="NetArchTest.Rules"  />
     <PackageReference Include="NSubstitute.Analyzers.CSharp"   ExcludeAssets="compile" />
     <PackageReference Include="Reqnroll"  />
+    <!--  
     <PackageReference Include="System.Text.RegularExpressions"   />
+    -->
     <!--
 
     * Unit Testing:

@@ -75,13 +75,13 @@ namespace System {
 
     public static Type[]? GetTypeCast(this Type type) => TypeCastDictionary.Instance.TryGetValue(type, out var result) ? result : null;
 
-    public static bool IsFloatTypeCode(this Type type) => TypeCodeConstants.Float.Contains(Type.GetTypeCode(type.IsNullable() ? type.GetGenericArguments()[0] : type));
+    [Obsolete("Not Used")] public static bool IsFloatTypeCode(this Type type) => TypeCodeConstants.Float.Contains(Type.GetTypeCode(type.IsNullable() ? type.GetGenericArguments()[0] : type));
 
-    public static bool IsIntegerTypeCode(this Type type) => TypeCodeConstants.Integer.Contains(Type.GetTypeCode(type.IsNullable() ? type.GetGenericArguments()[0] : type));
+    [Obsolete("Not Used")] public static bool IsIntegerTypeCode(this Type type) => TypeCodeConstants.Integer.Contains(Type.GetTypeCode(type.IsNullable() ? type.GetGenericArguments()[0] : type));
 
-    public static bool IsNumericTypeCode(this Type type) => Type.GetTypeCode(type) == TypeCode.Object ? Nullable.GetUnderlyingType(type).IsNumeric() : TypeCodeConstants.Numeric.Contains(type.TypeCode());
+    [Obsolete("Not Used")] public static bool IsNumericTypeCode(this Type type) => Type.GetTypeCode(type) == TypeCode.Object ? Nullable.GetUnderlyingType(type).IsNumeric() : TypeCodeConstants.Numeric.Contains(type.TypeCode());
 
-    public static bool IsTextTypeCode(this Type type) => TypeCodeConstants.Text.Contains(type.TypeCode());
+    [Obsolete("Not Used")] public static bool IsTextTypeCode(this Type type) => TypeCodeConstants.Text.Contains(type.TypeCode());
 
   }
 }
