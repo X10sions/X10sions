@@ -1,23 +1,46 @@
 ﻿using System.Globalization;
 
 namespace System;
+
 public static class TExtensions {
 
-  public static TTo? As<TFrom, TTo>(this TFrom value, TTo? defaultValue = default) {
+  //public static TTo? As<TFrom, TTo>(this TFrom value, TTo? defaultValue = default) {
+  //  try {
+  //    var converter = TypeDescriptor.GetConverter(typeof(TTo));
+  //    if (converter.CanConvertFrom(typeof(TFrom))) {
+  //      return (TTo)converter.ConvertFrom(value);
+  //    }
+  //    converter = TypeDescriptor.GetConverter(typeof(TFrom));
+  //    if (converter.CanConvertTo(typeof(TTo))) {
+  //      return (TTo)converter.ConvertTo(value, typeof(TTo));
+  //    }
+  //    return defaultValue;
+  //  } catch {
+  //    return defaultValue;
+  //  }
+  //}
+
+  public static TTo As<TFrom, TTo>(this TFrom value, TTo defaultValue = default!) {
+    if (value == null) return defaultValue;
     try {
-      var converter = TypeDescriptor.GetConverter(typeof(TTo));
-      if (converter.CanConvertFrom(typeof(TFrom))) {
-        return (TTo)converter.ConvertFrom(value);
+      Type toType = typeof(TTo);
+      // 1. Enum support
+      if (toType.IsEnum) {
+        if (value is string s)
+          return (TTo)Enum.Parse(toType, s, ignoreCase: true);
+        return (TTo)Enum.ToObject(toType, value);
       }
-      converter = TypeDescriptor.GetConverter(typeof(TFrom));
-      if (converter.CanConvertTo(typeof(TTo))) {
-        return (TTo)converter.ConvertTo(value, typeof(TTo));
-      }
-      return defaultValue;
+      // 2. TypeConverter
+      var converter = TypeDescriptor.GetConverter(toType);
+      if (converter.CanConvertFrom(typeof(TFrom)))
+        return (TTo)converter.ConvertFrom(value)!;
+      // 3. IConvertible fallback
+      return (TTo)Convert.ChangeType(value, toType, CultureInfo.CurrentCulture);
     } catch {
       return defaultValue;
     }
   }
+
 
   //public static IEnumerable<TTo> As<TFrom, TTo>(this IEnumerable<TFrom> source, TTo defaultValue) => source.Select(x => x.As(defaultValue) ?? defaultValue);
 
@@ -51,8 +74,8 @@ public static class TExtensions {
   public static object GetTypeFieldValueAs<T>(this T obj, string fieldName) where T : notnull => obj.GetTypeFieldValueAs<T, object>(fieldName);
   public static object GetTypePropertyValueAs<T>(this T obj, string propertyName) where T : notnull => obj.GetTypePropertyValueAs<T, object>(propertyName);
   public static TProperty GetTypePropertyValueAs<T, TProperty>(this T obj, string propertyName) where T : notnull => obj.GetType().GetPropertyValueAs<T, TProperty>(propertyName, obj);
-  public static bool IsAny<T>(this T obj, params T[] values)  => values.Contains(obj);
- 
+  public static bool IsAny<T>(this T obj, params T[] values) => values.Contains(obj);
+
 
   //public static bool IsNullable<T>(this T o) => typeof(T).IsNullable();
 

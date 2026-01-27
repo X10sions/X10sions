@@ -1,5 +1,4 @@
-﻿using Common.Domain.Entities;
-using Common.Results;
+﻿using Common.Results;
 using RCommon.Entities;
 
 namespace X10sions.Fake.Features.Brand;

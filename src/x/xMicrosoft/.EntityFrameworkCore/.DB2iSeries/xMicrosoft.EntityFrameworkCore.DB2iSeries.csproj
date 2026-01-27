@@ -4,6 +4,7 @@
     <VersionPart1>10</VersionPart1>
   </PropertyGroup>
   <ItemGroup Label="PackageReferences">
+    <PackageReference Include="IBM.EntityFrameworkCore" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" />
     <PackageReference Include="System.Data.Odbc" />
   </ItemGroup>

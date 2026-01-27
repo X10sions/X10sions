@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 
 namespace System;
+
 public static class TypeExtensions {
 
   public static T[] GetAttributes<T>(this Type type, bool inherit = true) where T : Attribute {
@@ -22,9 +23,28 @@ public static class TypeExtensions {
   public static string GetFullNameElseName<T>() => typeof(T).GetFullNameElseName();
   public static MemberInfo[] GetStaticMembers(this Type type, string name) => type.GetMember(name, BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.Public);
 
-  public static bool IsDateOrTime(this Type type) => type is DateTime || type is TimeSpan;
-  public static bool IsNumeric(this Type type) => type is byte || type is sbyte || type is short || type is int || type is long || type is ushort || type is uint || type is ulong || type is decimal || type is float || type is double;
-  public static bool IsText(this Type type) => type is char || type is string;
+  [Obsolete("Not Used")] public static bool IsDateOrTime(this Type type) => type == typeof(DateTime) || type == typeof(TimeSpan);
+  [Obsolete("Not Used")]
+  public static bool IsNumeric(this Type type) {
+    if (type == null) return false;
+    var underlyingType = Nullable.GetUnderlyingType(type) ?? type;
+    return Type.GetTypeCode(underlyingType) switch {
+      System.TypeCode.Byte or
+      System.TypeCode.SByte or
+      System.TypeCode.Int16 or
+      System.TypeCode.UInt16 or
+      System.TypeCode.Int32 or
+      System.TypeCode.UInt32 or
+      System.TypeCode.Int64 or
+      System.TypeCode.UInt64 or
+      System.TypeCode.Single or
+      System.TypeCode.Double or
+      System.TypeCode.Decimal => true,
+      _ => false
+    };
+  }
+
+  [Obsolete("Not Used")] public static bool IsText(this Type type) => type == typeof(char) || type == typeof(string);
 
   public static bool IsNullable(this Type type) => (!type.IsValueType) || (Nullable.GetUnderlyingType(type) != null);
   //public static bool IsNullableEnum(this Type _type) => Nullable.GetUnderlyingType(_type)?.IsEnum ?? false;

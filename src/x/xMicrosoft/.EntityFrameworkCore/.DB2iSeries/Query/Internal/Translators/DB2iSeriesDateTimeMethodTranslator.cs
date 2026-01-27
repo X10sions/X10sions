@@ -1,13 +1,10 @@
-﻿
-using IBM.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.EntityFrameworkCore.Query;
 using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 using System.Reflection;
 
 namespace xMicrosoft.EntityFrameworkCore.DB2iSeries.Query.Internal;
-
 
 class DB2iSeriesDateTimeMethodTranslator(ISqlExpressionFactory sqlExpressionFactory) : IMethodCallTranslator {
 

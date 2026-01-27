@@ -7,10 +7,11 @@
     <VersionPart2>0</VersionPart2>
   </PropertyGroup>
   <ItemGroup Label="PackageReferences">
-    <PackageReference Include="Microsoft.Bcl.AsyncInterfaces"  />
+    <!-- 
     <PackageReference Include="Microsoft.Bcl.Cryptography" />
     <PackageReference Include="Microsoft.Bcl.HashCode" />
-    <PackageReference Include="Microsoft.Bcl.Numerics"  />
+    <PackageReference Include="Microsoft.Bcl.Numerics" />
     <PackageReference Include="Microsoft.Bcl.TimeProvider" />
+    -->
   </ItemGroup>
 </Project>

@@ -1,13 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup Label="Application">
-    <TargetFramework>net9.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
     <Product>X10sions.Fake.Infrastructure</Product>
     <RootNamespace>X10sions.Fake</RootNamespace>
     <VersionPart1>2</VersionPart1>
     <VersionPart2>0</VersionPart2>
-    <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup Label="PackageReferences">
     <PackageReference Include="Chloe.MySql"  />
