@@ -1,12 +1,14 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using Common.Domain.Entities;
+using System.ComponentModel.DataAnnotations.Schema;
 using X10sions.Fake.Features.Address;
 using X10sions.Fake.Features.Customer;
 using X10sions.Fake.Features.Employee;
+using X10sions.Fake.Features.Order.Detail;
 
 namespace X10sions.Fake.Features.Order;
 [Table("FakeOrder")]
-  public class FakeOrder {
-    [ServiceStack.DataAnnotations.AutoIncrement]
+  public class FakeOrder : EntityBase<int> {
+  [ServiceStack.DataAnnotations.AutoIncrement]
     public int Id { get; set; }
 
     [ServiceStack.DataAnnotations.References(typeof(FakeCustomer))]      //Creates Foreign Key
@@ -23,4 +25,8 @@ namespace X10sions.Fake.Features.Order;
     public int? ShipVia { get; set; }
     public decimal Freight { get; set; }
     public decimal Total { get; set; }
-  }
+
+  public Customer.FakeCustomer Customer { get; set; }
+  public List<FakeOrderDetail> OrderDetails { get; set; }
+
+}

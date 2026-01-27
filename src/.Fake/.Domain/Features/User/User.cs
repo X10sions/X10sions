@@ -2,7 +2,7 @@
 
 namespace X10sions.Fake.Features.User;
 
-public class User : EntityBase<int> {
+public class FakeUser : EntityBase<int> {
   public string EmailAddress { get; set; }
   public UserRole.Enum Role { get; set; }
   public string Password { get; set; }

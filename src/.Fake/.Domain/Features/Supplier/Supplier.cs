@@ -2,7 +2,7 @@
 
 namespace X10sions.Fake.Features.Supplier;
 
-public class Supplier : EntityBase<int> {
+public class FakeSupplier : EntityBase<int> {
   public string SupplierName { get; set; }
-  public List<Product.Product> Products { get; set; }
+  public List<Product.FakeProduct> Products { get; set; }
 }

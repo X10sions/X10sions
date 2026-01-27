@@ -5,7 +5,7 @@ using RCommon.Persistence.Crud;
 
 namespace X10sions.Fake.Features.WeatherForecast;
 
-public partial class WeatherForecast : EntityBase<Guid> {
+public partial class FakeWeatherForecast : EntityBase<Guid> {
   public const decimal CelsiusToFahrenheitScale = 5m / 9m;
   public DateOnly Date { get; set; }
   public int TemperatureC { get; set; }
@@ -14,18 +14,18 @@ public partial class WeatherForecast : EntityBase<Guid> {
   public string? FakeNeverUsed { get; init; }
 }
 
-public partial class WeatherForecast {
-  public static WeatherForecast GetRandom(int addDays, DateOnly? startDate = null) => new WeatherForecast {
+public partial class FakeWeatherForecast {
+  public static FakeWeatherForecast GetRandom(int addDays, DateOnly? startDate = null) => new FakeWeatherForecast {
     Id = Guid.NewGuid(),
     Date = (startDate ?? DateOnly.FromDateTime(DateTime.Now)).AddDays(addDays),
     TemperatureC = Random.Shared.Next(-20, 55),
     Summary = Enum.GetValues<WeatherForecastSummary>().GetRandom()
   };
 
-  public static Task<WeatherForecast[]> GetRandomListAsync(int count, DateOnly? startDate = null)
+  public static Task<FakeWeatherForecast[]> GetRandomListAsync(int count, DateOnly? startDate = null)
     => Task.FromResult(Enumerable.Range(1, count).Select(index => GetRandom(index, startDate)).ToArray());
 
-  public static Expression<Func<WeatherForecast, bool>> GetById(Guid id) => x => x.Id == id;
+  public static Expression<Func<FakeWeatherForecast, bool>> GetById(Guid id) => x => x.Id == id;
 
   public class Update {
     public record Command(Guid Id, DateTime Date, int TemperatureC, WeatherForecastSummary? Summary);
@@ -57,14 +57,14 @@ public partial class WeatherForecast {
   public void NotifyRecordSetChanged(object? sender, RecordSetChangedEventArgs e) => RecordSetChanged?.Invoke(this, e);
   public void NotifyRecordChanged(object? sender, RecordChangedEventArgs e) => RecordChanged?.Invoke(this, e);
 
-  protected void NotifyRecordChanged(WeatherForecast record) => NotifyRecordChanged(this, RecordChangedEventArgs.Create(record.Id));
-  protected void NotifyRecordSetChanged() => NotifyRecordSetChanged(this, RecordSetChangedEventArgs.Create<WeatherForecast>());
+  protected void NotifyRecordChanged(FakeWeatherForecast record) => NotifyRecordChanged(this, RecordChangedEventArgs.Create(record.Id));
+  protected void NotifyRecordSetChanged() => NotifyRecordSetChanged(this, RecordSetChangedEventArgs.Create<FakeWeatherForecast>());
 
   #endregion
 }
 
 
 public static class WeatherForecastExtensions {
-  public static async Task<WeatherForecast?> GetByIdAsync(this IReadOnlyRepository<WeatherForecast> repository, Guid id, CancellationToken token = default)
-    => await repository.GetAsync(WeatherForecast.GetById(id), token);
+  public static async Task<FakeWeatherForecast?> GetByIdAsync(this IReadOnlyRepository<FakeWeatherForecast> repository, Guid id, CancellationToken token = default)
+    => await repository.GetAsync(FakeWeatherForecast.GetById(id), token);
 }

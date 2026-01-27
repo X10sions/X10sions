@@ -1,7 +1,7 @@
 ﻿namespace X10sions.Fake.Features.Pizza;
 
-public class Pizza {
-  public Pizza(Size size, DoughType dough, SauceType sauce, IReadOnlyCollection<ToppingType>? toppings = null, HerbType? herbs = null) {
+public class FakePizza {
+  public FakePizza(Size size, DoughType dough, SauceType sauce, IReadOnlyCollection<ToppingType>? toppings = null, HerbType? herbs = null) {
     Size = size;
     Dough = dough;
     Sauce = sauce;
@@ -23,7 +23,7 @@ public class PizzaBuilder {
   private List<ToppingType> _toppings = new();
   public PizzaBuilder(Size size) => _size = size;
 
-  public Pizza Build() => new(
+  public FakePizza Build() => new(
     _size ?? throw new ArgumentNullException(nameof(_size)),
     _dough ?? throw new ArgumentNullException(nameof(_dough)),
     _sauce ?? throw new ArgumentNullException(nameof(_sauce)),
@@ -51,7 +51,7 @@ public class PizzaBuilder {
     return this;
   }
 
-  public static implicit operator Pizza(PizzaBuilder builder) => builder.Build();
+  public static implicit operator FakePizza(PizzaBuilder builder) => builder.Build();
 }
 
 public class MargheritaPizzaDirector {
@@ -72,7 +72,7 @@ public class InvalidPizzaDirector {
 }
 
 public class PizzaValidator {
-  public bool CanWeCookIt(Pizza pizza) => throw new NotImplementedException();
+  public bool CanWeCookIt(FakePizza pizza) => throw new NotImplementedException();
 }
 
 public readonly record struct DoughType(string value) {

@@ -3,4 +3,4 @@ using X10sions.Fake.Features.ToDo.Item;
 
 namespace X10sions.Fake.Features.Project;
 
-public record NewItemAddedEvent(Project Project, ToDoItem NewItem) : DomainEventBase;
+public record NewItemAddedEvent(FakeProject Project, ToDoItem NewItem) : DomainEventBase;

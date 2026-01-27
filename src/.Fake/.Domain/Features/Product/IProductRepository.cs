@@ -1,10 +1,10 @@
 ﻿namespace X10sions.Fake.Features.Product;
 
 public interface IProductRepository {
-  IQueryable<Product> Products { get; }
-  Task<List<Product>> GetListAsync();
-  Task<Product> GetByIdAsync(int productId);
-  Task<int> InsertAsync(Product product);
-  Task UpdateAsync(Product product);
-  Task DeleteAsync(Product product);
+  IQueryable<FakeProduct> Products { get; }
+  Task<List<FakeProduct>> GetListAsync();
+  Task<FakeProduct> GetByIdAsync(int productId);
+  Task<int> InsertAsync(FakeProduct product);
+  Task UpdateAsync(FakeProduct product);
+  Task DeleteAsync(FakeProduct product);
 }
