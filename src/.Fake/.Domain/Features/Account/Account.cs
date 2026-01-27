@@ -2,7 +2,7 @@
 
 namespace X10sions.Fake.Features.Account;
 
-public class Account : BusinessEntity<Guid>{// EntityBase<Guid> {
+public class FakeAccount : BusinessEntity<Guid>{// EntityBase<Guid> {
   public DateTime DateCreated { get; set; }
   public string AccountType { get; set; }
   public Guid OwnerId { get; set; }

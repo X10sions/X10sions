@@ -2,8 +2,8 @@
 
 namespace X10sions.Fake.Features.Category;
 
-public class Category : EntityBase<int> {
+public class FakeCategory : EntityBase<int> {
   public string CategoryName { get; set; }
   public string Description { get; set; }
-  public List<Product.Product> Products { get; set; }
+  public List<Product.FakeProduct> Products { get; set; }
 }
