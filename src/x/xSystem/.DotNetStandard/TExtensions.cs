@@ -20,8 +20,14 @@ public static class TExtensions {
   //  }
   //}
 
-  public static TTo As<TFrom, TTo>(this TFrom value, TTo defaultValue = default!) {
-    if (value == null) return defaultValue;
+  [Obsolete("Use To")] public static TTo As<TFrom, TTo>(this TFrom value, TTo defaultValue = default!) => value.To(defaultValue);
+
+  /// <summary>Converts the specified object to the specified type T. </summary>
+  public static T To<T>(this object? value) => value.To<T>();
+
+  /// <summary>Convert to specified type TTo with default value support.</summary>
+  public static TTo To<T, TTo>(this T? value, TTo defaultValue = default!) {
+    if (value is null) return defaultValue;
     try {
       Type toType = typeof(TTo);
       // 1. Enum support
@@ -32,7 +38,7 @@ public static class TExtensions {
       }
       // 2. TypeConverter
       var converter = TypeDescriptor.GetConverter(toType);
-      if (converter.CanConvertFrom(typeof(TFrom)))
+      if (converter.CanConvertFrom(typeof(T)))
         return (TTo)converter.ConvertFrom(value)!;
       // 3. IConvertible fallback
       return (TTo)Convert.ChangeType(value, toType, CultureInfo.CurrentCulture);
@@ -40,9 +46,6 @@ public static class TExtensions {
       return defaultValue;
     }
   }
-
-
-  //public static IEnumerable<TTo> As<TFrom, TTo>(this IEnumerable<TFrom> source, TTo defaultValue) => source.Select(x => x.As(defaultValue) ?? defaultValue);
 
   private static readonly TaskFactory _taskFactory = new TaskFactory(CancellationToken.None, TaskCreationOptions.None, TaskContinuationOptions.None, TaskScheduler.Default);
   public static T RunSync<T>(this Func<Task<T>> func, CancellationToken cancellationToken = default) => _taskFactory.StartNew(func, cancellationToken).Unwrap().GetAwaiter().GetResult();
