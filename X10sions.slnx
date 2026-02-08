@@ -1,0 +1,639 @@
+<Solution>
+  <Configurations>
+    <BuildType Name="Debug" />
+    <BuildType Name="Development" />
+    <BuildType Name="Release" />
+    <Platform Name="Any CPU" />
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Folder Name="/CleanOnionExample/">
+    <Project Path="src/.CleanOnionExample/.L02.Data/CleanOnionExample.L02.Data.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/.CleanOnionExample/.L03.Business/CleanOnionExample.L03.Business.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/.CleanOnionExample/.L04.Razor.Components/CleanOnionExample.L04.Razor.Components.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/.CleanOnionExample/.L05.Razor.Pages/CleanOnionExample.L05.Razor.Pages.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+  </Folder>
+  <Folder Name="/Common/" />
+  <Folder Name="/Common/PackageReferences/">
+    <Project Path="src/Common/.Analyzers/Common.Analyzers.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/Common/.Testing/.MsTest/Common.Testing.MsTest.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/Common/.Testing/.NUnit/Common.Testing.NUnit.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/Common/.Testing/.XUnit/Common.Testing.XUnit.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/Common/.Testing/Common.Testing.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+  </Folder>
+  <Folder Name="/Common/Src/">
+    <Project Path="src/Common/.AspNet/Common.AspNet.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/Common/.AspNetCore/.Identity/.Providers/.Dapper/Common.AspNetCore.Identity.Providers.Dapper.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/Common/.AspNetCore/.Identity/.Providers/.EntityFrameworkCore/Common.AspNetCore.Identity.Providers.EntityFrameworkCore.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/Common/.AspNetCore/.Identity/.Providers/.LinqToDB/Common.AspNetCore.Identity.Providers.LinqToDB.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/Common/.AspNetCore/.Identity/.Providers/.RavenDb/Common.AspNetCore.Identity.Providers.RavenDb.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/Common/.AspNetCore/.Identity/.Providers/.RepoDb/Common.AspNetCore.Identity.Providers.RepoDb.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/Common/.AspNetCore/.Identity/.Providers/.SqlKata/Common.AspNetCore.Identity.Providers.SqlKata.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/Common/.AspNetCore/.Identity/Common.AspNetCore.Identity.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/Common/.AspNetCore/Common.AspNetCore.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/Common/.Data/Common.Data.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/Common/.Domain/Common.Domain.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/Common/.DotNet/Common.DotNet.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/Common/.DotNetFramework/.Dev/Common.NetFramework.Dev.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/Common/.DotNetFramework/Common.DotNetFramework.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/Common/.DotNetStandard/.Old/Common.DotNetStandard.Old.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/Common/.DotNetStandard/Common.DotNetStandard.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/Common/.InstalledSoftwareInfo/Common.InstalledSoftwareInfo.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/Common/.Linq/Common.Linq.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/Common/.NetCoreApp/Common.NetCoreApp.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/Common/.VisualStudio/.ProjectVersion/Common.VisualStudio.ProjectVersion.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+  </Folder>
+  <Folder Name="/Common/Tests/">
+    <Project Path="src/Common/.DotNet/.Tests/.Unit/Common.DotNet.Tests.Unit.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/Common/.DotNetStandard/.Tests/.Unit/Common.DotNetStandard.Tests.Unit.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/Common/.Linq/.Tests/Common.Linq.Tests.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+  </Folder>
+  <Folder Name="/ERP/">
+    <Project Path="src/.ERP/.Infrastructure/X10sions.ERP.Infrastructure.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/.ERP/.Razor/.Pages/X10sions.ERP.Razor.Pages.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/.ERP/.Razor/X10sions.ERP.Razor.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/.ERP/.UI/.BlazorWASM/X10sions.ERP.UI.BlazorWASM.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/.ERP/.UI/.Web/X10sions.ERP.UI.Web.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/.ERP/.UI/.WinForms/X10sions.ERP.UI.WinForms.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/.ERP/.UI/.WpfApp/X10sions.ERP.UI.WpfApp.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/.ERP/X10sions.ERP.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+  </Folder>
+  <Folder Name="/Examples/">
+    <Project Path="src/.Examples/.Delta/X10sions.Examples.Delta.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/.Examples/.EventSourcingMarten/X10sions.Examples.EventSourcingMarten.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+  </Folder>
+  <Folder Name="/Fake/">
+    <Project Path="src/.Fake/.Application/X10sions.Fake.Application.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/.Fake/.Domain/X10sions.Fake.Domain.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/.Fake/.Infrastructure/X10sions.Fake.Infrastructure.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/.Fake/.Tests/X10sions.Fake.Tests.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+  </Folder>
+  <Folder Name="/Fake/UI/">
+    <Project Path="src/.Fake/.Console/X10sions.Fake.Console.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/.Fake/.Razor/X10sions.Fake.Razor.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/.Fake/.Web/X10sions.Fake.Web.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+  </Folder>
+  <Folder Name="/Fake/UI/Maui/">
+    <Project Path="src/.Fake/.MauiApp/X10sions.Fake.MauiApp.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/.Fake/.MauiBlazorApp/X10sions.Fake.MauiBlazorApp.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+  </Folder>
+  <Folder Name="/Playground/" />
+  <Folder Name="/Playground/Libs/">
+    <Project Path="src/.Playground/.Abstractions/X10sions.Playground.Abstractions.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/.Playground/.Razor/.Components/X10sions.Playground.Razor.Components.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/.Playground/.Razor/.Pages/X10sions.Playground.Razor.Pages.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+  </Folder>
+  <Folder Name="/Playground/UI/">
+    <Project Path="src/.Playground/.Apps/.BlazerWasm/X10sions.Playground.Apps.BlazorWasm.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/.Playground/.Apps/.BlazorServer/X10sions.Playground.Apps.BlazorServer.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/.Playground/.Apps/.WebApi/X10sions.Playground.Apps.WebApi.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/.Playground/.Apps/.WebPages/X10sions.Playground.Apps.WebPages.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/.Playground/.Apps/.WinForms/X10sions.Playground.Apps.WinForms.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/.Playground/.Apps/.Wpf/X10sions.Playground.Apps.Wpf.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+  </Folder>
+  <Folder Name="/Solution Items/">
+    <File Path="../AutoVersion.props" />
+    <File Path="../AutoVersion.targets" />
+    <File Path="../Directory.Build.props" />
+  </Folder>
+  <Folder Name="/Solution Items/IBM.git/">
+    <File Path="../IBM.git/Directory.Build.props" />
+    <File Path="../IBM.git/Directory.Build.targets" />
+    <File Path="../IBM.git/Directory.Packages.props" />
+  </Folder>
+  <Folder Name="/Solution Items/Martogg.git/">
+    <File Path=".editorconfig" />
+    <File Path="Directory.Build.props" />
+    <File Path="Directory.Build.targets" />
+    <File Path="Directory.Packages.props" />
+    <File Path="tye.yaml" />
+    <File Path="XUnit.Directory.Build.props" />
+    <File Path="XUnit.Directory.Package.Props" />
+  </Folder>
+  <Folder Name="/Solution Items/X10sions.git/">
+    <File Path="../x10sions/X10sions.git/.editorconfig" />
+    <File Path="../X10sions/X10sions.git/AutoVersion.props" />
+    <File Path="../X10sions/X10sions.git/AutoVersion.targets" />
+    <File Path="../X10sions/X10sions.git/Common.Messages.targets" />
+    <File Path="../X10sions/X10sions.git/Coverlet.msbuild.props" />
+    <File Path="../X10sions/X10sions.git/Directory.Build.props" />
+    <File Path="../X10sions/X10sions.git/Directory.Build.targets" />
+    <File Path="../X10sions/X10sions.git/Directory.Build.Tests.props" />
+    <File Path="../X10sions/X10sions.git/Directory.Packages.props" />
+    <File Path="../X10sions/X10sions.git/Testing.props" />
+    <File Path="../X10sions/X10sions.git/Testing.XUnit.props" />
+  </Folder>
+  <Folder Name="/Trading/">
+    <Project Path="src/.Trading/X10sions.Trading.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+  </Folder>
+  <Folder Name="/Wsus/">
+    <Project Path="src/.Wsus/.Api/X10sions.Wsus.Api.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/.Wsus/.Razor/X10sions.Wsus.Razor.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/.Wsus/.Web.Blazor/X10sions.Wsus.Web.Blazor.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/.Wsus/.Web/X10sions.Wsus.Web.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/.Wsus/X10sions.Wsus.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+  </Folder>
+  <Folder Name="/x/">
+    <Project Path="src/x/xBBraithwaite/xBBraithwaite.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/x/xDatabaseSchemaReader/xDatabaseSchemaReader.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/x/xDynamicQuery.Net/xDynamicQuery.Net.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/x/xEPPlus/xEPPlus.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/x/xMongoDB/xMongoDB.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/x/xNewtonsoft/xNewtonsoft.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/x/xRemotion.Linq/xRemotion.Linq.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/x/xSerenity/xSerenity.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/x/xSqlKata/xSqlKata.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/x/xTypeMerger/xTypeMerger.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/x/xUAParser/xUAParser.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/x/xUnitsNet/xUnitsNet.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/x/xUserAgentParser/xUserAgentParser.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/x/xWangkanai.Detection/xWangkanai.Detection.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/x/xWin32/xWin32.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/x/xWUApiLib/xWUApiLib.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+  </Folder>
+  <Folder Name="/x/xAzure/">
+    <Project Path="src/x/xAzure/.Core/xAzure.Core.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/x/xAzure/.Identity/xAzure.Identity.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+  </Folder>
+  <Folder Name="/x/xDamienBod/">
+    <Project Path="src/x/xDamienBod/.AppAuthorizationService/xDamienBod.AppAuthorizationService.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/x/xDamienBod/.MvcHybridClient/xDamienBod.MvcHybridClient.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/x/xDamienBod/.StsServer/xDamienBod.StsServer.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+  </Folder>
+  <Folder Name="/x/xDapper/">
+    <Project Path="src/x/xDapper/.Tests/.Performance/xDapper.Tests.Performance.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/x/xDapper/xDapper.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+  </Folder>
+  <Folder Name="/x/xFacet/" />
+  <Folder Name="/x/xFreeSql/">
+    <Project Path="src/x/xFreeSql/.Provider/.Custom/xFreeSql.Provider.Custom.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/x/xFreeSql/.Provider/.DB2iSeries/xFreeSql.Provider.DB2iSeries.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/x/xFreeSql/.Provider/.Odbc/xFreeSql.Provider.Odbc.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/x/xFreeSql/xFreeSql.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+  </Folder>
+  <Folder Name="/x/xHumanizer/">
+    <Project Path="src/x/xHumanizer/.Tests/xHumanizer.Tests.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/x/xHumanizer/xHumanizer.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+  </Folder>
+  <Folder Name="/x/xIQToolkit/">
+    <Project Path="src/x/xIQToolkit/.Data/.Access/xIQToolkit.Data.Access.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/x/xIQToolkit/.Data/.Ado/xIQToolkit.Data.Ado.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/x/xIQToolkit/.Data/.AS400/xIQToolkit.Data.AS400.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/x/xIQToolkit/.Data/.MySqlClient/xIQToolkit.Data.MySqlClient.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/x/xIQToolkit/.Data/.Odbc/xIQToolkit.Data.Odbc.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/x/xIQToolkit/.Data/.SqlClient/xIQToolkit.Data.SqlClient.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/x/xIQToolkit/.Data/.SQLite/xIQToolkit.Data.SQLite.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/x/xIQToolkit/.Data/.SqlServerCe/xIQToolkit.Data.SqlServerCe.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/x/xIQToolkit/.Data/xIQToolkit.Data.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/x/xIQToolkit/.Tests/.Access/xIQToolkit.Access.Tests.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/x/xIQToolkit/.Tests/.Common/xIQToolkit.Common.Tests.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/x/xIQToolkit/.Tests/.MySql/xIQToolkit.MySqlClient.Tests.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/x/xIQToolkit/.Tests/.SqlClient/xIQToolkit.SqlClient.Tests.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/x/xIQToolkit/.Tests/.SQLite/xIQToolkit.SQLite.Tests.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/x/xIQToolkit/.Tests/.SqlServerCe/xIQToolkit.SqlServerCe.Tests.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/x/xIQToolkit/.Tests/xIQToolkit.Tests.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/x/xIQToolkit/xIQToolkit.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+  </Folder>
+  <Folder Name="/x/xLinqToDB/">
+    <Project Path="src/x/xLinqToDB/.AspNet/xLinqToDB.AspNet.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/x/xLinqToDB/.DataProvider/.DB2iSeries/.Tests/xLinqToDB.DataProvider.DB2iSeries.Tests.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/x/xLinqToDB/.DataProvider/.DB2iSeries/xLinqToDB.DataProvider.DB2iSeries.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/x/xLinqToDB/.DataProvider/xLinqToDB.DataProvider.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/x/xLinqToDB/.Tests/.v3.3.0/linq2db.Tests.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/x/xLinqToDB/xLinqToDB.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+  </Folder>
+  <Folder Name="/x/xMailKit/">
+    <Project Path="src/x/xMailKit/xMailKit.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/x/xMimeKit/xMimeKit.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+  </Folder>
+  <Folder Name="/x/xMicrosoft/">
+    <Project Path="src/x/xMicrosoft/.AspNet/xMicrosoft.AspNet.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/x/xMicrosoft/.AspNetCore/xMicrosoft.AspNetCore.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/x/xMicrosoft/.Data/.SqlClient/xMicrosoft.Data.SqlClient.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/x/xMicrosoft/.Extensions/xMicrosoft.Extensions.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/x/xMicrosoft/.Graph/xMicrosoft.Graph.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/x/xMicrosoft/.WindowsAPICodePack/xMicrosoft.WindowsAPICodePack.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+  </Folder>
+  <Folder Name="/x/xMicrosoft/Azure/" />
+  <Folder Name="/x/xMicrosoft/EntityFrameworkCore/">
+    <Project Path="src/x/xMicrosoft/.AspNetCore/.Identity/.EntityFrameworkCore/xMicrosoft.AspNetCore.Identity.EntityFrameworkCore.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/x/xMicrosoft/.EntityFrameworkCore/.AS400/xMicrosoft.EntityFrameworkCore.AS400.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/x/xMicrosoft/.EntityFrameworkCore/.DB2iSeries/.Tests/xMicrosoft.EntityFrameworkCore.DB2iSeries.Tests.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/x/xMicrosoft/.EntityFrameworkCore/.DB2iSeries/xMicrosoft.EntityFrameworkCore.DB2iSeries.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/x/xMicrosoft/.EntityFrameworkCore/.Oracle/xMicrosoft.EntityFrameworkCore.Oracle.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/x/xMicrosoft/.EntityFrameworkCore/xMicrosoft.EntityFrameworkCore.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+  </Folder>
+  <Folder Name="/x/xMicrosoft/Office/">
+    <Project Path="src/x/xMicrosoft/.Office/.Interop/.Access/xMicrosoft.Office.Interop.Access.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/x/xMicrosoft/.Office/.Interop/.Excel/xMicrosoft.Office.Interop.Excel.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/x/xMicrosoft/.Office/.Interop/.Outlook/xMicrosoft.Office.Interop.Outlook.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/x/xMicrosoft/.Office/.Interop/.Word/xMicrosoft.Office.Interop.Word.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+  </Folder>
+  <Folder Name="/x/xMiniProfiler/">
+    <Project Path="src/x/xMiniProfiler/.AspnetCore/.Mvc/xMiniProfiler.AspNetCore.Mvc.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/x/xMiniProfiler/.AspnetCore/xMiniProfiler.AspNetCore.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/x/xMiniProfiler/.EntityFramework/xMiniProfiler.EntityFramework.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/x/xMiniProfiler/.Shared/xMiniProfiler.Shared.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/x/xMiniProfiler/xMiniProfiler.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+  </Folder>
+  <Folder Name="/x/xNewOfficeFW/">
+    <Project Path="src/x/xNetOfficeFw/.Access/xNetOfficeFw.Access.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/x/xNetOfficeFw/.Excel/xNetOfficeFw.Excel.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/x/xNetOfficeFw/.Outlook/xNetOfficeFw.Outlook.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/x/xNetOfficeFw/.Word/xNetOfficeFw.Word.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/x/xNetOfficeFw/xNetOfficeFw.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+  </Folder>
+  <Folder Name="/x/xOffergeld/">
+    <Project Path="src/x/xOffergeld/.Db2Orm/xOffergeld.Db2Orm.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+  </Folder>
+  <Folder Name="/x/xRepoDb/">
+    <Project Path="src/x/xRepoDb/xRepoDb.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+  </Folder>
+  <Folder Name="/x/xSqlSugar/">
+    <Project Path="src/x/xSqlSugarCore/.OdbcCore/xSqlSugar.OdbcCore.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/x/xSqlSugarCore/xSqlSugarCore.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+  </Folder>
+  <Folder Name="/x/xSwashbuckle/">
+    <Project Path="src/x/xSwashbuckle/.AspNetCore/xSwashbuckle.AspNetCore.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+  </Folder>
+  <Folder Name="/x/xSystem/">
+    <Project Path="src/x/xSystem/.ComponentModel/xSystem.ComponentModel.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/x/xSystem/.Configuration/.ConfigurationManager/xSystem.Configuration.ConfigurationManager.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/x/xSystem/.Data/.Entity/xSystem.Data.Entity.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/x/xSystem/.Data/.Linq/xSystem.Data.Linq.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/x/xSystem/.Data/.Odbc/xSystem.Data.Odbc.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/x/xSystem/.Data/.OleDb/xSystem.Data.OleDb.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/x/xSystem/.DirectoryServices/.AccountManagement/xSystem.DirectoryServices.AccountManagement.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/x/xSystem/.DotNet/xSystem.DotNet.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/x/xSystem/.DotNetFramework/xSystem.DotNetFramework.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/x/xSystem/.DotNetStandard/.PreDotNetCompatibility/xSystem.DotNetStandard.PreDotNetCompatibility.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/x/xSystem/.DotNetStandard/xSystem.DotNetStandard.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/x/xSystem/.Interactive/.Async/xSystem.Interactive.Async.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/x/xSystem/.Linq/.Dynamic/.Core/xSystem.Linq.Dynamic.Core.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/x/xSystem/.Management/xSystem.Management.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+  </Folder>
+  <Folder Name="/x/xSystem/NotUsed/">
+    <Project Path="src/x/xSystem/.Data/.Linq/xSystem - Backup.Data.Linq.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+  </Folder>
+  <Folder Name="/x/xSystem/Tests/">
+    <Project Path="src/x/xSystem/.DotNetStandard/.Tests/.Unit/xSystem.DotNetStandard.Tests.Unit.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+  </Folder>
+  <Folder Name="/x/xWakaTime/">
+    <Project Path="src/x/xWakaTime/Notepad++/v4.0.2/WakaTime.csproj" Id="e56f6e12-089c-40ed-bcfd-923e5fa121a1">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/x/xWakaTime/xWakaTime.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+  </Folder>
+  <Folder Name="/x/xXUnit/">
+    <Project Path="src/x/xXUnit/xXUnit.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+  </Folder>
+  <Folder Name="/x/_CdnProjects/">
+    <Project Path="src/x/xBootstrap/xBootstrap.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/x/xChartJs/xChartJs.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+    <Project Path="src/x/xDataTables/xDataTables.csproj">
+      <BuildType Solution="Development|*" Project="Release" />
+    </Project>
+  </Folder>
+</Solution>
