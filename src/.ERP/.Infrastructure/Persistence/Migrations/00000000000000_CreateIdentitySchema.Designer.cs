@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
+using X10sions.ERP.Infrastructure.Persistence;
 
 namespace X10sions.ERP.Data.Migrations {
   [DbContext(typeof(ApplicationDbContext))]

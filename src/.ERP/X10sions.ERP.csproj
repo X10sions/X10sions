@@ -1,15 +1,5 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <RootNamespace>X10sions.ERP</RootNamespace>
   </PropertyGroup>
-  <ItemGroup Label="PackageReferences">
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Data\Services\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\.Fake\.Domain\X10sions.Fake.Domain.csproj" />
-  </ItemGroup>
 </Project>

@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using X10sions.ERP.Infrastructure.Persistence;
 
 namespace X10sions.ERP.Data.Migrations;
 
