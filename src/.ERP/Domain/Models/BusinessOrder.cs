@@ -1,22 +1,39 @@
 ﻿namespace X10sions.ERP.Domain.Models;
 
 //TradeOrder, BusinessOrder
-public record BusinessOrder(long Id) {
-  public DateTime CreatedDate { get; init; } = DateTime.UtcNow;//TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  public Person CreatedByPerson { get; init; }
+public record BusinessOrder {
+
+  public BusinessOrder(BusinessEntity customer, GeoLocation customerLocation, BusinessEntity supplier, GeoLocation supplierLocation) {
+    Customer = customer;
+    CustomerToAddress = customerLocation;
+    Supplier = supplier;
+    SupplierFromAddress = supplierLocation;
+  }
+  public static BusinessOrder Purchase(BusinessEntity entity, GeoLocation fromLocation, BusinessEntity supplier, GeoLocation toLocation) => new BusinessOrder(entity, fromLocation, supplier, toLocation);
+  public static BusinessOrder Sale(BusinessEntity entity, GeoLocation fromLocation, BusinessEntity customer, GeoLocation toLocation) => new BusinessOrder(customer, toLocation, entity, fromLocation);
+  public static BusinessOrder Transit(BusinessEntity entity, GeoLocation origin, GeoLocation destination) => new BusinessOrder(entity, origin, entity, destination);
+  public static BusinessOrder Work(BusinessEntity entity, GeoLocation location) => new BusinessOrder(entity, location, entity, location);
+
+  public long Id { get; }
+  public DateTime CreatedDate { get; } = DateTime.UtcNow;//TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  public Person CreatedByPerson { get; init; } = default;
+  public BusinessOrderStatus Status { get; } = BusinessOrderStatus.DRAFT_PlANNED;
 
 
-  public BusinessOrderStatus Status { get; init; } = BusinessOrderStatus.DRAFT_PlANNED;
+  public BusinessEntity Customer { get; init; }//Origins of the order (Customer for Sales Orders, Supplier for Purchase Orders)
+  public BusinessEntity Supplier { get; init; }//Destination of the order (Supplier for Sales Orders, Customer for Purchase Orders)
+  public GeoLocation SupplierFromAddress { get; init; }//BIGINT REFERENCES stockroomsite(stockroomsiteid),
+  public GeoLocation CustomerToAddress { get; init; }//BIGINT REFERENCES stockroomsite(stockroomsiteid),
 
 
-  public BusinessEntity Customer { get; init; }
   /// <summary> Purchase Order Number </summary>
   public string CustomerReference { get; init; } = string.Empty; //VARCHAR(50) UNIQUE NOT NULL
-  public GeoLocation CustomerToAddress { get; init; }//BIGINT REFERENCES stockroomsite(stockroomsiteid),
+
 
 
   public DateTime? SupplierDate { get; init; }
   public DateTime? CustomerDate { get; init; }
+
   public DateTime? RequestedDeliveryDate { get; init; }
   public DateTime? PromisedDeliveryDate { get; init; }
   public DateTime? PlannedDate { get; init; }
@@ -24,10 +41,9 @@ public record BusinessOrder(long Id) {
 
 
 
-  public BusinessEntity Supplier { get; init; }
   /// <summary> Sales Order Number </summary>
   public string SupplierReference { get; init; } = string.Empty; //VARCHAR(50) UNIQUE NOT NULL
-  public GeoLocation SupplierFromAddress { get; init; }//BIGINT REFERENCES stockroomsite(stockroomsiteid),
+
 
   public string TransitReference { get; init; } = string.Empty; //VARCHAR(50) UNIQUE NOT NULL
 
@@ -36,7 +52,14 @@ public record BusinessOrder(long Id) {
 
   public decimal? TotalAmount { get; set; } = null;
   public CurrencyCode CurrencyCode { get; set; } = CurrencyCode.Undefined;
-  public OrderTypeOption OrderType => Supplier.Id == Customer.Id ? OrderTypeOption.Transfer : (Supplier.Id == 0 ? OrderTypeOption.Sale : (Customer.Id == 0 ? OrderTypeOption.Purchase : OrderTypeOption.Work));
+
+  public bool IsWorkOrder => Supplier.Id == Customer.Id && SupplierFromAddress.Id == CustomerToAddress.Id;
+  public bool IstransferOrder => Supplier.Id == Customer.Id && SupplierFromAddress.Id != CustomerToAddress.Id;
+
+  public OrderTypeOption OrderType(BusinessEntity entity) => Supplier.Id == Customer.Id ? SupplierFromAddress.Id == CustomerToAddress.Id ? OrderTypeOption.Work : OrderTypeOption.Transfer
+    : Supplier.Id == entity.Id ? OrderTypeOption.Sale
+    : Customer.Id == entity.Id ? OrderTypeOption.Purchase
+    : throw new NotImplementedException();
 
 
   /*

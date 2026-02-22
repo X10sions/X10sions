@@ -4,6 +4,12 @@
 public record StockItem(long Id) {
   public string Code { get; init; } = string.Empty; //UNIQUE 
   public string Description { get; init; } = string.Empty;
+  public StockItemType StockItemType { get; init; } = StockItemType.Undefined;
+  public decimal MaxQuantity { get; init; }//NUMERIC(18,6),        --Max Quantity in Package
+
+
+
+
   public string? Category { get; init; } = null;
   public string? Subcategory { get; init; } = null;
   public StockItemUnitOfMeasure UnitOfMeasure { get; init; } = StockItemUnitOfMeasure.EA;
@@ -21,4 +27,14 @@ public record StockItem(long Id) {
     INDEX idx_category (item_category)
   
   */
+
+  
+}
+
+public enum StockItemType { Undefined, Bag, Bale, Container, Sack, Pallet }
+
+public enum StockItemUnitOfMeasure {
+  EA,
+  KG,
+  L,
 }
