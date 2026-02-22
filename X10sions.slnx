@@ -636,4 +636,7 @@
       <BuildType Solution="Development|*" Project="Release" />
     </Project>
   </Folder>
+  <Folder Name="/_Soloution/">
+    <File Path="Directory.Packages.props" />
+  </Folder>
 </Solution>
