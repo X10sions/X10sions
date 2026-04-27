@@ -2,7 +2,7 @@
 
 public readonly record struct IdCode<TId>(TId Id,  string Code) : IIdCode<TId> { }
 
-public interface IIdCode<TId> : IId<TId> {
+public interface IIdCode<out TId> : IId<TId> {
   string Code { get; }
 }
 

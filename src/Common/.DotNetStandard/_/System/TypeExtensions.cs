@@ -40,9 +40,11 @@ namespace System {
       }
     }
 
+    private static readonly ConcurrentDictionary<Type, object[]> _typeAttributesInternal =          new ConcurrentDictionary<Type, object[]>();
+
     public static void GetAttributesTreeInternal(this Type type, List<object> list) {
-      var _typeAttributesInternal = new ConcurrentDictionary<Type, object[]>();
-      var attrs = _typeAttributesInternal.GetOrAdd(type, x => type.GetCustomAttributes(false));
+      if (type == null) return;
+      var attrs = _typeAttributesInternal.GetOrAdd(type, x => x.GetCustomAttributes(false));
       list.AddRange(attrs);
       if (type.IsInterface)
         return;
@@ -52,19 +54,26 @@ namespace System {
         var intf = interfaces[i];
         if (i < nBaseInterfaces) {
           var getAttr = false;
-          foreach (var mi in type.GetInterfaceMap(intf).TargetMethods) {
-            // Check if the interface is reimplemented.
-            if (mi.DeclaringType == type) {
-              getAttr = true;
-              break;
+          if (!type.IsAbstract && intf.IsAssignableFrom(type)) {
+            try {
+              foreach (var mi in type.GetInterfaceMap(intf).TargetMethods) {
+                // Check if the interface is reimplemented.
+                if (mi.DeclaringType == type) {
+                  getAttr = true;
+                  break;
+                }
+              }
+            } catch (ArgumentException) {
+              getAttr = false;
             }
           }
           if (!getAttr) continue;
         }
         intf.GetAttributesTreeInternal(list);
       }
-      if (type.BaseType != null && type.BaseType != typeof(object))
+      if (type.BaseType != null && type.BaseType != typeof(object)) {
         type.BaseType.GetAttributesTreeInternal(list);
+      }
     }
 
     public static object GetDefaultValue(this Type type) {

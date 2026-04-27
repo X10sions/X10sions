@@ -68,7 +68,7 @@ namespace X10sions.Wsus.Data {
          from usc in db.Set<UpdateStatusPerComputer>().Where(usc => u.LocalUpdateID == usc.LocalUpdateID && ct.TargetID == usc.TargetID).DefaultIfEmpty()
          where p.ExplicitlyDeployable && r.IsLatestRevision && !u.IsHidden
          select new UpdateInstallationInfoView(u.UpdateID, ct.ComputerID,
-         usc.SummarizationState == null || usc.SummarizationState == 1 ? ((u.LastUndeclinedTime ?? u.ImportedTime) < ct.EffectiveLastDetectionTime ? 1 : 0) : usc.SummarizationState
+         usc.SummarizationState == 1 ? ((u.LastUndeclinedTime ?? u.ImportedTime) < ct.EffectiveLastDetectionTime ? 1 : 0) : usc.SummarizationState
          );
 
 

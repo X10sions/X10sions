@@ -15,8 +15,7 @@
       set => BoolValue = GetBoolValue(value);
     }
 
-    public static bool? GetBoolValue(string value)
-      => string.IsNullOrWhiteSpace(value) ? null : (bool?)(value.ToUpper() == TrueString);
+    public static bool? GetBoolValue(string value) => string.IsNullOrWhiteSpace(value) ? null : string.Equals(value, TrueString, StringComparison.OrdinalIgnoreCase);
 
   }
 

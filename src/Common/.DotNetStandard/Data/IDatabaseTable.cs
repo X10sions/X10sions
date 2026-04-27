@@ -10,7 +10,7 @@ public interface IDatabaseTable<T> where T : class {
   IDatabase Database { get; }
 }
 
-public interface IDatabaseTable<T, TDatabase> where T : class where TDatabase : IDatabase {
+public interface IDatabaseTable<T, out TDatabase> where T : class where TDatabase : IDatabase {
   TDatabase Database { get; }
 }
 

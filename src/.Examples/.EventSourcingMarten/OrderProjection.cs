@@ -2,7 +2,7 @@
 
 namespace X10sions.Examples.EventSourcingMarten;
 
-public class OrderProjection : SingleStreamProjection<Order> {
+public class OrderProjection : SingleStreamProjection<Order, Guid> {
   public void Apply(Events.OrderCreated created, Order order) {
     order.Id = created.Id;
     order.ProductName = created.ProductName;

@@ -1,5 +1,5 @@
 ﻿namespace Common.ValueObjects;
-public interface IId<TId> {
+public interface IId<out TId> {
   TId Id { get;  }
 }
 

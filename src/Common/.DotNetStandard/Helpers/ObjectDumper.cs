@@ -58,8 +58,9 @@ namespace Common.Helpers {
                 WriteObject(prefix, item);
                 level -= 1;
               }
-            } else
+            } else {
               WriteObject(prefix, item);
+            }
           }
         } else {
           MemberInfo[] members = element.GetType().GetMembers(BindingFlags.Public | BindingFlags.Instance);
@@ -117,8 +118,8 @@ namespace Common.Helpers {
      void WriteValue(object o) {
       if (o == null)
         Write("null");
-      else if (o is DateTime)
-        Write(((DateTime)o).ToShortDateString());
+      else if (o is DateTime dateTime)
+        Write(dateTime.ToShortDateString());
       else if (o is ValueType || o is string)
         Write(o.ToString());
       else if (o is IEnumerable)

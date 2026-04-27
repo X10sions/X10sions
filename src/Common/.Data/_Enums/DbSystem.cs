@@ -22,15 +22,23 @@ public abstract class DbSystem : SmartEnum<DbSystem> {
   public static readonly DbSystem SqlServer = new SqlServerDbSystem();
   //public static readonly DbSystem Sybase = new SealedDbSystem(nameof(Sybase));
 
-  private DbSystem(string name) : base(name, count++) { }
+  private DbSystem(string name ) : base(name, count++) { }
+  //protected DbSystem(string name) : this(name, count++) {   }
+
   //private DbSystem(string name) : base(name, List == null ? 0 : List.Count) { }
 
-  static int count = -1;
+  //public static DbSystem Create(string name) {
+  //  count++;
+  //  return new DbSystem(name, count);
+  //}
+
+   public static int count { get; set; } = -1;
 
   #region SealedClasses
 
   public sealed class SealedDbSystem : DbSystem {
-    public SealedDbSystem(string name) : base(name) { }
+    public SealedDbSystem(string name ) : base(name) { }
+    
   }
 
   public sealed class DB2iSeriesDbSystem : DbSystem {
@@ -93,7 +101,17 @@ public abstract class DbSystem : SmartEnum<DbSystem> {
 
     public static ReleaseVerion GetReleaseVerion(Version version) {
       //https://sqlserverbuilds.blogspot.com/
-      return version switch { { Major: 15 } => ReleaseVerion.v2019, { Major: 14 } => ReleaseVerion.v2017, { Major: 13 } => ReleaseVerion.v2016, { Major: 12 } => ReleaseVerion.v2014, { Major: 11 } => ReleaseVerion.v2012, { Major: 10 } => version.Minor > 0 ? ReleaseVerion.v2008_R2 : ReleaseVerion.v2008, { Major: 9 } => ReleaseVerion.v2005, { Major: 8 } => ReleaseVerion.v2000, { Major: 7 } => ReleaseVerion.v7, { Major: 6 } => version.Minor > 0 ? ReleaseVerion.v6_5 : ReleaseVerion.v6,
+      return version switch { 
+        { Major: 15 } => ReleaseVerion.v2019,
+        { Major: 14 } => ReleaseVerion.v2017, 
+        { Major: 13 } => ReleaseVerion.v2016, 
+        { Major: 12 } => ReleaseVerion.v2014,
+        { Major: 11 } => ReleaseVerion.v2012,
+        { Major: 10 } => version.Minor > 0 ? ReleaseVerion.v2008_R2 : ReleaseVerion.v2008, 
+        { Major: 9 } => ReleaseVerion.v2005, 
+        { Major: 8 } => ReleaseVerion.v2000, 
+        { Major: 7 } => ReleaseVerion.v7, 
+        { Major: 6 } => version.Minor > 0 ? ReleaseVerion.v6_5 : ReleaseVerion.v6,
         _ => throw new NotImplementedException($"Unknown version: {version}")
       };
     }

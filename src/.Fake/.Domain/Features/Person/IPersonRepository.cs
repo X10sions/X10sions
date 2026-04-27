@@ -2,7 +2,7 @@
 
 namespace X10sions.Fake.Features.Person;
 
-public interface IPersonRepository : IReadOnlyRepository<Person, int>, IWriteOnlyRepository<Person,int> {
+public interface IPersonRepository : IReadOnlyRepository<FakePerson, int>, IWriteOnlyRepository<FakePerson, int> {
   //IQueryable<Person> Person { get; }
   //Task<List<Product>> GetListAsync();
   //Task<Product> GetByIdAsync(int productId);

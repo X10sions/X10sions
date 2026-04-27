@@ -43,7 +43,7 @@ public class ValueOf<TValue, TThis> where TThis : ValueOf<TValue, TThis>, new() 
   }
 
   private static readonly Func<TThis> Factory;
-  public static bool operator ==(ValueOf<TValue, TThis> a, ValueOf<TValue, TThis> b) => a is null && b is null ? true : a is null || b is null ? false : a.Equals(b);
-  public static bool operator !=(ValueOf<TValue, TThis> a, ValueOf<TValue, TThis> b) => !(a == b);
+  //public static bool operator ==(ValueOf<TValue, TThis> a, ValueOf<TValue, TThis> b) => ReferenceEquals(a, b) || (a is not null && a.Equals(b));
+  //public static bool operator !=(ValueOf<TValue, TThis> a, ValueOf<TValue, TThis> b) => !(a == b);
 
 }

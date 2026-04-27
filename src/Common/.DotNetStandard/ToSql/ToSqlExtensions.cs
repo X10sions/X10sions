@@ -15,7 +15,7 @@ public static class ToSqlExtensions {
 
   public static string CreateWhereClause<T>(this Expression<Func<T, bool>> predicate) {
     var p = new StringBuilder(predicate.Body.ToString());
-    var pName = predicate.Parameters.First();
+    var pName = predicate.Parameters[0];
     p.Replace(pName.Name + ".", "");
     p.Replace("==", "=");
     p.Replace("AndAlso", "and");

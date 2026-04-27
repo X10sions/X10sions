@@ -26,10 +26,10 @@ public static class ApiResults {
   };
 
   static string GetType(Error error) => error.Type switch {
-    ErrorType.Conflict => "https://tools.org/html/rcf7231#section-?.?.?",
-    ErrorType.NotFound => "https://tools.org/html/rcf7231#section-?.?.?",
-    ErrorType.Problem => "https://tools.org/html/rcf7231#section-?.?.?",
-    ErrorType.Validation => "https://tools.org/html/rcf7231#section-?.?.?",
+    ErrorType.Conflict => "https://tools.org/html/rcf7231#section-6.5.8",
+    ErrorType.NotFound => "https://tools.org/html/rcf7231#section-6.5.4",
+    ErrorType.Problem => "https://tools.org/html/rcf7231#section-6.6.1",
+    ErrorType.Validation => "https://tools.org/html/rcf7231#section-6.5.1",
     ErrorType.Unknown => "https://tools.org/html/rcf7231#section-?.?.?",
     _ => "https://tools.org/html/rcf7231#section-?.?.?",
   };

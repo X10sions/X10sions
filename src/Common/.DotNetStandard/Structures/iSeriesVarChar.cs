@@ -36,7 +36,7 @@ namespace Common.Structures {
 
     #region IFormattable
     public override string ToString() => Value;
-    public string ToString(string format, IFormatProvider formatProvider) => ToString(ToString(), formatProvider);
+    public string ToString(string format, IFormatProvider formatProvider) => ToString().ToString(formatProvider);
     #endregion
 
     //public string SqlValue() => String_Extensions_Sql.Sql(Value).ToSqlExpression();

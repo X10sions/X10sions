@@ -48,7 +48,7 @@ public class SusdbSqlSugarClient : SqlSugarClient {
          .LeftJoin<UpdateStatusPerComputer>((u, r, p, ct, usc) => u.LocalUpdateID == usc.LocalUpdateID && ct.TargetID == usc.TargetID)
          .Where(u => !u.IsHidden)
          .Select((u, r, p, ct, usc) => new UpdateInstallationInfoView(u.UpdateID, ct.ComputerID,
-           usc.SummarizationState == null || usc.SummarizationState == 1 ? ((u.LastUndeclinedTime ?? u.ImportedTime) < ct.EffectiveLastDetectionTime ? 1 : 0) : usc.SummarizationState
+           usc.SummarizationState == 1 ? ((u.LastUndeclinedTime ?? u.ImportedTime) < ct.EffectiveLastDetectionTime ? 1 : 0) : usc.SummarizationState
          ));
 
 

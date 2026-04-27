@@ -12,7 +12,7 @@
     <PackageVersion Include="AutoBogus.NSubstitute" Version="2.13.1" />
     <PackageVersion Include="AutoMapper" Version="13.0.1" />
     <PackageVersion Include="Avalonia.Win32" Version="0.10.6" />
-    <PackageVersion Include="AWSSDK.DynamoDBv2" Version="4.0.10.8" />
+    <PackageVersion Include="AWSSDK.DynamoDBv2" Version="4.0.17.11" />
     <PackageVersion Include="Azure.Core" Version="1.39.0" />
     <PackageVersion Include="Azure.Identity" Version="1.12.0" />
     <PackageVersion Include="Balbarak.WeasyPrint" Version="2.0.2" />
@@ -21,11 +21,11 @@
     <PackageVersion Include="BenchmarkDotNet" Version="0.11.5" />
     <PackageVersion Include="Boxed.Mapping" Version="5.3.0" />
     <PackageVersion Include="Castle.DynamicLinqQueryBuilder" Version="1.3.3" />
-    <PackageVersion Include="Chloe.MySql" Version="5.27.0" />
-    <PackageVersion Include="Chloe.Oracle" Version="5.27.0" />
-    <PackageVersion Include="Chloe.PostgreSQL" Version="5.27.0" />
-    <PackageVersion Include="Chloe.SQLite" Version="5.27.0" />
-    <PackageVersion Include="Chloe.SqlServer" Version="5.27.0" />
+    <PackageVersion Include="Chloe.MySql" Version="5.55.0" />
+    <PackageVersion Include="Chloe.Oracle" Version="5.55.0" />
+    <PackageVersion Include="Chloe.PostgreSQL" Version="5.55.0" />
+    <PackageVersion Include="Chloe.SQLite" Version="5.55.0" />
+    <PackageVersion Include="Chloe.SqlServer" Version="5.55.0" />
     <PackageVersion Include="coverlet.collector" Version="6.0.4" />
     <PackageVersion Include="DannyBoyNg.UserAgentParser" Version="2.1.0" />
     <PackageVersion Include="Dapper" Version="2.1.35" />
@@ -36,26 +36,26 @@
     <PackageVersion Include="Dashing.Weaver" Version="2.2.0" />
     <PackageVersion Include="DatabaseSchemaReader" Version="2.11.0" />
     <PackageVersion Include="DbExtensions" Version="6.3.0" />
-    <PackageVersion Include="DelegateDecompiler" Version="0.34.0" />
+    <PackageVersion Include="DelegateDecompiler" Version="0.35.3" />
     <PackageVersion Include="Delta" Version="7.0.1" />
-    <PackageVersion Include="DevExpress.Xpo" Version="19.1.5" />
+    <PackageVersion Include="DevExpress.Xpo" Version="25.2.6" />
     <PackageVersion Include="DinkToPdf" Version="1.0.8" />
     <PackageVersion Include="DocXToPdfConverter" Version="1.0.5" />
     <PackageVersion Include="Dommel" Version="3.3.1" />
     <PackageVersion Include="DynamicQueryBuilder" Version="1.0.5" />
     <PackageVersion Include="EFCore.NamingConventions" Version="10.0.1" />
     <PackageVersion Include="EntityFramework" Version="6.5.1" />
-    <PackageVersion Include="EntityFrameworkCore.Jet" Version="8.0.0" />
+    <PackageVersion Include="EntityFrameworkCore.Jet" Version="10.0.0" />
     <PackageVersion Include="EntityFrameworkCore.SqlServerCompact40" Version="2.2.0.7" />
     <PackageVersion Include="EPPlus" Version="[, 4.5.3.3]" />
     <PackageVersion Include="FastExpressionCompiler.LightExpression" Version="3.3.3" />
-    <PackageVersion Include="FirebirdSql.EntityFrameworkCore.Firebird" Version="11.0.0" />
+    <PackageVersion Include="FirebirdSql.EntityFrameworkCore.Firebird" Version="13.0.0" />
     <PackageVersion Include="FluentAssertions" Version="7.2.0" />
     <PackageVersion Include="FluentAssertions.Analyzers" Version="0.34.1" />
     <PackageVersion Include="FluentNHibernate" Version="3.4.0" />
     <PackageVersion Include="FluentValidation" Version="11.9.2" />
     <PackageVersion Include="FreeSql" Version="3.2.833" />
-    <PackageVersion Include="FreeSql.All" Version="3.2.833" />
+    <PackageVersion Include="FreeSql.All" Version="3.5.309" />
     <PackageVersion Include="FreeSql.Provider.Custom" Version="3.2.833" />
     <PackageVersion Include="FreeSql.Provider.Odbc" Version="3.2.833" />
     <PackageVersion Include="FreeSql.Provider.SqlServer" Version="3.2.833" />
@@ -70,11 +70,11 @@
     <PackageVersion Include="JetBrains.Annotations" Version="2025.2.4" />
     <PackageVersion Include="Linq.PropertyTranslator.Core" Version="1.0.5" />
     <PackageVersion Include="linq2db" Version="5.4.1" />
-    <PackageVersion Include="linq2db.AspNet" Version="5.4.1" />
+    <PackageVersion Include="linq2db.AspNet" Version="5.4.1.9" />
     <PackageVersion Include="linq2db4iSeries" Version="5.4.0" />
     <PackageVersion Include="LinqKit.Core" Version="1.2.5" />
-    <PackageVersion Include="MailKit" Version="4.7.1.1" />
-    <PackageVersion Include="Marten" Version="7.38.1" />
+    <PackageVersion Include="MailKit" Version="4.16.0" />
+    <PackageVersion Include="Marten" Version="8.33.0" />
     <PackageVersion Include="Mapster" Version="7.4.0" />
     <PackageVersion Include="MediatR" Version="12.4.0" />
     <PackageVersion Include="MediatR.Contracts" Version="2.0.1" />
@@ -99,14 +99,14 @@
     <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.0.8" />
     <PackageVersion Include="Microsoft.AspNetCore.Components.WebView.WindowsForms" Version="8.0.80" />
     <PackageVersion Include="Microsoft.AspNetCore.Components.WebView.Wpf" Version="8.0.80" />
-    <PackageVersion Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.8" />
+    <PackageVersion Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="10.0.7" />
     <PackageVersion Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
     <PackageVersion Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="9.0.6" />
-    <PackageVersion Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.8" />
+    <PackageVersion Include="Microsoft.AspNetCore.Identity.UI" Version="10.0.7" />
     <PackageVersion Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
     <PackageVersion Include="Microsoft.AspNetCore.Mvc.RazorPages" Version="2.1.11" />
     <PackageVersion Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="5.0.0" />
-    <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="8.0.8" />
+    <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="10.0.7" />
     <PackageVersion Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" />
     <PackageVersion Include="Microsoft.AspNetCore.StaticFiles" Version="2.2.0" />
     <PackageVersion Include="Microsoft.AspNetCore.WebUtilities" Version="8.0.8" />
@@ -121,9 +121,9 @@
     <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="10.0.1" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="10.0.3" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.8" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.Sqlite.Core" Version="8.0.8" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.6" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.8" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Sqlite.Core" Version="10.0.7" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.7" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="10.0.7" />
     <PackageVersion Include="Microsoft.Extensions.Caching.Abstractions" Version="8.0.0" />
     <PackageVersion Include="Microsoft.Extensions.Configuration.Abstractions" Version="8.0.0" />
     <PackageVersion Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
@@ -147,9 +147,9 @@
     <PackageVersion Include="Microsoft.Playwright.NUnit" Version="1.57.0" />
     <PackageVersion Include="Microsoft.SqlServer.Compact" Version="4.0.8876.1" />
     <PackageVersion Include="Microsoft.VisualStudio.Threading.Analyzers" Version="17.14.15" />
-    <PackageVersion Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.4" />
+    <PackageVersion Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="10.0.2" />
     <PackageVersion Include="Microsoft.Win32.Registry" Version="5.0.0" />
-    <PackageVersion Include="MimeKit" Version="4.7.1" />
+    <PackageVersion Include="MimeKit" Version="4.16.0" />
     <PackageVersion Include="MiniProfiler" Version="4.3.8" />
     <PackageVersion Include="MiniProfiler.AspNetCore" Version="4.3.8" />
     <PackageVersion Include="MiniProfiler.AspNetCore.Mvc" Version="4.3.8" />
@@ -161,7 +161,7 @@
     <PackageVersion Include="MSTest.TestAdapter" Version="4.0.2" />
     <PackageVersion Include="MSTest.TestFramework" Version="4.0.2" />
     <PackageVersion Include="MySql.Data" Version="8.4.0" />
-    <PackageVersion Include="MySql.EntityFrameworkCore" Version="8.0.5" />
+    <PackageVersion Include="MySql.EntityFrameworkCore" Version="10.0.1" />
     <PackageVersion Include="MySqlConnector" Version="1.3.10" />
     <PackageVersion Include="NanoByte.Razor2Pdf" Version="0.3.0" />
     <PackageVersion Include="NeinLinq" Version="5.1.0" />
@@ -173,22 +173,22 @@
     <PackageVersion Include="NetOfficeFw.Outlook" Version="1.9.7" />
     <PackageVersion Include="NetOfficeFw.Word" Version="1.9.7" />
     <PackageVersion Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageVersion Include="NHibernate" Version="5.5.2" />
+    <PackageVersion Include="NHibernate" Version="5.6.0" />
     <PackageVersion Include="NLog.WindowsEventLog" Version="4.7.10" />
     <PackageVersion Include="Npgsql" Version="10.0.1" />
-    <PackageVersion Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.4" />
+    <PackageVersion Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.1" />
     <PackageVersion Include="NReco.Data" Version="1.2.10" />
     <PackageVersion Include="NSubstitute.Analyzers.CSharp" Version="1.0.17" />
     <PackageVersion Include="NUnit" Version="4.4.0" />
     <PackageVersion Include="NUnit.Analyzers" Version="4.11.2" />
     <PackageVersion Include="NUnit3TestAdapter" Version="6.0.1" />
     <PackageVersion Include="Offergeld.Db2Orm" Version="1.2.5" />
-    <PackageVersion Include="Oracle.EntityFrameworkCore" Version="8.23.50" />
+    <PackageVersion Include="Oracle.EntityFrameworkCore" Version="10.23.26200" />
     <PackageVersion Include="OrbintSoft.Yauaa.NetStandard" Version="5.13.1" />
     <PackageVersion Include="PdfPig" Version="0.1.8" />
     <PackageVersion Include="PdfRpt.Core" Version="1.5.13" />
     <PackageVersion Include="PetaPoco" Version="5.1.306" />
-    <PackageVersion Include="Pomelo.EntityFrameworkCore.MySql" Version="8.0.2" />
+    <PackageVersion Include="Pomelo.EntityFrameworkCore.MySql" Version="9.0.0" />
     <PackageVersion Include="Poser" Version="2.1.0" />
     <PackageVersion Include="PuppeteerSharp" Version="18.1.0" />
     <PackageVersion Include="QuestPDF" Version="[, 2022.12.15]" />
@@ -223,30 +223,30 @@
     <PackageVersion Include="Serilog.Sinks.EventLog" Version="3.1.0" />
     <PackageVersion Include="Serilog.Sinks.File" Version="6.0.0" />
     <PackageVersion Include="ServiceStack.Interfaces" Version="8.3.0" />
-    <PackageVersion Include="ServiceStack.OrmLite.Firebird" Version="8.3.0" />
-    <PackageVersion Include="ServiceStack.OrmLite.MySql" Version="8.3.0" />
-    <PackageVersion Include="ServiceStack.OrmLite.MySqlConnector" Version="8.3.0" />
-    <PackageVersion Include="ServiceStack.OrmLite.Oracle" Version="8.3.0" />
-    <PackageVersion Include="ServiceStack.OrmLite.PostgreSQL" Version="8.3.0" />
-    <PackageVersion Include="ServiceStack.OrmLite.Sqlite" Version="8.3.0" />
-    <PackageVersion Include="ServiceStack.OrmLite.SqlServer" Version="8.3.0" />
+    <PackageVersion Include="ServiceStack.OrmLite.Firebird" Version="10.0.6" />
+    <PackageVersion Include="ServiceStack.OrmLite.MySql" Version="10.0.6" />
+    <PackageVersion Include="ServiceStack.OrmLite.MySqlConnector" Version="10.0.6" />
+    <PackageVersion Include="ServiceStack.OrmLite.Oracle" Version="10.0.6" />
+    <PackageVersion Include="ServiceStack.OrmLite.PostgreSQL" Version="10.0.6" />
+    <PackageVersion Include="ServiceStack.OrmLite.Sqlite" Version="10.0.6" />
+    <PackageVersion Include="ServiceStack.OrmLite.SqlServer" Version="10.0.6" />
     <PackageVersion Include="SharpSource" Version="1.27.1" />
     <PackageVersion Include="Shouldly" Version="4.2.1" />
     <PackageVersion Include="Shyjus.BrowserDetector" Version="2.0.0" />
-    <PackageVersion Include="SmartSql.Bulk.MySql" Version="4.1.67" />
-    <PackageVersion Include="SmartSql.Bulk.MySqlConnector" Version="4.1.67" />
-    <PackageVersion Include="SmartSql.Bulk.PostgreSql" Version="4.1.67" />
-    <PackageVersion Include="SmartSql.Bulk.SqlServer" Version="4.1.67" />
+    <PackageVersion Include="SmartSql.Bulk.MySql" Version="4.1.68" />
+    <PackageVersion Include="SmartSql.Bulk.MySqlConnector" Version="4.1.68" />
+    <PackageVersion Include="SmartSql.Bulk.PostgreSql" Version="4.1.68" />
+    <PackageVersion Include="SmartSql.Bulk.SqlServer" Version="4.1.68" />
     <PackageVersion Include="Soma" Version="1.9.0.1" />
     <PackageVersion Include="SonarAnalyzer.CSharp" Version="10.17.0.131074" />
     <PackageVersion Include="sqlite-net-pcl" Version="1.9.172" />
     <PackageVersion Include="SqlKata" Version="2.4.0" />
     <PackageVersion Include="SqlKata.Execution" Version="2.4.0" />
-    <PackageVersion Include="SqlSugarCore" Version="5.1.4.210" />
+    <PackageVersion Include="SqlSugarCore" Version="5.1.4.214" />
     <PackageVersion Include="StaTypPocoQueries.PetaPoco" Version="1.5.8" />
     <PackageVersion Include="StyleCop.Analyzers" Version="1.1.118" />
     <PackageVersion Include="Susanoo.SqlServer" Version="1.2.4.2" />
-    <PackageVersion Include="Swashbuckle.AspNetCore" Version="6.7.1" />
+    <PackageVersion Include="Swashbuckle.AspNetCore" Version="10.1.7" />
     <PackageVersion Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.7.1" />
     <PackageVersion Include="System.ComponentModel.Annotations" Version="5.0.0" />
     <PackageVersion Include="System.Configuration.ConfigurationManager" Version="8.0.0" />

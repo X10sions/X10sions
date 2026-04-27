@@ -154,7 +154,7 @@ public static class SqlClientHelperParameterCache {
   /// <returns>An array of DbParameters</returns>
   internal static DbParameter[] GetSpParameterSet(DbConnection connection, string spName, bool includeReturnValueParameter) {
     if (connection == null) throw new ArgumentNullException("connection");
-    using (var clonedConnection = (DbConnection)((ICloneable)connection).Clone()) {
+    using (var clonedConnection = (DbConnection)(connection as ICloneable).Clone()) {
       return GetSpParameterSetInternal(clonedConnection, spName, includeReturnValueParameter);
     }
   }

@@ -3,7 +3,7 @@
 public class Option : HtmlTag5Base<Option>, IInnerText {
   public Option(string? value = null, string? innerText = null) {
     Value = value;
-    InnerText = innerText;
+    InnerText = innerText ?? string.Empty;
   }
 
   //public Option(Select select) {
@@ -34,7 +34,7 @@ public class Option : HtmlTag5Base<Option>, IInnerText {
   public bool? DefaultSelected { get; set; }
   public Form? Form { get; set; }
   public int? Index { get; set; }
-  public string? InnerText { get; set; }
+  public string InnerText { get; set; }
 
   string SelectedHtml => Selected.HasValue && Selected.Value ? " selected=\"selected\" " : string.Empty;
   public override string ToHtml() => $"<option value=\"{Value}\" {SelectedHtml}>{InnerText}</option>";

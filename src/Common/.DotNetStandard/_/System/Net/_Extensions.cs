@@ -1,6 +1,7 @@
 ﻿using Common.Mail;
 
 namespace System.Net.Mail;
+
 public static class _Extensions {
 
   public static MailAddress AsMailAddress(this IMailAddress value) => value.DisplayName is null ? new MailAddress(value.Address) : new MailAddress(value.Address, value.DisplayName);
@@ -27,7 +28,7 @@ public static class _Extensions {
         }
       } catch (Exception ex) {
         Diagnostics.Debug.WriteLine(ex.Message);
-        throw ex;
+        throw;
       } finally {
         client.Dispose();
       }

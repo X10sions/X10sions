@@ -51,7 +51,7 @@ public class UrlParts {
 
   public class UrlHostInfo {
     public string? SubDomain { get; set; }
-    public string SubDomainPart { get => SubDomain.WrapIfNotNullOrWhiteSpace(string.Empty, "."); set => value.TrimEnd('.'); }
+    public string SubDomainPart { get => SubDomain.WrapIfNotNullOrWhiteSpace(string.Empty, "."); set =>  SubDomain  = value?.TrimEnd('.'); }
     public string? Domain { get; set; }
     public int? Port { get; set; }
     public string PortPart { get => Port.WrapIfNotNull(":"); set => Port = int.Parse(value.TrimStart(':')); }

@@ -18,7 +18,7 @@
       TypeCode.UInt64
     };
 
-    public static readonly TypeCode[] Numeric = Integer.Union(Float).ToArray();
+    public static readonly TypeCode[] Numeric = [.. Integer.Union(Float)];
 
     public static readonly TypeCode[] Text = {
       TypeCode.Char,

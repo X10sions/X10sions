@@ -1,10 +1,10 @@
 ﻿namespace X10sions.Fake.Features.Brand;
 
 public interface IBrandRepository {
-  IQueryable<Brand> Brands { get; }
-  Task<ICollection<Brand>> GetListAsync();
-  Task<Brand> GetByIdAsync(int brandId);
-  Task<int> InsertAsync(Brand brand);
-  Task UpdateAsync(Brand brand);
-  Task DeleteAsync(Brand brand);
+  IQueryable<FakeBrand> Brands { get; }
+  Task<ICollection<FakeBrand>> GetListAsync();
+  Task<FakeBrand> GetByIdAsync(int brandId);
+  Task<int> InsertAsync(FakeBrand brand);
+  Task UpdateAsync(FakeBrand brand);
+  Task DeleteAsync(FakeBrand brand);
 }

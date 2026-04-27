@@ -54,25 +54,25 @@ public static class SqlHelper {
     //Enum.TryParse(qrySplit[0], out DB2WorkQuerySqlComparison db2Comparison);
     //var op = db2Comparison.GetSqlComparison().SqlFormat();
     var op = SqlComparisonExtensions.GetFromCode(qrySplit[0]).SqlFormat();
-    var hasNot = op.IndexOf("not", StringComparison.OrdinalIgnoreCase) > 0;
+    var hasNot = op.Contains("not", StringComparison.OrdinalIgnoreCase);
     var sqlNot = "";
     if (hasNot) {
       op = op.Replace("not", "");
       sqlNot = "Not ";
     }
-    var hasNull = op.IndexOf("null", StringComparison.OrdinalIgnoreCase) > 0;
+    var hasNull = op.Contains("null", StringComparison.OrdinalIgnoreCase);
     if (hasNull) {
       op = op.Replace("null", "");
       sql = sqlNot + expr + " Is Null";
     }
     // op = GetComparisonOperatorExpression(GetComparisonOperatorKeyWord(op))
     if (op.Length > 0) {
-      var val = (qrySplit.Count() > 0 ? qrySplit[1] : string.Empty).Split(",");
-      if (op.IndexOf("{1}", StringComparison.Ordinal) > 0) {
-        if (val.Count() > 0)
+      var val = (qrySplit.ElementAtOrDefault(1) ?? string.Empty).Split(',');
+      if (op.Contains("{1}", StringComparison.Ordinal)) {
+        if (val.Any())
           op = op.Replace("{0} And {1}", qualifier + val[0] + qualifier + " And " + qualifier + val[1] + qualifier);
       } else {
-        if (op.IndexOf("'", StringComparison.Ordinal) > 0)
+        if (op.Contains("'", StringComparison.Ordinal))
           qualifier = "";
         op = op.Replace("{0}", qualifier + string.Join(qualifier + ", " + qualifier, val) + qualifier);
       }

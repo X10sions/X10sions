@@ -4,12 +4,12 @@ namespace X10sions.Fake.Features.User;
 
 public class FakeUser : EntityBase<int> {
   public string EmailAddress { get; set; }
-  public UserRole.Enum Role { get; set; }
+  public UserRole.RoleId Role { get; set; }
   public string Password { get; set; }
 }
 
 public static class UserRole {
-  public enum Enum {
+  public enum RoleId {
     Admin = 2,
     Basic = 1,
     Moderator = 4,

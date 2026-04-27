@@ -14,7 +14,7 @@
       set => BoolValue = GetBoolValue(value);
     }
 
-    public static bool GetBoolValue(string value) => value.ToUpper() == TrueString;
+    public static bool GetBoolValue(string value) => string.Equals(value, TrueString, StringComparison.OrdinalIgnoreCase);
 
   }
 

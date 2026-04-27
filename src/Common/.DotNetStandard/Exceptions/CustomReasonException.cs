@@ -1,6 +1,6 @@
 ﻿namespace Common.Exceptions;
 [Serializable]
-public class CustomReasonException : ApplicationException {
+public class CustomReasonException : Exception {
 
   public CustomReasonException(ReasonCode reason) : this(reason, string.Empty) { }
 

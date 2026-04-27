@@ -42,7 +42,7 @@ public class FakePerson : EntityBase<int> {
   //[Column] public TimeOnly? DeathTime{ get; set; }
   [Column] public DateTime? DeathDateTime { get; set; }
 
-  public int? Age => BirthDateTime.GetWholeYearsBetween(DeathDateTime ?? DateTime.Now);
+  public int? Age => BirthDateTime.GetWholeYearsBetween(DeathDateTime ?? DateTime.UtcNow);
 
   public FakePerson? Father { get; set; }
   public FakePerson? Mother { get; set; }

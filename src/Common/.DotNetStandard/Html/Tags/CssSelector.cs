@@ -3,8 +3,8 @@
 namespace Common.Html.Tags;
 
 public class CssSelector {
-  //const string StyleDelimeter = ";";
-  public const string Delimeter = ";";
+  public const string Terminator = ";";
+  //public const string xDelimeter = ";";
 
   CssSelector(string selector) {
     Selector = selector;
@@ -37,8 +37,7 @@ public class CssSelector {
   }
 
   public class Declaration {
-    //const string StyleKeyValueDelimeter = ":";
-    public const string Delimeter = ":";
+    public const string Separator = ":";
 
     public Declaration(string property, string value) {
       Property = property.Trim();
@@ -46,7 +45,7 @@ public class CssSelector {
     }
 
     public Declaration(string keyValue) {
-      var a = keyValue.Split(Delimeter);
+      var a = keyValue.Split(Separator);
       Property = a[0].Trim();
       Value = a[1].Trim();
     }
@@ -54,7 +53,7 @@ public class CssSelector {
     public string Property { get; set; }
     public string Value { get; set; }
 
-    public string ToHtml() => $"{Property}{Delimeter}{Value}{CssSelector.Delimeter}";
+    public string ToHtml() => Property + Separator + Value + CssSelector.Terminator;
 
     //public static string DeclarationsToHtml(IEnumerable<StyleDeclaration> declarations) {
     //  var sb = new StringBuilder();

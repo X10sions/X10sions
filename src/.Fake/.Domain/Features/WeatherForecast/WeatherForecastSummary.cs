@@ -1,4 +1,7 @@
-﻿namespace X10sions.Fake.Features.WeatherForecast;
+﻿using System.Security.Cryptography;
+
+namespace X10sions.Fake.Features.WeatherForecast;
+
 public enum WeatherForecastSummary { Freezing, Bracing, Chilly, Cool, Mild, Warm, Balmy, Hot, Sweltering, Scorching }
 
 //public class WeatherForecastSummary2 : Common.Enumeration {
@@ -18,6 +21,5 @@ public enum WeatherForecastSummary { Freezing, Bracing, Chilly, Cool, Mild, Warm
 //}
 
 public static class WeatherForecastSummaryExtensions {
-  public static WeatherForecastSummary GetRandom(this WeatherForecastSummary[] weatherForecastSummarys)
-    => weatherForecastSummarys[Random.Shared.Next(weatherForecastSummarys.Length)];
+  public static WeatherForecastSummary GetRandom(this WeatherForecastSummary[] weatherForecastSummarys) => weatherForecastSummarys[RandomNumberGenerator.GetInt32(weatherForecastSummarys.Length)];
 }

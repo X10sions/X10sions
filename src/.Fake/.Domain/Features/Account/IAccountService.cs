@@ -13,8 +13,8 @@ public interface IAccountService1 {
 }
 
 public interface IAccountService2 {
-  Task<IEnumerable<Account.GetQuery>> GetAllByOwnerIdAsync(Guid ownerId, CancellationToken cancellationToken = default);
-  Task<Account.GetQuery> GetByIdAsync(Guid ownerId, Guid accountId, CancellationToken cancellationToken);
-  Task<Account.GetQuery> CreateAsync(Guid ownerId, Account.UpdateCommand accountForCreationDto, CancellationToken cancellationToken = default);
+  Task<IEnumerable<FakeAccount.GetQuery>> GetAllByOwnerIdAsync(Guid ownerId, CancellationToken cancellationToken = default);
+  Task<FakeAccount.GetQuery> GetByIdAsync(Guid ownerId, Guid accountId, CancellationToken cancellationToken);
+  Task<FakeAccount.GetQuery> CreateAsync(Guid ownerId, FakeAccount.UpdateCommand accountForCreationDto, CancellationToken cancellationToken = default);
   Task DeleteAsync(Guid ownerId, Guid accountId, CancellationToken cancellationToken = default);
 }

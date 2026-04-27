@@ -1,21 +1,27 @@
-﻿using Common.Data;
-
-namespace X10sions.Fake.Features.WeatherForecast;
+﻿namespace X10sions.Fake.Features.WeatherForecast;
 
 public class RandomDataStore {
-  public RandomDataStore(int randomRecordsToGet = 5) {
-    WeatherForecasts = WeatherForecast.GetRandomListAsync(randomRecordsToGet).Result.ToList();
-  }
-  public List<WeatherForecast> WeatherForecasts { get; }
 
-  public ValueTask<bool> Insert(WeatherForecast weatherForecast) {
-    var isOverwrite = Delete(weatherForecast.Id);
+  private RandomDataStore(List<FakeWeatherForecast> initialData) {
+    WeatherForecasts = initialData;
+  }
+
+  public List<FakeWeatherForecast> WeatherForecasts { get; }
+
+  // 3. Safe async initialization instead of blocking in constructor
+  public static async Task<RandomDataStore> CreateAsync(int randomRecordsToGet = 5) {
+    var data = await FakeWeatherForecast.GetRandomListAsync(randomRecordsToGet);
+    return new RandomDataStore(data.ToList());
+  }
+
+  public async ValueTask<bool> Insert(FakeWeatherForecast weatherForecast) {
+    var isOverwrite = await Delete(weatherForecast.Id);
     WeatherForecasts.Add(weatherForecast);
     return isOverwrite;
   }
 
-  public ValueTask<bool> Delete(Guid Id) {
-    var record = WeatherForecasts.FirstOrDefault(item => item.Id == Id);
+  public ValueTask<bool> Delete(Guid id) {
+    var record = WeatherForecasts.FirstOrDefault(item => item.Id == id);
     if (record != null) {
       WeatherForecasts.Remove(record);
     }
@@ -24,21 +30,19 @@ public class RandomDataStore {
 
   public ValueTask<int> GetRecordCount() => ValueTask.FromResult(WeatherForecasts.Count);
 
-  public ValueTask<WeatherForecast> GetById(Guid Id) {
-    var record = WeatherForecasts.FirstOrDefault(item => item.Id == Id);
-    return ValueTask.FromResult(record is null ? new WeatherForecast() : record);
+  public ValueTask<FakeWeatherForecast?> GetById(Guid id) {
+    var record = WeatherForecasts.FirstOrDefault(item => item.Id == id);
+    return ValueTask.FromResult(record);
   }
 
-  public ValueTask<List<WeatherForecast>> GetPagedList(int skip, int take) {
-    var list = WeatherForecasts
-         .OrderBy(item => item.Date)
-         .Skip(skip)
-         .Take(take)
-         .ToList();
-    //var returnList = new List<WeatherForecast>();
-    //foreach (var item in list)
-    //  returnList.Add(item with { });
+  public ValueTask<List<FakeWeatherForecast>> GetPagedList(int skip, int take) {
+    var list = WeatherForecasts.OrderBy(item => item.Date).Skip(skip).Take(take).ToList();
     return ValueTask.FromResult(list);
+  }
+
+  public void OverrideWeatherForecastDataSet(List<FakeWeatherForecast> list) {
+    WeatherForecasts.Clear();
+    WeatherForecasts.AddRange(list);
   }
 
   //public WeatherForecast ToDto(WeatherForecastDto record) => new WeatherForecast {
@@ -57,12 +61,9 @@ public class RandomDataStore {
 
   //public static WeatherForecastDto NewRandom(int index) => FromDto(WeatherForecast.NewRandom(index, DateTime.Now));
 
-
-  public void OverrideWeatherForecastDataSet(List<WeatherForecast> list) {
-    WeatherForecasts.Clear();
-    list.ForEach(WeatherForecasts.Add);
-  }
-
   //public List<WeatherForecast> CreateTestForecasts(int count) => Enumerable.Range(1, count).Select(index => WeatherForecast.GetRandom(index, DateTime.Now)).ToList();
 
+
 }
+
+

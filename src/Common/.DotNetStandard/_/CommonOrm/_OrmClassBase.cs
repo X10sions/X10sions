@@ -40,7 +40,7 @@ namespace CommonOrm {
     public Dictionary<string, OrmProperty<T>> Properties { get; } = new Dictionary<string, OrmProperty<T>>();
     public Expression<Func<T, object>> PrimaryKeyExpression { get; set; }
     public List<Expression<Func<T, object>>> UniqueKeyExpressions { get; } = new List<Expression<Func<T, object>>>();
-    public Expression<Func<T, bool>> QueryFilter { get; set; }
+    public Expression<Func<T, bool>>? QueryFilter { get; set; }
     public OrmDiscriminator<T, object> Discriminator { get; set; }
 
     [ToDo("Not Used Yet")] public Dictionary<string, OrmJoinClause<T>> AssociationJoins_NotUsedYet => new Dictionary<string, OrmJoinClause<T>>();

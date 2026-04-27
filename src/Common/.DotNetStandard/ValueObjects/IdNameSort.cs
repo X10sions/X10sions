@@ -2,7 +2,7 @@
 
 public readonly record struct IdNameSort<TId>(TId Id, string Name,  int Sort) : IIdNameSort<TId> { }
 
-public interface IIdNameSort<TId> : IIdName<TId> {
+public interface IIdNameSort<out TId> : IIdName<TId> {
   int Sort { get; }
 }
 

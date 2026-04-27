@@ -1,15 +1,9 @@
-﻿//using Microsoft.AspNetCore.Identity;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections;
 
-namespace Common.AspNetCore.Identity {
-  public interface IIdentityDatabaseTable<T>
-    : IEnumerable, IEnumerable<T>
-    , IQueryable, IQueryable<T> {
+namespace Common.AspNetCore.Identity;
 
-    // Microsoft.EntityFrameworkCore.DbSet
-    // LinqToDB.ITable
-  }
+public interface IIdentityDatabaseTable<out T> : IEnumerable, IQueryable<T> {
 
+  // Microsoft.EntityFrameworkCore.DbSet
+  // LinqToDB.ITable
 }

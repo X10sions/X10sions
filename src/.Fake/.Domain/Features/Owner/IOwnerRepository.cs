@@ -2,4 +2,4 @@
 
 namespace X10sions.Fake.Features.Owner;
 
-public interface IOwnerRepository : IReadOnlyRepository<Owner, Guid>, IWriteOnlyRepository<Owner,Guid> { }
+public interface IOwnerRepository : IReadOnlyRepository<FakeOwner, Guid>, IWriteOnlyRepository<FakeOwner, Guid> { }

@@ -1,6 +1,7 @@
 ﻿//using Newtonsoft.Json;
 using System;
 using System.Globalization;
+using System.Security.Cryptography;
 
 namespace Common.Html.Css {
   //[JsonConverter(typeof(ToStringJsonConverter))]
@@ -80,8 +81,15 @@ namespace Common.Html.Css {
     }
 
     public static Color RandomColor(bool randomAlpha) {
-      var rand = new Random();
-      return new Color((byte)rand.Next(0, 256), (byte)rand.Next(0, 256), (byte)rand.Next(0, 256), randomAlpha ? (decimal)rand.NextDouble() : 1);
+      byte[] bytes = new byte[4];
+      using (var rng = RandomNumberGenerator.Create()) {
+        rng.GetBytes(bytes);
+      }
+      byte r = bytes[0];
+      byte g = bytes[1];
+      byte b = bytes[2];
+      byte alpha = randomAlpha ? bytes[3] : (byte)255;
+      return new Color(r, g, b, alpha);
     }
 
     public static class Instances {

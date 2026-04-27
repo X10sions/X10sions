@@ -3,13 +3,13 @@ using System.Data.Common;
 
 namespace Common.Data;
 
-public interface IDbConnectionProvider<TDbConnection> where TDbConnection : DbConnection, new() {
+public interface IDbConnectionProvider<out TDbConnection> where TDbConnection : DbConnection, new() {
   string Namespace { get; }
   string GetConnectionString(string name);
   TDbConnection GetDbConnection(string connectionString);
 }
 
-public interface IDbConnectionProvider<TDbConnection, TConnectionStringNamesEnum> : IDbConnectionProvider<TDbConnection>
+public interface IDbConnectionProvider<out TDbConnection, TConnectionStringNamesEnum> : IDbConnectionProvider<TDbConnection>
   where TDbConnection : DbConnection, new()
   where TConnectionStringNamesEnum : Enum {
   string GetConnectionString(TConnectionStringNamesEnum connectionNameEnum);

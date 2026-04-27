@@ -2,6 +2,7 @@
 using System.Data.Common;
 
 namespace System.Data;
+
 public static class IDbConnectionExtensions {
   public static string ConnectionStringWithoutPassword(this IDbConnection connection) => GetDbConnectionStringBuilder(connection).RemovePasswordKeywords().ConnectionString;
   public static string ConnectionStringWithoutPasswordOrUser(this IDbConnection connection) => GetDbConnectionStringBuilder(connection).RemovePasswordKeywords().RemoveUserKeywords().ConnectionString;

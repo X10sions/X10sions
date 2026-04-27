@@ -93,7 +93,7 @@ public struct Boolean01 :
 
   #region IFormattable
   public override string ToString() => StringValue;
-  public string ToString(string format, IFormatProvider formatProvider) => ToString(ToString(), formatProvider);
+  public string ToString(string format, IFormatProvider formatProvider) => ToString().ToString(formatProvider);
 
   #endregion
 

@@ -4,6 +4,16 @@ namespace System;
 
 public static class TExtensions {
 
+  public static T Tap<T>(this T source, Action<T> action) {
+    action(source);
+    return source;
+  }
+
+  public static async Task<T> TapAsync<T>(this T source, Func<T, Task> action, CancellationToken cancellationToken = default) {
+    await action(source);
+    return source;
+  }
+
   //public static TTo? As<TFrom, TTo>(this TFrom value, TTo? defaultValue = default) {
   //  try {
   //    var converter = TypeDescriptor.GetConverter(typeof(TTo));

@@ -12,7 +12,7 @@ namespace X10sions.Fake.Features.Project.Item;
 
     [Column] public string TaskDescription { get; set; } = string.Empty;
     [Column] public bool IsOnHold { get; set; }
-    [Column] public DateTime CreatedDateTime { get; set; } = DateTime.Now;
+    [Column] public DateTime CreatedDateTime { get; set; } = DateTime.UtcNow;
     [Column] public DateTime? StartDateTime { get; set; }
     [Column] public DateTime? EndDateTime { get; set; }
     [Column] public TimeSpan EstimatedTime { get; set; }

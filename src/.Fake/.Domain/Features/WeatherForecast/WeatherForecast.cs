@@ -2,6 +2,7 @@
 using System.Linq.Expressions;
 using Common.Domain.Events;
 using RCommon.Persistence.Crud;
+using System.Security.Cryptography;
 
 namespace X10sions.Fake.Features.WeatherForecast;
 
@@ -17,8 +18,8 @@ public partial class FakeWeatherForecast : EntityBase<Guid> {
 public partial class FakeWeatherForecast {
   public static FakeWeatherForecast GetRandom(int addDays, DateOnly? startDate = null) => new FakeWeatherForecast {
     Id = Guid.NewGuid(),
-    Date = (startDate ?? DateOnly.FromDateTime(DateTime.Now)).AddDays(addDays),
-    TemperatureC = Random.Shared.Next(-20, 55),
+    Date = (startDate ?? DateOnly.FromDateTime(DateTime.UtcNow)).AddDays(addDays),
+    TemperatureC = RandomNumberGenerator.GetInt32(-20, 55),
     Summary = Enum.GetValues<WeatherForecastSummary>().GetRandom()
   };
 
