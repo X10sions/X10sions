@@ -16,7 +16,7 @@ public interface IMailKitAppSettings {
 
 public static class IMailKitAppSettingsExtensions {
 
-  public static MimeMessage ApplySettings(this IMailKitAppSettings settings, MimeMessage message ) {
+  public static MimeMessage ApplySettings(this IMailKitAppSettings settings, MimeMessage message) {
     if (message.From.Count < 1) {
       message.From.Add(settings.DefaultFrom);
     }
@@ -96,32 +96,29 @@ public static class IMailKitAppSettingsExtensions {
     }
   }
 
-  public async static Task SendUsingSmptClientAsync(this IMailKitAppSettings settings, params MimeMessage[] messages) {
+  public async static Task SendUsingSmptClientAsync(this IMailKitAppSettings settings,  IEnumerable<MimeMessage> messages, CancellationToken cancellationToken = default) {
     using (var client = new SmtpClient()) {
       try {
-        await client.ConnectAsync(settings.Host, settings.Port, settings.UseSsl);
+        await client.ConnectAsync(settings.Host, settings.Port, settings.UseSsl, cancellationToken);
         if (settings.UserName is not null) {
           //client.AuthenticationMechanisms.Remove("XOAUTH2");
-          await client.AuthenticateAsync(settings.UserName, settings.Password);
+          await client.AuthenticateAsync(settings.UserName, settings.Password, cancellationToken);
         }
         foreach (var message in messages) {
           settings.ApplySettings(message);
-          await client.SendAsync(message);
+          await client.SendAsync(message, cancellationToken);
         }
       } catch (Exception ex) {
         System.Diagnostics.Debug.WriteLine(ex.Message);
         throw ex;
       } finally {
-        await client.DisconnectAsync(true);
+        await client.DisconnectAsync(true, cancellationToken);
         client.Dispose();
       }
     }
   }
 
-  public static void SendUsingSmptClient(this IMailKitAppSettings settings , MimeMessage message ) => settings.SendUsingSmptClient(message);
-  public static void SendUsingSmptClient(this IMailKitAppSettings settings, IEnumerable<MimeMessage> messages ) => settings.SendUsingSmptClient(messages.ToArray());
-  public async static Task SendUsingSmptClientAsync(this IMailKitAppSettings settings, MimeMessage message) => await settings.SendUsingSmptClientAsync(message);
-  public async static Task SendUsingSmptClientAsync(this IMailKitAppSettings settings, IEnumerable<MimeMessage> messages) => await settings.SendUsingSmptClientAsync(messages.ToArray());
-
-
+  public static void SendUsingSmptClient(this IMailKitAppSettings settings, MimeMessage message) => settings.SendUsingSmptClient(message);
+  public static void SendUsingSmptClient(this IMailKitAppSettings settings, IEnumerable<MimeMessage> messages) => settings.SendUsingSmptClient(messages.ToArray());
+  public async static Task SendUsingSmptClientAsync(this IMailKitAppSettings settings, MimeMessage message, CancellationToken cancellationToken) => await settings.SendUsingSmptClientAsync(message, cancellationToken);
 }

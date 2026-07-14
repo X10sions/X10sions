@@ -1,6 +1,6 @@
-﻿using Common.ValueObjects;
+﻿//using Common.ValueObjects;
 
-namespace Common.Structures;
+//namespace Common.Structures;
 
 //public readonly record struct DayOfMonth : IValueObject<int> {
 //  DayOfMonth(int day, int daysInMonth) {

@@ -15,7 +15,7 @@ public readonly record struct Year(int Value) : IValueObject<int>, IFormattable 
 
   public int Value { get; init; } = Value.Clamp(MinValue, MaxValue);
   public override string ToString() => Value.ToString("0000");
-  public string ToString(string format, IFormatProvider formatProvider) => ToString().ToString(formatProvider);
+  public string ToString(string? format, IFormatProvider? formatProvider) => Value.ToString(format ?? "0000", formatProvider);
   public DateTime StartDate => new DateTime(Value, 1, 1, 0, 0, 0, DateTimeKind.Unspecified);
   public DateTime EndDate => new DateTime(Value, 12, 31, 0, 0, 0, DateTimeKind.Unspecified);
   public bool IsLeapYear => DateTime.IsLeapYear(Value);

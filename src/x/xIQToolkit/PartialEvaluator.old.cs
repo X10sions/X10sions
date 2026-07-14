@@ -2,17 +2,19 @@
 using System.Reflection;
 
 namespace IQToolkit {
+
   /// <summary>
   /// Rewrites an expression tree so that locally isolatable sub-expressions are evaluated
   /// and converted into ConstantExpression nodes.
   /// </summary>
+  /// <see cref="https://github.com/mattwar/iqtoolkit/blob/master/src/IQToolkit/PartialEvaluator.cs"/>
   public static class PartialEvaluator {
     /// <summary>
     /// Performs evaluation and replacement of independent sub-trees
     /// </summary>
     /// <param name="expression">The root of the expression tree.</param>
     /// <returns>A new tree with sub-trees evaluated and replaced.</returns>
-    public static Expression Eval(Expression expression) => Eval(expression, null, null);
+    public static Expression? Eval(Expression expression) => Eval(expression, null, null);
 
     /// <summary>
     /// Performs evaluation and replacement of independent sub-trees
@@ -20,7 +22,7 @@ namespace IQToolkit {
     /// <param name="expression">The root of the expression tree.</param>
     /// <param name="fnCanBeEvaluated">A function that decides whether a given expression node can be part of the local function.</param>
     /// <returns>A new tree with sub-trees evaluated and replaced.</returns>
-    public static Expression Eval(Expression expression, Func<Expression, bool> fnCanBeEvaluated) => Eval(expression, fnCanBeEvaluated, null);
+    public static Expression? Eval(Expression expression, Func<Expression, bool> fnCanBeEvaluated) => Eval(expression, fnCanBeEvaluated, null);
 
     /// <summary>
     /// Performs evaluation and replacement of independent sub-trees
@@ -29,29 +31,31 @@ namespace IQToolkit {
     /// <param name="fnCanBeEvaluated">A function that decides whether a given expression node can be part of the local function.</param>
     /// <param name="fnPostEval">A function to apply to each newly formed <see cref="ConstantExpression"/>.</param>
     /// <returns>A new tree with sub-trees evaluated and replaced.</returns>
-    public static Expression Eval(Expression expression, Func<Expression, bool> fnCanBeEvaluated, Func<ConstantExpression, Expression> fnPostEval) {
+    public static Expression? Eval(Expression expression, Func<Expression, bool>? fnCanBeEvaluated, Func<ConstantExpression, Expression>? fnPostEval) {
       if (fnCanBeEvaluated == null)
-        fnCanBeEvaluated = PartialEvaluator.CanBeEvaluatedLocally;
+        fnCanBeEvaluated = CanBeEvaluatedLocally;
       return SubtreeEvaluator.Eval(Nominator.Nominate(fnCanBeEvaluated, expression), fnPostEval, expression);
     }
 
-    private static bool CanBeEvaluatedLocally(Expression expression) => expression.NodeType != ExpressionType.Parameter;
+    private static bool CanBeEvaluatedLocally(Expression expression) {
+      return expression.NodeType != ExpressionType.Parameter;
+    }
 
     /// <summary>
     /// Evaluates and replaces sub-trees when first candidate is reached (top-down)
     /// </summary>
-    class SubtreeEvaluator : ExpressionVisitor {
-      HashSet<Expression> candidates;
-      Func<ConstantExpression, Expression> onEval;
+    sealed class SubtreeEvaluator : ExpressionVisitor {
+      readonly HashSet<Expression> candidates;
+      readonly Func<ConstantExpression, Expression> onEval;
 
-      private SubtreeEvaluator(HashSet<Expression> candidates, Func<ConstantExpression, Expression> onEval) {
+      private SubtreeEvaluator(HashSet<Expression> candidates, Func<ConstantExpression, Expression>? onEval) {
         this.candidates = candidates;
         this.onEval = onEval;
       }
 
-      internal static Expression Eval(HashSet<Expression> candidates, Func<ConstantExpression, Expression> onEval, Expression exp) => new SubtreeEvaluator(candidates, onEval).Visit(exp);
+      internal static Expression? Eval(HashSet<Expression> candidates, Func<ConstantExpression, Expression>? onEval, Expression exp) => new SubtreeEvaluator(candidates, onEval).Visit(exp);
 
-      public override Expression Visit(Expression exp) {
+      public override Expression? Visit(Expression exp) {
         if (exp == null) {
           return null;
         }
@@ -61,27 +65,21 @@ namespace IQToolkit {
         return base.Visit(exp);
       }
 
-      protected override Expression VisitConditional(ConditionalExpression c) {
+      protected override Expression? VisitConditional(ConditionalExpression c) {
         // if the conditional test can be evaluated locally, rewrite expression
         // to the valid case
         if (candidates.Contains(c.Test)) {
           var test = Evaluate(c.Test);
-
           if (test is ConstantExpression && ((ConstantExpression)test).Type == typeof(bool)) {
-            if ((bool)((ConstantExpression)test).Value) {
-              return Visit(c.IfTrue);
-            } else {
-              return Visit(c.IfFalse);
-            }
+            return (bool)((ConstantExpression)test).Value ? Visit(c.IfTrue) : Visit(c.IfFalse);
           }
         }
-
         return base.VisitConditional(c);
       }
 
       private Expression PostEval(ConstantExpression e) {
-        if (onEval != null) {
-          return onEval(e);
+        if (this.onEval != null) {
+          return this.onEval(e);
         }
         return e;
       }
@@ -114,7 +112,7 @@ namespace IQToolkit {
           // and invoking a lambda
           var ce = me.Expression as ConstantExpression;
           if (ce != null) {
-            return PostEval(Expression.Constant(me.Member.GetValue(ce.Value), type));
+            return this.PostEval(Expression.Constant(me.Member.GetValue(ce.Value), type));
           }
         }
 
@@ -128,7 +126,7 @@ namespace IQToolkit {
 #else
         var fn = lambda.Compile();
 #endif
-        return PostEval(Expression.Constant(fn(), type));
+        return this.PostEval(Expression.Constant(fn(), type));
       }
     }
 
@@ -136,13 +134,13 @@ namespace IQToolkit {
     /// Performs bottom-up analysis to determine which nodes can possibly
     /// be part of an evaluated sub-tree.
     /// </summary>
-    class Nominator : ExpressionVisitor {
+    sealed class Nominator : ExpressionVisitor {
       Func<Expression, bool> fnCanBeEvaluated;
       HashSet<Expression> candidates;
       bool cannotBeEvaluated;
 
       private Nominator(Func<Expression, bool> fnCanBeEvaluated) {
-        candidates = new HashSet<Expression>();
+        this.candidates = new HashSet<Expression>();
         this.fnCanBeEvaluated = fnCanBeEvaluated;
       }
 
@@ -152,9 +150,10 @@ namespace IQToolkit {
         return nominator.candidates;
       }
 
-      protected override Expression VisitConstant(ConstantExpression c) => base.VisitConstant(c);
-
-      public override Expression Visit(Expression expression) {
+      protected override Expression VisitConstant(ConstantExpression c) {
+        return base.VisitConstant(c);
+      }
+      public override Expression? Visit(Expression expression) {
         if (expression != null) {
           var saveCannotBeEvaluated = cannotBeEvaluated;
           cannotBeEvaluated = false;

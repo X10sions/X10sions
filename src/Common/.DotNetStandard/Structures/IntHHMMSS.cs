@@ -1,16 +1,17 @@
 ﻿using Common.ValueObjects;
+using System;
 
 namespace Common.Structures;
 
 public readonly record struct IntHHMMSS(int Value) : IValueObject<int> {
   public IntHHMMSS() : this(TimeProvider.System.GetLocalNow().DateTime) { }
-  public IntHHMMSS(int hh, int mm, int ss) :this(
+  public IntHHMMSS(int hh, int mm, int ss) : this(
     10000 * hh.Clamp(MinHH, MaxHH) +
     100 * mm.Clamp(MinMM, MaxMM) +
     ss.Clamp(MinSS, MaxSS)
-    ) {  }
-  public IntHHMMSS(DateTime dt) : this(dt.ToTimeOnly()) { }
-  public IntHHMMSS(TimeOnly t):this(t.Hour, t.Minute, t.Second){ }
+    ) { }
+  public IntHHMMSS(DateTime dt) : this(dt.Hour, dt.Minute, dt.Second) { }
+  public IntHHMMSS(TimeOnly t) : this(t.Hour, t.Minute, t.Second) { }
 
   //public IntHHMMSS(int hhmmss) : this(new IntHHMM(hhmmss / 10000), hhmmss % 100) { }
   //public IntHHMMSS(IntHHMM hhmm, int ss) : this(hhmm.HH, hhmm.MM, ss) { }
@@ -51,7 +52,7 @@ public readonly record struct IntHHMMSS(int Value) : IValueObject<int> {
   public static readonly IntHHMMSS Max = new(MaxValue);
 
   //public IntHHMM IntHHMM => new(HHMM);
- // public int HHMMSS => (HH * 10000) + (MM * 100) + SS;
+  // public int HHMMSS => (HH * 10000) + (MM * 100) + SS;
 
   public Hour Hour => new(HH);
   public Minute Minute => new(MM);

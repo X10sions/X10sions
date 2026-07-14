@@ -17,7 +17,7 @@ namespace Microsoft.AspNetCore.Http {
     public static string? AccessControlRequestMethod(this IHeaderDictionary headers) => headers[HeaderNames.AccessControlRequestMethod];
     public static string? Age(this IHeaderDictionary headers) => headers[HeaderNames.Age];
     public static string? Allow(this IHeaderDictionary headers) => headers[HeaderNames.Allow];
-    [Obsolete] public static string? Authority(this IHeaderDictionary headers) => headers[HeaderNames.Authority];
+    [Obsolete("Not Used")] public static string? Authority(this IHeaderDictionary headers) => headers[HeaderNames.Authority];
     public static string? Authorization(this IHeaderDictionary headers) => headers[HeaderNames.Authorization];
     public static string? CacheControl(this IHeaderDictionary headers) => headers[HeaderNames.CacheControl];
     public static string? Connection(this IHeaderDictionary headers) => headers[HeaderNames.Connection];

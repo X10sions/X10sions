@@ -1,6 +1,6 @@
-﻿using Common.ValueObjects;
+﻿//using Common.ValueObjects;
 
-namespace Common.Structures;
+//namespace Common.Structures;
 
 //public readonly record struct IntMM(int Value) : IValueObject<int> {
 //  public int Value { get; } = Value.Clamp(MinValue, MaxValue);

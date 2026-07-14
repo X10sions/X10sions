@@ -5,4 +5,8 @@
     <VersionPart1>1</VersionPart1>
     <VersionPart2>0</VersionPart2>
   </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="PartialEvaluator.old.cs" />
+    <Compile Remove="TypeHelper.old.cs" />
+  </ItemGroup>
 </Project>

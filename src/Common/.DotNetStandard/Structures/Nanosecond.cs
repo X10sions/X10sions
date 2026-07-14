@@ -3,7 +3,7 @@
 namespace Common.Structures;
 
 public readonly record struct Nanosecond(int Value) : IValueObject<int> {
-  public Nanosecond(DateTime d) : this(d.Nanosecond) { }
+  //public Nanosecond(DateTime d) : this(d.Nanosecond) { }
   public Nanosecond(TimeOnly t) : this(t.Nanosecond) { }
   public const int MinValue = 0;
   public const int MaxValue = 900;

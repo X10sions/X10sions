@@ -1,6 +1,7 @@
 ﻿using System.Linq.Expressions;
 
 namespace Common.Data.Specifications;
+
 public static class ISpecificationBuilderExtensions {
   public static ISpecificationBuilder<T> Where<T>(this ISpecificationBuilder<T> specificationBuilder, Expression<Func<T, bool>> criteria)
       => Where(specificationBuilder, criteria, true);
@@ -135,10 +136,10 @@ public static class ISpecificationBuilderExtensions {
   /// <summary>
   /// Must be called after specifying criteria
   /// </summary>
+  /// <param name="specificationBuilder"></param>
   /// <param name="specificationName"></param>
   /// <param name="args">Any arguments used in defining the specification</param>
-  public static ICacheSpecificationBuilder<T> EnableCache<T>(
-      this ISpecificationBuilder<T> specificationBuilder,
+  public static ICacheSpecificationBuilder<T> EnableCache<T>(this ISpecificationBuilder<T> specificationBuilder,
       string specificationName,
       params object[] args) where T : class
       => EnableCache(specificationBuilder, specificationName, true, args);
@@ -146,11 +147,11 @@ public static class ISpecificationBuilderExtensions {
   /// <summary>
   /// Must be called after specifying criteria
   /// </summary>
+  /// <param name="specificationBuilder"></param>
   /// <param name="specificationName"></param>
   /// <param name="args">Any arguments used in defining the specification</param>
   /// <param name="condition">If false, the caching won't be enabled.</param>
-  public static ICacheSpecificationBuilder<T> EnableCache<T>(
-      this ISpecificationBuilder<T> specificationBuilder,
+  public static ICacheSpecificationBuilder<T> EnableCache<T>(this ISpecificationBuilder<T> specificationBuilder,
       string specificationName,
       bool condition,
       params object[] args) where T : class {

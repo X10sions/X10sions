@@ -7,7 +7,7 @@ namespace Common.Data;
 /// SqlHelperParameterCache provides functions to leverage a static cache of procedure parameters, and the
 /// ability to discover parameters for stored procedures at run-time.
 /// </summary>
-/// <see cref="///https://gist.github.com/imranbaloch/10895917"/>
+/// <see href="https://gist.github.com/imranbaloch/10895917"/>
 public static class SqlClientHelperParameterCache {
   #region private methods, variables, and constructors
 

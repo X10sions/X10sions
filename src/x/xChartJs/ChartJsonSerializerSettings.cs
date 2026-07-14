@@ -2,22 +2,20 @@
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
 
-namespace ChartJs {
-  public class ChartJsonSerializerSettings : JsonSerializerSettings {
-    public static readonly ChartJsonSerializerSettings Instance = new ChartJsonSerializerSettings();
+namespace ChartJs;
 
-    public ChartJsonSerializerSettings() {
-      ContractResolver = _ContractResolver.Instance;
-      Converters = new[] { CamelCaseStringEnumConverter.Instance };
-      Formatting = Formatting.Indented     ;
-      NullValueHandling = NullValueHandling.Ignore;
-    }
+public class ChartJsonSerializerSettings : JsonSerializerSettings {
+  public static readonly ChartJsonSerializerSettings Instance = new ChartJsonSerializerSettings();
 
-    public class _ContractResolver : CamelCasePropertyNamesContractResolver {
-      public static readonly _ContractResolver Instance = new _ContractResolver();
-    }
+  public ChartJsonSerializerSettings() {
+    ContractResolver = _ContractResolver.ContractResolverInstance;
+    Converters = new[] { CamelCaseStringEnumConverter.Instance };
+    Formatting = Formatting.Indented;
+    NullValueHandling = NullValueHandling.Ignore;
+  }
 
-
+  public class _ContractResolver : CamelCasePropertyNamesContractResolver {
+    public static readonly _ContractResolver ContractResolverInstance = new _ContractResolver();
   }
 
 }

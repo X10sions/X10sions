@@ -1,21 +1,14 @@
-﻿// Copyright (c) Microsoft Corporation.  All rights reserved.
-// This source code is made available under the terms of the Microsoft Public License (MS-PL)
-
-using System.Linq.Expressions;
+﻿using System.Linq.Expressions;
 using System.Reflection;
 
 namespace IQToolkit {
-  /// <summary>
-  /// Type related helper methods
-  /// </summary>
   public static class TypeHelper {
     /// <summary>
     /// Finds the type's implemented <see cref="IEnumerable{T}"/> type.
     /// </summary>
-    public static Type FindIEnumerable(Type type) {
+    public static Type? FindIEnumerable(Type type) {
       if (type == null || type == typeof(string))
         return null;
-
       if (type.IsArray)
         return typeof(IEnumerable<>).MakeGenericType(type.GetElementType());
 
@@ -28,25 +21,20 @@ namespace IQToolkit {
           }
         }
       }
-
       foreach (Type iface in typeInfo.ImplementedInterfaces) {
-        Type ienum = FindIEnumerable(iface);
+        var ienum = FindIEnumerable(iface);
         if (ienum != null) return ienum;
       }
-
       if (typeInfo.BaseType != null && typeInfo.BaseType != typeof(object)) {
         return FindIEnumerable(typeInfo.BaseType);
       }
-
       return null;
     }
 
     /// <summary>
     /// Returns true if the type is a sequence type.
     /// </summary>
-    public static bool IsSequenceType(Type type) {
-      return FindIEnumerable(type) != null;
-    }
+    public static bool IsSequenceType(Type type) => FindIEnumerable(type) != null;
 
     /// <summary>
     /// Gets the constructed <see cref="IEnumerable{T}"/> for the given element type.
@@ -60,7 +48,7 @@ namespace IQToolkit {
     /// If the type is not a sequence, returns the type itself.
     /// </summary>
     public static Type GetElementType(Type sequenceType) {
-      Type ienum = FindIEnumerable(sequenceType);
+      var ienum = FindIEnumerable(sequenceType);
       if (ienum == null) return sequenceType;
       return ienum.GetTypeInfo().GenericTypeArguments[0];
     }
@@ -113,14 +101,14 @@ namespace IQToolkit {
     /// <summary>
     /// Gets the type of the <see cref="MemberInfo"/>.
     /// </summary>
-    public static Type GetMemberType(MemberInfo mi) {
-      FieldInfo fi = mi as FieldInfo;
+    public static Type? GetMemberType(MemberInfo mi) {
+      var fi = mi as FieldInfo;
       if (fi != null) return fi.FieldType;
-      PropertyInfo pi = mi as PropertyInfo;
+      var pi = mi as PropertyInfo;
       if (pi != null) return pi.PropertyType;
-      EventInfo ei = mi as EventInfo;
+      var ei = mi as EventInfo;
       if (ei != null) return ei.EventHandlerType;
-      MethodInfo meth = mi as MethodInfo;  // property getters really
+      var  meth = mi as MethodInfo;  // property getters really
       if (meth != null) return meth.ReturnType;
       return null;
     }
@@ -128,8 +116,8 @@ namespace IQToolkit {
     /// <summary>
     /// Gets the default value of the specified type.
     /// </summary>
-    public static object GetDefault(Type type) {
-      bool isNullable = !type.GetTypeInfo().IsValueType || TypeHelper.IsNullableType(type);
+    public static object? GetDefault(Type type) {
+      bool isNullable = !type.GetTypeInfo().IsValueType || IsNullableType(type);
       if (!isNullable)
         return Activator.CreateInstance(type);
       return null;
@@ -222,7 +210,7 @@ namespace IQToolkit {
     /// <summary>
     /// Gets the data members of the type (non-static properties and fields)
     /// </summary>
-    public static IEnumerable<MemberInfo> GetDataMembers(this Type type, string name = null, bool includeNonPublic = false) {
+    public static IEnumerable<MemberInfo> GetDataMembers(this Type type, string? name = null, bool includeNonPublic = false) {
       return GetInheritedProperites(type)
               .Where(p => p.CanRead && !p.GetMethod.IsStatic && (p.GetMethod.IsPublic || includeNonPublic) && (name == null || p.Name == name))
           .Cast<MemberInfo>().Concat(
@@ -240,7 +228,7 @@ namespace IQToolkit {
     /// <summary>
     /// Finds the matching method declared on the specified type, or inherited from a base type.
     /// </summary>
-    public static MethodInfo FindMethod(this Type type, string name, Type[] typeArguments, Type[] parameterTypes) {
+    public static MethodInfo? FindMethod(this Type type, string name, Type[] typeArguments, Type[] parameterTypes) {
       int typeArgumentCount = typeArguments != null ? typeArguments.Length : 0;
 
       foreach (var method in type.GetInheritedMethods()) {
@@ -260,25 +248,22 @@ namespace IQToolkit {
             return constructedMethod;
           }
         }
-
-        if (ParametersMatch(method.GetParameters(), parameterTypes)) {
+                if (ParametersMatch(method.GetParameters(), parameterTypes)) {
           return method;
         }
       }
-
       return null;
     }
 
     /// <summary>
     /// Finds the matching constructor declared on the specified type.
     /// </summary>
-    public static ConstructorInfo FindConstructor(this Type type, Type[] parameterTypes) {
+    public static ConstructorInfo? FindConstructor(this Type type, Type[] parameterTypes) {
       foreach (var constructor in type.GetTypeInfo().DeclaredConstructors) {
         if (ParametersMatch(constructor.GetParameters(), parameterTypes)) {
           return constructor;
         }
       }
-
       return null;
     }
 
@@ -317,7 +302,7 @@ namespace IQToolkit {
       yield return info;
 
       // interfaces include their inherited interfaces
-      // todo: remove duplicates 
+      // todo: remove duplicates
       if (info.IsInterface) {
         foreach (var ii in info.ImplementedInterfaces) {
           foreach (var iface in GetInheritedTypeInfos(ii)) {
@@ -368,7 +353,7 @@ namespace IQToolkit {
     }
 
     // holds a delegate to the runtime implemented API
-    private static Func<Type, object> fnGetUninitializedObject;
+    private static Func<Type, object>? fnGetUninitializedObject;
 
     /// <summary>
     /// Gets an unitialized instance of an object of the specified type.

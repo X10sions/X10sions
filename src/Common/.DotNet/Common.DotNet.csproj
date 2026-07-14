@@ -8,4 +8,7 @@
     <ProjectReference Include="..\..\x\xSystem\.DotNet\xSystem.DotNet.csproj" />
     <ProjectReference Include="..\.DotNetStandard\Common.DotNetStandard.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Structures\_DateTime\Integers\" />
+  </ItemGroup>
 </Project>

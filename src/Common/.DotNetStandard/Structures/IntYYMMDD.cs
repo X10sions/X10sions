@@ -1,6 +1,6 @@
-﻿using Common.ValueObjects;
+﻿//using Common.ValueObjects;
 
-namespace Common.Structures;
+//namespace Common.Structures;
 
 //public readonly record struct IntYYMMDD(int Value) : IValueObject<int> {
 //  public IntYYMMDD(IntYY yy, Month mm, Day dd) : this(new IntYYMM(yy, mm).Value * 100 + dd.Value) { }

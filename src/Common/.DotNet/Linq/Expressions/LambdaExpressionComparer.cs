@@ -6,15 +6,17 @@ namespace Common.Linq.Expressions;
 internal sealed class LambdaExpressionComparer : IEqualityComparer<LambdaExpression> {
   public static readonly LambdaExpressionComparer Instance = new();
 
-  public bool Equals(LambdaExpression lambdaExpression1, LambdaExpression lambdaExpression2) {
+  public bool Equals(LambdaExpression? lambdaExpression1, LambdaExpression? lambdaExpression2) {
     if (ReferenceEquals(lambdaExpression1, lambdaExpression2)) {
       return true;
+    }
+    if (lambdaExpression1 is null || lambdaExpression2 is null) {
+      return false;
     }
     // We will cache only pure member access expressions. Hence we compare two expressions
     // to be equal only if they are identical member access expressions.
     var expression1 = lambdaExpression1.Body;
     var expression2 = lambdaExpression2.Body;
-
     while (true) {
       if (expression1 == null && expression2 == null) {
         return true;
@@ -57,7 +59,10 @@ internal sealed class LambdaExpressionComparer : IEqualityComparer<LambdaExpress
     }
   }
 
-  public int GetHashCode(LambdaExpression lambdaExpression) {
+  public int GetHashCode(LambdaExpression? lambdaExpression) {
+    if (lambdaExpression is null) {
+      return 0;
+    }
     var expression = lambdaExpression.Body;
     var hashCode = new HashCode();
     while (true) {

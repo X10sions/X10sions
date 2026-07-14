@@ -60,7 +60,7 @@ public record Stock(
 /// Current (or periodic) materialized snapshot for fast queries
 /// </summary>
 public interface StockPositionSnapshot {
-  StockUnit InventoryUnit { init; } //  inventoryunitid  BIGINT PRIMARY KEY REFERENCES inventoryunit(inventory¨C227Cid),
+  //StockUnit InventoryUnit { init; } //  inventoryunitid  BIGINT PRIMARY KEY REFERENCES inventoryunit(inventory¨C227Cid),
   DateTime AsOfTime { init; }
   StockItem Itemid { init; }    //  BIGINT NOT NULL REFERENCES item(itemid),
   BusinessEntity OwningEntity { init; }  // BIGINT NOT NULL REFERENCES owningentity(owningentityid),
@@ -71,7 +71,7 @@ public interface StockPositionSnapshot {
   decimal AvailableQty => 0;
   decimal? Unitvalue => null;
   string? Currency => null;
-  StockItemHandlingUnit HandlingUnit { init; } //    BIGINT REFERENCES handlingunit(huid),
+  StockHandlingUnit HandlingUnit { init; } //    BIGINT REFERENCES handlingunit(huid),
   decimal? HandlingUnitMaxQty { get; }
   decimal PlannedqQtyInPackage => 0;
   decimal ActualQtyInPackage => 0;

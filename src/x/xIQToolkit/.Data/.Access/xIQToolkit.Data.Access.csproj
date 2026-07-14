@@ -9,7 +9,9 @@
     <PackageReference Include="System.Data.Odbc"  />
   </ItemGroup>
   <ItemGroup>
+    <!-- 
     <ProjectReference Include="..\..\..\..\Common\.DotNetStandard\.Old\Common.DotNetStandard.Old.csproj" />
+    -->
     <ProjectReference Include="..\.Odbc\xIQToolkit.Data.Odbc.csproj" />
   </ItemGroup>
 </Project>

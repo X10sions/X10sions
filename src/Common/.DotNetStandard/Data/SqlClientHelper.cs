@@ -8,7 +8,7 @@ namespace Common.Data;
 /// <summary>
 /// The SqlHelper class is intended to encapsulate high performance, scalable best practices for common uses of SqlClient
 /// </summary>
-/// <see cref="///https://gist.github.com/imranbaloch/10895917"/>
+/// <see href="https://gist.github.com/imranbaloch/10895917"/>
 public static class SqlClientHelper {
   /*
 

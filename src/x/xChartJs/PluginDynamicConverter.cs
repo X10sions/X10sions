@@ -13,7 +13,7 @@ namespace chartjs {
       // create a jobject from the document, respecting existing json attribs
       var jobject = JArray.FromObject(value);
       // replace the incorrectly serialized plugindynamic list with all required objects
-      var jproperty = jobject.Children<JProperty>().Where(p => p.Name == nameof(PluginDynamic)).First();
+      var jproperty = jobject.Children<JProperty>().First(p => p.Name == nameof(PluginDynamic));
       foreach (PluginDynamic dynamicproperty in dynamicProperties) {
         jproperty.AddAfterSelf(new JProperty(dynamicproperty.PropertyName, dynamicproperty.PropertyValue));
       }

@@ -58,8 +58,8 @@ public enum StockHistorySystemSource { MANUAL, API, BATCH_JOB }
 public interface StockEvent {
   int Id { init; }//BIGSERIAL PRIMARY KEY,
   DateTime EventTime { init; }
-  EventTypeOption eventtype { init; }
-  StockUnit InventoryUnit { init; }// BIGINT NOT NULL REFERENCES inventoryunit(inventoryunitid),
+  EventTypeOption EventType { init; }
+  //StockUnit InventoryUnit { init; }// BIGINT NOT NULL REFERENCES inventoryunit(inventoryunitid),
   GeoLocation FromLocation { init; }//BIGINT REFERENCES location(locationid),
   GeoLocation ToLocation { init; }//BIGINT REFERENCES location(locationid),
   decimal QuantityDelta { init; } //NUMERIC(18, 6) NOT NULL, --+ for inbound / increase, - for consumption / ship

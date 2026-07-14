@@ -11,13 +11,13 @@
       }
     }
 
-    public static Task<Exception?> TryCommitAsync(this DataContextTransaction transaction, CancellationToken cancellationToken = default) {
+    public async static Task<Exception?> TryCommitAsync(this DataContextTransaction transaction, CancellationToken cancellationToken = default) {
       try {
-        transaction.CommitTransactionAsync(cancellationToken);
-        return Task.FromResult<Exception?>(null);
+        await  transaction.CommitTransactionAsync(cancellationToken);
+        return null;
       } catch (Exception ex) {
-        transaction.RollbackTransactionAsync(cancellationToken);
-        return Task.FromResult<Exception?>(ex);
+        await transaction.RollbackTransactionAsync(cancellationToken);
+        return ex;
       }
     }
 

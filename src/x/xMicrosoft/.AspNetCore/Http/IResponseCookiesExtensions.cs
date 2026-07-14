@@ -7,7 +7,7 @@ namespace Microsoft.AspNetCore.Http {
     public static IResponseCookies Append(this IResponseCookies cookies, Cookie cookie) {
       cookies.Append(cookie.Name, cookie.Value, new CookieOptions {
         Domain = cookie.Domain,
-        Expires = cookie.Expires,
+        Expires = cookie.Expires != DateTime.MinValue ? new DateTimeOffset(cookie.Expires) : (DateTimeOffset?)null,
         HttpOnly = cookie.HttpOnly,
         //IsEssential = cookie.Comment
         //MaxAge = cookie.max

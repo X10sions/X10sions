@@ -1,6 +1,6 @@
-﻿using Common.ValueObjects;
+﻿//using Common.ValueObjects;
 
-namespace Common.Structures;
+//namespace Common.Structures;
 
 //public readonly record struct MonthOfYear(Month Month, Year Year) : IValueObject<int> {
 //  //public MonthOfYear(int Value) :this(d.GetMonth(), d.GetYear()) {  }

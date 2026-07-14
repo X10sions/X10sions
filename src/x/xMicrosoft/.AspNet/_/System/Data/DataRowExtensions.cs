@@ -16,8 +16,12 @@
 
     public static string ToHtmlSelectOption(this DataRow @this, string valueField, string textField, int selectedValue) => HtmlForOption((@this[valueField]), (@this[textField]), selectedValue);
 
-    private static string HtmlForOption<T>(object dataValue, object dataText, T selectedValue) => string.Format("<option value=\"{0}\"{1}>{2}</option>", dataValue.ToString(), (dataText == null) ? dataValue.ToString() : dataText.ToString(), ((selectedValue.ToString().ToUpper() == dataValue.ToString().ToUpper())) ? " selected=\"selected\" " : "");
-
-
+    private static string HtmlForOption<T>(object dataValue, object dataText, T selectedValue) =>
+        string.Format(
+            "<option value=\"{0}\"{1}>{2}</option>",
+            dataValue.ToString(),
+            (dataText == null ? dataValue.ToString() : dataText.ToString()),
+            string.Equals(selectedValue.ToString(), dataValue.ToString(), StringComparison.OrdinalIgnoreCase) ? " selected=\"selected\" " : ""
+        );
   }
 }

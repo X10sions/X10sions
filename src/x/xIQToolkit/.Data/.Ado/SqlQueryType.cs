@@ -3,9 +3,6 @@ using System.Data;
 
 namespace IQToolkit.Data.Ado {
 
-  /// <summary>
-  /// A <see cref="QueryType"/> defined over <see cref="SqlType"/>.
-  /// </summary>
   public class SqlQueryType : QueryType {
     /// <summary>
     /// Construct a <see cref="SqlQueryType"/>

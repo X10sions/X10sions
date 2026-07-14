@@ -2,6 +2,7 @@
 using System.Linq.Expressions;
 
 namespace Common.Structures;
+
 public readonly record struct IntCYYMMDD(int Value) : IValueObject<int>,
   IComparable,
   IComparable<IntCYYMMDD>,
@@ -27,7 +28,7 @@ public readonly record struct IntCYYMMDD(int Value) : IValueObject<int>,
     100 * mm.Clamp(MinMM, MaxMM) +
     dd.Clamp(MinDD, MaxDD)) { }
 
-  public IntCYYMMDD(DateTime dt) : this(dt.ToDateOnly()) { }
+  public IntCYYMMDD(DateTime dt) : this(DateOnly.FromDateTime(dt)) { }
   public IntCYYMMDD(DateOnly d) : this(
     10000 * (d.Year - 1900) +
     100 * d.Month +
@@ -68,7 +69,7 @@ public readonly record struct IntCYYMMDD(int Value) : IValueObject<int>,
   //public DateTime? DateWithTime(IntHHMMSS hhmmss) => DateOnly.ToDateTime(hhmmss.TimeOnly);
 
   public string YYYY_MM_DD(string separator = "-") => $"{YYYY:0000}{separator}{MM:00}{separator}{DD:00}";
-  [Obsolete]public string DD_MM_YYYY(string separator = "-") => $"{DD:00}{separator}{MM:00}{separator}{YYYY:0000}";
+  [Obsolete("")] public string DD_MM_YYYY(string separator = "-") => $"{DD:00}{separator}{MM:00}{separator}{YYYY:0000}";
 
   #region Min & Max Values
 
@@ -137,21 +138,21 @@ public readonly record struct IntCYYMMDD(int Value) : IValueObject<int>,
   public int CompareTo(decimal other) => other.CompareTo(Value);
   public int CompareTo(double other) => other.CompareTo(Value);
   public int CompareTo(int other) => other.CompareTo(Value);
-  public int CompareTo(string other) => string.Compare(other, ToString(), StringComparison.OrdinalIgnoreCase);
+  public int CompareTo(string? other) => string.Compare(other, ToString(), StringComparison.OrdinalIgnoreCase);
   #endregion
 
   #region IConvertible
-  public bool ToBoolean(IFormatProvider provider) => throw new NotImplementedException();
-  public byte ToByte(IFormatProvider provider) => Convert.ToByte(Value, provider);
-  public char ToChar(IFormatProvider provider) => throw new NotImplementedException();
-  //public DateOnly ToDateOnly(IFormatProvider provider) => Convert.ToDateOnly(DateOnly, provider);
-  public DateTime ToDateTime(IFormatProvider provider) => Convert.ToDateTime(DateTime, provider);
-  public decimal ToDecimal(IFormatProvider provider) => Convert.ToDecimal(Value, provider);
-  public double ToDouble(IFormatProvider provider) => Convert.ToDouble(Value, provider);
-  public float ToSingle(IFormatProvider provider) => Convert.ToSingle(Value, provider);
-  public int ToInt32(IFormatProvider provider) => Convert.ToInt32(Value, provider);
-  public long ToInt64(IFormatProvider provider) => Convert.ToInt64(Value, provider);
-  public object ToType(Type conversionType, IFormatProvider provider) {
+  public bool ToBoolean(IFormatProvider? provider) => throw new NotImplementedException();
+  public byte ToByte(IFormatProvider? provider) => Convert.ToByte(Value, provider);
+  public char ToChar(IFormatProvider? provider) => throw new NotImplementedException();
+  //public DateOnly ToDateOnly(IFormatProvider? provider) => Convert.ToDateOnly(DateOnly, provider);
+  public DateTime ToDateTime(IFormatProvider? provider) => Convert.ToDateTime(DateTime, provider);
+  public decimal ToDecimal(IFormatProvider? provider) => Convert.ToDecimal(Value, provider);
+  public double ToDouble(IFormatProvider? provider) => Convert.ToDouble(Value, provider);
+  public float ToSingle(IFormatProvider? provider) => Convert.ToSingle(Value, provider);
+  public int ToInt32(IFormatProvider? provider) => Convert.ToInt32(Value, provider);
+  public long ToInt64(IFormatProvider? provider) => Convert.ToInt64(Value, provider);
+  public object ToType(Type conversionType, IFormatProvider? provider) {
     switch (conversionType) {
       case Type _ when conversionType == typeof(DateOnly):
         return Convert.ChangeType(DateOnly, conversionType, provider);
@@ -162,13 +163,13 @@ public readonly record struct IntCYYMMDD(int Value) : IValueObject<int>,
         return Convert.ChangeType(Value, conversionType, provider);
     }
   }
-  public sbyte ToSByte(IFormatProvider provider) => Convert.ToSByte(Value, provider);
-  public short ToInt16(IFormatProvider provider) => Convert.ToInt16(Value, provider);
-  public string ToString(IFormatProvider provider) => Convert.ToString(ToString(), provider);
+  public sbyte ToSByte(IFormatProvider? provider) => Convert.ToSByte(Value, provider);
+  public short ToInt16(IFormatProvider? provider) => Convert.ToInt16(Value, provider);
+  public string ToString(IFormatProvider? provider) => Convert.ToString(ToString(), provider);
   public TypeCode GetTypeCode() => TypeCode.Int32;
-  public uint ToUInt32(IFormatProvider provider) => Convert.ToUInt32(Value, provider);
-  public ulong ToUInt64(IFormatProvider provider) => Convert.ToUInt64(Value, provider);
-  public ushort ToUInt16(IFormatProvider provider) => Convert.ToUInt16(Value, provider);
+  public uint ToUInt32(IFormatProvider? provider) => Convert.ToUInt32(Value, provider);
+  public ulong ToUInt64(IFormatProvider? provider) => Convert.ToUInt64(Value, provider);
+  public ushort ToUInt16(IFormatProvider? provider) => Convert.ToUInt16(Value, provider);
   #endregion
 
   #region IEquatable
@@ -177,7 +178,7 @@ public readonly record struct IntCYYMMDD(int Value) : IValueObject<int>,
   public bool Equals(decimal other) => other.Equals(Value);
   public bool Equals(double other) => other.Equals(Value);
   public bool Equals(int other) => other.Equals(Value);
-  public bool Equals(string other) => other.Equals(ToString());
+  public bool Equals(string? other) => other.Equals(ToString());
   #endregion
 
   #region IFormattable

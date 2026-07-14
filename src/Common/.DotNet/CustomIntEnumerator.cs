@@ -6,7 +6,7 @@
   ///   DoSomething(i);
   /// }
   /// </summary>
-  /// <see cref="https://www.youtube.com/watch?v=jmmz1cInNow"/>
+  /// <see href="https://www.youtube.com/watch?v=jmmz1cInNow"/>
   public class CustomIntEnumerator {
     private readonly int _end;
     public CustomIntEnumerator(Range range) {
