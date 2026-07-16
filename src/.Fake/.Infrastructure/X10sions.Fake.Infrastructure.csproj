@@ -62,7 +62,6 @@
     -->
   </ItemGroup>
   <ItemGroup Label="ProjectReferences">
-    <ProjectReference Include="..\..\x\xLinqToDB\.DataProvider\.DB2iSeries\xLinqToDB.DataProvider.DB2iSeries.csproj" />
     <ProjectReference Include="..\.Application\X10sions.Fake.Application.csproj" />
   </ItemGroup>
 </Project>
