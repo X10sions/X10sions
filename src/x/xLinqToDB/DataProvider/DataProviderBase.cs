@@ -1,4 +1,5 @@
-﻿using LinqToDB.Mapping;
+﻿using LinqToDB.Internal.DataProvider;
+using LinqToDB.Mapping;
 using System.Data;
 using System.Data.Common;
 
@@ -13,8 +14,7 @@ public abstract class DataProviderBase<TConnection, TDataReader> : DataProviderB
   }
 }
 
-public abstract class DataProviderBase<TConnection> : DataProviderBase
-  where TConnection : DbConnection, new() {
+public abstract class DataProviderBase<TConnection> : DataProviderBase  where TConnection : DbConnection, new() {
 
   public DataProviderBase(string name, MappingSchema mappingSchema, Type dataReaderType) : base(name, mappingSchema) {
     //, Func<ISchemaProvider> getSchemaProvider, TableOptions tableOptions

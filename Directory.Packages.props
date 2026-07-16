@@ -69,9 +69,9 @@
     <PackageVersion Include="IDisposableAnalyzers" Version="4.0.8" />
     <PackageVersion Include="JetBrains.Annotations" Version="2025.2.4" />
     <PackageVersion Include="Linq.PropertyTranslator.Core" Version="1.0.5" />
-    <PackageVersion Include="linq2db" Version="5.4.1.9" />
+    <PackageVersion Include="linq2db" Version="6.3.0" />
     <PackageVersion Include="linq2db.AspNet" Version="5.4.1.9" />
-    <PackageVersion Include="linq2db4iSeries" Version="5.4.0" />
+    <PackageVersion Include="linq2db4iSeries" Version="6.3.0" />
     <PackageVersion Include="LinqKit.Core" Version="1.2.5" />
     <PackageVersion Include="MailKit" Version="4.16.0" />
     <PackageVersion Include="Marten" Version="8.33.0" />

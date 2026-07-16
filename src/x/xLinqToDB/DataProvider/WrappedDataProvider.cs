@@ -1,9 +1,9 @@
 ﻿using Common.Data;
-using LinqToDB.Common;
 using LinqToDB.Data;
+using LinqToDB.Internal.DataProvider;
+using LinqToDB.Internal.SqlProvider;
 using LinqToDB.Mapping;
 using LinqToDB.SchemaProvider;
-using LinqToDB.SqlProvider;
 using LinqToDB.SqlQuery;
 using System.Data;
 using System.Data.Common;
@@ -11,7 +11,7 @@ using System.Linq.Expressions;
 
 namespace LinqToDB.DataProvider;
 
-public abstract class WrappedDataProvider<TConn, TDataReader> : IDataProvider where TConn : DbConnection, new() where TDataReader : DbDataReader {
+public abstract class WrappedDataProvider<TConn, TDataReader> :  IDataProvider where TConn : DbConnection, new() where TDataReader : DbDataReader {
 
   //static Dictionary<string, IDataProvider> Instances = new Dictionary<string, IDataProvider>();
 
