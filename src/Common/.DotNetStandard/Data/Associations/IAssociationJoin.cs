@@ -6,6 +6,7 @@ namespace Common.Data.Assocations;
 public interface IAssociationJoin {
   LambdaExpression Selector { get; }
   LambdaExpression Predicate { get; }
+  //bool CanBeNull { get; }
 }
 
 public interface IAssociationJoin<T1, T2> : IAssociationJoin where T1 : class? where T2 : class? {
@@ -22,6 +23,7 @@ public interface IAssociationJoinManyToOne<T1, T2> : IAssociationJoin<T1, T2> wh
 
 public static class IAssociationJoinExtensions {
   public static bool IsMany(this IAssociationJoin aj) => aj.Selector.IsIEnumerable();
+  public static bool CanBeNull(this IAssociationJoin aj) => aj.Selector.IsPropertyNullable();
   public static PropertyInfo GetPropertyInfo(this IAssociationJoin aj) => aj.Selector.GetMemberInfo().GetPropertyInfo();
   public static MemberInfo GetMemberInfo(this IAssociationJoin aj) => aj.Selector.GetMemberInfo();
 }
