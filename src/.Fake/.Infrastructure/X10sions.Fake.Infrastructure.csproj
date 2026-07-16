@@ -6,43 +6,49 @@
     <VersionPart2>0</VersionPart2>
   </PropertyGroup>
   <ItemGroup Label="PackageReferences">
-    <PackageReference Include="Chloe.MySql"  />
-    <PackageReference Include="Chloe.Oracle"  />
-    <PackageReference Include="Chloe.PostgreSQL"  />
-    <PackageReference Include="Chloe.SQLite"  />
-    <PackageReference Include="Chloe.SqlServer"  />
-    <PackageReference Include="DelegateDecompiler"  />
-    <PackageReference Include="EntityFrameworkCore.Jet"  />
-    <PackageReference Include="FirebirdSql.EntityFrameworkCore.Firebird"  />
-    <PackageReference Include="FreeSql.All"  />
-    <PackageReference Include="IBM.EntityFrameworkCore"  />
+    <PackageReference Include="Chloe.MySql" />
+    <PackageReference Include="Chloe.Oracle" />
+    <PackageReference Include="Chloe.PostgreSQL" />
+    <PackageReference Include="Chloe.SQLite" />
+    <PackageReference Include="Chloe.SqlServer" />
+    <PackageReference Include="DelegateDecompiler" />
+    <PackageReference Include="EntityFrameworkCore.Jet" />
+    <PackageReference Include="FirebirdSql.EntityFrameworkCore.Firebird" />
+    <PackageReference Include="FreeSql.All" />
+    <PackageReference Include="IBM.EntityFrameworkCore" />
     <PackageReference Include="linq2db.AspNet" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite.Core"  />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer"  />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite.Core" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" />
     <PackageReference Include="MySql.EntityFrameworkCore" />
-    <PackageReference Include="NHibernate"  />
-    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL"  />
-    <PackageReference Include="Oracle.EntityFrameworkCore"  />
+    <PackageReference Include="NHibernate" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" />
+    <PackageReference Include="Oracle.EntityFrameworkCore" />
+    <!--
+    <PackageReference Include="Microting.EntityFrameworkCore.MySql"  />    
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql"  />
-    <PackageReference Include="RepoDb.MySql"  />
-    <PackageReference Include="RepoDb.MySqlConnector"  />
-    <PackageReference Include="RepoDb.PostgreSql"  />
-    <PackageReference Include="RepoDb.Sqlite.Microsoft"  />
+    -->
+    <PackageReference Include="RepoDb.MySql" />
+    <PackageReference Include="RepoDb.MySqlConnector" />
+    <PackageReference Include="RepoDb.PostgreSql" />
+    <PackageReference Include="RepoDb.Sqlite.Microsoft" />
+    <!-- 
     <PackageReference Include="RepoDb.SQLite.System"  />
-    <PackageReference Include="RepoDb.SqlServer"  />
+    -->
+    <PackageReference Include="RepoDb.SqlServer" />
     <PackageReference Include="ServiceStack.OrmLite.Firebird" />
-    <PackageReference Include="ServiceStack.OrmLite.MySql"  />
-    <PackageReference Include="ServiceStack.OrmLite.MySqlConnector"  />
-    <PackageReference Include="ServiceStack.OrmLite.Oracle"  />
-    <PackageReference Include="ServiceStack.OrmLite.PostgreSQL"  />
-    <PackageReference Include="ServiceStack.OrmLite.Sqlite"  />
-    <PackageReference Include="ServiceStack.OrmLite.SqlServer"  />
-    <PackageReference Include="SmartSql.Bulk.MySql"  />
+    <PackageReference Include="ServiceStack.OrmLite.MySql" />
+    <PackageReference Include="ServiceStack.OrmLite.MySqlConnector" />
+    <PackageReference Include="ServiceStack.OrmLite.Oracle" />
+    <PackageReference Include="ServiceStack.OrmLite.PostgreSQL" />
+    <PackageReference Include="ServiceStack.OrmLite.Sqlite" />
+    <PackageReference Include="ServiceStack.OrmLite.SqlServer" />
+    <PackageReference Include="SmartSql.Bulk.MySql" />
     <PackageReference Include="SmartSql.Bulk.MySqlConnector" />
-    <PackageReference Include="SmartSql.Bulk.PostgreSql"  />
-    <PackageReference Include="SmartSql.Bulk.SqlServer"  />
-    <PackageReference Include="sqlite-net-pcl"  />
-    <PackageReference Include="SqlSugarCore"  />
+    <PackageReference Include="SmartSql.Bulk.PostgreSql" />
+    <PackageReference Include="SmartSql.Bulk.SqlServer" />
+    <PackageReference Include="sqlite-net-pcl" />
+    <PackageReference Include="SQLitePCLRaw.lib.e_sqlite3" />
+    <PackageReference Include="SqlSugarCore" />
     <!--
     https://github.com/sapiens/SqlFu
     https://github.com/ServiceStack/ServiceStack.OrmLite

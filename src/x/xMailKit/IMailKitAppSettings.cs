@@ -120,5 +120,5 @@ public static class IMailKitAppSettingsExtensions {
 
   public static void SendUsingSmptClient(this IMailKitAppSettings settings, MimeMessage message) => settings.SendUsingSmptClient(message);
   public static void SendUsingSmptClient(this IMailKitAppSettings settings, IEnumerable<MimeMessage> messages) => settings.SendUsingSmptClient(messages.ToArray());
-  public async static Task SendUsingSmptClientAsync(this IMailKitAppSettings settings, MimeMessage message, CancellationToken cancellationToken) => await settings.SendUsingSmptClientAsync(message, cancellationToken);
+  public async static Task SendUsingSmptClientAsync(this IMailKitAppSettings settings, MimeMessage message, CancellationToken cancellationToken) => await settings.SendUsingSmptClientAsync([message], cancellationToken);
 }

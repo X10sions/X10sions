@@ -13,12 +13,37 @@ public static class HttpRequestExtensions {
   public static bool HasKey(this HttpRequest httpRequest, string key) => httpRequest.Items().Any(x => x.Key == key);
   public static StringValues Item(this HttpRequest httpRequest, string key, StringValues defaultValue = default) => httpRequest.Item(key, new HttpRequestItemOptions { DefaultValue = defaultValue });
 
+  [Obsolete("Use ItemAsync") ]
   public static StringValues Item(this HttpRequest httpRequest, string key, HttpRequestItemOptions options)
     => (options.SearchQuery ? httpRequest.Query?[key] : null)
     ?? (options.SearchForm ? httpRequest.Form?[key] : null)
     ?? (options.SearchCookies ? httpRequest.Cookies?[key] : null)
     ?? (options.SearchHeaders ? httpRequest.Headers?[key] : null)
     .As(options.DefaultValue);
+
+  public static async Task<StringValues> ItemAsync(this HttpRequest httpRequest, string key, HttpRequestItemOptions options) {
+    // 1. Check Query String
+    if (options.SearchQuery && httpRequest.Query.TryGetValue(key, out var queryVal)) {
+      return queryVal;
+    }
+    // 2. Check Form asynchronously (Fixes SS056)
+    if (options.SearchForm && httpRequest.HasFormContentType) {
+      var form = await httpRequest.ReadFormAsync();
+      if (form.TryGetValue(key, out var formVal)) {
+        return formVal;
+      }
+    }
+    // 3. Check Cookies
+    if (options.SearchCookies && httpRequest.Cookies.TryGetValue(key, out var cookieStr)) {
+      return new StringValues(cookieStr);
+    }
+    // 4. Check Headers
+    if (options.SearchHeaders && httpRequest.Headers.TryGetValue(key, out var headerVal)) {
+      return headerVal;
+    }
+    // 5. Fallback to default value
+    return new StringValues(options.DefaultValue);
+  }
 
   public static IEnumerable<KeyValuePair<string, StringValues>> Items(this HttpRequest httpRequest)
     => httpRequest.Query
