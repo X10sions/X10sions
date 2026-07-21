@@ -25,8 +25,8 @@ public class DB2iProvider_v3_2_833<TMark>(DB2iProviderType providerType = DB2iPr
 }
 
 class DB2iDelete<T1>(IFreeSql orm, CommonUtils commonUtils, CommonExpression commonExpression, object dywhere) : DeleteProvider<T1>(orm, commonUtils, commonExpression, dywhere) {
-  public override List<T1> ExecuteDeleted() => throw new NotImplementedException($"FreeSql.DB2i {CoreStrings.S_Not_Implemented_Feature}");
-  public override Task<List<T1>> ExecuteDeletedAsync(CancellationToken cancellationToken = default) => throw new NotImplementedException($"FreeSql.DB2i {CoreStrings.S_Not_Implemented_Feature}");
+  public override List<T1> ExecuteDeleted() => throw new NotImplementedException($"FreeSql.DB2i {"CoreStrings.S_Not_Implemented_Feature"}");
+  public override Task<List<T1>> ExecuteDeletedAsync(CancellationToken cancellationToken = default) => throw new NotImplementedException($"FreeSql.DB2i {"CoreStrings.S_Not_Implemented_Feature"}");
 }
 
 class DB2iInsert<T1>(IFreeSql orm, CommonUtils commonUtils, CommonExpression commonExpression) : InsertProvider<T1>(orm, commonUtils, commonExpression) where T1 : class {
