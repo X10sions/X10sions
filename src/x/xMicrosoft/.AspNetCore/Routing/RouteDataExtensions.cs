@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace Microsoft.AspNetCore.Routing {
+namespace Microsoft.AspNetCore.Routing;
   public static class RouteDataExtensions {
     ////https://docs.microsoft.com/en-us/aspnet/core/fundamentals/routing?view=aspnetcore-2.2#reserved-routing-names
     //public static string ActionValue(this RouteData routeData) => routeData.Values.Action();
@@ -26,4 +26,3 @@ namespace Microsoft.AspNetCore.Routing {
     //}
 
   }
-}

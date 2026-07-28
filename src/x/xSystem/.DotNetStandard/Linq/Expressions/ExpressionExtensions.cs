@@ -39,6 +39,7 @@ public static class ExpressionExtensions {
         nameof(Queryable.ThenByDescending)
     };
 
+
   public static bool IsExpressionBodyConstant<T>(this Expression<Func<T, bool>> expr) => expr.Body.NodeType == ExpressionType.Constant;
   public static bool IsOrderingMethod(this Expression expression) => queryableOrderMethods.Any(method => IsQueryableMethod(expression, method));
   public static bool IsQueryableMethod(this Expression expression, string method) => methods.Where(m => m.Name == method).Contains(GetQueryableMethod(expression));
@@ -78,11 +79,31 @@ public static class ExpressionExtensions {
   public static string GetMemberName(this Expression expression) => expression.GetMemberInfo().Name;
   public static MethodInfo? GetSetMethod<T>(this Expression<Func<T>> expression) => ((expression?.Body as MemberExpression)?.Member as PropertyInfo)?.GetSetMethod(true);
 
-  public static void SetValue<T, TValue>(this Expression<Func<T>> getSetExpression, T instance, TValue value) where TValue : notnull => GetSetMethod(getSetExpression)?.Invoke(instance, new object[] { value });
+  [Obsolete("Get Rid Of")]public static void SetValue<T, TValue>(this Expression<Func<T>> getSetExpression, T instance, TValue value) where TValue : notnull => GetSetMethod(getSetExpression)?.Invoke(instance, new object[] { value });
 
   #endregion "GetMemberNames"
 
+  public static MethodInfo GetMethodInfo<T>(this Expression<Func<T, Delegate>> function) {
+    var body = function?.Body as UnaryExpression; // Convert(delegate)
+    var operand = body?.Operand as MethodCallExpression; // CreateDelegate(method)
+    var @object = operand?.Object as ConstantExpression; // MethodInfo
+    var method = @object?.Value as MethodInfo;
+    return method;
+  }
+
+  public static TValue GetValue<T, TValue>(this Expression<Func<T, TValue>> expression, T model) => expression.Compile()(model);
+
+
   #region "Predicates"
+
+  public static Expression<Func<T1, T2, bool>> And<T1, T2>(this Expression<Func<T1, T2, bool>> left, Expression<Func<T1, T2, bool>> right) {
+    var param1 = left.Parameters[0];
+    var param2 = left.Parameters[1];
+    // Replace parameters in the right expression with parameters from left           
+    var rightBody = ParameterReplacer_Claude.ReplaceMultiple(right.Body, new[] { right.Parameters[0], right.Parameters[1] }, new Expression[] { param1, param2 });
+    //var rightBody = new ParameterExpressionReplacer_Copilot(right.Parameters[0], param1).Then(right.Parameters[1], param2).Visit(right.Body);
+    return Expression.Lambda<Func<T1, T2, bool>>(Expression.AndAlso(left.Body, rightBody), param1, param2);
+  }
 
   public static Expression<Func<T, bool>> AndAlso<T>(this Expression<Func<T, bool>> expr1, Expression<Func<T, bool>> expr2) {
     if (expr1.Equals(expr2)) return expr1;
@@ -92,6 +113,15 @@ public static class ExpressionExtensions {
     var replace = expr1.ReplaceExpressions(expr2);
     return Expression.Lambda<Func<T, bool>>(Expression.AndAlso(replace.left, replace.right), replace.parameter);
   }
+  //public static Expression<Func<T, bool>> AndAlso<T>(this Expression<Func<T, bool>> expr, Expression<Func<T, bool>> expr2) => Expression.Lambda<Func<T, bool>>(Expression.AndAlso(expr.Body, Expression.Invoke(expr2, expr.Parameters.Cast<Expression>())), expr.Parameters);
+
+  public static Expression<Func<T1, T2, bool>> AndAlso<T1, T2>(this Expression<Func<T1, T2, bool>> left, Expression<Func<T1, T2, bool>> right) {
+    if (left == null) return right;
+    var and = Expression.AndAlso(left.Body, right.Body);
+    return Expression.Lambda<Func<T1, T2, bool>>(and, left.Parameters.Single());
+  }
+
+  public static Expression<Func<T, bool>> AndAlsoIf<T>(this Expression<Func<T, bool>> expr, bool condition, Expression<Func<T, bool>> iftrueExpr) => condition ? expr.AndAlso(iftrueExpr) : expr;
 
   public static Expression<Func<T, bool>> AndAlsoIf<T>(this Expression<Func<T, bool>> expr1, bool? ifTrue, Expression<Func<T, bool>> truePredicate) => ifTrue.HasValue && ifTrue.Value ? expr1.AndAlso(truePredicate) : expr1;
   public static Expression<Func<T, bool>> AndAlsoIf<T>(this Expression<Func<T, bool>> expr1, bool? ifTrue, Expression<Func<T, bool>> truePredicate, Expression<Func<T, bool>> falsePredicate) => expr1.AndAlso(ifTrue.HasValue && ifTrue.Value ? truePredicate : falsePredicate);
@@ -122,6 +152,16 @@ public static class ExpressionExtensions {
   public static Expression<Func<T, bool>> Not<T>(this Expression<Func<T, bool>> expression) => Expression.Lambda<Func<T, bool>>(Expression.Not(expression.Body), expression.Parameters);
   public static Expression<Func<T, bool>> NotEqual<T, TProp>(this Expression<Func<T, TProp>> field, TProp value) => Expression.Lambda<Func<T, bool>>(Expression.NotEqual(field.Body, Expression.Constant(value, typeof(TProp))), field.Parameters);
   public static Expression<Func<T, bool>> NotEqualNull<T, TProp>(this Expression<Func<T, TProp?>> field) where TProp : struct => Expression.Lambda<Func<T, bool>>(Expression.NotEqual(field.Body, Expression.Constant(null, typeof(TProp?))), field.Parameters);
+
+  public static Expression<Func<T1, T2, bool>> Or<T1, T2>(this Expression<Func<T1, T2, bool>> left, Expression<Func<T1, T2, bool>> right) {
+    var param1 = left.Parameters[0];
+    var param2 = left.Parameters[1];
+    // Replace parameters in the right expression with parameters from left
+    var rightBody = ParameterReplacer_Claude.ReplaceMultiple(right.Body, new[] { right.Parameters[0], right.Parameters[1] }, new Expression[] { param1, param2 });
+    //var rightBody = new ParameterExpressionReplacer_Copilot(right.Parameters[0], param1).Then(right.Parameters[1], param2).Visit(right.Body);
+    return Expression.Lambda<Func<T1, T2, bool>>(Expression.OrElse(left.Body, rightBody), param1, param2);
+  }
+
   public static Expression<Func<T, bool>> OrElse<T>(this Expression<Func<T, bool>> expr1, Expression<Func<T, bool>> expr2) {
     if (expr1.Equals(expr2)) return expr1;
     if (expr1 == null || expr1.Equals(False<T>())) return expr2;
@@ -130,9 +170,18 @@ public static class ExpressionExtensions {
     var replace = expr1.ReplaceExpressions(expr2);
     return Expression.Lambda<Func<T, bool>>(Expression.OrElse(replace.left, replace.right), replace.parameter);
   }
+  //public static Expression<Func<T, bool>> OrElse<T>(this Expression<Func<T, bool>> expr, Expression<Func<T, bool>> expr2) => Expression.Lambda<Func<T, bool>>(Expression.OrElse(expr.Body, Expression.Invoke(expr2, expr.Parameters.Cast<Expression>())), expr.Parameters);
+
+  public static Expression<Func<T1, T2, bool>> OrElse<T1, T2>(this Expression<Func<T1, T2, bool>> left, Expression<Func<T1, T2, bool>> right) {
+    if (left == null) return right;
+    var and = Expression.OrElse(left.Body, right.Body);
+    return Expression.Lambda<Func<T1, T2, bool>>(and, left.Parameters.Single());
+  }
 
   public static Expression<Func<T, bool>> OrElseIf<T>(this Expression<Func<T, bool>> expr1, bool? ifTrue, Expression<Func<T, bool>> truePredicate) => ifTrue.HasValue && ifTrue.Value ? expr1.OrElse(truePredicate) : expr1;
   public static Expression<Func<T, bool>> OrElseIf<T>(this Expression<Func<T, bool>> expr1, bool? ifTrue, Expression<Func<T, bool>> truePredicate, Expression<Func<T, bool>> falsePredicate) => expr1.OrElse(ifTrue.HasValue && ifTrue.Value ? truePredicate : falsePredicate);
+
+  public static Expression<Func<T, bool>> OrElseIf<T>(this Expression<Func<T, bool>> expr, bool condition, Expression<Func<T, bool>> iftrueExpr) => condition ? expr.OrElse(iftrueExpr) : expr;
 
   public static Expression<Func<T, bool>> Predicate<T>(bool value) => x => value;
   public static Expression<Func<T, bool>> Predicate<T>(this Expression<Func<T, bool>> predicate) => predicate;
@@ -173,4 +222,46 @@ public static class ExpressionExtensions {
   public static Expression<Func<T, TResult>> Unbox<T, TResult>(this Expression<Func<T, object>> original)
     => Expression.Lambda<Func<T, TResult>>(Expression.Convert(original.Body, typeof(TResult)), original.Parameters);
 
+}
+
+
+
+class ParameterReplacer_Claude : ExpressionVisitor {
+  private readonly Dictionary<ParameterExpression, Expression> _replacements;
+
+  private ParameterReplacer_Claude(Dictionary<ParameterExpression, Expression> replacements) {
+    _replacements = replacements;
+  }
+
+  public static Expression ReplaceMultiple(Expression expression, ParameterExpression[] oldParameters, Expression[] newExpressions) {
+    var replacements = new Dictionary<ParameterExpression, Expression>();
+    for (int i = 0; i < oldParameters.Length; i++) {
+      replacements[oldParameters[i]] = newExpressions[i];
+    }
+    return new ParameterReplacer_Claude(replacements).Visit(expression);
+  }
+
+  protected override Expression VisitParameter(ParameterExpression node) => _replacements.TryGetValue(node, out var replacement) ? replacement : base.VisitParameter(node);
+}
+
+class ParameterExpressionReplacer_Copilot : ExpressionVisitor {
+  private readonly ParameterExpression _from;
+  private readonly ParameterExpression _to;
+  private ParameterExpressionReplacer_Copilot _next;
+
+  public ParameterExpressionReplacer_Copilot(ParameterExpression from, ParameterExpression to) {
+    _from = from;
+    _to = to;
+  }
+
+  public ParameterExpressionReplacer_Copilot Then(ParameterExpression from, ParameterExpression to) {
+    _next = new ParameterExpressionReplacer_Copilot(from, to);
+    return _next;
+  }
+
+  protected override Expression VisitParameter(ParameterExpression node) {
+    if (node == _from)
+      return _to;
+    return _next != null ? _next.Visit(node) : node;
+  }
 }

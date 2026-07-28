@@ -16,6 +16,9 @@ public static class IQueryableExtensions {
   public static IOrderedQueryable<T> OrderBy<T, TKey>(this IQueryable<T> source, Expression<Func<T, TKey>> keySelector, bool isDescending)
     => isDescending ? source.OrderByDescending(keySelector) : source.OrderBy(keySelector);
 
+  public static IQueryable<T> OrderBy<T, TKey>(this IQueryable<T> query, Expression<Func<T, TKey>> keySelector, ListSortDirection direction = ListSortDirection.Ascending) => direction == ListSortDirection.Ascending ? query.OrderBy(keySelector) : query.OrderByDescending(keySelector);
+  public static IQueryable<T> OrderBy<T, TKey>(this IQueryable<T> query, Expression<Func<T, TKey>> keySelector, ListSortDirection? direction = null) => direction == null ? query : query.OrderBy(keySelector, direction);
+
   //public static IOrderedQueryable<T> OrderByIf<T, TKey>(this IQueryable<T> source, bool condition, Expression<Func<T, TKey>> keySelector, IComparer<TKey> comparer) => condition ? source.OrderBy(keySelector, comparer) : source;
   //public static IOrderedQueryable<T> OrderByIf<T, TKey>(this IQueryable<T> source, bool condition, Expression<Func<T, TKey>> keySelector, bool isDescending) => condition ? source.OrderBy(keySelector, isDescending) : source;
   //public static IOrderedQueryable<T> OrderByDescendingIf<T, TKey>(this IQueryable<T> source, bool condition, Expression<Func<T, TKey>> keySelector, IComparer<TKey> comparer) => condition ? source.OrderByDescending(keySelector, comparer) : source;

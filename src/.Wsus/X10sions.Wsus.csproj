@@ -3,12 +3,13 @@
     <RootNamespace>X10sions.Wsus</RootNamespace>
   </PropertyGroup>
   <ItemGroup Label="PackageReferences">
-    <PackageReference Include="FreeSql.Provider.SqlServer"  />
+    <PackageReference Include="FreeSql.Provider.SqlServer" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" >
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="SqlSugarCore"  />
+    <PackageReference Include="SQLitePCLRaw.lib.e_sqlite3" />
+    <PackageReference Include="SqlSugarCore" />
   </ItemGroup>
 </Project>

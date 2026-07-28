@@ -49,6 +49,8 @@ namespace System {
       return FormattedDate;
     }
 
+    public static int GetWeekOfYear(this DateTime d, CalendarWeekRule firstDay = CalendarWeekRule.FirstDay, DayOfWeek dayOfWeek = DayOfWeek.Sunday) => CultureInfo.CurrentCulture.Calendar.GetWeekOfYear(d, firstDay, dayOfWeek);
+
     public static bool IsBetween(this DateTime date, DateTime startDate, DateTime endDate) {
       var ticks = date.Ticks;
       return ticks >= startDate.Ticks && ticks <= endDate.Ticks;

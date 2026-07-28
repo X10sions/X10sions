@@ -34,6 +34,10 @@ public static class IDictionaryExtensions {
     return value;
   }
 
+  public static TValue GetValueOrDefault<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, TValue defaultValue) => dictionary.TryGetValue(key, out var value) ? value : defaultValue;
+  public static TValue GetValueOrDefault<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, Func<TValue> defaultValueProvider) => dictionary.TryGetValue(key, out var value) ? value : defaultValueProvider();
+
+
   public static bool HasKey(this IDictionary dictionary, string key) => dictionary[key] != null;
 
   public static void Set<T>(this IDictionary dictionary, T value) => dictionary.Set(typeof(T).FullName ?? typeof(T).Name, value);

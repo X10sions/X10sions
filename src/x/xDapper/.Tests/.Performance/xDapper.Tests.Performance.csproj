@@ -33,6 +33,7 @@
     <PackageReference Include="System.Data.Common" />
     <PackageReference Include="System.Linq" />
     <PackageReference Include="System.Linq.Expressions" />
+    <PackageReference Include="System.Security.Cryptography.Xml" />
   </ItemGroup>
 
   <ItemGroup Label="ProjectReferences">
