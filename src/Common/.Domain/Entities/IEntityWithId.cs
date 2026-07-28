@@ -15,6 +15,7 @@ public static class IEntityWithIdExtensions {
   /// <summary>
   /// Determine whether this entity is equal to another object.
   /// </summary>
+  /// <param name="exn"></param>
   /// <param name="other">The object to compare to this entity when determining equality.</param>
   /// <returns>True if the other object is an EntityWithId, both entities are not null or
   /// transient, and both entities have the same Id value. Otherwise, false.</returns>
@@ -23,6 +24,7 @@ public static class IEntityWithIdExtensions {
   /// <summary>
   /// Determine whether this entity is equal to another entity.
   /// </summary>
+  /// <param name="exn"></param>
   /// <param name="other">The entity to compare to this entity when determining equality.</param>
   /// <returns>True if the other entity is not null, neither entity is transient, and both
   /// entities share the same Id value.</returns>

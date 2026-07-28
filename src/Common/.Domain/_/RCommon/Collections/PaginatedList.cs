@@ -26,7 +26,7 @@ public class PaginatedList<T> : List<T>, IPaginatedList<T> {
   public PaginatedList(ICollection<T> source, int? pageIndex, int pageSize) {
     PageIndex = pageIndex ?? 1;
     PageSize = pageSize;
-    TotalCount = source.Count();
+    TotalCount = source.Count;
     TotalPages = ((TotalCount - 1) / PageSize) + 1;
     AddRange(source.Skip((PageIndex - 1) * PageSize).Take(PageSize));
   }

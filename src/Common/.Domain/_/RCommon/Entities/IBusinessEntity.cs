@@ -23,7 +23,7 @@ public interface IBusinessEntity : ITrackedEntity {
 /// Defines an entity with a single primary key with "Id" property.
 /// </summary>
 /// <typeparam name="TKey">Type of the primary key of the entity</typeparam>
-public interface IBusinessEntity<TKey> : IBusinessEntity {
+public interface IBusinessEntity<out TKey> : IBusinessEntity {
   /// <summary>
   /// Unique identifier for this entity.
   /// </summary>

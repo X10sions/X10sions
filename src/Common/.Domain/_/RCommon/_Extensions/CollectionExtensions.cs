@@ -2,6 +2,7 @@
 using System.Text;
 
 namespace RCommon;
+
 public static class CollectionExtensions {
   public static readonly char CommaDelimiter = ',';
 
@@ -52,16 +53,14 @@ public static class CollectionExtensions {
   /// <returns>The string consisting of delimiter-separated elements (using the ToString() method) from the input list</returns>
   /// <exception cref="ArgumentNullException">if <paramref name="source"/> is null</exception>
   /// <exception cref="ArgumentNullException">if <paramref name="funcToGetString"/> is null</exception>
-  public static string GetDelimitedString<T>(this IEnumerable<T> source, Func<T, string> funcToGetString, char delimiter, bool addLeadingDelimiter, bool removeTrailingDelimiter) {
+  public static string? GetDelimitedString<T>(this IEnumerable<T> source, Func<T, string> funcToGetString, char delimiter, bool addLeadingDelimiter, bool removeTrailingDelimiter) {
     Guard.IsNotNull(source, "source");
     Guard.IsNotNull(funcToGetString, "funcToGetString");
-    if (source.Count() == 0) return null;
+    if (!source.Any()) return null;
     StringBuilder sbuf = source.Aggregate(new StringBuilder(),
       (soFar, item) => soFar.Append(funcToGetString(item)).Append(delimiter));
-
     if (addLeadingDelimiter) sbuf.Insert(0, delimiter);
     if (removeTrailingDelimiter) sbuf.Remove(sbuf.Length - 1, 1);
-
     return sbuf.ToString();
   }
 

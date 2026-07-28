@@ -2,7 +2,7 @@
 
 namespace RCommon.Persistence.Crud;
 
-public interface IWriteOnlyRepository<T> : INamedDataSource {
+public interface IWriteOnlyRepository<in T> : INamedDataSource {
   Task DeleteAsync(T entity, CancellationToken cancellationToken = default);
   Task InsertAsync(T entity, CancellationToken cancellationToken = default);
   Task UpdateAsync(T entity, CancellationToken cancellationToken = default);
