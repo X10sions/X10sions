@@ -1,12 +1,11 @@
-﻿namespace Common.Attributes {
-  [Obsolete("TODO: Work still to be done", false)]
-  [AttributeUsage(AttributeTargets.All)]
-  public class ToDoAttribute : Attribute {
-    public ToDoAttribute() : this(string.Empty) { }
+﻿namespace Common.Attributes;
 
-    public ToDoAttribute(string message) {
-      Message = message;
-    }
-    public string Message { get; set; }
+[Obsolete("TODO: Work still to be done", false)]
+[AttributeUsage(AttributeTargets.All)]
+public class ToDoAttribute : Attribute {
+  public ToDoAttribute() : this(string.Empty) { }
+  public ToDoAttribute(string message) {
+    Message = message;
   }
+  public string Message { get; set; }
 }

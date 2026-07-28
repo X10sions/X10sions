@@ -7,3 +7,4 @@ public class PreDotNet5CompatibilityAttribute : Attribute {
   public PreDotNet5CompatibilityAttribute() { }
   public PreDotNet5CompatibilityAttribute(string recommedation) : this() { }
 }
+

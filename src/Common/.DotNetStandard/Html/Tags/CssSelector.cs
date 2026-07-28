@@ -1,68 +1,73 @@
-﻿using System.Text;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
-namespace Common.Html.Tags;
+namespace Common.Html.Tags {
+  public class CssSelector {
+    //const string StyleDelimeter = ";";
+    public const string Delimeter = ";";
 
-public class CssSelector {
-  public const string Terminator = ";";
-  //public const string xDelimeter = ";";
-
-  CssSelector(string selector) {
-    Selector = selector;
-  }
-
-  public CssSelector(string selector, HashSet<Declaration> declarations) : this(selector) {
-    foreach (var d in declarations) {
-      Declarations.Add(d);
-    }
-  }
-
-  public CssSelector(string selector, string declaration) : this(selector) {
-    foreach (var d in declaration.Split(';')) {
-      var kvp = d.Split(':');
-      Declarations.Add(new Declaration(kvp[0], kvp[1]));
-    }
-  }
-
-  public string Selector { get; }
-  public HashSet<Declaration> Declarations { get; } = new HashSet<Declaration>();
-
-  public string ToHtml() {
-    var sb = new StringBuilder();
-    sb.Append($"{Selector}{{");
-    foreach (var p in Declarations) {
-      sb.Append(p.ToHtml());
-    }
-    sb.Append($"}}");
-    return sb.ToString();
-  }
-
-  public class Declaration {
-    public const string Separator = ":";
-
-    public Declaration(string property, string value) {
-      Property = property.Trim();
-      Value = value.Trim();
+    CssSelector(string selector) {
+      Selector = selector;
     }
 
-    public Declaration(string keyValue) {
-      var a = keyValue.Split(Separator);
-      Property = a[0].Trim();
-      Value = a[1].Trim();
+    public CssSelector(string selector, HashSet<Declaration> declarations) : this(selector) {
+      foreach (var d in declarations) {
+        Declarations.Add(d);
+      }
     }
 
-    public string Property { get; set; }
-    public string Value { get; set; }
+    public CssSelector(string selector, string declaration) : this(selector) {
+      foreach (var d in declaration.Split(';')) {
+        var kvp = d.Split(':');
+        Declarations.Add(new Declaration(kvp[0], kvp[1]));
+      }
+    }
 
-    public string ToHtml() => Property + Separator + Value + CssSelector.Terminator;
+    public string Selector { get; }
+    public HashSet<Declaration> Declarations { get; } = new HashSet<Declaration>();
 
-    //public static string DeclarationsToHtml(IEnumerable<StyleDeclaration> declarations) {
-    //  var sb = new StringBuilder();
-    //  foreach (var p in declarations) {
-    //    sb.Append(p.ToHtml());
-    //  }
-    //  return sb.ToString();
-    //}
+    public string ToHtml() {
+      var sb = new StringBuilder();
+      sb.Append($"{Selector}{{");
+      foreach (var p in Declarations) {
+        sb.Append(p.ToHtml());
+      }
+      sb.Append($"}}");
+      return sb.ToString();
+    }
+
+    public class Declaration {
+      //const string StyleKeyValueDelimeter = ":";
+      public const string Delimeter = ":";
+
+      public Declaration(string property, string value) {
+        Property = property.Trim();
+        Value = value.Trim();
+      }
+
+      public Declaration(string keyValue) {
+        var a = keyValue.Split(Delimeter);
+        Property = a[0].Trim();
+        Value = a[1].Trim();
+      }
+
+      public string Property { get; set; }
+      public string Value { get; set; }
+
+      public string ToHtml() => $"{Property}{Delimeter}{Value}{CssSelector.Delimeter}";
+
+      //public static string DeclarationsToHtml(IEnumerable<StyleDeclaration> declarations) {
+      //  var sb = new StringBuilder();
+      //  foreach (var p in declarations) {
+      //    sb.Append(p.ToHtml());
+      //  }
+      //  return sb.ToString();
+      //}
+
+    }
 
   }
+
 
 }
