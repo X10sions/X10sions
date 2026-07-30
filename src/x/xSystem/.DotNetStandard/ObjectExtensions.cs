@@ -1,4 +1,5 @@
 ﻿using System.Dynamic;
+using System.Globalization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Xml;
 using System.Xml.Serialization;
@@ -88,5 +89,43 @@ public static class ObjectExtensions {
 
   public static T ThrowIfNull<T>(this T? value, string? message = null) => value is null ? throw new ArgumentNullException(message ?? "Value cannot be null.") : value;
   public static T? ThrowIfNotNull<T>(this T? value, string? message = null) => value != null ? throw new ArgumentNullException(message ?? "Value must be null.") : value;
+
+  //public static T To<T>(this object? value) => value.To<object?, T>();
+
+  /// <summary>Convert to specified type TTo with default value support.</summary>
+  //public static TTo To<T, TTo>(this T? value, TTo defaultValue = default!) {
+  //  if (value is null || (value is string str && string.IsNullOrWhiteSpace(str))) return defaultValue;
+  //  if (value is TTo already) return already;
+  //  try {
+  //    Type toType = typeof(TTo);
+  //    // 1. Enum support
+  //    if (toType.IsEnum) {
+  //      if (value is string s)
+  //        return (TTo)Enum.Parse(toType, s, ignoreCase: true);
+  //      return (TTo)Enum.ToObject(toType, value);
+  //    }
+  //    Type coreType = Nullable.GetUnderlyingType(toType) ?? toType;
+  //    if (coreType == typeof(bool)) {
+  //      var result = value.ToString().ToBooleanNullable(defaultValue as bool?);
+  //      return (TTo)(object)result!;
+  //    }
+  //    // 2. TypeConverter
+  //    var converter = TypeDescriptor.GetConverter(toType);
+  //    if (converter.CanConvertFrom(typeof(T)))
+  //      return (TTo)converter.ConvertFrom(value)!;
+  //    // 3. IConvertible fallback
+  //    return (TTo)Convert.ChangeType(value, toType, CultureInfo.CurrentCulture);
+  //  } catch {
+  //    return defaultValue;
+  //  }
+  //}
+
+  public static bool? ToBooleanNullable(this string? value, bool? defaultValue = null) => value?.Trim() switch {
+    null or "" => defaultValue,
+    "0" => false,
+    "1" => true,
+    _ => bool.TryParse(value, out bool result) ? result : defaultValue
+  };
+
 
 }

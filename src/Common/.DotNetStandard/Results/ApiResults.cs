@@ -3,48 +3,48 @@
 namespace Common.Results;
 
 /// <summary>Microsoft.AspNetCore.Http.Results.Problem</summary>
-public record HttpProblem(string Title, string Detail, string Type, HttpStatusCode StatusCode, IEnumerable<Error> Extensions) ;
+public record HttpProblem(string Title, string Detail, string Type, HttpStatusCode StatusCode, IEnumerable<ResultError> Extensions);
 
 public static class ApiResults {
 
-  static string GetTitle(Error error) => error.Type switch {
-    ErrorType.Conflict => error.Code,
-    ErrorType.NotFound => error.Code,
-    ErrorType.Problem => error.Code,
-    ErrorType.Validation => error.Code,
-    ErrorType.Unknown => error.Code,
+  static string GetTitle(ResultError error) => error.Type switch {
+    ResultErrorType.Conflict => error.Code,
+    ResultErrorType.NotFound => error.Code,
+    ResultErrorType.Problem => error.Code,
+    ResultErrorType.Validation => error.Code,
+    ResultErrorType.Unknown => error.Code,
     _ => "Server Failure",
   };
 
-  static string GetDetail(Error error) => error.Type switch {
-    ErrorType.Conflict => error.Description,
-    ErrorType.NotFound => error.Description,
-    ErrorType.Problem => error.Description,
-    ErrorType.Validation => error.Description,
-    ErrorType.Unknown => error.Description,
+  static string GetDetail(ResultError error) => error.Type switch {
+    ResultErrorType.Conflict => error.Description,
+    ResultErrorType.NotFound => error.Description,
+    ResultErrorType.Problem => error.Description,
+    ResultErrorType.Validation => error.Description,
+    ResultErrorType.Unknown => error.Description,
     _ => "An unexpected error occurred",
   };
 
-  static string GetType(Error error) => error.Type switch {
-    ErrorType.Conflict => "https://tools.org/html/rcf7231#section-6.5.8",
-    ErrorType.NotFound => "https://tools.org/html/rcf7231#section-6.5.4",
-    ErrorType.Problem => "https://tools.org/html/rcf7231#section-6.6.1",
-    ErrorType.Validation => "https://tools.org/html/rcf7231#section-6.5.1",
-    ErrorType.Unknown => "https://tools.org/html/rcf7231#section-?.?.?",
+  static string GetType(ResultError error) => error.Type switch {
+    ResultErrorType.Conflict => "https://tools.org/html/rcf7231#section-6.5.8",
+    ResultErrorType.NotFound => "https://tools.org/html/rcf7231#section-6.5.4",
+    ResultErrorType.Problem => "https://tools.org/html/rcf7231#section-6.6.1",
+    ResultErrorType.Validation => "https://tools.org/html/rcf7231#section-6.5.1",
+    ResultErrorType.Unknown => "https://tools.org/html/rcf7231#section-?.?.?",
     _ => "https://tools.org/html/rcf7231#section-?.?.?",
   };
 
-  static HttpStatusCode GetStatusCode(Error error) => error.Type switch {
-    ErrorType.Conflict => HttpStatusCode.Conflict,
-    ErrorType.NotFound => HttpStatusCode.NotFound,
-    ErrorType.Problem => HttpStatusCode.BadRequest,
-    ErrorType.Validation => HttpStatusCode.BadRequest,
-    ErrorType.Unknown => HttpStatusCode.InternalServerError,
+  static HttpStatusCode GetStatusCode(ResultError error) => error.Type switch {
+    ResultErrorType.Conflict => HttpStatusCode.Conflict,
+    ResultErrorType.NotFound => HttpStatusCode.NotFound,
+    ResultErrorType.Problem => HttpStatusCode.BadRequest,
+    ResultErrorType.Validation => HttpStatusCode.BadRequest,
+    ResultErrorType.Unknown => HttpStatusCode.InternalServerError,
     _ => HttpStatusCode.InternalServerError,
   };
 
   static Dictionary<string, object?> GetErrors(IResult result) {
-    var validationErrors = result.Errors.Where(x => x.Type == ErrorType.Validation);
+    var validationErrors = result.Errors.Where(x => x.Type == ResultErrorType.Validation);
     if (!validationErrors.Any()) {
       return [];
     }

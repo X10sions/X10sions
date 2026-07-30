@@ -188,6 +188,30 @@ public readonly record struct IntCYYMMDD(int Value) : IValueObject<int>,
 }
 
 public static class IntCYYMMDDExtensions {
+  public static string ToStringYYYY(this IntCYYMMDD cymd) => cymd.Year.Value.ToString("D4");
+  public static string ToStringMM(this IntCYYMMDD cymd) => cymd.Month.Value.ToString("D2");
+  public static string ToStringDD(this IntCYYMMDD cymd) => cymd.DD.ToString("D2");
+  public static string ToStringYYYY_MM_DD(this IntCYYMMDD cymd, string separator = "-") => $"{cymd.ToStringYYYY()}{separator}{cymd.ToStringMM()}{separator}{cymd.ToStringDD()}";
+
+  public static string ToStringHH(this IntHHMMSS cymd) => cymd.Hour.Value.ToString("D2");
+  public static string ToStringMM(this IntHHMMSS cymd) => cymd.Minute.Value.ToString("D2");
+  public static string ToStringSS(this IntHHMMSS cymd) => cymd.Second.Value.ToString("D2");
+  public static string ToStringHH_MM_SS(this IntHHMMSS hms, string separator = ":") => $"{hms.ToStringHH()}{separator}{hms.ToStringMM()}{separator}{hms.ToStringSS()}";
+
+  public static string ToStringHH_MM_SS(this DecimalCYYMMDD_HHMMSS cymd_hms, string separator = ":") => $"{cymd_hms.ToStringHH_MM_SS(separator)}";
+  public static string ToStringYYYY_MM_DD(this DecimalCYYMMDD_HHMMSS cymd_hms, string separator = "-") => $"{cymd_hms.ToStringYYYY_MM_DD(separator)}";
+  public static string ToStringYYYY_MM_DD_HH_MM_SS(this DecimalCYYMMDD_HHMMSS cymd_hms, string dateSeparator = "-", string timeSeparator = ":") => $"{cymd_hms.IntCYYMMDD.ToStringYYYY_MM_DD(dateSeparator)} {cymd_hms.IntHHMMSS.ToStringHH_MM_SS(timeSeparator)}";
+
+  public static DateTime? GetValidDate(this IntCYYMMDD intCYYMMDD) {
+    DateTime? d = null;
+    try {
+      d = intCYYMMDD.DateTime;
+    } catch { }
+    return d;
+  }
+
+  public static string? GetValidSqlDate(this IntCYYMMDD intCYYMMDD) => intCYYMMDD.GetValidDate()?.ToSqlDate();
+
 
   //public static int ToCYYMMDD(this DateTime d) => ((d.Year - 1900) * 10000) + (d.Month * 100) + d.Day;
 

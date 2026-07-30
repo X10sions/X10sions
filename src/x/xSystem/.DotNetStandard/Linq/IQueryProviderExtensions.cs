@@ -1,13 +1,11 @@
 ﻿using System.Linq.Expressions;
 
 namespace System.Linq;
+
 public static class IQueryProviderExtensions {
 
-  public static IQueryable<T> CreateQuery<T>(this IQueryProvider queryProvider, IQueryable queryable)
-    => queryProvider.CreateQuery<T>(queryable.GetType().GenericTypeArguments[0], queryable.Expression);
-
-  public static IQueryable<T> CreateQuery<TSource, T>(this IQueryProvider queryProvider, IQueryable<TSource> queryable)
-    => queryProvider.CreateQuery<T>(typeof(TSource), queryable.Expression);
+  public static IQueryable<T> CreateQuery<T>(this IQueryProvider queryProvider, IQueryable queryable) => queryProvider.CreateQuery<T>(queryable.GetType().GenericTypeArguments[0], queryable.Expression);
+  public static IQueryable<T> CreateQuery<TSource, T>(this IQueryProvider queryProvider, IQueryable<TSource> queryable) => queryProvider.CreateQuery<T>(typeof(TSource), queryable.Expression);
 
   static IQueryable<T> CreateQuery<T>(this IQueryProvider queryProvider, Type sourceType, Expression sourceExpression) {
     var expr = new CreateQueryExpressionVisitor<T>(sourceType).Visit(sourceExpression);

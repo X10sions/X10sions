@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
 
-namespace System {
+namespace System;
   public static class DecimalExtensions {
 
     public static decimal? DivideBy(this decimal value, decimal denominator) => denominator == 0 ? null : decimal.Divide(value, denominator);
@@ -20,5 +20,18 @@ namespace System {
 
     public static string ToStringInvariantCulture(this decimal value, string format) => value.ToString(format, CultureInfo.InvariantCulture);
 
-  }
+  public static string ToString(this decimal d, string positiveFormat, string zeroFormat) => d.ToString(positiveFormat, positiveFormat, zeroFormat);
+
+  public static string ToString(this decimal? d, string positiveFormat, string zeroFormat, string nullFormat) => d.ToString(positiveFormat, positiveFormat, zeroFormat, nullFormat);
+
+  public static string ToString(this decimal d, string positiveFormat, string negativeFormat, string zeroFormat) => d switch {
+    0 => zeroFormat,
+    decimal dec => dec.ToString(d < 0 ? negativeFormat : positiveFormat)
+  };
+
+  public static string ToString(this decimal? d, string positiveFormat, string negativeFormat, string zeroFormat, string nullFormat) => d switch {
+    null => nullFormat,
+    decimal dec => dec.ToString(positiveFormat, negativeFormat, zeroFormat)
+  };
+
 }

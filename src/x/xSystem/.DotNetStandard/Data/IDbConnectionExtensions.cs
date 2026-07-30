@@ -23,6 +23,7 @@ public static class IDbConnectionExtensions {
     }
     return command;
   }
+
   //public static IDbDataAdapter? CreateDataAdapter(this IDbConnection connection) => (connection is DbConnection dbConn) ? dbConn.CreateDataAdapter() : null;
 
   //public static IDbDataAdapter? CreateDataAdapter(this IDbConnection connection, IDbCommand selectCommand) {
@@ -105,6 +106,19 @@ public static class IDbConnectionExtensions {
     return returValue;
   }
 
+
+  public static IDataReader ExecuteDataReader(this IDbConnection @this, string cmdText) {
+    using IDbCommand dbCommand = @this.CreateCommand();
+    dbCommand.CommandText = cmdText;
+    return dbCommand.ExecuteReader();
+  }
+
+  public static int ExecuteNonQuery(this IDbConnection @this, string cmdText) {
+    using IDbCommand dbCommand = @this.CreateCommand();
+    dbCommand.CommandText = cmdText;
+    return dbCommand.ExecuteNonQuery();
+  }
+
   public static int ExecuteNonQuery(this IDbConnection conn, string commandText, CommandType commandType = CommandType.Text, IDbDataParameter[]? parameters = null)
     => conn.EnsureOpenCall(() => conn.CreateCommand(commandText, parameters, commandType).ExecuteNonQuery());
 
@@ -130,6 +144,12 @@ public static class IDbConnectionExtensions {
 
   public static IDataReader ExecuteReader(this IDbConnection conn, string commandText, CommandType commandType = CommandType.Text, IDbDataParameter[]? parameters = null)
     => conn.EnsureOpenCall(() => conn.CreateCommand(commandText, parameters, commandType)).ExecuteReader();
+
+  public static DataTable ExecuteSqlDataTable(this IDbConnection conn, string sql) {
+    DataTable dataTable = new DataTable();
+    dataTable.Load(conn.ExecuteDataReader(sql));
+    return dataTable;
+  }
 
   public static string ExecuteToCsv(this IDbConnection conn, string commandText, CommandType commandType = CommandType.Text, IDbDataParameter[]? parameters = null)
     => conn.ExecuteReader(commandText, commandType, parameters).ToCsv();
@@ -178,6 +198,12 @@ public static class IDbConnectionExtensions {
   //  return returValue;
   //}
 
+  public static DataTable GetDataTable(this IDbConnection conn, string cmdText) {
+    var dt = new DataTable();
+    dt.Load(conn.ExecuteDataReader(cmdText));
+    return dt;
+  }
+
   public static bool IsOdbc(this IDbConnection connection) => connection.ConnectionString.Contains("Driver=", StringComparison.OrdinalIgnoreCase);
   public static bool IsOleDb(this IDbConnection connection) => connection.ConnectionString.Contains("Provider=", StringComparison.OrdinalIgnoreCase);
 
@@ -195,6 +221,14 @@ public static class IDbConnectionExtensions {
     if (isConnectionNotOpen) { connection.Close(); }
     return dt;
   }
+
+  //public static DataTable LoadDataTable(this IDbConnection conn, string commandText, IDbDataParameter[]? parameters = null) {
+  //  DataTable dataTable = new DataTable();
+  //  using IDbCommand dbCommand = conn.CreateCommand(commandText, parameters);
+  //  using IDataReader reader = dbCommand.ExecuteReader();
+  //  dataTable.Load(reader);
+  //  return dataTable;
+  //}
 
   public static Task OpenAsync(this IDbConnection connection) => connection.OpenAsync(CancellationToken.None);
 

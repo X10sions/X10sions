@@ -5,6 +5,27 @@ namespace System.Collections.Generic {
   public static class IEnumerableExtensions {
     public static List<TResult> AsList<TSource, TResult>(this IEnumerable<TSource> source, Func<TSource, TResult> selector) => source.Select(selector).ToList();
 
+    public static bool ContainsAllObjects<T>(this IEnumerable<T> genericEnumerable, IEnumerable<object> objectEnumerable) {
+      if (objectEnumerable == null) {
+        return true; // An empty collection of objects is contained in any collection
+      }
+      bool allContained = objectEnumerable.All(obj => {
+        return obj is T typedValue && genericEnumerable.Contains(typedValue);
+      });
+      return allContained;
+    }
+
+    public static bool ContainsAnyObject<T>(this IEnumerable<T> genericEnumerable, object o) => o is T typedValue && genericEnumerable.Contains(typedValue);
+
+    public static bool ContainsAnyObjects<T>(this IEnumerable<T> genericEnumerable, IEnumerable<object> objectEnumerable) {
+      if (objectEnumerable == null || !objectEnumerable.Any()) {
+        return false; // Cannot contain any elements from an empty list
+      }
+      bool anyContained = objectEnumerable.Any(obj => {
+        return obj is T typedValue && genericEnumerable.Contains(typedValue);
+      });
+      return anyContained;
+    }
     public static string DebugString<T>(this IEnumerable<T> source, Func<T, string> debugStringAction)
       => $"[ {string.Join(",", source.Select(_ => debugStringAction))} ]";
 
@@ -17,6 +38,7 @@ namespace System.Collections.Generic {
     public static void Each<T>(this IEnumerable<T> enumerable, Action<T> each) {
       foreach (var item in enumerable) { each(item); }
     }
+    public static IEnumerable<T> EmptyIfNull<T>(this IEnumerable<T> values) => values ?? Enumerable.Empty<T>();
 
     public static IEnumerable<T> Except<T>(this IEnumerable<T> enumerable, params T[] singles) => enumerable.Except((IEnumerable<T>)singles);
 
@@ -53,7 +75,7 @@ namespace System.Collections.Generic {
 
     //public static bool HasElements<T>(this IEnumerable<T> source) => source == null || !source.Any();
     public static bool HasAnyItems<T>(this IEnumerable<T>? source) => source?.Any() ?? false;
-    public static bool IsNullOrEmpty<T>(this IEnumerable<T>? source) => !source.HasAnyItems();
+    public static bool IsNullOrEmpty<T>(this IEnumerable<T> @this) => @this == null || !@this.Any();
     public static bool IsNullOrWhiteSpace<T>(this IEnumerable<T>? source) => source == null || !source.Any(x => !string.IsNullOrWhiteSpace(x?.ToString()));
 
     public static string Join<T>(this IEnumerable<T> values, string separator) => string.Join(separator, values);
@@ -94,7 +116,8 @@ namespace System.Collections.Generic {
 
     public static string JoinToString(this IEnumerable<object> source, string separator = ", ") => string.Join(separator, source);
     public static string JoinToString<TKey, TValue>(this IEnumerable<KeyValuePair<TKey, TValue>> kvPairs, string keySeparator = ";", string valueSeparator = "=", string prefix = "{", string suffix = "}") => prefix + string.Join(keySeparator, kvPairs.Select(kv => $"{kv.Key}{valueSeparator}{kv.Value}").ToArray()) + suffix;
-
+    public static IEnumerable<T> Replace<T>(this IEnumerable<T> source, T oldValue, T newValue) => source.Select(x => EqualityComparer<T>.Default.Equals(x, oldValue) ? newValue : x);
+   
     public static string SqlLiteralBetween<T>(this IEnumerable<T> values, string prefix, string suffix, string JoinString = " And ")
       => values.SqlLiteralMin(prefix, suffix) + JoinString + values.SqlLiteralMax(prefix, suffix);
 
@@ -103,6 +126,9 @@ namespace System.Collections.Generic {
 
     public static string SqlLiteralMax<T>(this IEnumerable<T> values, string prefix, string suffix) => prefix + values.Max() + suffix;
     public static string SqlLiteralMin<T>(this IEnumerable<T> values, string prefix, string suffix) => prefix + values.Min() + suffix;
+    public static string ToCsv<T>(this IEnumerable<T> @this, string separator = ",", string qualifer = "") => !@this.Any()
+      ? string.Empty
+      : qualifer + string.Join(qualifer + separator + qualifer, @this.Select((T x) => x.ToString()).ToArray()) + qualifer;
 
     public static DataTable ToDataTable<T>(this IEnumerable<T> items) {
       var dataTable = new DataTable(typeof(T).Name);
@@ -126,6 +152,30 @@ namespace System.Collections.Generic {
       return ds;
     }
 
+    public static List<T1> ToListOf<T1, TSource>(this IEnumerable<TSource> source, Action<List<T1>, TSource> addAction) {
+      var list = new List<T1>();
+      if (source == null) return list;
+      foreach (var s in source) {
+        addAction(list, s);
+      }
+      return list;
+    }
+
+    public static List<T> ToListOf<T, TSource>(this IEnumerable<TSource> source, Func<TSource, T> convert) => source.ToListOf<T, TSource>((list, x) => list.Add(convert(x)));
+    //public static List<T> ToListOfNullble<T, TSource>(this IEnumerable<TSource> source, Func<TSource, T> convert) => source.ToListOf<T, TSource>((list, x) => list.Add(convert(x)));
+
+
+    public static List<T> ToListOfEnum<T>(this IEnumerable<string> values, bool ignoreCase = true) where T : struct {
+      var list = new List<T>();
+      foreach (var v in values) {
+        var isEnum = Enum.TryParse(v, ignoreCase, out T result);
+        if (isEnum) {
+          list.Add(result);
+        }
+      }
+      return list;
+    }
+
     public static IEnumerable<T> Traverse<T>(this IEnumerable<T> items, Func<T, IEnumerable<T>> childSelector) {
       var stack = new Stack<T>(items);
       while (stack.Count > 0) {
@@ -137,6 +187,8 @@ namespace System.Collections.Generic {
       }
     }
 
+    public static IEnumerable<TOut> TryCastIterator<TIn, TOut>(this IEnumerable<TIn> values, Func<TIn, bool> tryParse, Func<TIn, TOut> cast) => values.Where(tryParse).Select(cast);
+
     public static string WrapIfNotNullOrWhiteSpace<T>(this IEnumerable<T> source, string prefix, string suffix, string joinSeparator = ",", string defaultIfNullOrWhiteSpace = "") => source.IsNullOrWhiteSpace() ? defaultIfNullOrWhiteSpace : prefix + string.Join(joinSeparator, source) + suffix;
 
     public class DynamicEqualityComparer<T>(Func<T, T, bool> func) : IEqualityComparer<T> where T : class {
@@ -144,7 +196,6 @@ namespace System.Collections.Generic {
 
       public int GetHashCode(T obj) => 0; // force Equals
     }
-    public static IEnumerable<T> Replace<T>(this IEnumerable<T> source, T oldValue, T newValue) where T : notnull => source.Select(x => x.Equals(oldValue) ? newValue : x);
 
     public static IEnumerable<TSource> OrderByIf<TSource, TKey>(this IEnumerable<TSource> source, bool condition, Func<TSource, TKey> keySelector, IComparer<TKey> comparer) => condition ? source.OrderBy(keySelector, comparer) : source;
     public static IEnumerable<TSource> OrderByIf<TSource, TKey>(this IEnumerable<TSource> source, bool condition, Func<TSource, TKey> keySelector) => condition ? source.OrderBy(keySelector) : source;

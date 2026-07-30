@@ -28,6 +28,7 @@ namespace System {
     //}
 
     #region Throw
+
     public static void Throw(this bool b, string trueMessage, string falseMessage) => throw new Exception(b ? trueMessage : falseMessage);
     public static bool ThrowIfTrue(this bool b, string message) => b ? throw new Exception(message) : b;
     public static bool ThrowIfFalse(this bool b, string message) => !b ? throw new Exception(message) : b;

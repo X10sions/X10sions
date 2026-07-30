@@ -29,6 +29,7 @@ namespace System {
       }
       return d;
     }
+
     public static DateTime FirstDayOfYear(this DateTime d) => new DateTime(d.Year, 1, 1);
 
     public static string FriendlyDateString(this DateTime date, bool showTime) {
@@ -48,6 +49,7 @@ namespace System {
         FormattedDate += " @  " + date.ToString("t").ToLower().Replace(" ", "");
       return FormattedDate;
     }
+    public static string GetOptionalTimeFormat(this DateTime dateTime, string timeFormat = "HHmmss") => dateTime.TimeOfDay != TimeSpan.Zero ? timeFormat : string.Empty;
 
     public static int GetWeekOfYear(this DateTime d, CalendarWeekRule firstDay = CalendarWeekRule.FirstDay, DayOfWeek dayOfWeek = DayOfWeek.Sunday) => CultureInfo.CurrentCulture.Calendar.GetWeekOfYear(d, firstDay, dayOfWeek);
 
@@ -55,6 +57,7 @@ namespace System {
       var ticks = date.Ticks;
       return ticks >= startDate.Ticks && ticks <= endDate.Ticks;
     }
+    public static string ToDateOrDateTimeString(this DateTime dateTime, string dateFormat = "yyyyMMdd", string timeFormat = "HHmmss") => dateTime.ToString(dateFormat + dateTime.GetOptionalTimeFormat(timeFormat));
     public static string ToFullShortDateTimeString(this DateTime d) => d.ToString("f");
     public static string ToFullLongDateTimeString(this DateTime d) => d.ToString("F");
     public static string ToGeneralShortDateTimeString(this DateTime d) => d.ToString("g");
@@ -139,7 +142,6 @@ namespace System {
     #endregion "iSeries"
 
     #region "Fiscal / Financial Year"
-
     public static DateTime FiscalEndDate(this DateTime d, int fiscalStartMonth = 7) => d.FiscalStartDate(fiscalStartMonth).AddYears(1).AddDays(-1);
     public static int FiscalEndYear(this DateTime d, int fiscalStartMonth = 7) => d.Year + (fiscalStartMonth > d.Month || fiscalStartMonth == 1 ? 0 : 1);
     public static int FiscalPeriod(this DateTime d, int fiscalStartMonth = 7) => d.Month - fiscalStartMonth + 1 + ((fiscalStartMonth > d.Month ? 1 : 0) * 12);
@@ -203,6 +205,23 @@ namespace System {
     //public static decimal ToYYYYMMDD_HHMMSS_Decimal(this DateTime d) => Convert.ToDecimal(ToYYYYMMDD_HHMMSS(d, "."));
     //public static long ToYYYYMMDDHHMMSS(this DateTime d) => Convert.ToInt64(ToYYYYMMDD_HHMMSS(d, ""));
     #endregion
+
+    public static string ToSqlDateExpression(this DateTime d) => "'" + d.ToSqlDate() + "'";
+    public static string ToSqlTime(this DateTime d) => d.ToString("hh:mm:ss");
+    public static string ToSqlTimeExpression(this DateTime d) => "'" + d.ToSqlTime() + "'";
+    public static string ToSqlTimestamp(this DateTime d) => d.ToSqlTimestamp(0);
+    public static string ToSqlTimestamp(this DateTime d, int milliSecondsPrecision) {
+      string str = (milliSecondsPrecision > 0) ? ("." + new string('f', milliSecondsPrecision)) : "";
+      return d.ToString("yyyy-MM-dd hh:mm:ss" + str);
+    }
+    public static string ToSqlTimestampExpression(this DateTime d, int milliSecondsPrecision) => "'" + d.ToSqlTimestamp(milliSecondsPrecision) + "'";
+    public static string ToSqlTimestampExpression(this DateTime? d, int milliSecondsPrecision) => d.HasValue ? d.Value.ToSqlTimestampExpression(milliSecondsPrecision) : "Null";
+
+    public static decimal ToYYYYMMDD_HHMMSS_Decimal(this DateTime d) => Convert.ToDecimal(d.ToYYYYMMDD_HHMMSS("."));
+
+
+
+
 
   }
 }

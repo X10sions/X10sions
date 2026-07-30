@@ -37,6 +37,13 @@ public static class StringBuilderExtensions {
     }
   }
 
+  public static StringBuilder AppendIf(this StringBuilder sb, bool check, string appendIftrue) {
+    if (check) {
+      sb.Append(appendIftrue);
+    }
+    return sb;
+  }
+
   public static StringBuilder AppendIfTrue(this StringBuilder sb, bool test, string value) {
     if (test) {
       sb.Append(value);
@@ -45,6 +52,13 @@ public static class StringBuilderExtensions {
   }
 
   public static StringBuilder AppendLine(this StringBuilder sb, IQueryable qry) => sb.AppendLine(qry.ToString());
+  public static StringBuilder AppendLineIf(this StringBuilder sb, bool check, string appendIftrue) {
+    if (check) {
+      sb.AppendLine(appendIftrue);
+    }
+    return sb;
+  }
+  public static StringBuilder AppendLine<T>(this StringBuilder sb, T value) => sb.AppendLine(value?.ToString() ?? string.Empty);
 
   public static StringBuilder AppendLineIfTrue(this StringBuilder sb, bool test, string value) {
     if (test) {
@@ -113,6 +127,9 @@ public static class StringBuilderExtensions {
     }
     return stringBuilder;
   }
+
+  public static StringBuilder AppendHtmlTableRow<T>(this StringBuilder sb, T value, string htmlTag = "td", int colSpan = 2) => sb.AppendLine($"<tr><{htmlTag} colspan=\"{colSpan}\">{value}</td></tr>");
+  public static StringBuilder AppendHtmlTableRow<TTH, TTD>(this StringBuilder sb, TTH th, TTD td) => sb.AppendLine($"<tr><th>{th}</th><td>{td}</td></tr>");
 
   public static int IndexOf(this StringBuilder sb, string value, int startIndex, bool ignoreCase = true) {
     int index;

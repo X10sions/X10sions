@@ -2,9 +2,15 @@
 
 namespace System.Linq;
 public static class IQueryableExtensions {
-
+  public static IQueryable<T> ContainsAny<T, TColumn>(this IQueryable<T> qry, Expression<Func<T, TColumn>> columnSelector, IEnumerable<TColumn> values) => values.Any() ? qry.Where(x => values.Contains(columnSelector.Compile()(x))) : qry;
   public static IQueryable<T> CreateQueryFromProvider<T>(this IQueryable queryable) => queryable.Provider.CreateQuery<T>(queryable);
   public static IQueryable<T> CreateQueryFromProvider<TSource, T>(this IQueryable<TSource> queryable) => queryable.Provider.CreateQuery<TSource, T>(queryable);
+
+  public static IQueryable<T> HasExpressionValue<T, TColumn>(this IQueryable<T> query, Expression<Func<T, TColumn>> columnSelector, Expression<Func<TColumn, bool>> valueExpression, bool? value) => value switch {
+    true => query.Where(x => valueExpression.Compile()(columnSelector.Compile()(x))),
+    false => query.Where(x => !valueExpression.Compile()(columnSelector.Compile()(x))),
+    _ => query
+  };
 
   public static bool IsOrderedQueryable<T>(this IQueryable<T> queryable) {
     if (queryable == null) {
@@ -12,6 +18,10 @@ public static class IQueryableExtensions {
     }
     return queryable.Expression.Type == typeof(IOrderedQueryable<T>);
   }
+  public static IQueryable<T> IsNullOrWhiteSpace<T>(this IQueryable<T> query, Expression<Func<T, string>> columnSelector, bool? value)
+  => query.HasExpressionValue(columnSelector, x => string.IsNullOrWhiteSpace(x), value);
+
+  public static IQueryable<T> JoinOn<T>(this IQueryable queryable, Expression<Func<T, bool>> predicate) => queryable.Provider.CreateQuery<T>(queryable).Where(predicate);
 
   public static IOrderedQueryable<T> OrderBy<T, TKey>(this IQueryable<T> source, Expression<Func<T, TKey>> keySelector, bool isDescending)
     => isDescending ? source.OrderByDescending(keySelector) : source.OrderBy(keySelector);

@@ -23,6 +23,7 @@ public static class TypeExtensions {
   public static string GetFullNameElseName<T>() => typeof(T).GetFullNameElseName();
   public static MemberInfo[] GetStaticMembers(this Type type, string name) => type.GetMember(name, BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.Public);
 
+
   [Obsolete("Not Used")] public static bool IsDateOrTime(this Type type) => type == typeof(DateTime) || type == typeof(TimeSpan);
   [Obsolete("Not Used")]
   public static bool IsNumeric(this Type type) {

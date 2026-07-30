@@ -11,16 +11,14 @@ public static class IDictionaryExtensions {
     return value is not T ? defaultValue : (T)value;
   }
 
-  public static TResult GetOrAdd<TKey, TResult>(this IDictionary dictionary, TKey key, Func<TResult> valueFunction) {
-    var value = dictionary[key];
-    TResult tValue;
-    if (value is not TResult) {
-      tValue = valueFunction();
-      dictionary[key] = valueFunction();
-    } else {
-      tValue = (TResult)value;
+  public static TResult GetOrAdd<TKey, TResult>(this IDictionary dictionary, TKey key, Func<TResult> valueFunction) where TKey : notnull {
+    if (dictionary.Contains(key)) {
+      var value = dictionary[key];
+      if (value is TResult result) return result;
     }
-    return tValue;
+    var newValue = valueFunction();
+    dictionary[key] = newValue;
+    return newValue;
   }
 
   public static T? GetOrCreate<T>(this IDictionary dictionary, Func<T> setFunc) => dictionary.GetOrCreate(typeof(T).FullName ?? typeof(T).Name, setFunc);
@@ -34,8 +32,6 @@ public static class IDictionaryExtensions {
     return value;
   }
 
-  public static TValue GetValueOrDefault<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, TValue defaultValue) => dictionary.TryGetValue(key, out var value) ? value : defaultValue;
-  public static TValue GetValueOrDefault<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, Func<TValue> defaultValueProvider) => dictionary.TryGetValue(key, out var value) ? value : defaultValueProvider();
 
 
   public static bool HasKey(this IDictionary dictionary, string key) => dictionary[key] != null;

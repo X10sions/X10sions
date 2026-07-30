@@ -1,5 +1,6 @@
 ﻿using System.Globalization;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Security;
 using System.Text.RegularExpressions;
 using System.Xml.Serialization;
 
@@ -56,6 +57,14 @@ namespace System {
     public static string Format(this string format, object arg0) => string.Format(format, arg0);
     public static string Format(this string format, object arg0, object arg1) => string.Format(format, arg0, arg1);
     public static string Format(this string format, object arg0, object arg1, object arg2) => string.Format(format, arg0, arg1, arg2);
+    public static SecureString GetSecureString(this string s) {
+      var secure = new SecureString();
+      foreach (var c in s) {
+        secure.AppendChar(c);
+      }
+      return secure;
+    }
+    public static string IfNothing(this string value, string valueIfNothing) => (value == null) ? valueIfNothing : value;
     public static string IfNullOrEmpty(this string s, string defaultValue) => string.IsNullOrEmpty(s) ? defaultValue : s;
     public static string IfNullOrWhiteSpace(this string s, string defaultValue) => string.IsNullOrWhiteSpace(s) ? defaultValue : s;
 
@@ -205,6 +214,9 @@ namespace System {
     /// <summary>Returns a new left-aligned fixed length string by padding characters to the right and then left.</summary>    
     public static string PadRightLeftMaxWidth(this string s, int maxWidth, char paddingChar = ' ') => s.PadRightMaxWidth((s.Length + maxWidth) / 2, paddingChar).PadLeftMaxWidth( maxWidth, paddingChar);
 
+    /// <summary>Returns a new left-aligned fixed length string by padding characters to the right.</summary>    
+    public static string PadRightMax(this string s, int maxWidth, char paddingChar) => s.PadRight(maxWidth, paddingChar).Substring(0, maxWidth);
+
     public static string PathCombine(this string path, params string[] paths) {
       foreach (var p in paths) {
         path = Path.Combine(path, p);
@@ -215,6 +227,29 @@ namespace System {
     public static string PathCombine(this string path1, string path2, string path3, params string[] paths) => Path.Combine(path1, path2, path3).PathCombine(paths);
     public static string PathCombine(this string path1, string path2, string path3, string path4, params string[] paths) => Path.Combine(path1, path2, path3, path4).PathCombine(paths);
 
+    public static string Replace(this string str, string oldValue, string newValue, StringComparison comparison) {
+      if (string.IsNullOrEmpty(oldValue)) {
+        throw new ArgumentNullException(nameof(oldValue));
+      }
+      StringBuilder sb = new StringBuilder();
+      int previousIndex = 0;
+      int index = str.IndexOf(oldValue, comparison);
+      while (index != -1) {
+        sb.Append(str.Substring(previousIndex, index - previousIndex));
+        sb.Append(newValue);
+        index += oldValue.Length;
+        previousIndex = index;
+        index = str.IndexOf(oldValue, index, comparison);
+      }
+      sb.Append(str.Substring(previousIndex));
+      return sb.ToString();
+    }
+
+    public static string ReplaceFirst(this string str, string oldValue, string newValue, StringComparison comparisonType = StringComparison.CurrentCulture) {
+      var position = str.IndexOf(oldValue, comparisonType);
+      return position < 0 ? str : str.Substring(0, position) + newValue + str.Substring(position + oldValue.Length);
+    }
+
     public static string ReplaceFirst(this string str, string oldValue, string newValue) {
       var position = str.IndexOf(oldValue);
       return position < 0 ? str : str.Substring(0, position) + newValue + str.Substring(position + oldValue.Length);
@@ -223,6 +258,8 @@ namespace System {
     public static string ReplaceFromEnd(this string s, string fromSuffix, string toSuffix, StringComparison comparisonType = StringComparison.CurrentCulture) => s.EndsWith(fromSuffix, comparisonType) ? s.Substring(0, s.Length - fromSuffix.Length) + toSuffix : s;
     public static string ReplaceFromStart(this string s, string fromPrefix, string toPrefix, StringComparison comparisonType = StringComparison.CurrentCulture) => s.StartsWith(fromPrefix, comparisonType) ? toPrefix + s.Substring(fromPrefix.Length) : s;
     public static string ReplaceInvalidChars(this string value, string replaceWith) => string.Join(replaceWith, value.Split(Path.GetInvalidFileNameChars()));
+    public static string ReplaceInvalidFileNameChars(this string filename, string replaceWith = "_") => string.Join(replaceWith, filename.Split(IO.Path.GetInvalidFileNameChars()));
+
 
     public static string[] Split(this string s, string separator, StringSplitOptions splitOptions = StringSplitOptions.None) => s.Split(new[] { separator }, splitOptions);
     public static string[] Split(this string s, string separator, RegexOptions regexOptions) => Regex.Split(s, separator, regexOptions);
@@ -236,6 +273,36 @@ namespace System {
 
     public static string SqlLiteral(this string value) => value.SqlLiteral(new SqlStringOptions());
     public static string SqlLiteral(this string value, SqlStringOptions options) => value == null ? SqlOptions.SqlNullString : options.LiteralPrefix + value + options.LiteralSuffix;
+
+    public readonly static string[] DefaultSplitSeparator = new string[] { "," };
+
+    [Obsolete("Use SplitToListOf<T>(this string joinedString, Action<List<T>, string> addAction, string[]? splitSeparator)")] public static List<T> SplitToListOf<T>(this string joinedString, Action<List<T>, string> addAction) => joinedString.SplitToListOf(addAction, DefaultSplitSeparator, StringSplitOptions.RemoveEmptyEntries);
+    public static List<T> SplitToListOf<T>(this string joinedString, Action<List<T>, string> addAction, string[]? splitSeparator, StringSplitOptions splitOptions = StringSplitOptions.RemoveEmptyEntries) => joinedString is null ? new() : (from s in joinedString.Split(splitSeparator ?? DefaultSplitSeparator, splitOptions) where !string.IsNullOrWhiteSpace(s) select s.Trim()).ToListOf(addAction);
+
+
+    public static List<T> SplitToListOf<T>(this string joinedString, Func<string, T> convert, string splitSeparator = ",") => joinedString is null ? new() : (from s in joinedString.Split(splitSeparator) where !string.IsNullOrWhiteSpace(s) select s.Trim()).ToListOf(convert);
+
+    public static IEnumerable<T> SplitOfType<T>(this string value, Func<string, bool> tryParse, Func<string, T> cast, string separator = ",") => value.Split(separator).TryCastIterator(tryParse, cast);
+    public static IEnumerable<int> SplitOfTypeInt(this string value, string separator = ",") => value.SplitOfType(x => int.TryParse(x, out _), int.Parse, separator);
+
+
+    public static List<T> SplitToListOfNullable<T>(this string joinedString, Func<string?, T> convert, string splitSeparator = ",") => joinedString is null ? new() : (from s in joinedString.Split(splitSeparator) select s?.Trim()).ToListOf(convert);
+    public static List<T> SplitToListOfNullable<T>(this string joinedString, Action<List<T>, string?> addAction, string splitSeparator = ",") => joinedString is null ? new() : (from s in joinedString.Split(splitSeparator) select s?.Trim()).ToListOf(addAction);
+
+
+    public static List<string> SplitToListOfString(this string expr, string delimeter) {
+      List<string> list = new List<string>();
+      if (expr == null) {
+        return list;
+      }
+      string[] array = expr.Split(Convert.ToChar(delimeter));
+      foreach (string text in array) {
+        if (!string.IsNullOrWhiteSpace(text)) {
+          list.Add(text);
+        }
+      }
+      return list;
+    }
 
     public static Dictionary<string, string> ToKeyValueDictionary(this string s, char keySeparator = ';', char valueSeparator = '=', StringSplitOptions options = StringSplitOptions.RemoveEmptyEntries) => s.ToKeyValuePairs(keySeparator, valueSeparator, options).ToDictionary(k => k.Key, v => v.Value);
     public static IList<KeyValuePair<string, string>> ToKeyValueList(this string s, char keySeparator = ';', char valueSeparator = '=', StringSplitOptions options = StringSplitOptions.RemoveEmptyEntries) => s.ToKeyValuePairs(keySeparator, valueSeparator, options).ToList();

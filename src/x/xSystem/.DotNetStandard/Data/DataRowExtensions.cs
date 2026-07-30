@@ -1,20 +1,20 @@
 ﻿using System.Reflection;
 
 namespace System.Data;
-public static class DataRowExtensionsX {
+public static class DataRowExtensions{
 
-  //public static T? FieldEnum<T>(this DataRow dataRow, string columnName) where T : struct {
-  //  var value = dataRow[columnName];
-  //  return value.ToEnum<T>();
-  //  //var type = typeof(T);
-  //  //T? typedValue = value switch {
-  //  //  null => null,
-  //  //  T t => t,
-  //  //  string s => s.ToEnum<T>(),
-  //  //  object o => Enum.IsDefined(type, o) ? (T)Enum.ToObject(type, o) : throw new NotImplementedException($"{value}: {value.GetType()}")
-  //  //};
-  //  //return typedValue;
-  //}
+  public static void Map(this DataRow row, PropertyInfo prop, object entity, IEnumerable<string> columnNames) {
+    //Handle .NET Primitives and Structs (e.g. DateTime) here.
+    foreach (var columnName in columnNames) {
+      if (!string.IsNullOrWhiteSpace(columnName) && row.Table.Columns.Contains(columnName)) {
+        var propertyValue = row[columnName];
+        if (propertyValue != DBNull.Value) {
+          prop.ParsePrimitive(entity, row[columnName]);
+          break; //Assumes that the first matching column contains the source data
+        }
+      }
+    }
+  }
 
   public static void MapToObject(this DataRow dataRow, object obj) {
     foreach (var prop in obj.GetType().GetProperties()) {
@@ -36,7 +36,7 @@ public static class DataRowExtensionsX {
       var fieldname = columns[x].ColumnName;
       try {
         target[x] = source[fieldname];
-      } catch {; }  // skip any errors
+      } catch { }  // skip any errors
     }
     return true;
   }
@@ -111,8 +111,6 @@ public static class DataRowExtensionsX {
     }
   }
 
-  #region mtg.NetFramework.UDrive
-
   public static string ToHtmlSelectOption(this DataRow @this, string valueField, string textField) => HtmlForOption((@this[valueField]), (@this[textField]), "");
 
   public static string ToHtmlSelectOption(this DataRow @this, string valueField, string textField, int selectedValue) => HtmlForOption((@this[valueField]), (@this[textField]), selectedValue);
@@ -122,5 +120,4 @@ public static class DataRowExtensionsX {
     return $"<option value=\"{(dataText == null ? dataValue.ToString() : dataText.ToString())}\"{dataValue}>{(selectedValue.ToString().Equals(dataValue.ToString(), StringComparison.OrdinalIgnoreCase) ? " selected=\"selected\" " : "")}</option>";
   }
 
-  #endregion
 }

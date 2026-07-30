@@ -1,10 +1,12 @@
-﻿namespace Common.Results;
+﻿using Common.ValueObjects;
+
+namespace Common.Results;
 public interface IResult {
   string? Message { get; }
-  List<Error> Errors { get; }
+  List<ResultError> Errors { get; }
 }
 
-public interface IResult<out T> : IResult {
+public interface IResult<out T> : IResult, IValueObject<T> {
   T Value { get; }
 }
 
