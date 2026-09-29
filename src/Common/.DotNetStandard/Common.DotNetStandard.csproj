@@ -7,9 +7,9 @@
     <VersionPart2>0</VersionPart2>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Remove="Models\Win32\**" />
-    <EmbeddedResource Remove="Models\Win32\**" />
-    <None Remove="Models\Win32\**" />
+    <Compile Remove="Models\DateOnly.cs" />
+    <Compile Remove="Models\DateTimeOnly.cs" />
+    <Compile Remove="Models\TimeOnly.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Bcl.TimeProvider" />
