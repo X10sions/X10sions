@@ -5,7 +5,7 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- Core Structural Quality & Security -->
-    <GlobalPackageReference Include="Meziantou.Analyzer" Version="3.0.136" />
+    <GlobalPackageReference Include="Meziantou.Analyzer" Version="3.0.137" />
     <GlobalPackageReference Include="SonarAnalyzer.CSharp" Version="10.31.0.145097" />
     <GlobalPackageReference Include="Roslynator.Analyzers" Version="4.15.0" />
     <!-- Memory, Threading & Reflection Lifecycles -->
@@ -99,8 +99,10 @@
     <PackageVersion Include="MediatR" Version="[12.4.0]" />
     <PackageVersion Include="MediatR.Contracts" Version="2.0.1" />
     <PackageVersion Include="Meziantou.Extensions.Logging.Xunit" Version="1.0.22" />
+    <PackageVersion Include="Meziantou.Extensions.Logging.Xunit.v3" Version="3.0.0" />
     <PackageVersion Include="Meziantou.FluentAssertionsAnalyzers" Version="1.0.22" />
     <PackageVersion Include="Meziantou.Xunit.ParallelTestFramework" Version="2.3.0" />
+    <PackageVersion Include="Meziantou.Xunit.v3.ParallelTestFramework" Version="1.0.6" />
     <PackageVersion Include="MicroOrm.Dapper.Repositories" Version="1.26.0" />
     <PackageVersion Include="Microsoft.AspNet.Identity.Core" Version="2.2.4" />
     <PackageVersion Include="Microsoft.AspNet.Mvc" Version="5.3.0" />
@@ -266,7 +268,6 @@
     <PackageVersion Include="SqlKata.Execution" Version="2.4.0" />
     <PackageVersion Include="SqlSugarCore" Version="5.1.4.216" />
     <PackageVersion Include="StaTypPocoQueries.PetaPoco" Version="1.5.8" />
-    
     <PackageVersion Include="Susanoo.SqlServer" Version="1.2.4.2" />
     <PackageVersion Include="Swashbuckle.AspNetCore" Version="10.2.3" />
     <PackageVersion Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.7.1" />
@@ -292,12 +293,14 @@
     <PackageVersion Include="System.Security.Cryptography.Xml" Version="10.0.10" />
     <PackageVersion Include="System.Security.Permissions" Version="8.0.0" />
     <PackageVersion Include="System.Text.RegularExpressions" Version="4.3.1" />
+    <PackageVersion Include="TUnit" Version="1.63.0" />
     <PackageVersion Include="TypeMerger" Version="2.1.4" />
     <PackageVersion Include="UAParser" Version="3.1.47" />
     <PackageVersion Include="UnitsNet" Version="5.56.0" />
     <PackageVersion Include="Verify.MSTest" Version="31.9.3" />
     <PackageVersion Include="Verify.NUnit" Version="31.9.3" />
     <PackageVersion Include="Verify.Xunit" Version="31.9.3" />
+    <PackageVersion Include="Verify.XunitV3" Version="31.27.0" />
     <PackageVersion Include="Vintasoft.Barcode" Version="15.0.4.1" />
     <PackageVersion Include="Vintasoft.Imaging.Office.OpenXml" Version="4.5.1.1" />
     <PackageVersion Include="Wangkanai.Detection" Version="2.0.0" />
@@ -306,7 +309,7 @@
     <PackageVersion Include="xunit" Version="2.9.3" />
     -->
     <PackageVersion Include="xunit.v3" Version="3.2.1" />
-    <PackageVersion Include="xunit.v3.extensibility.core" Version="3.2.1" />
+    <PackageVersion Include="xunit.v3.extensibility.core" Version="3.2.2" />
     <PackageVersion Include="xunit.analyzers" Version="1.26.0" />
     <PackageVersion Include="Xunit.Combinatorial" Version="2.0.24" />
     <PackageVersion Include="xunit.runner.visualstudio" Version="3.1.5" />
