@@ -2,7 +2,7 @@
 using LinqToDB.Linq;
 
 namespace System.Linq;
-public static class IQueryableExpressions {
+public static class IQueryableExtensions {
 
   public static T FirstOrInsert<T>(this IQueryable<T> queryable, IValueInsertable<T> insertable) {
     Console.WriteLine(queryable);

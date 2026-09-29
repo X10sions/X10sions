@@ -29,16 +29,24 @@ public readonly record struct Result : IResult {
 }
 
 public readonly record struct Result<T> : IResult<T> {
-  internal Result(T value, string? message, params ResultError[] errors) {
+  internal Result(T value, string? message, params IEnumerable<ResultError> errors) {
     Value = value;
     Message = message;
     Errors.AddRange(errors.Where(x => x != ResultError.None));
   }
+
+  internal Result(params IEnumerable<ResultError> errors) {
+    Value = default!;
+    Message = null;
+    Errors.AddRange(errors.Where(x => x != ResultError.None));
+  }
+
   public List<ResultError> Errors { get; } = new();
   public string? Message { get; }
   public T Value { get; }
 
-  public static Result<T> Fail(T data, string? message = null, params ResultError[] errors) => new Result<T>(data, message, errors);
+  public static Result<T> Fail(T data, string? message = null, params IEnumerable<ResultError> errors) => new Result<T>(data, message, errors);
+  public static Result<T> Fail(params IEnumerable< ResultError> errors) =>  new Result<T>(errors);
   public static Task<Result<T>> FailAsync(T data, string? message = null, params ResultError[] errors) => Task.FromResult(Fail(data, message, errors));
   public static Result<T> Success(T data, string? message = null) => new Result<T>(data, message, []);
   public static Task<Result<T>> SuccessAsync(T data, string? message = null) => Task.FromResult(Success(data, message));

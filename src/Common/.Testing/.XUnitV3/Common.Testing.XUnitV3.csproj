@@ -3,14 +3,15 @@
     <IsPackable>false</IsPackable>
   </PropertyGroup>
   <ItemGroup Label="PackageReferences">
-    <PackageReference Include="Meziantou.Extensions.Logging.Xunit"  />
-    <PackageReference Include="Meziantou.Xunit.ParallelTestFramework"  />
-    <PackageReference Include="Roslynator.Testing.CSharp.Xunit"  />
-    
+    <!-- 
     <PackageReference Include="xunit.analyzers" ExcludeAssets="compile" />
     <PackageReference Include="Xunit.Combinatorial"  />
     <PackageReference Include="xunit.runner.visualstudio"  ExcludeAssets="compile" />
-    <PackageReference Include="Verify.Xunit"  />
+    -->
+    <PackageReference Include="Meziantou.Extensions.Logging.Xunit.v3" />
+    <PackageReference Include="Meziantou.Xunit.v3.ParallelTestFramework" />
+    <PackageReference Include="Verify.XunitV3" />
+    <PackageReference Include="xunit.v3.extensibility.core" />
   </ItemGroup>
   <ItemGroup Label="ProjectReferences">
     <ProjectReference Include="..\Common.Testing.csproj" />

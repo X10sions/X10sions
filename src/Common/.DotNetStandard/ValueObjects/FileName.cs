@@ -1,7 +1,7 @@
 ﻿namespace Common.ValueObjects;
 public readonly record struct FileName(string Value) {
   //public string ReplaceInvalidChars(string replaceInvalidCharsWith = "_") => string.Join(replaceInvalidCharsWith, Value.Split(Path.GetInvalidFileNameChars()));
-};
+}
 
 public interface IFileName {
   FileName FileName { get; }

@@ -5,6 +5,7 @@ public readonly record struct ResultError(string Code, string? Description = nul
   public static readonly ResultError Unspecified = new("Unspecified Error");
   public static readonly ResultError Validation = new("Validation Error", null, ResultErrorType.Validation);
   public static readonly ResultError NullValue = new("Null Value Error");
+  public static List<ResultError> List() => new();
   public static ResultError Unexpected(string code, string description) => new(code, description, StackTrace: Environment.StackTrace);
 
   //public static implicit operator Result(Error error) => Result.Fail( null, [error]);

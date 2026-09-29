@@ -47,6 +47,8 @@ public static class MimeMessageExtensions {
 
   public static string Content(this MimeMessage message) => !string.IsNullOrEmpty(message.HtmlBody) ? message.HtmlBody : message.TextBody;
 
+  //public static MimeMessage From(this MimeMessage message, string address) => message.From(address, address);
+
   public static MimeMessage From(this MimeMessage message, string address) {
     message.From.Add(MailboxAddress.Parse(address));
     return message;
@@ -152,6 +154,8 @@ public static class MimeMessageExtensions {
     message.Subject = subject;
     return message;
   }
+
+  //public static MimeMessage To(this MimeMessage message, string address) => message.To(address, address);
 
   public static MimeMessage To(this MimeMessage message, string address) {
     message.To.Add(MailboxAddress.Parse(address));
