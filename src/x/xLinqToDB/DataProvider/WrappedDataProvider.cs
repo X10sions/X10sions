@@ -11,7 +11,7 @@ using System.Linq.Expressions;
 
 namespace LinqToDB.DataProvider;
 
-public abstract class WrappedDataProvider<TConn, TDataReader> :  IDataProvider where TConn : DbConnection, new() where TDataReader : DbDataReader {
+public abstract class WrappedDataProvider<TConn, TDataReader> : IDataProvider where TConn : DbConnection, new() where TDataReader : DbDataReader {
 
   //static Dictionary<string, IDataProvider> Instances = new Dictionary<string, IDataProvider>();
 
@@ -75,4 +75,23 @@ public abstract class WrappedDataProvider<TConn, TDataReader> :  IDataProvider w
   public bool? IsDBNullAllowed(DataOptions dataOptions, DbDataReader reader, int idx) => baseDataProvider.IsDBNullAllowed(dataOptions, reader, idx);
   public void SetParameter(DataConnection dataConnection, DbParameter parameter, string name, DbDataType dataType, object? value) => baseDataProvider.SetParameter(dataConnection, parameter, name, dataType, value);
 
+  public DbParameter CreateParameter(DataConnection dataConnection, DbCommand command, DataProviderParameterContext context) {
+    var parameter = command.CreateParameter();
+    var dataType = InferParameterDataType(dataConnection, context.DbDataType, context.Value);
+    if (context.Direction != null) parameter.Direction = context.Direction.Value;
+    if (context.IsDbDataTypeExplicit) {
+      if (dataType.Length != null) parameter.Size = dataType.Length.Value;
+      if (dataType.Precision != null) parameter.Precision = (byte)dataType.Precision.Value;
+      if (dataType.Scale != null) parameter.Scale = (byte)dataType.Scale.Value;
+    }
+    SetParameter(dataConnection, parameter, context.Name, dataType, context.Value);
+    return parameter;
+  }
+
+  protected virtual DbDataType InferParameterDataType(DataConnection dataConnection, DbDataType dbDataType, object? paramValue) {
+    if (dbDataType.DataType != DataType.Undefined) return dbDataType;
+    var newDataType = dbDataType.SystemType != typeof(object) ? dataConnection.MappingSchema.GetDbDataType(dbDataType.SystemType).DataType : DataType.Undefined;
+    if (newDataType == DataType.Undefined && paramValue != null) newDataType = dataConnection.MappingSchema.GetDbDataType(paramValue.GetType()).DataType;
+    return dbDataType.WithDataType(newDataType);
+  }
 }

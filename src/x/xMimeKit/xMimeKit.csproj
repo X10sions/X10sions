@@ -4,9 +4,9 @@
     <Product>MimeKit .Net Extensions</Product>
     <VersionPart1>4</VersionPart1>
     <VersionPart2>5</VersionPart2>
-    <Description>https://getbootstrap.com</Description>
   </PropertyGroup>
   <ItemGroup Label="PackageReferences">
     <PackageReference Include="MimeKit" />
+    <PackageReference Include="System.Security.Cryptography.Pkcs" />
   </ItemGroup>
 </Project>
