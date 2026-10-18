@@ -1,13 +1,12 @@
 ﻿using LinqToDB.Mapping;
 using System.Data;
-using System.Data.Common;
 using System.Linq.Expressions;
 
 namespace LinqToDB.Data;
 
 public static class DataConnectionExtensions {
 
-  public const string TempTableStatementHeaderFormat = "DECLARE GLOBAL TEMPORARY TABLE {0}";
+//  public const string TempTableStatementHeaderFormat = "DECLARE GLOBAL TEMPORARY TABLE {0}";
 
   //public static DataConnection AddAssociation<T1, T2, T1Key, T2Key>(this DataConnection dataConnection
   //  , Expression<Func<T1, T2>> prop1
@@ -90,30 +89,21 @@ public static class DataConnectionExtensions {
     , Expression<Func<T, TMany, bool>> predicate
     ) where T : class? where TMany : class => fluentMappingBuilder.AddAssociationNullableToNotNull(prop1, prop2, predicate);
 
+  public static int CreateAlias(this DataConnection db, string aliasName, string aliasForName) => db.Execute(new AliasName(aliasName).CreateSql(aliasForName));
 
   public static ITable<T> CreateTempTable<T>(this DataConnection dc, string tableName, bool withReplace, IEnumerable<T> data) where T : notnull    => dc.DeclareTempTable(tableName, withReplace, data);
 
-  public static ITable<T> DeclareTempTable<T>(this DataConnection dc, string tableName, bool withReplace, IEnumerable<T> data) where T : notnull {
-    var footer = (withReplace ? " WITH REPLACE" : "");
-    var tempTable = dc.CreateTable<T>(tableName, null, null, TempTableStatementHeaderFormat, footer);
-    if (data != null) {
-      foreach (var row in data) {
-        dc.Insert(row, tableName);
-      }
-      return tempTable;
-    }
-    return tempTable;
-  }
-
-  public static void DeclareTempTableFromSql(this DataConnection dc, string tableName, string selectSql, bool withData, bool withReplace) {
-    var sql = string.Format("{0} As(\r\n{1}\r\n) {2} {3}", "DECLARE GLOBAL TEMPORARY TABLE " + tableName, selectSql, withData ? " With Data " : "", withReplace ? " With Replace " : "");
-    dc.Execute(sql);
-  }
+  public static void DeclareTempTableFromSql(this DataConnection dataConnection, string tableName, string selectSql, bool withData, bool withReplace) {
+    var sql = $"{IDataContextExtensions.DeclareTempTableHeader(tableName)} As(\r\n{selectSql}\r\n) {IDataContextExtensions.DeclareTempTableFooter(withData, withReplace)}";
+    dataConnection.Execute(sql);
+  }  
 
   public static void DeclareTempNumbersTable(this DataConnection dc, string tableName, int min, int max, bool withData, bool withReplace) {
     var selectSql = $"Select A.Id + {min} AS Id From Table(Numbers({max} - {min} + 1)) As A";
     dc.DeclareTempTableFromSql(tableName, selectSql, withData, withReplace);
   }
+
+  public static int DropAlias(this DataConnection db, string aliasName) => db.Execute(new AliasName(aliasName).DropSql);
 
   public static FluentMappingBuilder GetFluentMappingBuilder(this DataConnection dc) => new FluentMappingBuilder(dc.MappingSchema);
 
@@ -139,5 +129,14 @@ public static class DataConnectionExtensions {
       throw new Exception(logText + "\r\n" + ex.Message);
     }
   }
+
+
+
+
+  //public DataTable LoadDataTable(this DataConnection dataConnection, string sql) => dataConnection.Connection.LoadDataTable(sql);
+
+
+
+
 
 }
