@@ -70,6 +70,7 @@ public readonly record struct IntCYYMMDD(int Value) : IValueObject<int>,
 
   public string YYYY_MM_DD(string separator = "-") => $"{YYYY:0000}{separator}{MM:00}{separator}{DD:00}";
   [Obsolete("")] public string DD_MM_YYYY(string separator = "-") => $"{DD:00}{separator}{MM:00}{separator}{YYYY:0000}";
+  public const string DefaultFormat = "0000000";
 
   #region Min & Max Values
 
@@ -112,33 +113,29 @@ public readonly record struct IntCYYMMDD(int Value) : IValueObject<int>,
   //public static implicit operator string(IntCYYMMDD value) => value.ToString();
 
   #region IComparable
+
   public int CompareTo(object? obj) {
-    //if(obj == null) {        return 1;      }
-    switch (obj) {
-      case null:
-        return 1;
-      case IntCYYMMDD icymd:
-        return icymd.CompareTo(obj);
-      case int i:
-        return i.CompareTo(obj);
-      case DateTime dt:
-        return dt.CompareTo(obj);
-      case decimal dec:
-        return dec.CompareTo(obj);
-      case double dbl:
-        return dbl.CompareTo(obj);
-      case string s:
-        return s.CompareTo(obj);
-    }
-    throw new NotImplementedException();
+    return obj switch {
+      null => 1,
+      IntCYYMMDD other => CompareTo(other),
+      DateOnly other => CompareTo(other),
+      DateTime other => CompareTo(other),
+      decimal other => CompareTo(other),
+      double other => CompareTo(other),
+      int other => CompareTo(other),
+      string other => CompareTo(other),
+      _ => throw new ArgumentException($"Object must be a supported type, not {obj.GetType().FullName}.", nameof(obj))
+    };
   }
-  public int CompareTo(IntCYYMMDD other) => other.Value.CompareTo(Value);
-  public int CompareTo(DateOnly other) => other.CompareTo(DateOnly);
-  public int CompareTo(DateTime other) => other.CompareTo(DateTime);
-  public int CompareTo(decimal other) => other.CompareTo(Value);
-  public int CompareTo(double other) => other.CompareTo(Value);
-  public int CompareTo(int other) => other.CompareTo(Value);
-  public int CompareTo(string? other) => string.Compare(other, ToString(), StringComparison.OrdinalIgnoreCase);
+
+  public int CompareTo(IntCYYMMDD other) => Value.CompareTo(other.Value);
+  public int CompareTo(DateOnly other) => DateOnly.CompareTo(other);
+  public int CompareTo(DateTime other) => DateTime.CompareTo(other);
+  public int CompareTo(decimal other) => ((decimal)Value).CompareTo(other);
+  public int CompareTo(double other) => ((double)Value).CompareTo(other);
+  public int CompareTo(int other) => Value.CompareTo(other);
+  public int CompareTo(string? other) => string.Compare(ToString(), other, StringComparison.OrdinalIgnoreCase);
+
   #endregion
 
   #region IConvertible
@@ -178,12 +175,13 @@ public readonly record struct IntCYYMMDD(int Value) : IValueObject<int>,
   public bool Equals(decimal other) => other.Equals(Value);
   public bool Equals(double other) => other.Equals(Value);
   public bool Equals(int other) => other.Equals(Value);
-  public bool Equals(string? other) => other.Equals(ToString());
+  public bool Equals(string? other) => string.Equals(ToString(), other, StringComparison.OrdinalIgnoreCase);
   #endregion
 
   #region IFormattable
-  public override string ToString() => Value.ToString("0000000");
-  public string ToString(string format, IFormatProvider formatProvider) => ToString().ToString(formatProvider);
+
+  public override string ToString() => Value.ToString(DefaultFormat);
+  public string ToString(string format, IFormatProvider formatProvider) => Value.ToString(string.IsNullOrWhiteSpace(format) ? DefaultFormat : format, formatProvider);
   #endregion
 }
 
@@ -198,9 +196,10 @@ public static class IntCYYMMDDExtensions {
   public static string ToStringSS(this IntHHMMSS cymd) => cymd.Second.Value.ToString("D2");
   public static string ToStringHH_MM_SS(this IntHHMMSS hms, string separator = ":") => $"{hms.ToStringHH()}{separator}{hms.ToStringMM()}{separator}{hms.ToStringSS()}";
 
-  public static string ToStringHH_MM_SS(this DecimalCYYMMDD_HHMMSS cymd_hms, string separator = ":") => $"{cymd_hms.ToStringHH_MM_SS(separator)}";
-  public static string ToStringYYYY_MM_DD(this DecimalCYYMMDD_HHMMSS cymd_hms, string separator = "-") => $"{cymd_hms.ToStringYYYY_MM_DD(separator)}";
-  public static string ToStringYYYY_MM_DD_HH_MM_SS(this DecimalCYYMMDD_HHMMSS cymd_hms, string dateSeparator = "-", string timeSeparator = ":") => $"{cymd_hms.IntCYYMMDD.ToStringYYYY_MM_DD(dateSeparator)} {cymd_hms.IntHHMMSS.ToStringHH_MM_SS(timeSeparator)}";
+
+  public static string ToStringHH_MM_SS(this DecimalCYYMMDD_HHMMSS value, string separator = ":") => value.IntHHMMSS.ToStringHH_MM_SS(separator);
+  public static string ToStringYYYY_MM_DD(this DecimalCYYMMDD_HHMMSS value, string separator = "-") => value.IntCYYMMDD.ToStringYYYY_MM_DD(separator);
+  public static string ToStringYYYY_MM_DD_HH_MM_SS(this DecimalCYYMMDD_HHMMSS value, string dateSeparator = "-", string timeSeparator = ":") => $"{value.IntCYYMMDD.ToStringYYYY_MM_DD(dateSeparator)} {value.IntHHMMSS.ToStringHH_MM_SS(timeSeparator)}";
 
   public static DateTime? GetValidDate(this IntCYYMMDD intCYYMMDD) {
     DateTime? d = null;

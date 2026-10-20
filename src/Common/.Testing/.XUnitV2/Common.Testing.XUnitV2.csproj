@@ -3,14 +3,19 @@
     <IsPackable>false</IsPackable>
   </PropertyGroup>
   <ItemGroup Label="PackageReferences">
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Analyzer.Testing" />
     <PackageReference Include="Meziantou.Extensions.Logging.Xunit"  />
     <PackageReference Include="Meziantou.Xunit.ParallelTestFramework"  />
     <PackageReference Include="Roslynator.Testing.CSharp.Xunit"  />
-    
-    <PackageReference Include="xunit.analyzers" ExcludeAssets="compile" />
+    <PackageReference Include="System.Security.Cryptography.Pkcs" />
+    <!-- 
+    https://xunit.net/docs/nuget-packages-v2
+    Always keep these two direct: 
+    * Microsoft.NET.Test.Sdk
+    * xunit.runner.visualstudio
+    -->
+    <PackageReference Include="xunit" />
     <PackageReference Include="Xunit.Combinatorial"  />
-    <PackageReference Include="xunit.runner.visualstudio"  ExcludeAssets="compile" />
-    <PackageReference Include="Verify.Xunit"  />
   </ItemGroup>
   <ItemGroup Label="ProjectReferences">
     <ProjectReference Include="..\Common.Testing.csproj" />

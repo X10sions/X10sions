@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <!-- xUnit v3 projects are standalone executables, not class libraries -->
+    <OutputType>Exe</OutputType>
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+  </PropertyGroup>
+  <ItemGroup Label="PackageReferences">
+    <!-- CRITICAL: These must be DIRECT references to build and run tests -->
+    <PackageReference Include="Microsoft.NET.Test.Sdk"  />
+    <PackageReference Include="xunit.v3"  />
+    <!-- Optional -->
+    <PackageReference Include="Meziantou.Xunit.v3.ParallelTestFramework" />
+  </ItemGroup>
+  <ItemGroup Label="ProjectReferences">
+    <ProjectReference Include="..\Common.Testing.XUnitV3.csproj" />
+  </ItemGroup>
+  <!--
+  <ItemGroup Label="Usings">
+    <Using Include="Xunit" />
+  </ItemGroup>
+  -->
+</Project>

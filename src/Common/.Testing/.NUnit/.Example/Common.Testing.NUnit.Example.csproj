@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+  </PropertyGroup>
+  <ItemGroup Label="PackageReferences">
+    <!-- CRITICAL: These must be DIRECT references to build and run tests -->
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="NUnit3TestAdapter" />
+    <!-- Optional -->
+  </ItemGroup>
+  <ItemGroup Label="ProjectReferences">
+    <ProjectReference Include="..\Common.Testing.NUnit.csproj" />
+  </ItemGroup>
+  <!--
+  <ItemGroup Label="Usings">
+    <Using Include="NUnit.Framework" />
+  </ItemGroup>
+  -->
+</Project>

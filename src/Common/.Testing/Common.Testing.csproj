@@ -11,7 +11,9 @@
     <PackageReference Include="AutoBogus.NSubstitute" />
     <PackageReference Include="coverlet.collector" ExcludeAssets="compile" />
     <PackageReference Include="Meziantou.FluentAssertionsAnalyzers" ExcludeAssets="compile" />
+    <!-- 
     <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    -->
     <PackageReference Include="Microsoft.Playwright" />
     <PackageReference Include="NetArchTest.Rules" />
     <PackageReference Include="NSubstitute.Analyzers.CSharp" ExcludeAssets="compile" />
@@ -61,6 +63,17 @@
     -->
   </ItemGroup>
   <ItemGroup>
+    <PackageVersion Update="Meziantou.Analyzer" Version="3.0.315" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Update="Meziantou.Analyzer">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+  
+  <!-- 
+  <ItemGroup>
     <PackageVersion Update="Meziantou.Analyzer" Version="3.0.137" />
   </ItemGroup>
   <ItemGroup>
@@ -69,4 +82,6 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
   </ItemGroup>
+  -->
+  
 </Project>

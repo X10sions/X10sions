@@ -6,10 +6,14 @@
     <Product>Common Abtractions Unit Tests</Product>
   </PropertyGroup>
   <ItemGroup Label="PackageReferences">
+    <!-- MANDATORY direct references for xUnit v3 test discovery -->
+    <PackageReference Include="xunit.v3" />
+    <PackageReference Include="xunit.runner.visualstudio" />
+
+
     <PackageReference Include="Microsoft.NET.Test.Sdk" />
   </ItemGroup>
   <ItemGroup Label="ProjectReferences">
-    <ProjectReference Include="..\..\..\.Testing\.XUnit\Common.Testing.XUnit.csproj" />
     <ProjectReference Include="..\..\Common.DotNetStandard.csproj" />
   </ItemGroup>
 </Project>

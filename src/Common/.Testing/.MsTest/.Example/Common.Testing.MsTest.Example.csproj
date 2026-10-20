@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+  </PropertyGroup>
+  <ItemGroup Label="PackageReferences">
+    <!-- CRITICAL: These must be DIRECT references to build and run tests -->
+    <PackageReference Include="Microsoft.NET.Test.Sdk"  />
+    <PackageReference Include="MSTest.TestAdapter" />
+    <!-- Optional -->
+    <PackageReference Include="Reqnroll.MsTest"  />
+  </ItemGroup>
+  <ItemGroup Label="ProjectReferences">
+    <ProjectReference Include="..\Common.Testing.MsTest.csproj" />
+  </ItemGroup>
+  <!--
+  <ItemGroup Label="Usings">
+    <Using Include="Microsoft.VisualStudio.TestTools.UnitTesting" />
+  </ItemGroup>
+  -->
+</Project>

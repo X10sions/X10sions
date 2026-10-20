@@ -1,17 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <IsPackable>false</IsPackable>
+    <IsTestProject>false</IsTestProject>
   </PropertyGroup>
   <ItemGroup Label="PackageReferences">
-    <!-- 
-    <PackageReference Include="xunit.analyzers" ExcludeAssets="compile" />
-    <PackageReference Include="Xunit.Combinatorial"  />
-    <PackageReference Include="xunit.runner.visualstudio"  ExcludeAssets="compile" />
-    -->
     <PackageReference Include="Meziantou.Extensions.Logging.Xunit.v3" />
-    <PackageReference Include="Meziantou.Xunit.v3.ParallelTestFramework" />
+    <PackageReference Include="Verify" />
     <PackageReference Include="Verify.XunitV3" />
-    <PackageReference Include="xunit.v3.extensibility.core" />
+    <PackageReference Include="xunit.v3.assert" />
+    <PackageReference Include="xunit.runner.visualstudio" />
   </ItemGroup>
   <ItemGroup Label="ProjectReferences">
     <ProjectReference Include="..\Common.Testing.csproj" />
@@ -24,21 +21,4 @@
   <PropertyGroup>
     <IncludeMeziantouXunitParallelTestFramework>false</IncludeMeziantouXunitParallelTestFramework>
   </PropertyGroup>
-
-  <!--
-  [assembly: Xunit.TestFramework("Meziantou.Xunit.ParallelTestFramework", "Meziantou.Xunit.ParallelTestFramework")]
-  [assembly: global::Xunit.TestFramework("Reqnroll.xUnit.ReqnrollPlugin.XunitTestFrameworkWithAssemblyFixture", "Reqnroll.xUnit.ReqnrollPlugin")]
-
-  <PropertyGroup>
-    <IncludeMeziantouXunitParallelTestFramework Condition="'$(IncludeMeziantouXunitParallelTestFramework)' == ''">false</IncludeMeziantouXunitParallelTestFramework>
-    <EnableXunitDependencyInjectionDefaultTestFrameworkAttribute>false</EnableXunitDependencyInjectionDefaultTestFrameworkAttribute>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <AssemblyAttribute Include="Xunit.TestFramework" Condition="$(IncludeMeziantouXunitParallelTestFramework) == 'true'">
-      <_Parameter1>Meziantou.Xunit.ParallelTestFramework</_Parameter1>
-      <_Parameter2>Meziantou.Xunit.ParallelTestFramework</_Parameter2>
-    </AssemblyAttribute>
-  </ItemGroup>
-  -->
 </Project>

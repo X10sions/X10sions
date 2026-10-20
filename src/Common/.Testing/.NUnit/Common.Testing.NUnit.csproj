@@ -1,13 +1,17 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <IsPackable>false</IsPackable>
+    <!-- IsTestProject prevents this shared project from running on its own -->
+    <IsTestProject>false</IsTestProject>
   </PropertyGroup>
   <ItemGroup Label="PackageReferences">
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Analyzer.Testing" />
     <PackageReference Include="Microsoft.Playwright.NUnit"  />
     <PackageReference Include="NUnit"  />
-    <PackageReference Include="NUnit.Analyzers" ExcludeAssets="compile" />
-    <PackageReference Include="NUnit3TestAdapter" />
+    <PackageReference Include="NUnit.Analyzers" />
     <PackageReference Include="Reqnroll.NUnit"  />
+    <PackageReference Include="System.Security.Cryptography.Pkcs" />
+    <PackageReference Include="Verify" />
     <PackageReference Include="Verify.NUnit" />
   </ItemGroup>
   <ItemGroup Label="ProjectReferences">

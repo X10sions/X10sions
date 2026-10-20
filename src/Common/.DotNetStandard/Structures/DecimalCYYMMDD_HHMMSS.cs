@@ -26,25 +26,20 @@ public readonly record struct DecimalCYYMMDD_HHMMSS(decimal Value) : IValueObjec
   public static readonly DecimalCYYMMDD_HHMMSS MaxValid = new(MaxValidValue); // 9999-12-31 23:59:59
 
   public DateOnly DateOnly => IntCYYMMDD.DateOnly;
-  //public DateTime DateTime => new(DateOnly, TimeOnly, DateTimeKind.Unspecified);
-  public DateTime DateTime => new(DateOnly.Year, DateOnly.Month, DateOnly.Day, TimeOnly.Hour, TimeOnly.Minute, TimeOnly.Second,TimeOnly.Millisecond, DateTimeKind.Unspecified);
+  public DateTime DateTime => new(DateOnly.Year, DateOnly.Month, DateOnly.Day, TimeOnly.Hour, TimeOnly.Minute, TimeOnly.Second, TimeOnly.Millisecond, DateTimeKind.Unspecified);
   public TimeOnly TimeOnly => IntHHMMSS.TimeOnly;
 
-  //public decimal CYYMMDD_HHMMSS {
-  //  get => new decimal(IntCYYMMDD.CYYMMDD + (double)IntHHMMSS.HHMMSS / 1000000);
-  //}
-
-  public IntCYYMMDD IntCYYMMDD => new(DateOnly);
-  //public IntC C => IntCYYMMDD.C;
-  //public IntYYMMDD YYMMDD => IntCYYMMDD.YYMMDD;
-  public IntHHMMSS IntHHMMSS => new(TimeOnly);
+  public IntCYYMMDD IntCYYMMDD => new(Value);
+  public IntHHMMSS IntHHMMSS => new(Value);
 
   public static implicit operator DecimalCYYMMDD_HHMMSS(decimal value) => new(value);
   public static implicit operator DecimalCYYMMDD_HHMMSS(int value) => new(value);
   public static implicit operator DecimalCYYMMDD_HHMMSS(DateTime value) => new(value);
 
-  public override string ToString() => Value.ToString("0000000.000000");
-  public string ToString(string? format, IFormatProvider? formatProvider) => ToString().ToString(formatProvider);
+  public override string ToString() => Value.ToString(DefaultFormat);
+  public string ToString(string? format, IFormatProvider? formatProvider) => Value.ToString(string.IsNullOrWhiteSpace(format) ? DefaultFormat : format, formatProvider);
+
+  public const string DefaultFormat = "0000000.000000";
 
 }
 
