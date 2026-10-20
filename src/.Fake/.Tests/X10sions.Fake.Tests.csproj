@@ -8,7 +8,6 @@
     <PackageReference Include="Microsoft.NET.Test.Sdk" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Common\.Testing\.XUnit\Common.Testing.XUnit.csproj" />
     <ProjectReference Include="..\.Domain\X10sions.Fake.Domain.csproj" />
   </ItemGroup>
   <ItemGroup>

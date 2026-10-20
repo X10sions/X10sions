@@ -18,15 +18,15 @@
   </PropertyGroup>
 
   <ItemGroup Label="PackageReferences">
-    <PackageReference Include="Belgrade.Sql.Client"  />
-    <PackageReference Include="BenchmarkDotNet"  />
-    <PackageReference Include="Dashing"  />
+    <PackageReference Include="Belgrade.Sql.Client" />
+    <PackageReference Include="BenchmarkDotNet" />
+    <PackageReference Include="Dashing" />
     <PackageReference Include="Dashing.Weaver" />
-    <PackageReference Include="DevExpress.Xpo"  />
-    <PackageReference Include="EntityFramework"  />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer"  />
-    <PackageReference Include="NHibernate"  />
-    <PackageReference Include="PetaPoco"  />
+    <PackageReference Include="DevExpress.Xpo" />
+    <PackageReference Include="EntityFramework" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" />
+    <PackageReference Include="NHibernate" />
+    <PackageReference Include="PetaPoco" />
     <PackageReference Include="ServiceStack.OrmLite.SqlServer" />
     <PackageReference Include="Soma" />
     <PackageReference Include="Susanoo.SqlServer" />
@@ -37,7 +37,6 @@
   </ItemGroup>
 
   <ItemGroup Label="ProjectReferences">
-    <ProjectReference Include="..\..\..\..\Common\.Testing\.XUnit\Common.Testing.XUnit.csproj" />
     <ProjectReference Include="..\..\..\xLinqToDB\xLinqToDB.csproj" />
     <!--
     <ProjectReference Include="..\..\..\xSystem\.Data\.Linq\xSystem.Data.Linq.csproj" />
