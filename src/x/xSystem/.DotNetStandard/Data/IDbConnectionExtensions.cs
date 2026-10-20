@@ -14,6 +14,7 @@ public static class IDbConnectionExtensions {
       return cmd;
     }
   }
+
   public static IDbCommand CreateCommand(this IDbConnection connection, string commandText, IDbDataParameter[]? parameters = null, CommandType commandType = CommandType.Text) {
     var command = connection.CreateCommand();
     command.CommandText = commandText;
@@ -23,6 +24,9 @@ public static class IDbConnectionExtensions {
     }
     return command;
   }
+  public static IDbCommand CreateTextCommand(this IDbConnection dbConn, string commandText, IDbDataParameter[]? parameters = null) => dbConn.CreateCommand(commandText, parameters, CommandType.Text);
+  public static IDbCommand CreateStoredProcedureCommand(this IDbConnection dbConn, string commandText, IDbDataParameter[]? parameters = null) => dbConn.CreateCommand(commandText, parameters, CommandType.StoredProcedure);
+
 
   //public static IDbDataAdapter? CreateDataAdapter(this IDbConnection connection) => (connection is DbConnection dbConn) ? dbConn.CreateDataAdapter() : null;
 
